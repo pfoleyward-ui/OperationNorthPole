@@ -25,3 +25,7 @@ Run the application and production build. Verify image containment and positione
 ## Confirmed public links
 
 Use santablizard@gmail.com for email invitations and https://www.facebook.com/profile.php?id=61584693927127 for Facebook. Do not send messages on the owner’s behalf. Social components are outbound links; adding embedded feeds or additional networks needs a concrete user request. Preserve original photographs alongside processed derivatives; document generated illustration provenance in docs/ASSETS.md.
+
+## Visual fidelity
+
+Preserve the reference’s continuous Christmas-world composition: warm street-level village, full two-line greeting, Santa portrait on the right at desktop, tactile ivory paper layered over timber, overlapping evergreen and holly, warm lantern light, shaped signage, and distinctive self-hosted typography. Avoid smooth yellow gradients, rigid beveled section boxes, and a distant cold-blue panorama. Compare actual screenshots to the supplied reference; build success alone does not establish a visual match. Keep the real peeking photograph for About unless the owner requests a different image.

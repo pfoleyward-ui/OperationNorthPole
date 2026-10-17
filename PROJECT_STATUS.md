@@ -6,7 +6,7 @@ Updated 2026-10-16 (America/New_York).
 
 - Recovered the supplied homepage starter, CSS Module, design notes, and three original named photographs. Initial GitHub repository was empty; the original Windows directory was not accessible.
 - Added Next.js App Router scaffolding, pinned dependencies/lockfile, root layout, global reset and keyboard focus styling. Node 24 / npm 11 development workflow; no database or credentials required.
-- Applied the approved homepage render's direction: snowy village at dusk, wooden header, parchment brand sign, burgundy/gold actions, five illustrated experience cards, framed About/Memories sections, and responsive layouts.
+- Reworked the approved homepage render's composition: snowy village at dusk, wooden header, parchment brand sign, burgundy/gold actions, five illustrated experience cards, framed About/Memories sections, and responsive layouts.
 - Kept authentic About/Memories and summer photos. Preserved the original hero JPG and added an AI-assisted background-removed derivative. Village and service still-life artwork are generated illustrations, not event photographs. No generated people were added to service cards.
 - Fixed hidden navigation below 1050px. Image parents have explicit positioning and size constraints. No reproduction of the original oversized-image or Date prerender errors.
 - Invitation and experience links open email to the user-provided santablizard@gmail.com. This opens a mail client; it does not submit a booking or confirm availability.
@@ -19,7 +19,7 @@ Updated 2026-10-16 (America/New_York).
 - Chromium checks at 1440, 1024, 768, 390, and 320px: HTTP 200; all images decoded; no horizontal overflow or page runtime exceptions; all section navigation visible and clickable; nine email destinations verified; Facebook URL, new-tab target, and rel attributes verified; decorative artwork requests returned HTTP 200.
 - Keyboard Tab focus and reduced-motion rendering checked. This is not a comprehensive accessibility audit.
 - Screenshots reviewed against the supplied render. Matching is directional, not pixel-identical: authentic About photo replaces the mockup's desk scene; no unsupported testimonial or generated business claims; village/illustrations and typography differ.
-- Browser checks run locally with Chromium and playwright-core under /workspace/scratch/browser-check. Final screenshots: final-1440.png, final-1024.png, final-768.png, final-390.png, final-320.png. A screenshot is not a live public preview.
+- Browser checks run locally with Chromium and playwright-core under /workspace/scratch/browser-check. Revised screenshots: revision-1440.png, revision-1024.png, revision-768.png, revision-390.png, revision-320.png. A screenshot is not a live public preview.
 
 ## Remaining
 
@@ -32,3 +32,7 @@ Updated 2026-10-16 (America/New_York).
 ## Reuse
 
 Installation and startup instructions are saved in the environment draft. Processes must restart in new tasks; publication and new-task restoration are unverified. See README.md and AGENTS.md. The next milestone is owner visual review and deployment to an agreed hosting destination.
+
+## Visual fidelity revision
+
+The homepage now uses a warmer street-level village backdrop, a larger portrait composition, a two-line greeting across screen widths, self-hosted Berkshire Swash/Cormorant Garamond typography, tactile aged paper, shaped brand signage, overlapping evergreen/holly ornaments, and lighter framing instead of rigid beveled rectangles. Lower sections share the same illustrated setting; the Facebook and email sections remain working. Experience descriptions were tightened for reference-like card proportions. Original About and Memories photographs remain intact. The About section deliberately uses the supplied tree photograph, not the render’s desk illustration. This remains a responsive implementation of the reference, not an exact reproduction of its artwork.

@@ -6,31 +6,31 @@ import { SocialLinks } from "./SocialLinks";
 const experiences = [
   {
     title: "Home Visits",
-    detail: "A little North Pole magic, right at your door.",
+    detail: "Christmas memories, right at your door.",
     kind: "home",
     href: "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
   },
   {
     title: "Christmas in July",
-    detail: "A touch of Christmas, whatever the season.",
+    detail: "A little Christmas in the summertime.",
     kind: "summer",
     href: "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
   },
   {
     title: "DJ Santa",
-    detail: "Music, merriment, and holiday celebrations.",
+    detail: "Music, merriment & holiday fun.",
     kind: "music",
     href: "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
   },
   {
     title: "Photo Booths",
-    detail: "Picture-perfect memories worth keeping.",
+    detail: "Capture a little Christmas magic.",
     kind: "camera",
     href: "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
   },
   {
     title: "Elves & More",
-    detail: "Special touches for unforgettable events.",
+    detail: "Special touches for your celebration.",
     kind: "elves",
     href: "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
   },
@@ -40,6 +40,7 @@ export default function Home() {
   return (
     <main className={styles.site} id="top">
       <div className={styles.snow} aria-hidden="true" />
+      <div className={styles.openingBoughs} aria-hidden="true" />
       <header className={styles.header}>
         <a className={styles.brand} href="#top" aria-label="SantaBlizard home">
           <span className={styles.brandName}>SantaBlizard</span>
@@ -62,14 +63,17 @@ export default function Home() {
       <section className={styles.hero} aria-labelledby="hero-title">
         <div className={styles.heroAtmosphere} aria-hidden="true" />
         <div className={styles.heroContent}>
-          <p className={styles.eyebrow}>A LITTLE MAGIC IN THE HUDSON VALLEY</p>
-          <h1 id="hero-title">
-            Well, Well, Well…
+          <p className={styles.eyebrow}>
+            A LITTLE MAGIC
             <br />
-            Look Who Found Me.
+            IN THE HUDSON VALLEY
+          </p>
+          <h1 id="hero-title">
+            <span>Well, Well, Well…</span>
+            <span>Look Who Found Me.</span>
           </h1>
           <div className={styles.flourish} aria-hidden="true">
-            ✦ ─── ✦ ─── ✦
+            ──── ❦ ────
           </div>
           <p className={styles.heroCopy}>
             Some secrets are too wonderful to keep. Bring the magic of
@@ -96,6 +100,9 @@ export default function Home() {
             sizes="(max-width: 700px) 90vw, 50vw"
             className={styles.santaImage}
           />
+        </div>
+        <div className={styles.northPoleSign} aria-hidden="true">
+          North Pole<span>This Way →</span>
         </div>
         <div className={styles.heroBottom} aria-hidden="true" />
       </section>
@@ -145,10 +152,13 @@ export default function Home() {
             <br />
             the Magic
           </h2>
+          <div className={styles.paperFlourish} aria-hidden="true">
+            ──── ❦ ────
+          </div>
           <p>
-            Some traditions are too special to leave at the North Pole.
-            SantaBlizard brings warmth, wonder, and a twinkle of mischief to
-            gatherings throughout the Hudson Valley.
+            Some traditions are too special to leave at the North Pole. Join
+            SantaBlizard for warmth, wonder, and a little Christmas mischief
+            here in the Hudson Valley.
           </p>
           <a
             className={styles.primaryButton}

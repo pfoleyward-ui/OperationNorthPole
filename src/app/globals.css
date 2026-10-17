@@ -13,3 +13,6 @@ a:focus-visible {
     scroll-behavior: auto;
   }
 }
+body {
+  background: #20170f;
+}
