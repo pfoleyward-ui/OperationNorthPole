@@ -33,7 +33,7 @@ export function SocialLinks() {
           <span className={styles.socialPlatform}>FIND SANTABLIZARD ON</span>
           <strong>Facebook</strong>
           <span className={styles.socialVisit}>
-            Visit Santa’s Facebook page <span aria-hidden="true">↗</span>
+            Visit Santa’s Facebook page
           </span>
           <span className={styles.socialNewTab}>Opens in a new tab</span>
         </span>
