@@ -1,0 +1,15 @@
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+}
+a:focus-visible {
+  outline: 3px solid #d6a46a;
+  outline-offset: 5px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
