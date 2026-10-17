@@ -22,3 +22,5 @@ With the application running on port 3000, run `npm run check:visual` to validat
 Use `npm run compare:visual -- --reference /path/to/original-render.png --actual public/review/viewport-1024.jpg` for the approved-reference side-by-side, overlay, and difference. The original render must be 1024 × 1536; it is not currently available as a file here. Existing `baseline-*` artifacts compare the previous website, not the approved render. See docs/VISUAL_REVIEW.md.
 
 The owner reports Vercel deployment. A production URL is still needed to verify that deployment; publishing the Codex environment does not deploy this website. Contact details are maintained in `src/config/contact.ts`. Only active social accounts with verified URLs render.
+
+Services and pricing: `/services`, with shared approved content in `src/config/services.ts`. Run `npm run check:services` against the production server to validate prices, card destinations, booking conditions, and responsive layouts. `/review` includes the corresponding screenshots.

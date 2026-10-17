@@ -1,0 +1,29 @@
+.services { padding: 30px 5% 45px; }
+.heading, .booking, .section { position: relative; padding: clamp(24px, 4vw, 52px); background: var(--paper) center / cover; box-shadow: 0 5px 12px #100803aa; border: 2px solid #856037; margin-bottom: 30px; }
+.heading { text-align: center; }
+.heading h1 { color: #84221e; font-family: "Berkshire Swash", Georgia, serif; font-size: clamp(36px, 4.5vw, 62px); font-weight: 400; line-height: 1.1; margin: 22px 0; }
+.heading p, .booking p, .section p, .section li { font-size: 24px; line-height: 1.35; }
+.home { display: inline-block; color: #75221b; padding: 12px 0; font-size: 23px; }
+.navigation { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 24px; }
+.navigation a { color: #75221b; text-decoration: underline; text-underline-offset: 4px; padding: 8px 0; }
+.section { scroll-margin-top: 20px; }
+.serviceHeader { display: grid; grid-template-columns: minmax(150px, 28%) 1fr; align-items: center; gap: 28px; }
+.art { position: relative; aspect-ratio: 1.4; overflow: hidden; border: 5px solid #bc9b68; box-shadow: 2px 3px 7px #3c281a88; }
+.section h2, .booking h2 { font-size: clamp(32px, 3vw, 46px); color: #84221e; line-height: 1.05; margin: 0 0 16px; }
+.section h3 { font-size: 30px; line-height: 1.15; color: #75221b; margin: 20px 0 12px; }
+.section .price { font-size: 30px; color: #74221b; font-weight: 700; margin: 10px 0; }
+.price span { font-size: 20px; white-space: nowrap; }
+.section ul { padding-left: 25px; }
+.section li { margin-bottom: 8px; }
+.santaNote, .elvesNote { border-left: 3px solid #9b7744; padding: 5px 0 5px 22px; margin: 26px 0; }
+.santaNote { font-style: italic; }
+.elvesNote h3, .santaNote h3, .elvesNote h4 { font-size: 26px; margin: 5px 0 10px; color: #74221b; }
+.elvesNote p, .santaNote p { margin: 0; }
+.party { margin-top: 48px; padding: clamp(22px, 4vw, 45px); border: 5px double #9e773f; outline: 4px solid #293f2d; background: linear-gradient(#fff6dd66, #f0cd8a44), var(--paper) center / cover; box-shadow: 0 4px 9px #4a2a1455; scroll-margin-top: 20px; }
+.party h3 { font-family: "Berkshire Swash", Georgia, serif; font-weight: 400; font-size: clamp(34px, 3.8vw, 52px); }
+.party .price { font-size: 38px; }
+.booking address { font-style: normal; overflow-wrap: anywhere; }
+.booking a { color: #75221b; display: inline-block; padding-block: 10px; }
+@media (max-width: 700px) { .services { padding: 20px 5%; } .serviceHeader { grid-template-columns: 1fr; gap: 20px; } .art { max-width: 400px; width: 100%; } .heading p, .booking p, .section p, .section li { font-size: 22px; } .section .price { font-size: 28px; } .party { margin-inline: -8px; } }
+.services a { overflow-wrap: anywhere; }
+.services .section > a, .services .party > a { max-width: 100%; display: inline-block; }

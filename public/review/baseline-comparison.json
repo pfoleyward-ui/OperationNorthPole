@@ -1,6 +1,6 @@
 {
   "comparison": "previous-website-only",
   "normalization": "sRGB; first 1024 × 1536 pixels; no geometric stretching",
-  "meanAbsoluteChannelDifference": 64.07717047797308,
+  "meanAbsoluteChannelDifference": 66.43673409356012,
   "warning": "This does NOT measure fidelity to the approved reference. The original render file is still required."
 }

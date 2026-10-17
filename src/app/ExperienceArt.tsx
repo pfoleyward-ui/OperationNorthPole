@@ -2,18 +2,21 @@ import Image from "next/image";
 import styles from "./page.module.css";
 
 export function ExperienceArt({ kind }: { kind: string }) {
-  if (kind === "home" || kind === "summer") {
+  if (kind === "home" || kind === "summer" || kind === "photography") {
     return (
       <Image
         src={
           kind === "home"
             ? "/images/christmas-village.png"
-            : "/images/santa-summer.jpg"
+            : kind === "photography"
+              ? "/images/santa-family.jpg"
+              : "/images/santa-summer.jpg"
         }
         alt=""
         fill
         sizes="(max-width: 600px) 45vw, 20vw"
         className={styles.cardPhoto}
+        style={kind === "summer" ? { objectPosition: "center top" } : undefined}
       />
     );
   }

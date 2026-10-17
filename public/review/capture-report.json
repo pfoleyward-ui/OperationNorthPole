@@ -1,6 +1,6 @@
 {
-  "base": "http://127.0.0.1:3000",
-  "createdAt": "2026-10-17T02:04:54.755Z",
+  "base": "http://127.0.0.1:3003",
+  "createdAt": "2026-10-17T16:13:41.166Z",
   "checks": [
     {
       "width": 390,
@@ -37,11 +37,6 @@
       "mail": [
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
         "mailto:santablizard@gmail.com"
       ],
@@ -60,36 +55,36 @@
           "x": 7.796875,
           "y": 1037.234375,
           "width": 374.40625,
-          "height": 877.265625,
+          "height": 3469.984375,
           "right": 382.203125,
-          "bottom": 1914.5
+          "bottom": 4507.21875
         },
         {
           "id": "about",
           "x": 0,
-          "y": 1923.5,
+          "y": 4516.21875,
           "width": 390,
           "height": 708.03125,
           "right": 390,
-          "bottom": 2631.53125
+          "bottom": 5224.25
         },
         {
           "id": "memories",
           "x": 11.6875,
-          "y": 2649.53125,
+          "y": 5242.25,
           "width": 366.625,
           "height": 751.484375,
           "right": 378.3125,
-          "bottom": 3401.015625
+          "bottom": 5993.734375
         },
         {
           "id": "contact",
           "x": 0,
-          "y": 3410.015625,
+          "y": 6002.734375,
           "width": 390,
           "height": 978.734375,
           "right": 390,
-          "bottom": 4388.75
+          "bottom": 6981.46875
         }
       ],
       "errors": []
@@ -129,11 +124,6 @@
       "mail": [
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
         "mailto:santablizard@gmail.com"
       ],
@@ -152,36 +142,36 @@
           "x": 15.359375,
           "y": 736,
           "width": 737.28125,
-          "height": 333.890625,
+          "height": 1022.71875,
           "right": 752.640625,
-          "bottom": 1069.890625
+          "bottom": 1758.71875
         },
         {
           "id": "about",
           "x": 0,
-          "y": 1080.890625,
+          "y": 1769.71875,
           "width": 768,
           "height": 405.34375,
           "right": 768,
-          "bottom": 1486.234375
+          "bottom": 2175.0625
         },
         {
           "id": "memories",
           "x": 15.359375,
-          "y": 1506.234375,
+          "y": 2195.0625,
           "width": 737.28125,
           "height": 352.21875,
           "right": 752.640625,
-          "bottom": 1858.453125
+          "bottom": 2547.28125
         },
         {
           "id": "contact",
           "x": 0,
-          "y": 1869.453125,
+          "y": 2558.28125,
           "width": 768,
           "height": 551.5,
           "right": 768,
-          "bottom": 2420.953125
+          "bottom": 3109.78125
         }
       ],
       "errors": []
@@ -221,11 +211,6 @@
       "mail": [
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
         "mailto:santablizard@gmail.com"
       ],
@@ -244,36 +229,36 @@
           "x": 20.46875,
           "y": 696,
           "width": 983.0625,
-          "height": 317.375,
+          "height": 852.625,
           "right": 1003.53125,
-          "bottom": 1013.375
+          "bottom": 1548.625
         },
         {
           "id": "about",
           "x": 0,
-          "y": 1024.375,
+          "y": 1559.625,
           "width": 1024,
           "height": 351.9375,
           "right": 1024,
-          "bottom": 1376.3125
+          "bottom": 1911.5625
         },
         {
           "id": "memories",
           "x": 20.46875,
-          "y": 1396.3125,
+          "y": 1931.5625,
           "width": 983.0625,
           "height": 347.1875,
           "right": 1003.53125,
-          "bottom": 1743.5
+          "bottom": 2278.75
         },
         {
           "id": "contact",
           "x": 0,
-          "y": 1754.5,
+          "y": 2289.75,
           "width": 1024,
           "height": 497.0625,
           "right": 1024,
-          "bottom": 2251.5625
+          "bottom": 2786.8125
         }
       ],
       "errors": []
@@ -313,11 +298,6 @@
       "mail": [
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
         "mailto:santablizard@gmail.com"
       ],
@@ -336,36 +316,36 @@
           "x": 28.796875,
           "y": 932,
           "width": 1382.40625,
-          "height": 447.25,
+          "height": 814.078125,
           "right": 1411.203125,
-          "bottom": 1379.25
+          "bottom": 1746.078125
         },
         {
           "id": "about",
           "x": 0,
-          "y": 1390.25,
+          "y": 1757.078125,
           "width": 1440,
           "height": 464.359375,
           "right": 1440,
-          "bottom": 1854.609375
+          "bottom": 2221.4375
         },
         {
           "id": "memories",
           "x": 28.796875,
-          "y": 1874.609375,
+          "y": 2241.4375,
           "width": 1382.40625,
           "height": 482.65625,
           "right": 1411.203125,
-          "bottom": 2357.265625
+          "bottom": 2724.09375
         },
         {
           "id": "contact",
           "x": 0,
-          "y": 2368.265625,
+          "y": 2735.09375,
           "width": 1440,
           "height": 497.4375,
           "right": 1440,
-          "bottom": 2865.703125
+          "bottom": 3232.53125
         }
       ],
       "errors": []
@@ -405,11 +385,6 @@
       "mail": [
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
-        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
         "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
         "mailto:santablizard@gmail.com"
       ],
@@ -428,36 +403,36 @@
           "x": 268.796875,
           "y": 932,
           "width": 1382.40625,
-          "height": 447.25,
+          "height": 814.078125,
           "right": 1651.203125,
-          "bottom": 1379.25
+          "bottom": 1746.078125
         },
         {
           "id": "about",
           "x": 240,
-          "y": 1390.25,
+          "y": 1757.078125,
           "width": 1440,
           "height": 464.359375,
           "right": 1680,
-          "bottom": 1854.609375
+          "bottom": 2221.4375
         },
         {
           "id": "memories",
           "x": 268.796875,
-          "y": 1874.609375,
+          "y": 2241.4375,
           "width": 1382.40625,
           "height": 482.65625,
           "right": 1651.203125,
-          "bottom": 2357.265625
+          "bottom": 2724.09375
         },
         {
           "id": "contact",
           "x": 240,
-          "y": 2368.265625,
+          "y": 2735.09375,
           "width": 1440,
           "height": 497.4375,
           "right": 1680,
-          "bottom": 2865.703125
+          "bottom": 3232.53125
         }
       ],
       "errors": []

@@ -1,6 +1,6 @@
 # Operation North Pole — current status
 
-Updated 2026-10-16 (America/New_York).
+Updated 2026-10-17 (America/New_York).
 
 ## Implemented in this refinement
 
@@ -27,8 +27,16 @@ Updated 2026-10-16 (America/New_York).
 ## Outstanding acceptance checks
 
 1. The approved 1024 × 1536 render is visible in the conversation, but its downloadable original file is not present in the workspace. Exact reference overlay/difference verification remains blocked on that original file or a direct image URL. No pixel-perfect or complete acceptance claim is supported.
-2. The owner reports Vercel deployment, but a live URL has not yet been supplied. GitHub deployment-status API discovery was blocked by a network-proxy HTTP 403. Do not claim the updated live deployment was tested. Once the URL is available, verify the current greeting, workshop, phone link, and `/review` route on that deployment.
+2. The owner supplied https://operation-north-pole.vercel.app/, but the environment proxy blocked access. Domain access was saved in the environment configuration draft and must be applied before live verification. GitHub deployment-status API discovery was blocked by a network-proxy HTTP 403. Do not claim the updated live deployment was tested. Once the URL is available, verify the current greeting, workshop, phone link, and `/review` route on that deployment.
 3. Owner review of the generated likeness and final visual comparison remains necessary. Generated artwork, fonts, and the longer hero differ from the original render.
 4. Commercial-use permission for the authentic child photograph remains to be confirmed before public launch, as requested in the original brief.
 
 See docs/ASSETS.md for provenance and docs/VISUAL_REVIEW.md for repeatable commands and remaining discrepancies.
+
+## Approved services and pricing update — 2026-10-17
+
+- Added shared approved service data in `src/config/services.ts`, five complete homepage cards, and `/services` with matching anchors. Homepage hero, navigation, About, Memories, and footer markup remain unchanged.
+- Cards show exact approved prices, headlines, descriptions, and CTAs. Reused home, DJ, camera, and authentic family imagery; moved the supplied Hawaiian-shirt Santa photograph to off-season adventures. Mobile cards use one column for readable full descriptions; desktop retains five columns.
+- Services includes the exact home-visit Santa note, family-supplied gifts, photographer responsibilities, more than 40 years of DJ experience, a prominently framed $1,550 complete party, staffed physical photo booth with immediate prints, $200/hour appearances, $300/session trivia, base-price conditions, confirmation requirements, and Christmas Eve/Day unavailability. No payment or booking automation added.
+- `npm run build`, `npm run typecheck`, `npm run check:services`, and existing `npm run check:visual` passed. Browser suites cover 390/768/1024/1440/1920px, card navigation, approved copy/prices, package, unsupported booth-feature exclusion, image decoding, contact links, overflow, hero containment, keyboard focus, and reduced motion. Desktop/mobile screenshots inspected; `/review` includes Services screenshots and report.
+- Live Vercel domain is now reachable (HTTP 200); verification of this new update follows the push. Exact approved-reference overlay still requires original image bytes and is unrelated to this content-only update.

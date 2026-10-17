@@ -46,6 +46,11 @@ export default function VisualReview() {
         </p>
       </section>
       <section>
+        <h2>Services &amp; Pricing</h2>
+        <p><a href="/services">Explore the Services page</a></p>
+        <p><a href="/review/services-390.jpg">390px mobile screenshot</a> · <a href="/review/services-1024.jpg">1024px desktop screenshot</a> · <a href="/review/services-report.json">Validation report</a></p>
+      </section>
+      <section>
         <h2>Before and after</h2>
         <p>
           The comparison below uses the previous website, not the approved

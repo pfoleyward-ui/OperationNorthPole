@@ -1,0 +1,41 @@
+{
+  "createdAt": "2026-10-17T16:13:30.916Z",
+  "base": "http://127.0.0.1:3003",
+  "checks": [
+    {
+      "width": 390,
+      "passed": true,
+      "overflow": false,
+      "broken": false,
+      "clipped": []
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "overflow": false,
+      "broken": false,
+      "clipped": []
+    },
+    {
+      "width": 1024,
+      "passed": true,
+      "overflow": false,
+      "broken": false,
+      "clipped": []
+    },
+    {
+      "width": 1440,
+      "passed": true,
+      "overflow": false,
+      "broken": false,
+      "clipped": []
+    },
+    {
+      "width": 1920,
+      "passed": true,
+      "overflow": false,
+      "broken": false,
+      "clipped": []
+    }
+  ]
+}

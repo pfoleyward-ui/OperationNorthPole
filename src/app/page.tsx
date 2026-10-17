@@ -2,44 +2,10 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { ExperienceArt } from "./ExperienceArt";
 import { SocialLinks } from "./SocialLinks";
+import { services } from "../config/services";
 import { contact } from "../config/contact";
 
 const invitationHref = `mailto:${contact.email}?subject=${encodeURIComponent("An invitation for Santa")}`;
-const experienceHref = `mailto:${contact.email}?subject=${encodeURIComponent("SantaBlizard experience inquiry")}`;
-
-const experiences = [
-  {
-    title: "Home Visits",
-    detail: "Christmas memories, right at your door.",
-    kind: "home",
-    href: experienceHref,
-  },
-  {
-    title: "Christmas in July",
-    detail: "A little Christmas in the summertime.",
-    kind: "summer",
-    href: experienceHref,
-  },
-  {
-    title: "DJ Santa",
-    detail: "Music, merriment & holiday fun.",
-    kind: "music",
-    href: experienceHref,
-  },
-  {
-    title: "Photo Booths",
-    detail: "Capture a little Christmas magic.",
-    kind: "camera",
-    href: experienceHref,
-  },
-  {
-    title: "Elves & More",
-    detail: "Special touches for your celebration.",
-    kind: "elves",
-    href: experienceHref,
-  },
-];
-
 function SnowySeam() {
   return <div className={styles.sectionSeam} aria-hidden="true" />;
 }
@@ -121,19 +87,23 @@ export default function Home() {
           <span aria-hidden="true"> ❧</span>
         </h2>
         <div className={styles.cards}>
-          {experiences.map((item) => (
-            <a className={styles.card} href={item.href} key={item.title}>
+          {services.map((item) => (
+            <a className={styles.card} href={`/services#${item.id}`} key={item.title}>
               <span className={styles.cardArt}>
                 <ExperienceArt kind={item.kind} />
               </span>
               <h3>{item.title}</h3>
-              <p>{item.detail}</p>
+              <p className={styles.cardPrice}>{item.price}</p>
+              <h4 className={styles.cardHeadline}>{item.headline}</h4>
+              <p>{item.description}</p>
+              <span className={styles.cardCta}>{item.cta}</span>
               <span className={styles.cardArrow} aria-hidden="true">
                 →
               </span>
             </a>
           ))}
         </div>
+        <p className={styles.pricingNote}>Base prices. Travel, staffing, equipment logistics, and unusual venue requirements may affect your final quote. All bookings require confirmation; requesting a date or time does not guarantee availability. Santa is unavailable on Christmas Eve and Christmas Day.</p>
       </section>
 
       <SnowySeam />

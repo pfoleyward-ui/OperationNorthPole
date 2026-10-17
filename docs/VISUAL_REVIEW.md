@@ -50,3 +50,9 @@ The requested longer greeting needs more room than the original two-line headlin
 ## Final current-instance validation
 
 A clean frozen-lockfile `npm ci`, production build, and TypeScript check passed. The production server then passed the full five-width capture suite and keyboard/reduced-motion check. `/review` returned HTTP 200; its images decoded and every linked screenshot/comparison artifact returned HTTP 200. Original JPG byte comparisons passed against `4fa3142`. Exact approved-reference overlays and the Vercel URL check remain outstanding; the available overlay is explicitly a before/after comparison.
+
+## Services & pricing content update (2026-10-17)
+
+Run `npm run check:services` against a production server using `VISUAL_BASE_URL` if needed. It checks all five homepage destinations by clicking them, service prices and approved Santa note, party package CTA, holiday unavailability, booking confirmation conditions, supported booth content, inquiry email destinations, image loading, text containment, and horizontal overflow at 390, 768, 1024, 1440, and 1920px. `npm run check:visual` continues to check preserved homepage copy, imagery, contact/social links, hero layout, keyboard focus, and reduced-motion rendering.
+
+Updated homepage screenshots and five Services screenshots are available under `/review` after deployment. The five desktop parchment cards are taller to accommodate all approved headlines, descriptions, prices, and CTAs; mobile uses a single column. This is the expected consequence of the approved content update, not a redesign of the surrounding homepage. All original source photographs are unchanged.
