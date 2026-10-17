@@ -2,39 +2,47 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { ExperienceArt } from "./ExperienceArt";
 import { SocialLinks } from "./SocialLinks";
+import { contact } from "../config/contact";
+
+const invitationHref = `mailto:${contact.email}?subject=${encodeURIComponent("An invitation for Santa")}`;
+const experienceHref = `mailto:${contact.email}?subject=${encodeURIComponent("SantaBlizard experience inquiry")}`;
 
 const experiences = [
   {
     title: "Home Visits",
     detail: "Christmas memories, right at your door.",
     kind: "home",
-    href: "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+    href: experienceHref,
   },
   {
     title: "Christmas in July",
     detail: "A little Christmas in the summertime.",
     kind: "summer",
-    href: "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+    href: experienceHref,
   },
   {
     title: "DJ Santa",
     detail: "Music, merriment & holiday fun.",
     kind: "music",
-    href: "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+    href: experienceHref,
   },
   {
     title: "Photo Booths",
     detail: "Capture a little Christmas magic.",
     kind: "camera",
-    href: "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+    href: experienceHref,
   },
   {
     title: "Elves & More",
     detail: "Special touches for your celebration.",
     kind: "elves",
-    href: "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+    href: experienceHref,
   },
 ];
+
+function SnowySeam() {
+  return <div className={styles.sectionSeam} aria-hidden="true" />;
+}
 
 export default function Home() {
   return (
@@ -52,10 +60,7 @@ export default function Home() {
           <a href="#about">About Santa</a>
           <a href="#memories">Memories</a>
         </nav>
-        <a
-          className={styles.navCta}
-          href="mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa"
-        >
+        <a className={styles.navCta} href={invitationHref}>
           Invite Santa to Visit
         </a>
       </header>
@@ -64,26 +69,25 @@ export default function Home() {
         <div className={styles.heroAtmosphere} aria-hidden="true" />
         <div className={styles.heroContent}>
           <p className={styles.eyebrow}>
-            A LITTLE MAGIC
-            <br />
-            IN THE HUDSON VALLEY
+            A Little North Pole Magic, Right Here at Home
           </p>
           <h1 id="hero-title">
-            <span>Well, Well, Well…</span>
-            <span>Look Who Found Me.</span>
+            <span>Ho Ho Ho! </span>
+            <span>You Found Me! </span>
+            <span className={styles.heroPunchline}>
+              I Knew I Should've Hidden Behind a Bigger Tree!
+            </span>
           </h1>
           <div className={styles.flourish} aria-hidden="true">
             ──── ❦ ────
           </div>
           <p className={styles.heroCopy}>
-            Some secrets are too wonderful to keep. Bring the magic of
-            SantaBlizard to your home, event, or celebration.
+            Since you've found your way to my little corner of the North Pole,
+            perhaps it's time I found my way to yours. What do you say we make a
+            little Christmas magic together?
           </p>
           <div className={styles.actions}>
-            <a
-              className={styles.primaryButton}
-              href="mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa"
-            >
+            <a className={styles.primaryButton} href={invitationHref}>
               Invite Santa to Visit <span aria-hidden="true">→</span>
             </a>
             <a className={styles.secondaryButton} href="#about">
@@ -96,13 +100,13 @@ export default function Home() {
             src="/images/santa-cutout.png"
             alt="SantaBlizard in his traditional red velvet Santa suit"
             fill
-            priority
-            sizes="(max-width: 700px) 90vw, 50vw"
+            preload
+            sizes="(max-width: 700px) 100vw, (max-width: 850px) 47vw, (max-width: 1440px) 43vw, 620px"
             className={styles.santaImage}
           />
         </div>
         <div className={styles.northPoleSign} aria-hidden="true">
-          North Pole<span>This Way →</span>
+          North Pole<span>This Way</span>
         </div>
         <div className={styles.heroBottom} aria-hidden="true" />
       </section>
@@ -132,6 +136,7 @@ export default function Home() {
         </div>
       </section>
 
+      <SnowySeam />
       <section
         className={styles.about}
         id="about"
@@ -139,10 +144,10 @@ export default function Home() {
       >
         <div className={styles.aboutImage}>
           <Image
-            src="/images/santa-peeking.jpg"
-            alt="SantaBlizard looking around a tree in the winter"
+            src="/images/santa-workshop.webp"
+            alt="Illustrated SantaBlizard writing with a quill at an antique desk in his candlelit Christmas workshop"
             fill
-            sizes="(max-width: 700px) 100vw, 50vw"
+            sizes="(max-width: 700px) 92vw, (max-width: 1440px) 58vw, 850px"
           />
         </div>
         <div className={styles.aboutText}>
@@ -160,15 +165,13 @@ export default function Home() {
             SantaBlizard for warmth, wonder, and a little Christmas mischief
             here in the Hudson Valley.
           </p>
-          <a
-            className={styles.primaryButton}
-            href="mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa"
-          >
+          <a className={styles.primaryButton} href={invitationHref}>
             Invite Santa into Your Story →
           </a>
         </div>
       </section>
 
+      <SnowySeam />
       <section
         className={styles.memories}
         id="memories"
@@ -190,30 +193,41 @@ export default function Home() {
             Explore the Experiences →
           </a>
         </div>
-        <div className={styles.memoriesImage}>
-          <Image
-            src="/images/santa-family.jpg"
-            alt="SantaBlizard sharing a Christmas moment with a child"
-            fill
-            sizes="(max-width: 700px) 100vw, 50vw"
-          />
+        <div className={styles.memoriesPhotoGroup}>
+          <div className={styles.memoriesImage}>
+            <Image
+              src="/images/santa-family.jpg"
+              alt="SantaBlizard sharing a Christmas moment with a child"
+              fill
+              sizes="(max-width: 700px) 76vw, (max-width: 1440px) 43vw, 620px"
+            />
+          </div>
+          <div className={styles.memoryLantern} aria-hidden="true" />
+          <aside className={styles.christmasNote}>
+            Christmas wishes,<span>SantaBlizard</span>
+          </aside>
         </div>
       </section>
 
-      <SocialLinks />
-
+      <SnowySeam />
       <footer className={styles.footer} id="contact">
-        <p className={styles.footerTitle}>
-          Have a little Christmas magic in mind?
-        </p>
-        <p>
-          Tell Santa a little about your gathering, where it will be, and when
-          you have in mind. Let’s begin with an email.
-        </p>
-        <a className={styles.emailLink} href="mailto:santablizard@gmail.com">
-          santablizard@gmail.com
-        </a>
-        <a href="#top">Back to the North Pole ↑</a>
+        <div className={styles.correspondenceLetter}>
+          <p className={styles.footerTitle}>
+            Have a little Christmas magic in mind?
+          </p>
+          <p>
+            Tell Santa a little about your gathering, where it will be, and when
+            you have in mind. Let’s begin with an email.
+          </p>
+          <address className={styles.contactDetails}>
+            <a href={contact.phoneHref}>{contact.phone}</a>
+            <a className={styles.emailLink} href={`mailto:${contact.email}`}>
+              {contact.email}
+            </a>
+          </address>
+          <a href="#top">Back to the North Pole ↑</a>
+        </div>
+        <SocialLinks />
         <small>
           © {new Date().getFullYear()} SantaBlizard · Hudson Valley, New York
         </small>

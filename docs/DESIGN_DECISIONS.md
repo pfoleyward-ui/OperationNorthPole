@@ -26,3 +26,9 @@ Concept B: The Living Christmas Storybook, refined with a standing Santa portrai
 - Decide whether to commission/build an original snowy village illustration or acquire properly licensed background artwork.
 - Replace placeholder cards with genuine, approved service imagery.
 - Add booking and availability workflows only after requirements are approved.
+
+## Current owner-approved refinement brief
+
+The latest brief supersedes the original outdoor About-photo decision: AI-generated scenes may depict SantaBlizard using authentic photographs as identity references. The workshop composition is required; original source photos remain preserved. The longer hero copy is explicitly approved and takes precedence over the initial two-line greeting. All other established body copy remains unchanged except for the requested practical contact details and decorative Christmas note.
+
+The footer uses correspondence/postcard motifs and the verified business phone/email, with the supplied Facebook URL. Additional social networks are supported structurally but must not appear without verified active account URLs. No fees, business claims, testimonials, pricing, or backend workflows are invented.

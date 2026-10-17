@@ -17,3 +17,15 @@ The supplied homepage render governs the design but is not used as a flattened p
 - Berkshire Swash and Cormorant Garamond: self-hosted through pinned Fontsource 5.3.0 packages, both OFL-1.1. No Google Fonts requests or third-party font runtime required.
 
 Original photographs, prior artwork, email destination, and Facebook destination remain preserved.
+
+## Visual reconstruction brief assets
+
+- `santa-workshop.webp`: owner-authorized generated workshop scene using **both** authentic `santa-standing.jpg` and `santa-peeking.jpg` as identity references. Santa is seated at a desk with a quill, letter, candlelight, books, and globe. This is an illustration of SantaBlizard's likeness, not a photograph of a real event. Original photographs remain unchanged.
+- `christmas-village-twilight.webp`: an edited derivative of the existing street-level background, replacing the bright sun and orange sky with blue dusk while retaining warm lanterns and windows.
+- `weathered-sign.webp`: blank, irregular, worn wooden sign artwork; the brand, location, and North Pole lettering remain live HTML.
+- `snowy-ledge.webp`: transparent snow-covered wooden rail with evergreen/holly accents, reused at section joins and photograph edges.
+- `christmas-lantern.webp`: transparent candlelit lantern and evergreen decoration, positioned beside the Memories photograph.
+- Existing paper, evergreen, and experience artwork now use WebP delivery copies. Pixel dimensions/composition were retained during format-only encoding; old PNG sources remain preserved. Paper: 244,100 bytes; evergreen: 442,222 bytes; experience illustration sheet: 329,358 bytes; workshop: 285,080 bytes.
+- The authentic `santa-family.jpg` remains byte-for-byte unchanged. Its natural aspect ratio is retained, and decorative elements are kept clear of faces. The handwritten note says “Christmas wishes, SantaBlizard”; it is not a customer quote or testimonial.
+- Caveat 5.3.0 is self-hosted through Fontsource for the handwritten note (OFL-1.1). No font service or subscription is used.
+- `north-pole-arrow.webp`: separate blank rough-plank directional sign, with snow, grain, cracks, and iron nails. The “North Pole / This Way” lettering is live HTML; this is not the pale brand plaque.

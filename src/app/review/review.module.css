@@ -1,0 +1,50 @@
+.review {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  color: #f5e4c0;
+  font-family: Georgia, serif;
+  line-height: 1.6;
+}
+.review h1 {
+  line-height: 1.1;
+}
+.review h2 {
+  margin-top: 35px;
+}
+.review a {
+  color: #f0c879;
+}
+.review a:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 5px;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.gallery a {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.gallery img,
+.comparison {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #947341;
+}
+.comparison {
+  width: 100%;
+}
+@media (max-width: 650px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+  .review {
+    padding: 25px 18px;
+  }
+}

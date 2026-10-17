@@ -2,37 +2,33 @@
 
 Updated 2026-10-16 (America/New_York).
 
-## Implemented
+## Implemented in this refinement
 
-- Recovered the supplied homepage starter, CSS Module, design notes, and three original named photographs. Initial GitHub repository was empty; the original Windows directory was not accessible.
-- Added Next.js App Router scaffolding, pinned dependencies/lockfile, root layout, global reset and keyboard focus styling. Node 24 / npm 11 development workflow; no database or credentials required.
-- Reworked the approved homepage render's composition: snowy village at dusk, wooden header, parchment brand sign, burgundy/gold actions, five illustrated experience cards, framed About/Memories sections, and responsive layouts.
-- Kept authentic About/Memories and summer photos. Preserved the original hero JPG and added an AI-assisted background-removed derivative. Village and service still-life artwork are generated illustrations, not event photographs. No generated people were added to service cards.
-- Fixed hidden navigation below 1050px. Image parents have explicit positioning and size constraints. No reproduction of the original oversized-image or Date prerender errors.
-- Invitation and experience links open email to the user-provided santablizard@gmail.com. This opens a mail client; it does not submit a booking or confirm availability.
-- Added a responsive Facebook section pointing to the exact user-supplied profile ID 61584693927127. Link opens a new tab with noopener/noreferrer and a visible new-tab notice. No feed, tracking script, Facebook SDK, or invented posts/reviews.
+- Preserved the Next.js/TypeScript application, navigation, experience imagery, and authentic original photographs. Baseline captured from commit `4fa3142` at 1024 × 1536 before changes.
+- Added the exact approved longer eyebrow, headline, and supporting hero copy. Deliberate greeting/punchline line breaks retain the serif hierarchy; the hero is slightly taller to accommodate the extra text.
+- Changed the bright sunset to dark twilight with amber windows/lanterns. Reduced the undistorted hero figure and kept text clear of Santa. Added irregular weathered wood artwork with live brand/sign lettering.
+- Restored the workshop composition: an owner-authorized generated SantaBlizard likeness at a writing desk with quill, letter, candlelight, books, globe, greenery, and lights. Both authentic standing and peeking photographs were supplied as identity references. This is an illustration, not a photograph of an event.
+- Added reusable snowy wooden ledges and overlapping greenery between sections. The five compact parchment experience cards keep their existing images and have subtle handmade variation.
+- Integrated the authentic Santa-and-child photo with its natural aspect ratio, rustic framing, snow, a lantern, and a handwritten Christmas note. The child/photo source is byte-for-byte unchanged; the note is not a testimonial.
+- Reworked contact/social content as Christmas correspondence on aged paper over a wooden setting. Phone **845-234-2858** links to `tel:8452342858`; email remains `santablizard@gmail.com`.
+- Added reusable typed social-account configuration supporting Facebook, Instagram, YouTube, and TikTok. Only active, owner-verified HTTPS account URLs on the corresponding host render. Only the supplied Facebook account is active.
+- Encoded decorative delivery assets as WebP; originals remain preserved. Uses responsive Next Image sizing, lazy loading below the hero, and self-hosted fonts. No paid service, booking backend, payments, database, or Santa HQ work added.
 
-## Verified
+## Validation and evidence
 
-- Clean `npm ci --cache /workspace/.npm-cache --no-audit --no-fund` during setup.
-- Final `npm run build` and `npm run typecheck` passed with Next.js 16.4.2 / React 19.3.1 / Node 24.19.0.
-- Chromium checks at 1440, 1024, 768, 390, and 320px: HTTP 200; all images decoded; no horizontal overflow or page runtime exceptions; all section navigation visible and clickable; nine email destinations verified; Facebook URL, new-tab target, and rel attributes verified; decorative artwork requests returned HTTP 200.
-- Keyboard Tab focus and reduced-motion rendering checked. This is not a comprehensive accessibility audit.
-- Screenshots reviewed against the supplied render. Matching is directional, not pixel-identical: authentic About photo replaces the mockup's desk scene; no unsupported testimonial or generated business claims; village/illustrations and typography differ.
-- Browser checks run locally with Chromium and playwright-core under /workspace/scratch/browser-check. Revised screenshots: revision-1440.png, revision-1024.png, revision-768.png, revision-390.png, revision-320.png. A screenshot is not a live public preview.
+- A final clean frozen-lockfile `npm ci`, `npm run build`, and `npm run typecheck` passed. The production server passed the five-width browser suite and `/review` gallery/artifact checks; evidence is in docs/VISUAL_REVIEW.md and the capture report.
+- Repeatable `npm run check:visual` passes 390, 768, 1024, 1440, and 1920px: exact copy, HTTP/image loading, navigation, email/phone/Facebook destinations, clickable contact controls clear of decorations, and no headline/portrait overlap or horizontal overflow.
+- Keyboard focus and reduced-motion rendering checked. This is not a comprehensive accessibility audit.
+- Removed 111 obsolete CSS declarations and verified all computed element/pseudo-element styles remained identical across the five viewports before/after cleanup.
+- SHA-256 checks confirm standing, peeking, family, and summer original JPGs remain unchanged from the baseline commit.
+- Screenshots and comparison artifacts are committed under `public/review`; `/review` is the owner-facing review gallery after deployment. Do not present local workspace paths as public links.
+- Before/after side-by-side, 50% overlay, and absolute difference use the **previous website**, explicitly not the approved rendering. They demonstrate the changes, not reference fidelity. Scripts support an exact original-reference comparison once the file is supplied.
 
-## Remaining
+## Outstanding acceptance checks
 
-- Product-owner visual review, especially the processed hero portrait. Original source photo remains intact.
-- Confirm commercial-use permission for photographs featuring children before public launch.
-- No public deployment or live user-facing preview is configured. Environment publication is separate from deploying the website.
-- No booking database, payments, scheduling, or Santa HQ implemented; those remain future scope.
-- Facebook destination attributes were tested; authenticated Facebook content and email delivery were not tested.
+1. The approved 1024 × 1536 render is visible in the conversation, but its downloadable original file is not present in the workspace. Exact reference overlay/difference verification remains blocked on that original file or a direct image URL. No pixel-perfect or complete acceptance claim is supported.
+2. The owner reports Vercel deployment, but a live URL has not yet been supplied. GitHub deployment-status API discovery was blocked by a network-proxy HTTP 403. Do not claim the updated live deployment was tested. Once the URL is available, verify the current greeting, workshop, phone link, and `/review` route on that deployment.
+3. Owner review of the generated likeness and final visual comparison remains necessary. Generated artwork, fonts, and the longer hero differ from the original render.
+4. Commercial-use permission for the authentic child photograph remains to be confirmed before public launch, as requested in the original brief.
 
-## Reuse
-
-Installation and startup instructions are saved in the environment draft. Processes must restart in new tasks; publication and new-task restoration are unverified. See README.md and AGENTS.md. The next milestone is owner visual review and deployment to an agreed hosting destination.
-
-## Visual fidelity revision
-
-The homepage now uses a warmer street-level village backdrop, a larger portrait composition, a two-line greeting across screen widths, self-hosted Berkshire Swash/Cormorant Garamond typography, tactile aged paper, shaped brand signage, overlapping evergreen/holly ornaments, and lighter framing instead of rigid beveled rectangles. Lower sections share the same illustrated setting; the Facebook and email sections remain working. Experience descriptions were tightened for reference-like card proportions. Original About and Memories photographs remain intact. The About section deliberately uses the supplied tree photograph, not the render’s desk illustration. This remains a responsive implementation of the reference, not an exact reproduction of its artwork.
+See docs/ASSETS.md for provenance and docs/VISUAL_REVIEW.md for repeatable commands and remaining discrepancies.

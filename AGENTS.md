@@ -4,7 +4,7 @@
 
 Build SantaBlizard’s nostalgic, polished Christmas website for Hudson Valley, New York. The approved homepage mockup governs implementation; the render was received in this conversation and has guided the current implementation. Use evergreen, burgundy, parchment, antique gold, warm light, and a storybook atmosphere. Preserve existing work when recovered.
 
-The homepage needs branding and location, Home/Experiences/About Santa/Memories navigation, “Invite Santa to Visit” actions, and the headline “Well, Well, Well… Look Who Found Me.” Experiences are Home Visits, Christmas in July, DJ Santa, Photo Booths, and Elves & More. Include Meet SantaBlizard, Memories, and a clear footer invitation.
+The homepage needs branding and location, Home/Experiences/About Santa/Memories navigation, “Invite Santa to Visit” actions, and the approved greeting “Ho Ho Ho! You Found Me! I Knew I Should've Hidden Behind a Bigger Tree!” Experiences are Home Visits, Christmas in July, DJ Santa, Photo Booths, and Elves & More. Include Meet SantaBlizard, Memories, and a clear footer invitation.
 
 ## Architecture and development
 
@@ -24,8 +24,22 @@ Run the application and production build. Verify image containment and positione
 
 ## Confirmed public links
 
-Use santablizard@gmail.com for email invitations and https://www.facebook.com/profile.php?id=61584693927127 for Facebook. Do not send messages on the owner’s behalf. Social components are outbound links; adding embedded feeds or additional networks needs a concrete user request. Preserve original photographs alongside processed derivatives; document generated illustration provenance in docs/ASSETS.md.
+Use 845-234-2858 (tel:8452342858) for telephone contact and santablizard@gmail.com for email invitations and https://www.facebook.com/profile.php?id=61584693927127 for Facebook. Do not send messages on the owner’s behalf. Social components are outbound links. The reusable component supports Facebook, Instagram, YouTube, and TikTok, but only active accounts with owner-verified HTTPS URLs may render. Do not invent URLs or embed feeds without a request. Preserve original photographs alongside processed derivatives; document generated illustration provenance in docs/ASSETS.md.
 
 ## Visual fidelity
 
-Preserve the reference’s continuous Christmas-world composition: warm street-level village, full two-line greeting, Santa portrait on the right at desktop, tactile ivory paper layered over timber, overlapping evergreen and holly, warm lantern light, shaped signage, and distinctive self-hosted typography. Avoid smooth yellow gradients, rigid beveled section boxes, and a distant cold-blue panorama. Compare actual screenshots to the supplied reference; build success alone does not establish a visual match. Keep the real peeking photograph for About unless the owner requests a different image.
+Preserve the reference’s continuous Christmas-world composition: warm street-level village, the approved longer greeting with deliberate line breaks, Santa portrait on the right at desktop, tactile ivory paper layered over timber, overlapping evergreen and holly, warm lantern light, shaped signage, and distinctive self-hosted typography. Avoid smooth yellow gradients, rigid beveled section boxes, and a distant cold-blue panorama. Compare actual screenshots to the supplied reference; build success alone does not establish a visual match. The owner explicitly approved an AI-generated workshop scene using the supplied SantaBlizard photographs as identity references. Use the generated workshop composition for About; preserve the original peeking photograph as source material.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
+
+## Reference comparison and delivery
+
+The authoritative render is 1024 × 1536. Capture the website at 1024px with `npm run check:visual`, then use `npm run compare:visual -- --reference /path/to/original.png --actual public/review/viewport-1024.jpg`. Never label a before/after baseline as the approved reference. Until the original render bytes are supplied, exact reference overlays remain blocked. Test 390, 768, 1024, 1440, and 1920px. Preserve the approved copy except for explicitly requested changes. The Santa-and-child source must remain untouched. Review the generated likeness with the owner; do not call an AI scene an actual event photograph. The owner reports Vercel deployment; a verified public URL is still needed before claiming a live deployment check. Do not present workspace file paths as public screenshot links.

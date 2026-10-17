@@ -1,0 +1,466 @@
+{
+  "base": "http://127.0.0.1:3000",
+  "createdAt": "2026-10-17T02:04:54.755Z",
+  "checks": [
+    {
+      "width": 390,
+      "overflow": false,
+      "brokenImages": 0,
+      "heading": "Ho Ho Ho! You Found Me! I Knew I Should've Hidden Behind a Bigger Tree!",
+      "eyebrow": "A Little North Pole Magic, Right Here at Home",
+      "supporting": "Since you've found your way to my little corner of the North Pole, perhaps it's time I found my way to yours. What do you say we make a little Christmas magic together?",
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 1040.234375,
+        "right": 390,
+        "bottom": 1040.234375
+      },
+      "content": {
+        "x": 0,
+        "y": 154,
+        "width": 390,
+        "height": 493.234375,
+        "right": 390,
+        "bottom": 647.234375
+      },
+      "portrait": {
+        "x": 0,
+        "y": 655.234375,
+        "width": 390,
+        "height": 385,
+        "right": 390,
+        "bottom": 1040.234375
+      },
+      "headingSize": "49px",
+      "mail": [
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com"
+      ],
+      "sections": [
+        {
+          "id": "",
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1040.234375,
+          "right": 390,
+          "bottom": 1040.234375
+        },
+        {
+          "id": "experiences",
+          "x": 7.796875,
+          "y": 1037.234375,
+          "width": 374.40625,
+          "height": 877.265625,
+          "right": 382.203125,
+          "bottom": 1914.5
+        },
+        {
+          "id": "about",
+          "x": 0,
+          "y": 1923.5,
+          "width": 390,
+          "height": 708.03125,
+          "right": 390,
+          "bottom": 2631.53125
+        },
+        {
+          "id": "memories",
+          "x": 11.6875,
+          "y": 2649.53125,
+          "width": 366.625,
+          "height": 751.484375,
+          "right": 378.3125,
+          "bottom": 3401.015625
+        },
+        {
+          "id": "contact",
+          "x": 0,
+          "y": 3410.015625,
+          "width": 390,
+          "height": 978.734375,
+          "right": 390,
+          "bottom": 4388.75
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "brokenImages": 0,
+      "heading": "Ho Ho Ho! You Found Me! I Knew I Should've Hidden Behind a Bigger Tree!",
+      "eyebrow": "A Little North Pole Magic, Right Here at Home",
+      "supporting": "Since you've found your way to my little corner of the North Pole, perhaps it's time I found my way to yours. What do you say we make a little Christmas magic together?",
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 740,
+        "right": 768,
+        "bottom": 740
+      },
+      "content": {
+        "x": 30.71875,
+        "y": 148,
+        "width": 345.59375,
+        "height": 530.5625,
+        "right": 376.3125,
+        "bottom": 678.5625
+      },
+      "portrait": {
+        "x": 399.375,
+        "y": 162.796875,
+        "width": 360.953125,
+        "height": 577.203125,
+        "right": 760.328125,
+        "bottom": 740
+      },
+      "headingSize": "51px",
+      "mail": [
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com"
+      ],
+      "sections": [
+        {
+          "id": "",
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 740,
+          "right": 768,
+          "bottom": 740
+        },
+        {
+          "id": "experiences",
+          "x": 15.359375,
+          "y": 736,
+          "width": 737.28125,
+          "height": 333.890625,
+          "right": 752.640625,
+          "bottom": 1069.890625
+        },
+        {
+          "id": "about",
+          "x": 0,
+          "y": 1080.890625,
+          "width": 768,
+          "height": 405.34375,
+          "right": 768,
+          "bottom": 1486.234375
+        },
+        {
+          "id": "memories",
+          "x": 15.359375,
+          "y": 1506.234375,
+          "width": 737.28125,
+          "height": 352.21875,
+          "right": 752.640625,
+          "bottom": 1858.453125
+        },
+        {
+          "id": "contact",
+          "x": 0,
+          "y": 1869.453125,
+          "width": 768,
+          "height": 551.5,
+          "right": 768,
+          "bottom": 2420.953125
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 1024,
+      "overflow": false,
+      "brokenImages": 0,
+      "heading": "Ho Ho Ho! You Found Me! I Knew I Should've Hidden Behind a Bigger Tree!",
+      "eyebrow": "A Little North Pole Magic, Right Here at Home",
+      "supporting": "Since you've found your way to my little corner of the North Pole, perhaps it's time I found my way to yours. What do you say we make a little Christmas magic together?",
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 700,
+        "right": 1024,
+        "bottom": 700
+      },
+      "content": {
+        "x": 61.4375,
+        "y": 140,
+        "width": 440.3125,
+        "height": 501.609375,
+        "right": 501.75,
+        "bottom": 641.609375
+      },
+      "portrait": {
+        "x": 522.25,
+        "y": 112,
+        "width": 440.3125,
+        "height": 588,
+        "right": 962.5625,
+        "bottom": 700
+      },
+      "headingSize": "59px",
+      "mail": [
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com"
+      ],
+      "sections": [
+        {
+          "id": "",
+          "x": 0,
+          "y": 0,
+          "width": 1024,
+          "height": 700,
+          "right": 1024,
+          "bottom": 700
+        },
+        {
+          "id": "experiences",
+          "x": 20.46875,
+          "y": 696,
+          "width": 983.0625,
+          "height": 317.375,
+          "right": 1003.53125,
+          "bottom": 1013.375
+        },
+        {
+          "id": "about",
+          "x": 0,
+          "y": 1024.375,
+          "width": 1024,
+          "height": 351.9375,
+          "right": 1024,
+          "bottom": 1376.3125
+        },
+        {
+          "id": "memories",
+          "x": 20.46875,
+          "y": 1396.3125,
+          "width": 983.0625,
+          "height": 347.1875,
+          "right": 1003.53125,
+          "bottom": 1743.5
+        },
+        {
+          "id": "contact",
+          "x": 0,
+          "y": 1754.5,
+          "width": 1024,
+          "height": 497.0625,
+          "right": 1024,
+          "bottom": 2251.5625
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "overflow": false,
+      "brokenImages": 0,
+      "heading": "Ho Ho Ho! You Found Me! I Knew I Should've Hidden Behind a Bigger Tree!",
+      "eyebrow": "A Little North Pole Magic, Right Here at Home",
+      "supporting": "Since you've found your way to my little corner of the North Pole, perhaps it's time I found my way to yours. What do you say we make a little Christmas magic together?",
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 936,
+        "right": 1440,
+        "bottom": 936
+      },
+      "content": {
+        "x": 86.390625,
+        "y": 196.546875,
+        "width": 619.1875,
+        "height": 622.8125,
+        "right": 705.578125,
+        "bottom": 819.359375
+      },
+      "portrait": {
+        "x": 734.421875,
+        "y": 149.75,
+        "width": 619.1875,
+        "height": 786.25,
+        "right": 1353.609375,
+        "bottom": 936
+      },
+      "headingSize": "82px",
+      "mail": [
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com"
+      ],
+      "sections": [
+        {
+          "id": "",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 936,
+          "right": 1440,
+          "bottom": 936
+        },
+        {
+          "id": "experiences",
+          "x": 28.796875,
+          "y": 932,
+          "width": 1382.40625,
+          "height": 447.25,
+          "right": 1411.203125,
+          "bottom": 1379.25
+        },
+        {
+          "id": "about",
+          "x": 0,
+          "y": 1390.25,
+          "width": 1440,
+          "height": 464.359375,
+          "right": 1440,
+          "bottom": 1854.609375
+        },
+        {
+          "id": "memories",
+          "x": 28.796875,
+          "y": 1874.609375,
+          "width": 1382.40625,
+          "height": 482.65625,
+          "right": 1411.203125,
+          "bottom": 2357.265625
+        },
+        {
+          "id": "contact",
+          "x": 0,
+          "y": 2368.265625,
+          "width": 1440,
+          "height": 497.4375,
+          "right": 1440,
+          "bottom": 2865.703125
+        }
+      ],
+      "errors": []
+    },
+    {
+      "width": 1920,
+      "overflow": false,
+      "brokenImages": 0,
+      "heading": "Ho Ho Ho! You Found Me! I Knew I Should've Hidden Behind a Bigger Tree!",
+      "eyebrow": "A Little North Pole Magic, Right Here at Home",
+      "supporting": "Since you've found your way to my little corner of the North Pole, perhaps it's time I found my way to yours. What do you say we make a little Christmas magic together?",
+      "hero": {
+        "x": 240,
+        "y": 0,
+        "width": 1440,
+        "height": 936,
+        "right": 1680,
+        "bottom": 936
+      },
+      "content": {
+        "x": 326.390625,
+        "y": 196.546875,
+        "width": 619.1875,
+        "height": 622.8125,
+        "right": 945.578125,
+        "bottom": 819.359375
+      },
+      "portrait": {
+        "x": 974.421875,
+        "y": 149.75,
+        "width": 619.1875,
+        "height": 786.25,
+        "right": 1593.609375,
+        "bottom": 936
+      },
+      "headingSize": "82px",
+      "mail": [
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=SantaBlizard%20experience%20inquiry",
+        "mailto:santablizard@gmail.com?subject=An%20invitation%20for%20Santa",
+        "mailto:santablizard@gmail.com"
+      ],
+      "sections": [
+        {
+          "id": "",
+          "x": 240,
+          "y": 0,
+          "width": 1440,
+          "height": 936,
+          "right": 1680,
+          "bottom": 936
+        },
+        {
+          "id": "experiences",
+          "x": 268.796875,
+          "y": 932,
+          "width": 1382.40625,
+          "height": 447.25,
+          "right": 1651.203125,
+          "bottom": 1379.25
+        },
+        {
+          "id": "about",
+          "x": 240,
+          "y": 1390.25,
+          "width": 1440,
+          "height": 464.359375,
+          "right": 1680,
+          "bottom": 1854.609375
+        },
+        {
+          "id": "memories",
+          "x": 268.796875,
+          "y": 1874.609375,
+          "width": 1382.40625,
+          "height": 482.65625,
+          "right": 1651.203125,
+          "bottom": 2357.265625
+        },
+        {
+          "id": "contact",
+          "x": 240,
+          "y": 2368.265625,
+          "width": 1440,
+          "height": 497.4375,
+          "right": 1680,
+          "bottom": 2865.703125
+        }
+      ],
+      "errors": []
+    }
+  ]
+}
