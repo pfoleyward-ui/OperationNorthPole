@@ -47,3 +47,7 @@ The authoritative render is 1024 × 1536. Capture the website at 1024px with `np
 ## Phase 3 booking foundation
 
 The owner authorized a typed seven-service catalog and database-independent booking rules/tests on `phase3/booking-foundation`. Read docs/BOOKING_FOUNDATION.md before extending them. Do not add forms, HQ, persistence, OAuth, notifications, or deployment in this phase. Preserve the five-category public presentation. All approved numeric service prices belong in src/config/services.ts. Run `npm run test:booking` and `npm run typecheck:booking` in addition to existing checks. Do not merge or deploy without approval; this development branch has automatic Vercel deployment disabled.
+
+## Phase 4 review boundary
+
+The owner authorized sensory-friendly public messaging and a four-step customer booking preview, stacked on PR #1. Read docs/CUSTOMER_BOOKING_PREVIEW.md. Keep contact/location and free-text answers locked to synthetic data until approved server-side validation and secure persistence exist. Do not activate public links to the unfinished wizard, collect private child information, provision paid services, merge, or deploy. Sensory-friendly preference is an optional boolean, not an eighth paid service. Run check:booking-preview and check-preserved-layout alongside existing checks. Meet & Greet is $200 minimum/60 minutes plus $100 per 30-minute extension; Trivia is $300/session with duration agreed before confirmation.

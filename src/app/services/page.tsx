@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SensoryFriendly } from "../SensoryFriendly";
 import { services, santaNote, completeParty } from "../../config/services";
 import { contact } from "../../config/contact";
 import { ExperienceArt } from "../ExperienceArt";
@@ -28,6 +29,7 @@ export default function ServicesPage() {
         <p>All listed prices are base prices. Santa travels from Blooming Grove, NY. Travel, staffing, equipment logistics, and unusual venue requirements may affect your final quote. We'll confirm everything with you before your booking is official!</p>
         <p><strong>All bookings require confirmation.</strong> A requested date or time does not guarantee availability. <strong>Santa is unavailable on Christmas Eve and Christmas Day.</strong></p>
       </aside>
+      <SensoryFriendly />
       {services.map(service => (
         <section key={service.id} id={service.id} className={styles.section} aria-labelledby={`${service.id}-title`}>
           <div className={styles.serviceHeader}>

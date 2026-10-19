@@ -11,7 +11,8 @@
     "compare:visual": "node scripts/compare-visual.mjs",
     "check:services": "node scripts/check-services.mjs",
     "test:booking": "node --experimental-strip-types --test tests/booking/*.test.ts",
-    "typecheck:booking": "tsc --project tsconfig.booking.json"
+    "typecheck:booking": "tsc --project tsconfig.booking.json",
+    "check:booking-preview": "node scripts/check-booking-preview.mjs"
   },
   "dependencies": {
     "@fontsource/berkshire-swash": "5.3.0",

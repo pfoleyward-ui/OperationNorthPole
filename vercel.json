@@ -1,7 +1,8 @@
 {
   "git": {
     "deploymentEnabled": {
-      "phase3/booking-foundation": false
+      "phase3/booking-foundation": false,
+      "phase4/customer-booking-preview": false
     }
   }
 }

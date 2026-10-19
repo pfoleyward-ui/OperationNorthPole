@@ -6,7 +6,7 @@ export type Result<T> = { ok: true; value: T } | { ok: false; issues: Issue[] };
 export type TimingInput = { date: string; time: string; latestTime?: string; disambiguation?: Disambiguation; latestDisambiguation?: Disambiguation };
 export type ValidatedTiming = TimingInput & { earliestStart: number; latestStart: number; durationMinutes: number | null; timeZone: typeof BOOKING_TIME_ZONE };
 export type BookingRequest = {
-  serviceId: ServiceId; catalogVersion: number;
+  serviceId: ServiceId; catalogVersion: number; sensoryFriendly?: boolean;
   timing: ValidatedTiming; alternative?: ValidatedTiming;
   customer: { name: string; email: string; phone: string };
   location: string; eventType: string; guestCount?: number; flexibility?: string; instructions?: string;
@@ -56,7 +56,7 @@ export function validateBookingRequest(input: unknown, now: number): Result<Book
   const issues: Issue[] = [];
   if (!Number.isSafeInteger(now) || now < 0 || now > 253402300799999) return { ok: false, issues: [{ path: "now", code: "invalid_clock" }] };
   if (!record(input)) return { ok: false, issues: [{ path: "request", code: "invalid_request" }] };
-  unknownKeys(input, ["serviceId", "timing", "alternative", "durationMinutes", "customer", "location", "eventType", "guestCount", "flexibility", "instructions", "answers"], "request", issues);
+  unknownKeys(input, ["serviceId", "timing", "alternative", "durationMinutes", "customer", "location", "eventType", "guestCount", "flexibility", "instructions", "answers", "sensoryFriendly"], "request", issues);
   if (!isServiceId(input.serviceId)) return { ok: false, issues: [...issues, { path: "serviceId", code: "unknown_service" }] };
   const service = bookableServices[input.serviceId];
   let duration: number | null = service.durationMinutes;
@@ -85,6 +85,7 @@ export function validateBookingRequest(input: unknown, now: number): Result<Book
   const flexibility = text(input.flexibility, "flexibility", issues, false);
   const instructions = text(input.instructions, "instructions", issues, false);
   if (input.guestCount !== undefined && (!Number.isSafeInteger(input.guestCount) || (input.guestCount as number) < 0)) issues.push({ path: "guestCount", code: "invalid_count" });
+  if (input.sensoryFriendly !== undefined && typeof input.sensoryFriendly !== "boolean") issues.push({ path: "sensoryFriendly", code: "invalid_preference" });
   const answers: Record<string, string | number | boolean> = {};
   if (input.answers !== undefined && !record(input.answers)) issues.push({ path: "answers", code: "invalid_answers" });
   if (record(input.answers)) {
@@ -99,7 +100,7 @@ export function validateBookingRequest(input: unknown, now: number): Result<Book
     }
   }
   if (issues.length) return { ok: false, issues };
-  return { ok: true, value: { serviceId: input.serviceId, catalogVersion: service.catalogVersion, timing: preferred!, ...(alternative ? { alternative } : {}), customer: { name: name!, email: email!, phone: phone! }, location: location!, eventType: eventType!, ...(input.guestCount === undefined ? {} : { guestCount: input.guestCount as number }), ...(flexibility ? { flexibility } : {}), ...(instructions ? { instructions } : {}), answers } };
+  return { ok: true, value: { ...(input.sensoryFriendly === undefined ? {} : { sensoryFriendly: input.sensoryFriendly as boolean }), serviceId: input.serviceId, catalogVersion: service.catalogVersion, timing: preferred!, ...(alternative ? { alternative } : {}), customer: { name: name!, email: email!, phone: phone! }, location: location!, eventType: eventType!, ...(input.guestCount === undefined ? {} : { guestCount: input.guestCount as number }), ...(flexibility ? { flexibility } : {}), ...(instructions ? { instructions } : {}), answers } };
 }
 /** Confirmed appointment intervals must be concrete, not unresolved start windows. */
 export function validAppointment(start: number, end: number, serviceId: ServiceId): boolean {
