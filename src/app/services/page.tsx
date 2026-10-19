@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { services, santaNote } from "../../config/services";
+import { services, santaNote, completeParty } from "../../config/services";
 import { contact } from "../../config/contact";
 import { ExperienceArt } from "../ExperienceArt";
 import shared from "../page.module.css";
@@ -47,11 +47,11 @@ export default function ServicesPage() {
           {service.id === "dj-parties" && (
             <section className={styles.party} aria-labelledby="complete-party-title" id="complete-party">
               <p className={shared.sectionOverline}>THE COMPLETE SANTABLIZARD CHRISTMAS PARTY</p>
-              <h3 id="complete-party-title">We Bring the Whole Christmas Party!</h3>
-              <p className={styles.price}>$1,550 · 4 hours <span>· Base price</span></p>
-              <p>One convenient entertainment package: $750 DJ + $800 photo booth, with no separate charge for games or guest interaction.</p>
+              <h3 id="complete-party-title">{completeParty.headline}</h3>
+              <p className={styles.price}>{`${completeParty.price} `}<span>· Base price</span></p>
+              <p>{completeParty.description}</p>
               <ul>
-                <li>SantaBlizard as DJ and MC</li><li>Professional DJ sound and lighting</li><li>Staffed photo booth</li><li>Christmas-themed backdrop and props</li><li>Immediate printed photo keepsakes</li><li>Santa's personality, humor, and entertainment throughout the event</li>
+                {completeParty.includes.map(item => <li key={item}>{item}</li>)}
               </ul>
               <aside className={styles.elvesNote}><h4>A Little Note from the Elves</h4><p>The photo booth requires an attendant. Staffing and availability must be verified before confirming your booking, so Santa can focus on DJ and MC duties while the attendant operates the booth. The base-price and availability conditions above apply.</p></aside>
               <a className={shared.primaryButton} href={inquire("Complete SantaBlizard Christmas Party")}>Bring the North Pole to Your Party →</a>
