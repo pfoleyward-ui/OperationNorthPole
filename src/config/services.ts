@@ -8,7 +8,8 @@ export type ServiceRate = Readonly<{
   pricingBasis: "visit" | "hour" | "session" | "package";
   durationMinutes: number | null;
 }>;
-export const CATALOG_VERSION = 1;
+export const CATALOG_VERSION = 2;
+export const meetGreetPricing = { minimumMinutes: 60, incrementMinutes: 30, incrementCents: 10000 } as const;
 export const serviceRates = {
   "home-visits": { name: "Santa Makes House Calls!", categoryId: "home-visits", basePriceCents: 15000, currency: "USD", pricingBasis: "visit", durationMinutes: 30 },
   "photography": { name: "Photographer Studio Day", categoryId: "photography", basePriceCents: 150000, currency: "USD", pricingBasis: "package", durationMinutes: 480 },
@@ -73,7 +74,7 @@ const marketingContent = [
     cta: "See Where Santa's Going",
     story: "Who says the workshop door has to stay shut until December? Invite Santa to your business or gathering and give visitors something to talk about. Dream up a Christmas in July celebration, a lively trivia night, or a surprise welcome for your customers—Santa is always happy to hear a creative idea.",
     includes: ["Christmas in July", "Santa-hosted trivia", "Breweries and restaurants", "Community festivals and holiday markets", "Birthdays and private parties", "Promotional events and business meet-and-greets"],
-    note: `Standard appearances and Santa Meet & Greet visits have a base price of ${usd(serviceRates["meet-greet"].basePriceCents)}/hour. Santa-hosted trivia is ${usd(serviceRates.trivia.basePriceCents)}/session; duration and event requirements must be agreed upon before confirmation.`,
+    note: `Standard appearances and Santa Meet & Greet visits have a minimum of ${usd(serviceRates["meet-greet"].basePriceCents)} for one hour, plus ${usd(meetGreetPricing.incrementCents)} per additional ${meetGreetPricing.incrementMinutes} minutes. Santa-hosted trivia is ${usd(serviceRates.trivia.basePriceCents)}/session; duration and event requirements must be agreed upon before confirmation.`,
   },
 ] as const;
 
@@ -104,7 +105,7 @@ function bookable<S extends ServiceId>(id: S) {
   const content = category(rate.categoryId);
   return {
     id, ...rate, catalogVersion: CATALOG_VERSION,
-    description: id === "complete-party" ? completeParty.description : id === "meet-greet" ? `Standard appearances and Santa Meet & Greet visits have a base price of ${usd(serviceRates["meet-greet"].basePriceCents)}/hour.` : id === "trivia" ? `Santa-hosted trivia is ${usd(serviceRates.trivia.basePriceCents)}/session; duration and event requirements must be agreed upon before confirmation.` : content.description,
+    description: id === "complete-party" ? completeParty.description : id === "meet-greet" ? `Standard appearances and Santa Meet & Greet visits have a minimum of ${usd(serviceRates["meet-greet"].basePriceCents)} for one hour, plus ${usd(meetGreetPricing.incrementCents)} per additional ${meetGreetPricing.incrementMinutes} minutes.` : id === "trivia" ? `Santa-hosted trivia is ${usd(serviceRates.trivia.basePriceCents)}/session; duration and event requirements must be agreed upon before confirmation.` : content.description,
     story: content.story,
     includes: id === "complete-party" ? completeParty.includes : id === "meet-greet" ? ["Santa Meet & Greet"] : id === "trivia" ? ["Santa-hosted trivia"] : content.includes,
   } as const;
@@ -114,3 +115,17 @@ export const bookableServices = {
   "dj-parties": bookable("dj-parties"), "photo-booth": bookable("photo-booth"),
   "complete-party": bookable("complete-party"), "meet-greet": bookable("meet-greet"), trivia: bookable("trivia"),
 } as const;
+
+/** No implicit rounding: choose a whole approved half-hour extension. */
+export function basePriceForDuration(serviceId: ServiceId, minutes: number): number {
+  if (!isServiceId(serviceId) || !Number.isSafeInteger(minutes) || minutes <= 0) throw new Error("Invalid duration");
+  const rate = serviceRates[serviceId];
+  if (serviceId === "meet-greet") {
+    if (minutes < meetGreetPricing.minimumMinutes || (minutes - meetGreetPricing.minimumMinutes) % meetGreetPricing.incrementMinutes !== 0) throw new Error("Meet & Greet requires at least one hour, then 30-minute increments");
+    const cents = rate.basePriceCents + ((minutes - meetGreetPricing.minimumMinutes) / meetGreetPricing.incrementMinutes) * meetGreetPricing.incrementCents;
+    if (!Number.isSafeInteger(cents)) throw new Error("Invalid price");
+    return cents;
+  }
+  if (rate.durationMinutes !== null && minutes !== rate.durationMinutes) throw new Error("Fixed service duration");
+  return rate.basePriceCents;
+}

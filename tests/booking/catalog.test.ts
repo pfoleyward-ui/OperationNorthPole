@@ -23,5 +23,7 @@ test("every approved marketing field and Santa note matches the pre-foundation f
  const {readFileSync}=await import("node:fs");
  const {santaNote}=await import("../../src/config/services.ts");
  const approved=JSON.parse(readFileSync(new URL("./fixtures/approved-marketing.json",import.meta.url),"utf8"));
+ // Only the newly approved Meet & Greet policy may change the old marketing fixture.
+ approved.services[4].note = "Standard appearances and Santa Meet & Greet visits have a minimum of $200 for one hour, plus $100 per additional 30 minutes. Santa-hosted trivia is $300/session; duration and event requirements must be agreed upon before confirmation.";
  assert.deepEqual({santaNote,services},approved);
 });

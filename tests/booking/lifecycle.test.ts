@@ -2,8 +2,9 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { acceptQuote, transitionBooking, validateQuote, type Quote, type Booking, type BookingStatus } from "../../src/domain/booking/lifecycle.ts";
 import { selectInstant } from "../../src/domain/booking/time.ts";
+import { CATALOG_VERSION } from "../../src/config/services.ts";
 const now=Date.parse("2026-10-01T00:00:00Z");
-const quote=():Quote=>({id:"q1",bookingId:"b1",serviceId:"home-visits",revision:1,catalogVersion:1,currency:"USD",totalCents:15000,start:selectInstant("2026-12-20","14:00"),end:selectInstant("2026-12-20","14:30"),createdAt:now-1000,expiresAt:now+86400000});
+const quote=():Quote=>({id:"q1",bookingId:"b1",serviceId:"home-visits",revision:1,catalogVersion:CATALOG_VERSION,currency:"USD",totalCents:15000,start:selectInstant("2026-12-20","14:00"),end:selectInstant("2026-12-20","14:30"),createdAt:now-1000,expiresAt:now+86400000});
 const booking=(status:BookingStatus="awaiting_customer_acceptance"):Booking=>({id:"b1",serviceId:"home-visits",version:1,status,quote:quote()});
 const accepted=()=>{const a=acceptQuote(quote(),1,now,"customer");assert.ok(a.ok);return a.ok?a.value:undefined;};
 const context=()=>({actor:"santa" as const,now,expectedVersion:1,acceptance:accepted(),scheduleCheck:{bookingVersion:1,checkedAt:now,conflictFree:true,staffingVerified:true}});
@@ -45,4 +46,19 @@ test("changing total without incrementing the revision is rejected",()=>assert.e
 test("property ordering does not change proposal identity",()=>{
  const q=quote();const reordered=Object.fromEntries(Object.entries(q).reverse()) as Quote;
  assert.ok(transitionBooking(booking("under_review"),"awaiting_customer_acceptance",{actor:"santa",now,expectedVersion:1,quote:reordered}).ok);
+});
+test("acceptance snapshots exact terms and rejects same-ID/revision mutation",()=>{
+ const q=quote();const a=acceptQuote(q,1,now,"customer");assert.ok(a.ok);if(!a.ok)return;
+ const changed={...q,totalCents:17500,adjustmentReason:"Changed after agreement"};
+ assert.equal(transitionBooking({...booking(),quote:changed},"confirmed",{...context(),acceptance:a.value}).ok,false);
+ assert.equal(a.value.terms.totalCents,15000);assert.ok(Object.isFrozen(a.value.terms));
+});
+test("stored quote must belong to this booking on every transition",()=>{
+ for(const patch of [{bookingId:"other-booking"},{serviceId:"trivia" as const}])assert.equal(transitionBooking({...booking(),quote:{...quote(),...patch}},"under_review",context()).ok,false);
+});
+test("first revision is one, and successive revisions cannot skip",()=>{
+ const b:Booking={id:"b1",serviceId:"home-visits",version:1,status:"under_review"};
+ assert.equal(transitionBooking(b,"alternative_proposed",{actor:"santa",now,expectedVersion:1,quote:{...quote(),revision:2}}).ok,false);
+ assert.equal(transitionBooking(booking("under_review"),"alternative_proposed",{actor:"santa",now,expectedVersion:1,quote:{...quote(),revision:3}}).ok,false);
+ assert.ok(transitionBooking(booking("under_review"),"alternative_proposed",{actor:"santa",now,expectedVersion:1,quote:{...quote(),revision:2}}).ok);
 });

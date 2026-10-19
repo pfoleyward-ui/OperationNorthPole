@@ -1,11 +1,11 @@
-import { bookableServices, CATALOG_VERSION, isServiceId, type ServiceId } from "../../config/services.ts";
+import { basePriceForDuration, CATALOG_VERSION, isServiceId, type ServiceId } from "../../config/services.ts";
 import { record, validAppointment, type Result } from "./request.ts";
 export type Quote = Readonly<{
   id: string; bookingId: string; serviceId: ServiceId; revision: number; catalogVersion: number;
   currency: "USD"; totalCents: number; start: number; end: number;
   createdAt: number; expiresAt: number; adjustmentReason?: string;
 }>;
-export type QuoteAcceptance = Readonly<{ quoteId: string; revision: number; acceptedAt: number; source: "customer" | "recorded_offline" }>;
+export type QuoteAcceptance = Readonly<{ quoteId: string; revision: number; acceptedAt: number; source: "customer" | "recorded_offline"; terms: Quote }>;
 export function validateQuote(input: unknown): Result<Quote> {
   const fail = (code: string): Result<Quote> => ({ ok: false, issues: [{ path: "quote", code }] });
   if (!record(input) || !isServiceId(input.serviceId)) return fail("invalid_quote");
@@ -18,15 +18,17 @@ export function validateQuote(input: unknown): Result<Quote> {
   if (![input.createdAt, input.expiresAt].every(Number.isSafeInteger) || (input.createdAt as number) < 0 || (input.expiresAt as number) <= (input.createdAt as number) || (input.expiresAt as number) > (input.start as number) || (input.createdAt as number) >= (input.start as number)) return fail("invalid_quote_expiry");
   if (input.adjustmentReason !== undefined && (typeof input.adjustmentReason !== "string" || !input.adjustmentReason.trim() || input.adjustmentReason.length > 2000)) return fail("invalid_adjustment_reason");
   // No travel calculator, discounts, or hourly rounding policy. A manual total must be disclosed.
-  if (input.totalCents !== bookableServices[input.serviceId].basePriceCents && input.adjustmentReason === undefined) return fail("adjustment_reason_required");
-  return { ok: true, value: input as unknown as Quote };
+  const base = basePriceForDuration(input.serviceId, ((input.end as number) - (input.start as number)) / 60000);
+  if (input.serviceId === "meet-greet" && (input.totalCents as number) < base) return fail("below_minimum_price");
+  if (input.totalCents !== base && input.adjustmentReason === undefined) return fail("adjustment_reason_required");
+  return { ok: true, value: Object.freeze({ ...input }) as unknown as Quote };
 }
 function sameQuote(a: Quote, b: Quote): boolean {
   return ["id", "bookingId", "serviceId", "revision", "catalogVersion", "currency", "totalCents", "start", "end", "createdAt", "expiresAt", "adjustmentReason"].every(key => a[key as keyof Quote] === b[key as keyof Quote]);
 }
 export function acceptQuote(quote: Quote, revision: number, now: number, source: QuoteAcceptance["source"]): Result<QuoteAcceptance> {
   if (!validateQuote(quote).ok || revision !== quote.revision || !Number.isSafeInteger(now) || now < quote.createdAt || now >= quote.expiresAt || (source !== "customer" && source !== "recorded_offline")) return { ok: false, issues: [{ path: "acceptance", code: "invalid_or_expired_proposal" }] };
-  return { ok: true, value: { quoteId: quote.id, revision, acceptedAt: now, source } };
+  return { ok: true, value: { quoteId: quote.id, revision, acceptedAt: now, source, terms: Object.freeze({ ...quote }) } };
 }
 export const bookingStatuses = ["requested", "under_review", "alternative_proposed", "awaiting_customer_acceptance", "confirmed", "declined", "canceled", "completed"] as const;
 export type BookingStatus = typeof bookingStatuses[number];
@@ -54,16 +56,19 @@ export function transitionBooking(booking: Booking, target: BookingStatus, conte
   if (!transitions[booking.status].includes(target)) return fail("invalid_transition");
   if (context.actor !== "santa") return fail("santa_action_required");
   if (context.quote && (!validateQuote(context.quote).ok || context.quote.bookingId !== booking.id || context.quote.serviceId !== booking.serviceId || (target !== "awaiting_customer_acceptance" && target !== "alternative_proposed"))) return fail("invalid_proposal_edit");
-  if (booking.quote && !validateQuote(booking.quote).ok) return fail("invalid_stored_quote");
-  if (context.quote && booking.quote && (context.quote.id !== booking.quote.id || context.quote.revision < booking.quote.revision || (context.quote.revision === booking.quote.revision && !sameQuote(context.quote, booking.quote)))) return fail("quote_revision_required");
-  const quote = context.quote ?? booking.quote;
+  if (booking.quote && (!validateQuote(booking.quote).ok || booking.quote.bookingId !== booking.id || booking.quote.serviceId !== booking.serviceId)) return fail("invalid_stored_quote");
+  if (context.quote && booking.quote && (context.quote.id !== booking.quote.id || (context.quote.revision !== booking.quote.revision && context.quote.revision !== booking.quote.revision + 1) || (context.quote.revision === booking.quote.revision && !sameQuote(context.quote, booking.quote)))) return fail("quote_revision_required");
+  if (context.quote && !booking.quote && context.quote.revision !== 1) return fail("initial_quote_revision_required");
+  if (context.quote && (context.quote.createdAt > context.now || (booking.quote && context.quote.createdAt < booking.quote.createdAt))) return fail("invalid_quote_chronology");
+  const candidate = context.quote ?? booking.quote;
+  const quote = candidate ? Object.freeze({ ...candidate }) : undefined;
   const acceptance = context.acceptance ?? booking.acceptance;
   if (target === "awaiting_customer_acceptance" || target === "confirmed") {
     if (!quote || !validateQuote(quote).ok || quote.bookingId !== booking.id || quote.serviceId !== booking.serviceId || quote.createdAt > context.now || quote.expiresAt <= context.now || quote.start <= context.now) return fail("current_quote_required");
   }
   if (target === "confirmed") {
     if (!booking.quote || (context.quote && !sameQuote(context.quote, booking.quote))) return fail("sent_quote_required");
-    if (!acceptance || !quote || acceptance.quoteId !== quote.id || acceptance.revision !== quote.revision || (acceptance.source !== "customer" && acceptance.source !== "recorded_offline") || !Number.isSafeInteger(acceptance.acceptedAt) || acceptance.acceptedAt < quote.createdAt || acceptance.acceptedAt >= quote.expiresAt || acceptance.acceptedAt > context.now) return fail("customer_agreement_required");
+    if (!acceptance || !quote || !acceptance.terms || !validateQuote(acceptance.terms).ok || !sameQuote(acceptance.terms, quote) || acceptance.quoteId !== quote.id || acceptance.revision !== quote.revision || (acceptance.source !== "customer" && acceptance.source !== "recorded_offline") || !Number.isSafeInteger(acceptance.acceptedAt) || acceptance.acceptedAt < quote.createdAt || acceptance.acceptedAt >= quote.expiresAt || acceptance.acceptedAt > context.now) return fail("customer_agreement_required");
     const check = context.scheduleCheck;
     if (!check || check.bookingVersion !== booking.version || check.checkedAt !== context.now || check.conflictFree !== true) return fail("schedule_verification_required");
     if ((booking.serviceId === "photo-booth" || booking.serviceId === "complete-party") && check.staffingVerified !== true) return fail("staffing_verification_required");

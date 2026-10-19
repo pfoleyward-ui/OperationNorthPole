@@ -1,4 +1,4 @@
-import { bookableServices, isServiceId, type ServiceId } from "../../config/services.ts";
+import { basePriceForDuration, bookableServices, isServiceId, type ServiceId } from "../../config/services.ts";
 import { serviceQuestions } from "./questions.ts";
 import { BOOKING_TIME_ZONE, intervalTouchesBlackout, isChristmasBlackout, localParts, resolveWallTime, validDate, validTime, type Disambiguation } from "./time.ts";
 export type Issue = { path: string; code: string };
@@ -66,6 +66,10 @@ export function validateBookingRequest(input: unknown, now: number): Result<Book
     else if (duration !== null && input.durationMinutes !== duration) issues.push({ path: "durationMinutes", code: "fixed_duration" });
     else duration = input.durationMinutes as number;
   }
+  if (duration !== null) {
+    try { basePriceForDuration(input.serviceId, duration); }
+    catch { issues.push({ path: "durationMinutes", code: "invalid_service_duration" }); }
+  }
   const preferred = timing(input.timing, duration, now, "timing", issues);
   const alternative = input.alternative === undefined ? undefined : timing(input.alternative, duration, now, "alternative", issues);
   const customer = record(input.customer) ? input.customer : {};
@@ -100,6 +104,8 @@ export function validateBookingRequest(input: unknown, now: number): Result<Book
 /** Confirmed appointment intervals must be concrete, not unresolved start windows. */
 export function validAppointment(start: number, end: number, serviceId: ServiceId): boolean {
   if (!isServiceId(serviceId) || !Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start < 0 || end > 253402300799999 || end <= start || end - start > 366 * 86400000) return false;
+  const minutes = (end - start) / 60000;
+  try { basePriceForDuration(serviceId, minutes); } catch { return false; }
   const fixed = bookableServices[serviceId].durationMinutes;
   return (fixed === null || end - start === fixed * 60000) && !intervalTouchesBlackout(start, end) && !isChristmasBlackout(localParts(start).date);
 }

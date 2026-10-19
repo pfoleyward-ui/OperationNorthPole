@@ -63,3 +63,7 @@ Branch: `phase3/booking-foundation`, based on `d93ca03`. No merge or deployment 
 - Browser evidence is outside the checkout under `/workspace/scratch/phase3-review`, not a public preview. Existing committed public gallery is unchanged. An exact comparison to the approved render remains outside this foundation validation.
 - Added `vercel.json` with automatic Git deployment disabled for this development branch only; other branches default to enabled, as documented by Vercel's `GitConfig` types. No hosting command or paid provisioning ran.
 - No forms, HQ, API routes, persistence, OAuth, notifications, or customer-data collection were implemented. See docs/BOOKING_FOUNDATION.md for API contracts, integration requirements, and future policy decisions.
+
+## PR #1 revision — 2026-10-19
+
+GitHub API returned no published reviews or inline comments for PR #1 during this pass. Audited and fixed quote identity/revision risks directly: stored quotes must match booking/service on all transitions; first revision is one; revisions cannot skip or regress; acceptance snapshots immutable exact terms so reused ID/revision cannot authorize changed terms. Catalog version advances to 2. Added approved Meet & Greet minimum ($200/60 minutes) and $100/30-minute extensions, rejecting off-increment durations rather than silently rounding. Trivia remains $300/session with an agreed concrete duration at quote/confirmation. 133 domain tests passed; strict booking TypeScript and production build checked before pushing the revision. No merge/deployment.
