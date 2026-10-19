@@ -26,3 +26,5 @@ The owner reports Vercel deployment. A production URL is still needed to verify 
 Services and pricing: `/services`, with shared approved content in `src/config/services.ts`. Run `npm run check:services` against the production server to validate prices, card destinations, booking conditions, and responsive layouts. `/review` includes the corresponding screenshots.
 
 Phase 3 booking-domain foundation: see [docs/BOOKING_FOUNDATION.md](docs/BOOKING_FOUNDATION.md). Run `npm run test:booking` (Node 24) and `npm run typecheck:booking`. The domain has no persistence or live integrations; public booking actions still open email inquiries.
+
+Phase 4: `/book?service=<id>` is a **synthetic-data preview only**, not a working booking intake. See [docs/CUSTOMER_BOOKING_PREVIEW.md](docs/CUSTOMER_BOOKING_PREVIEW.md). `npm run check:booking-preview` exercises the safe preview; public inquiry links remain unchanged.

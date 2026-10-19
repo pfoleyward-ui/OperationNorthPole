@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { SensoryFriendly } from "./SensoryFriendly";
 import styles from "./page.module.css";
 import { ExperienceArt } from "./ExperienceArt";
 import { SocialLinks } from "./SocialLinks";
@@ -106,6 +107,7 @@ export default function Home() {
         <p className={styles.pricingNote}>Base prices. Travel, staffing, equipment logistics, and unusual venue requirements may affect your final quote. All bookings require confirmation; requesting a date or time does not guarantee availability. Santa is unavailable on Christmas Eve and Christmas Day.</p>
       </section>
 
+      <SensoryFriendly compact />
       <SnowySeam />
       <section
         className={styles.about}

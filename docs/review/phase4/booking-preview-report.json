@@ -1,0 +1,35 @@
+{
+  "createdAt": "2026-10-19T19:30:29.854Z",
+  "checks": [
+    {
+      "width": 390,
+      "passed": true,
+      "networkWrites": 0,
+      "pageErrors": 0
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "networkWrites": 0,
+      "pageErrors": 0
+    },
+    {
+      "width": 1024,
+      "passed": true,
+      "networkWrites": 0,
+      "pageErrors": 0
+    },
+    {
+      "width": 1440,
+      "passed": true,
+      "networkWrites": 0,
+      "pageErrors": 0
+    },
+    {
+      "width": 1920,
+      "passed": true,
+      "networkWrites": 0,
+      "pageErrors": 0
+    }
+  ]
+}
