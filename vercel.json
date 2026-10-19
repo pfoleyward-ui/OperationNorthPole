@@ -1,0 +1,7 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "phase3/booking-foundation": false
+    }
+  }
+}

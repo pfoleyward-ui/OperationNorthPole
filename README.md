@@ -24,3 +24,5 @@ Use `npm run compare:visual -- --reference /path/to/original-render.png --actual
 The owner reports Vercel deployment. A production URL is still needed to verify that deployment; publishing the Codex environment does not deploy this website. Contact details are maintained in `src/config/contact.ts`. Only active social accounts with verified URLs render.
 
 Services and pricing: `/services`, with shared approved content in `src/config/services.ts`. Run `npm run check:services` against the production server to validate prices, card destinations, booking conditions, and responsive layouts. `/review` includes the corresponding screenshots.
+
+Phase 3 booking-domain foundation: see [docs/BOOKING_FOUNDATION.md](docs/BOOKING_FOUNDATION.md). Run `npm run test:booking` (Node 24) and `npm run typecheck:booking`. The domain has no persistence or live integrations; public booking actions still open email inquiries.

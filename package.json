@@ -9,7 +9,9 @@
     "typecheck": "tsc --noEmit",
     "check:visual": "node scripts/capture-site.mjs",
     "compare:visual": "node scripts/compare-visual.mjs",
-    "check:services": "node scripts/check-services.mjs"
+    "check:services": "node scripts/check-services.mjs",
+    "test:booking": "node --experimental-strip-types --test tests/booking/*.test.ts",
+    "typecheck:booking": "tsc --project tsconfig.booking.json"
   },
   "dependencies": {
     "@fontsource/berkshire-swash": "5.3.0",

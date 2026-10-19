@@ -1,0 +1,88 @@
+{
+  "santaNote": "I've been making Christmas memories for a long, long time, and I believe every family deserves a little extra joy. That's why I offer visits for different budgets, with clear prices and no surprises—well, except the one at your front door! Ho Ho Ho!",
+  "services": [
+    {
+      "id": "home-visits",
+      "title": "Santa Makes House Calls!",
+      "kind": "home",
+      "price": "$150 · 30-minute visit",
+      "headline": "The Best Christmas Surprise Might Just Knock on Your Door.",
+      "description": "Imagine their faces when Santa himself comes knocking! Stories, laughter, Christmas wishes, presents from his sack, and family photographs they'll treasure for years.",
+      "cta": "Invite Santa Over",
+      "story": "The doorbell rings. A little face peeks around the door—and there stands Santa, ready to step into your family's Christmas story. There is time for laughter, a story, whispered Christmas wishes, and family photographs. This is a personal visit to your own home, and a memory to carry into Christmases to come.",
+      "includes": [
+        "Stories, laughter, and Christmas wishes",
+        "Time for family photographs",
+        "Santa handing out presents supplied by your family"
+      ],
+      "note": "Visits are approximately 30 minutes. Please supply any gifts Santa will hand out. Santa travels from Blooming Grove, NY; travel fees may apply outside the local visiting area."
+    },
+    {
+      "id": "photography",
+      "title": "Santa & Photography",
+      "kind": "photography",
+      "price": "$1,500 · 8-hour studio day",
+      "headline": "Make the Experience as Memorable as the Photograph.",
+      "description": "Give your clients more than a Christmas portrait. Bring their holiday sessions to life with a Santa who knows how to make little personalities shine.",
+      "cta": "Book Santa for Your Studio",
+      "story": "Photographers and studio owners: build your holiday sessions around a warm welcome, authentic conversation, and little moments of wonder. SantaBlizard brings personality and patient interaction to help your clients relax and let their own personalities shine. Create a memorable experience to complement your premium studio offerings.",
+      "includes": [
+        "SantaBlizard for an eight-hour studio booking",
+        "Authentic Santa interaction during your holiday sessions"
+      ],
+      "note": "The photographer supplies all photography services, editing, and image delivery. We'll agree on the studio's schedule and requirements before confirming the day."
+    },
+    {
+      "id": "dj-parties",
+      "title": "DJ Santa & Christmas Parties",
+      "kind": "music",
+      "price": "$750 · 4-hour DJ / MC",
+      "headline": "Wait a Minute… SANTA'S the DJ?!",
+      "description": "Forty years of professional DJ experience, a booming Santa laugh, and a Christmas party nobody saw coming. Professional sound, lighting, music, and merriment!",
+      "cta": "Let's Get This Party Started",
+      "story": "Behind that Santa laugh are more than 40 years of professional DJ experience throughout the Hudson Valley. SantaBlizard owns professional DJ equipment and lighting and brings the experience to keep a celebration moving. From office holiday parties and restaurant events to private celebrations, give your guests an entertainer with a few surprises up his velvet sleeve.",
+      "includes": [
+        "SantaBlizard as DJ and MC for four event hours",
+        "Professional DJ sound and lighting",
+        "Music, humor, and holiday entertainment"
+      ],
+      "note": "Tell us about your venue, event schedule, and equipment logistics so we can confirm the right arrangement for your celebration."
+    },
+    {
+      "id": "photo-booth",
+      "title": "Santa Photo Booth",
+      "kind": "camera",
+      "price": "$800 · 4-hour staffed booth",
+      "headline": "Say Cheese! Or Better Yet… Say HO HO HO!",
+      "description": "Festive props, a Christmas backdrop, and printed photographs your guests can take home. Smile for the camera!",
+      "cta": "Explore the Photo Booth",
+      "story": "Gather your favorite people, choose a festive prop, and make a keepsake together. Our physical photo booth brings a little Christmas fun to corporate events, family parties, restaurants, breweries, and holiday celebrations—with printed photographs guests receive immediately.",
+      "includes": [
+        "A physical photo booth for four hours",
+        "Christmas-themed backdrop and festive props",
+        "A photo booth attendant",
+        "Immediate printed photo keepsakes"
+      ],
+      "note": "A standalone photo booth booking does not automatically include a Santa appearance. An attendant is required; staffing and availability must be verified before confirmation."
+    },
+    {
+      "id": "off-season",
+      "title": "Santa's Off-Season Adventures",
+      "kind": "summer",
+      "price": "Appearances from $200/hour · Trivia $300/session",
+      "headline": "Who Says Santa Only Works One Night a Year?",
+      "description": "Christmas in July, brewery visits, trivia nights, festivals, birthdays, and surprise appearances. Santa's always looking for an excuse to get out of the workshop!",
+      "cta": "See Where Santa's Going",
+      "story": "Who says the workshop door has to stay shut until December? Invite Santa to your business or gathering and give visitors something to talk about. Dream up a Christmas in July celebration, a lively trivia night, or a surprise welcome for your customers—Santa is always happy to hear a creative idea.",
+      "includes": [
+        "Christmas in July",
+        "Santa-hosted trivia",
+        "Breweries and restaurants",
+        "Community festivals and holiday markets",
+        "Birthdays and private parties",
+        "Promotional events and business meet-and-greets"
+      ],
+      "note": "Standard appearances and Santa Meet & Greet visits have a base price of $200/hour. Santa-hosted trivia is $300/session; duration and event requirements must be agreed upon before confirmation."
+    }
+  ]
+}
