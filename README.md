@@ -1,5 +1,7 @@
 # Operation North Pole
 
+Phase 5 backend work is documented in [docs/SECURE_BOOKING_BACKEND.md](docs/SECURE_BOOKING_BACKEND.md). `npm run test:backend` exercises local D1; `npm run dev:backend` starts a local Worker with public intake disabled. No deployment or real booking collection is enabled.
+
 SantaBlizard homepage recovered from the supplied starter archive. Uses Next.js App Router, React, TypeScript, and CSS Modules; no database or credentials required.
 
 ## Development

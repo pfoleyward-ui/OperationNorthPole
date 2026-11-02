@@ -1,0 +1,16 @@
+{
+  "name": "operation-north-pole-booking",
+  "main": "workers/booking/index.ts",
+  "compatibility_date": "2026-11-02",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": false },
+  "vars": { "PUBLIC_INTAKE_ENABLED": "false" },
+  // Local-only placeholder. No remote resource is provisioned in this phase.
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "operation-north-pole-booking",
+    "database_id": "00000000-0000-0000-0000-000000000000",
+    "migrations_dir": "migrations"
+  }]
+}

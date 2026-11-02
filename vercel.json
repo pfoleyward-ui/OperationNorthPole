@@ -2,7 +2,8 @@
   "git": {
     "deploymentEnabled": {
       "phase3/booking-foundation": false,
-      "phase4/customer-booking-preview": false
+      "phase4/customer-booking-preview": false,
+      "phase5/secure-booking-backend": false
     }
   }
 }

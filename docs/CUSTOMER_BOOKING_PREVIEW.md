@@ -1,5 +1,7 @@
 # Phase 4 — customer booking preview and sensory-friendly visits
 
+Phase 5 adds the separate [secure backend](SECURE_BOOKING_BACKEND.md). The practice wizard and its fail-closed gate remain unchanged; the historical Phase 4 scope below does not describe an activated intake.
+
 This branch is stacked on the revised, unmerged PR #1. Neither PR may be merged or deployed without owner approval. Vercel automatic Git deployment is disabled for both development branches.
 
 ## Implemented

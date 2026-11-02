@@ -8,6 +8,9 @@ const quote=():Quote=>({id:"q1",bookingId:"b1",serviceId:"home-visits",revision:
 const booking=(status:BookingStatus="awaiting_customer_acceptance"):Booking=>({id:"b1",serviceId:"home-visits",version:1,status,quote:quote()});
 const accepted=()=>{const a=acceptQuote(quote(),1,now,"customer");assert.ok(a.ok);return a.ok?a.value:undefined;};
 const context=()=>({actor:"santa" as const,now,expectedVersion:1,acceptance:accepted(),scheduleCheck:{bookingVersion:1,checkedAt:now,conflictFree:true,staffingVerified:true}});
+for (const target of ['under_review', 'declined', 'canceled'] as const) test(`customer cannot move pending request to ${target}`, () => {
+ assert.equal(transitionBooking(booking('pending'), target, {...context(), actor: 'customer'}).ok, false);
+});
 test("manual quote and acceptance remain separate from confirmation",()=>{
  assert.ok(validateQuote(quote()).ok);const b=booking();const before=structuredClone(b);const r=transitionBooking(b,"confirmed",context());assert.ok(r.ok);if(r.ok){assert.equal(r.value.status,"confirmed");assert.equal(r.value.version,2);}assert.deepEqual(b,before);
 });
@@ -33,7 +36,7 @@ test("completion requires event end; acknowledgment cannot cancel",()=>{
  assert.ok(transitionBooking(booking("confirmed"),"completed",{...context(),now:quote().end}).ok);
  assert.equal(transitionBooking(booking("confirmed"),"canceled",{...context(),actor:"customer"}).ok,false);
 });
-for(const status of ["requested","declined","canceled","completed"] as const)test(`cannot directly confirm ${status}`,()=>assert.equal(transitionBooking(booking(status),"confirmed",context()).ok,false));
+for(const status of ["pending","declined","canceled","completed"] as const)test(`cannot directly confirm ${status}`,()=>assert.equal(transitionBooking(booking(status),"confirmed",context()).ok,false));
 test("proposal workflow requires a valid quote to send",()=>{
  const b:Booking={id:"b1",serviceId:"home-visits",version:1,status:"under_review"};
  assert.equal(transitionBooking(b,"awaiting_customer_acceptance",{actor:"santa",now,expectedVersion:1}).ok,false);
