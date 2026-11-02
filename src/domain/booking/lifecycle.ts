@@ -30,14 +30,14 @@ export function acceptQuote(quote: Quote, revision: number, now: number, source:
   if (!validateQuote(quote).ok || revision !== quote.revision || !Number.isSafeInteger(now) || now < quote.createdAt || now >= quote.expiresAt || (source !== "customer" && source !== "recorded_offline")) return { ok: false, issues: [{ path: "acceptance", code: "invalid_or_expired_proposal" }] };
   return { ok: true, value: { quoteId: quote.id, revision, acceptedAt: now, source, terms: Object.freeze({ ...quote }) } };
 }
-export const bookingStatuses = ["requested", "under_review", "alternative_proposed", "awaiting_customer_acceptance", "confirmed", "declined", "canceled", "completed"] as const;
+export const bookingStatuses = ["pending", "under_review", "alternative_proposed", "awaiting_customer_acceptance", "confirmed", "declined", "canceled", "completed"] as const;
 export type BookingStatus = typeof bookingStatuses[number];
 export type Booking = Readonly<{
   id: string; serviceId: ServiceId; status: BookingStatus; version: number;
   quote?: Quote; acceptance?: QuoteAcceptance;
 }>;
 const transitions: Record<BookingStatus, readonly BookingStatus[]> = {
-  requested: ["under_review", "declined", "canceled"],
+  pending: ["under_review", "declined", "canceled"],
   under_review: ["alternative_proposed", "awaiting_customer_acceptance", "declined", "canceled"],
   alternative_proposed: ["under_review", "awaiting_customer_acceptance", "declined", "canceled"],
   awaiting_customer_acceptance: ["under_review", "alternative_proposed", "confirmed", "declined", "canceled"],

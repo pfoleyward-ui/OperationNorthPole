@@ -1,5 +1,17 @@
 # Operation North Pole — current status
 
+## Phase 5 secure backend — 2026-11-02
+
+Implemented on `phase5/secure-booking-backend`, stacked on PR #2 (`phase4/customer-booking-preview`) and PR #1. No merge or deployment. Public intake remains disabled in the Cloudflare configuration and the frontend remains the unchanged synthetic-data practice wizard. No remote resources or database migrations were created/applied. The Phase 5 branch has Vercel automatic deployment disabled.
+
+The separate Cloudflare Worker independently validates unknown input and uses atomic D1 batches for Pending requests, HMAC idempotency/payload metadata, and a future PII-free outbox marker. Matching-key retries return the original receipt; changed information conflicts; separate keys stay separate requests without date reservations. Includes streaming size limits, an atomic per-IP/minute rate cap, Turnstile hostname/action checks, origin checks, private-field rejection, and fail-closed dependency handling. No public record reads or admin/lifecycle endpoints exist; authenticated/authorized HQ is future work. Secret Elf Notes and unstructured optional planning/preparation notes are excluded. No booking-retention deadline or automatic deletion policy was invented.
+
+Validation: `npm run test:backend` passed 18 tests against real local workerd/D1 with synthetic input and mocked Turnstile. Covers concurrent retries/conflicts/rate limits, rollback via an aborting outbox trigger, provider/database failures, public/admin boundaries, input limits, SQL binding, and deletion cascade. `npm run test:booking` passed 148 tests. `typecheck:backend`, `typecheck:booking`, `typecheck`, and production build passed. The actual local Worker returned HTTP 503 `intake_disabled` using committed configuration. Real Turnstile/staging ingress and authenticated HQ were not tested or activated.
+
+Fresh `check:visual`, `check:services`, and `check:booking-preview` all passed at 390/768/1024/1440/1920px. Preserved-layout checks passed at all five widths with unchanged existing section sizes/copy and zero hero pixel delta against the earlier current-instance baseline. Source comparison against PR #2 shows no changes to src/app, src/config, or public. Screenshots/reports are outside the checkout in `/workspace/phase5-validation`; the desktop homepage and mobile practice-review captures were inspected. Exact approved-render comparison remains blocked by the previously missing original render bytes.
+
+See docs/SECURE_BOOKING_BACKEND.md for the request contract, local commands, security boundaries, and activation blockers. Privacy notice/control wording, final booking retention and deletion verification/tombstone decisions need approval before activation. Required future technical work includes real bindings/secrets, staging bot/routing/UI integration, and authenticated/authorized HQ when introduced. GitHub API access was blocked by the environment proxy; an additive `api.github.com` allowance was saved to the environment draft, without changing production intake or application deployment settings.
+
 Updated 2026-10-17 (America/New_York).
 
 ## Implemented in this refinement

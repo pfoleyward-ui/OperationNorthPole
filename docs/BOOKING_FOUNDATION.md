@@ -1,5 +1,7 @@
 # Booking foundation — Phase 3
 
+Phase 5 supersedes the initial `requested` status with `pending`; see [secure backend](SECURE_BOOKING_BACKEND.md). The Phase 3 design below records the original foundation, not activation of public intake.
+
 This is a database-independent domain library, not an active booking system. Public pages retain their existing routes, content, styling, and email inquiry actions. There are no forms, API routes, database connections, OAuth clients, notification providers, or paid resources.
 
 ## Catalog

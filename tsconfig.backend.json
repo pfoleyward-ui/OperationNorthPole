@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.booking.json",
+  "compilerOptions": {
+    "target": "ES2022"
+  },
+  "include": [
+    "workers/booking/**/*.ts",
+    "tests/backend/**/*.ts",
+    "src/config/services.ts",
+    "src/domain/booking/**/*.ts"
+  ]
+}

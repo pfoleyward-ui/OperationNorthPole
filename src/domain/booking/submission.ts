@@ -1,9 +1,6 @@
-import type { BookingRequest, Issue } from "./request.ts";
-/** Future server-only adapter contract. No implementation or network operation exists yet. */
-export interface BookingRequestRepository {
-  /** Must atomically deduplicate the key and save a requested booking for Santa HQ. */
-  saveRequested(request: BookingRequest, idempotencyKey: string): Promise<{ requestId: string; receivedAt: number }>;
-}
+import type { Issue } from "./request.ts";
+// The server adapter lives in workers/booking and is deliberately not imported
+// into the client wizard. Keep the public practice-preview gate closed.
 export type SubmissionResult =
   | { kind: "received"; requestId: string; receivedAt: number }
   | { kind: "invalid"; issues: Issue[] }
