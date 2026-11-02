@@ -1,0 +1,56 @@
+{
+  "createdAt": "2026-11-02T18:40:35.174Z",
+  "syntheticOnly": true,
+  "checks": [
+    {
+      "width": 390,
+      "passed": true,
+      "overflow": false,
+      "anonymousDenied": true,
+      "manualPending": true,
+      "elfCollectionDisabled": true,
+      "quoteAgreementConfirmationRescheduleCancel": true,
+      "resourceBlockRelease": true
+    },
+    {
+      "width": 430,
+      "passed": true,
+      "overflow": false,
+      "anonymousDenied": true,
+      "manualPending": true,
+      "elfCollectionDisabled": true
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "overflow": false,
+      "anonymousDenied": true,
+      "manualPending": true,
+      "elfCollectionDisabled": true
+    },
+    {
+      "width": 1024,
+      "passed": true,
+      "overflow": false,
+      "anonymousDenied": true,
+      "manualPending": true,
+      "elfCollectionDisabled": true
+    },
+    {
+      "width": 1440,
+      "passed": true,
+      "overflow": false,
+      "anonymousDenied": true,
+      "manualPending": true,
+      "elfCollectionDisabled": true
+    },
+    {
+      "width": 1920,
+      "passed": true,
+      "overflow": false,
+      "anonymousDenied": true,
+      "manualPending": true,
+      "elfCollectionDisabled": true
+    }
+  ]
+}

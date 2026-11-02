@@ -15,12 +15,14 @@
     "check:booking-preview": "node scripts/check-booking-preview.mjs",
     "test:backend": "node --experimental-strip-types --test tests/backend/*.test.ts",
     "typecheck:backend": "tsc --project tsconfig.backend.json",
-    "dev:backend": "wrangler dev --config wrangler.booking.jsonc --local"
+    "dev:backend": "wrangler dev --config wrangler.booking.jsonc --local",
+    "check:hq": "node --experimental-strip-types scripts/check-hq.ts"
   },
   "dependencies": {
     "@fontsource/berkshire-swash": "5.3.0",
     "@fontsource/caveat": "5.3.0",
     "@fontsource/cormorant-garamond": "5.3.0",
+    "jose": "6.2.15",
     "next": "16.4.2",
     "react": "19.3.1",
     "react-dom": "19.3.1"

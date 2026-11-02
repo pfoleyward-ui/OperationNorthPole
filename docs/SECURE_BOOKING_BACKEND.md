@@ -1,5 +1,7 @@
 # Phase 5 — secure booking backend (intake disabled)
 
+Phase 6 adds separately authenticated [Santa HQ](SANTA_HQ.md). Its additive migration retains immutable Phase 5 receipts and disabled public intake. References below to absent administrative endpoints describe the historical Phase 5 scope.
+
 Stacked on PR #2 (`phase4/customer-booking-preview`), itself stacked on PR #1. No merge, deployment, remote migration, resource provisioning, payment, notification delivery, or production intake activation is authorized. The Worker and D1 are tested locally using synthetic adult data only. All existing pages, wizard behavior, prices, sensory accommodations, styles, and photographs remain unchanged.
 
 ## Architecture and contract

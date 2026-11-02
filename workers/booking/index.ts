@@ -1,7 +1,11 @@
+import { handleHq } from './hq.ts';
+import type { AccessEnv } from './auth.ts';
+import { canonical, digest, bodyText } from './shared.ts';
+export { canonical } from './shared.ts';
 import { validateBookingRequest, record } from '../../src/domain/booking/request.ts';
 import { D1BookingRepository, IdempotencyConflict, type Database } from './repository.ts';
 
-export interface Env {
+export interface Env extends AccessEnv {
   DB: Database;
   /** Deliberate deployment gate. Omitted/false in committed configuration. */
   PUBLIC_INTAKE_ENABLED?: string;
@@ -9,38 +13,8 @@ export interface Env {
   TURNSTILE_SECRET?: string;
   INTAKE_HMAC_SECRET?: string;
 }
-const MAX_BYTES = 32768;
 const headers = { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' };
 const reply = (status: number, body: object) => Response.json(body, { status, headers });
-
-/** Canonical object key order, preserving all submitted values and array order. */
-export function canonical(value: unknown): string {
-  if (Array.isArray(value)) return '[' + value.map(canonical).join(',') + ']';
-  if (record(value)) return '{' + Object.keys(value).sort().map(k => JSON.stringify(k) + ':' + canonical(value[k])).join(',') + '}';
-  return JSON.stringify(value);
-}
-async function digest(secret: string, value: string) {
-  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
-  return Array.from(new Uint8Array(await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(value))), b => b.toString(16).padStart(2, '0')).join('');
-}
-async function bodyText(request: Request): Promise<string> {
-  if (Number(request.headers.get('content-length')) > MAX_BYTES) throw new RangeError();
-  const reader = request.body?.getReader();
-  if (!reader) throw new SyntaxError();
-  const chunks: Uint8Array[] = [];
-  let size = 0;
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    size += value.length;
-    if (size > MAX_BYTES) { await reader.cancel(); throw new RangeError(); }
-    chunks.push(value);
-  }
-  const bytes = new Uint8Array(size);
-  let offset = 0;
-  for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length; }
-  return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
-}
 
 async function verifyBot(token: string, ip: string, env: Env, fetcher: typeof fetch): Promise<boolean> {
   const response = await fetcher('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
@@ -110,4 +84,4 @@ export async function handleBooking(request: Request, env: Env, fetcher: typeof 
     return reply(503, { error: 'unavailable' });
   }
 }
-export default { fetch: (request: Request, env: Env) => handleBooking(request, env) };
+export default { fetch: (request: Request, env: Env) => new URL(request.url).pathname.startsWith('/hq') ? handleHq(request, env) : handleBooking(request, env) };
