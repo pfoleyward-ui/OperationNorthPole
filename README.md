@@ -1,5 +1,7 @@
 # Operation North Pole
 
+Phase 7 [calendar, notifications, and Mrs. Claus Protocol](docs/CALENDAR_NOTIFICATIONS.md) adds encrypted Google OAuth/calendar synchronization, durable reminder delivery, authenticated Got It acknowledgment, and configurable escalation. `npm run check:integrations` uses mocked providers only. All real planning/delivery/OAuth/intake gates remain off; no deployment or real message has occurred.
+
 Phase 6 [Santa HQ](docs/SANTA_HQ.md) adds an authenticated private Worker dashboard and atomic booking operations. `npm run check:hq` reviews it locally with synthetic signed identities and D1. HQ, public intake, outgoing notifications, and Secret Elf Notes collection remain disabled in committed configuration. No deployment is enabled.
 
 Phase 5 backend work is documented in [docs/SECURE_BOOKING_BACKEND.md](docs/SECURE_BOOKING_BACKEND.md). `npm run test:backend` exercises local D1; `npm run dev:backend` starts a local Worker with public intake disabled. No deployment or real booking collection is enabled.

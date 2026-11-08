@@ -2,7 +2,7 @@ import type { BookingRequest } from '../../src/domain/booking/request.ts';
 
 /** Structural subset of Cloudflare D1. No Node/database credentials in client bundles. */
 export interface Statement {
-  bind(...values: (string | number)[]): Statement;
+  bind(...values: (string | number | null)[]): Statement;
   first<T>(): Promise<T | null>;
 }
 export interface Database {

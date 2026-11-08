@@ -1,3 +1,4 @@
+import type { IntegrationEnv } from './integration-config.ts';
 import { handleHq } from './hq.ts';
 import type { AccessEnv } from './auth.ts';
 import { canonical, digest, bodyText } from './shared.ts';
@@ -5,7 +6,7 @@ export { canonical } from './shared.ts';
 import { validateBookingRequest, record } from '../../src/domain/booking/request.ts';
 import { D1BookingRepository, IdempotencyConflict, type Database } from './repository.ts';
 
-export interface Env extends AccessEnv {
+export interface Env extends AccessEnv, IntegrationEnv {
   DB: Database;
   /** Deliberate deployment gate. Omitted/false in committed configuration. */
   PUBLIC_INTAKE_ENABLED?: string;
