@@ -1,0 +1,30 @@
+{
+  "localCloudflareWorker": true,
+  "actualServiceBindings": true,
+  "checks": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/book",
+      "status": 200
+    },
+    {
+      "path": "/_optimized/santa-cutout-750.webp",
+      "status": 200
+    },
+    {
+      "path": "/api/bookings",
+      "status": 503
+    },
+    {
+      "path": "/hq",
+      "status": 503
+    },
+    {
+      "path": "/webhooks/resend",
+      "status": 405
+    }
+  ]
+}

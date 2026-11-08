@@ -1,7 +1,8 @@
+import {localParts} from '../../src/domain/booking/time.ts';
 import { record } from '../../src/domain/booking/request.ts';
 import { bookableServices } from '../../src/config/services.ts';
 import { canonical,digest } from './shared.ts';
-import { origin,lease,release,IntegrationError,type IntegrationEnv } from './integration-config.ts';
+import { origin,lease,release,policy,quietAdjusted,wall,IntegrationError,type IntegrationEnv } from './integration-config.ts';
 import { snapshot,desiredCalendar,type Job } from './integration-plan.ts';
 import type { Principal } from './auth.ts';
 import { HqError } from './hq-service.ts';
@@ -164,11 +165,22 @@ export async function synchronizeCalendar(env:IntegrationEnv,job:Job,fetcher:typ
       const event={id:eventId,summary:bookableServices[s.state.serviceId].name,location:s.request.location,
         description:'SantaBlizard booking reference '+s.id+'\nManage securely: '+origin(env)+'/hq?booking='+s.id,
         start:{dateTime:new Date(q.start).toISOString(),timeZone:'America/New_York'},end:{dateTime:new Date(q.end).toISOString(),timeZone:'America/New_York'},
-        visibility:'private',transparency:'opaque',reminders:{useDefault:false,overrides:[]},extendedProperties:{private:{onp_booking_id:s.id,onp_installation:env.INTEGRATION_INSTALLATION_ID}}};
+        visibility:'private',transparency:'opaque',reminders:{useDefault:false,overrides:nativeReminders(env,s.state.quote!.start)},extendedProperties:{private:{onp_booking_id:s.id,onp_installation:env.INTEGRATION_INSTALLATION_ID}}};
       const result=await google(env,fetcher,base+(existing?'/'+eventId:'')+'?sendUpdates=none',now,{method:existing?'PUT':'POST',headers:existing?.etag?{'If-Match':existing.etag}:{},body:JSON.stringify(event)});
       if(!result.ok)throw new IntegrationError(result.status===409||result.status===412?'google_reconcile_retry':'google_retry');
     }else return 'superseded';
     await env.DB.batch([env.DB.prepare('INSERT INTO integration_calendar (booking_id,event_id,synced_hash,checked_at) VALUES (?,?,?,?) ON CONFLICT(booking_id) DO UPDATE SET event_id=excluded.event_id,synced_hash=excluded.synced_hash,checked_at=excluded.checked_at,error_code=NULL').bind(s.id,eventId,job.calendar_hash!,now)]);
     return 'synced';
   }finally{await release(env.DB,'calendar:'+job.booking_id,owner);}
+}
+
+export function nativeReminders(env:IntegrationEnv,start:number){
+  if(!env.NATIVE_CALENDAR_REMINDER_MINUTES)return [];
+  const minutes=Number(env.NATIVE_CALENDAR_REMINDER_MINUTES);
+  if(!Number.isSafeInteger(minutes)||minutes<1||minutes>40320)throw new IntegrationError('invalid_native_calendar_reminder');
+  const p=policy(env),at=start-minutes*60000;
+  if(quietAdjusted(at,p)!==at)return [];
+  const emailTimes=[...([p.sevenDayHours,p.acknowledgmentHours,p.finalReminderHours].map(hours=>quietAdjusted(start-hours*3600000,p))),wall(localParts(start).date,p.morningTime)];
+  if(emailTimes.includes(at))return [];
+  return [{method:'popup',minutes}];
 }

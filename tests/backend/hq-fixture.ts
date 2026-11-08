@@ -7,10 +7,10 @@ import type { Database } from '../../workers/booking/repository.ts';
 export const testNow = Date.parse('2026-11-02T17:00:00Z');
 export const syntheticRequest = () => ({ serviceId: 'home-visits', timing: { date: '2027-12-20', time: '14:00' }, customer: { name: 'Sample Adult', email: 'sample@example.test', phone: '202-555-0100' }, location: 'Synthetic Hudson Valley venue', eventType: 'Sample visit', sensoryFriendly: true, answers: {} });
 export const syntheticQuote = () => ({ date: '2027-12-20', time: '14:00', durationMinutes: 30, expiryDate: '2027-12-01', expiryTime: '12:00' });
-export async function hqFixture() {
+export async function hqFixture(includeEmailMigration = true) {
   const mf = new Miniflare(convertV4MiniflareOptions({ workers: [{ name: 'hq-test', modules: true, script: 'export default { fetch(){ return new Response("test"); } }', compatibilityDate: '2026-11-02', d1Databases: ['DB'] }] }));
   const db = await mf.getD1Database('DB');
-  for (const file of ['0001_booking_intake.sql','0002_santa_hq.sql','0003_integrations.sql']) {
+  for (const file of ['0001_booking_intake.sql','0002_santa_hq.sql','0003_integrations.sql',...(includeEmailMigration ? ['0004_customer_email.sql'] : [])]) {
     const sql = (await readFile(new URL('../../migrations/'+file,import.meta.url),'utf8')).replace(/--[^\n]*/g,'');
     let pending = '', trigger = false;
     for (const line of sql.split('\n')) {

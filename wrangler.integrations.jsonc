@@ -9,11 +9,12 @@
   "vars": {
     "INTEGRATION_PLANNER_ENABLED": "false",
     "CALENDAR_SYNC_ENABLED": "false",
-    "NOTIFICATION_DELIVERY_ENABLED": "false",
+    "NOTIFICATION_DELIVERY_ENABLED": "false", "CUSTOMER_EMAIL_ENABLED": "false", "NATIVE_CALENDAR_REMINDER_MINUTES": "10",
     "GOOGLE_OAUTH_ENABLED": "false",
     "REMINDER_POLICY_JSON": "{\"timeZone\":\"America/New_York\",\"morningTime\":\"08:00\",\"quietStart\":\"21:00\",\"quietEnd\":\"08:00\",\"escalationMinutes\":[0,120,240,360],\"reconcileMinutes\":15,\"sevenDayHours\":168,\"acknowledgmentHours\":24,\"finalReminderHours\":3}"
   },
-  // Bind NOTIFY only to a reviewed private idempotent delivery gateway.
+  "services": [{ "binding": "NOTIFY", "service": "operation-north-pole-notifications" }],
+  // Private email-only gateway; no public routes or workers.dev endpoint.
   // No provider service or remote D1 database is provisioned by this file.
   "d1_databases": [{
     "binding": "DB",

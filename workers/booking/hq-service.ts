@@ -119,7 +119,7 @@ function agreement(quote: Quote | undefined, now: number): QuoteAcceptance {
   check(result.ok, 'invalid_or_expired_quote');
   return result.value;
 }
-const channels = ['phone','text','facebook','in_person'];
+const channels = ['phone','text','facebook','in_person','email'];
 export async function mutateBooking(db: Database, id: string, input: unknown, principal: Principal, key: string, secret: string, now: number): Promise<HqState> {
   fields(input, ['action','expectedVersion','quote','channel','customerAgreed','quoteCommunicated','beforeMinutes','afterMinutes','attendantRef']);
   check(typeof input.action === 'string' && Number.isSafeInteger(input.expectedVersion), 'invalid_action');

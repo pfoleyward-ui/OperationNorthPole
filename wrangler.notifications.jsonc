@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "operation-north-pole-notifications",
+  "main": "workers/notifications/index.ts",
+  "compatibility_date": "2026-11-08",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": false },
+  "triggers": { "crons": ["* * * * *"] },
+  "vars": { "GATEWAY_DELIVERY_ENABLED": "false", "REMINDER_POLICY_JSON": "{\"timeZone\":\"America/New_York\",\"morningTime\":\"08:00\",\"quietStart\":\"21:00\",\"quietEnd\":\"08:00\",\"escalationMinutes\":[0,120,240,360],\"reconcileMinutes\":15,\"sevenDayHours\":168,\"acknowledgmentHours\":24,\"finalReminderHours\":3}" },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "operation-north-pole-email", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations/gateway" },
+    { "binding": "BOOKING_DB", "database_name": "operation-north-pole-booking", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }
+  ]
+  // No routes. Only the scheduler's private NOTIFY service binding can accept email.
+}

@@ -1,7 +1,7 @@
 /** Added to the authenticated HQ script; no tokens or recipient contact values. */
 export const integrationJS=String.raw`
-const deliveryLabels={calendar:'Google Calendar',new_request:'New request',confirmation:'Confirmation',seven_days:'7-day reminder',twenty_four_hours:'A Gentle Jingle · 24-hour check',three_hours:'3-hour reminder',morning:'Morning-of reminder',escalation_2:'The Elves Are Concerned',escalation_3:'Mrs. Claus Has Been Notified',escalation_4:'Santa Is Officially in the Doghouse',resolution:'Resolution notice'};
-const recipientLabels={google:'Bookings calendar',santa:'Santa',mrs_claus:'Mrs. Claus',technical_admin:'Technical backup'};
+const deliveryLabels={customer_update:'Customer scheduling update',calendar:'Google Calendar',new_request:'New request',confirmation:'Confirmation',seven_days:'7-day reminder',twenty_four_hours:'A Gentle Jingle · 24-hour check',three_hours:'3-hour reminder',morning:'Morning-of reminder',escalation_2:'The Elves Are Concerned',escalation_3:'Mrs. Claus Has Been Notified',escalation_4:'Santa Is Officially in the Doghouse',resolution:'Resolution notice'};
+const recipientLabels={customer:'Customer',google:'Bookings calendar',santa:'Santa',mrs_claus:'Mrs. Claus',technical_admin:'Technical backup'};
 async function deliverySection(id){
   const section=node('section',undefined,'notice');section.id='reminders';
   section.append(node('h3','Calendar & delivery status'),node('p','Opening the delivery ledger…'));desk.append(section);
@@ -69,7 +69,7 @@ async function deliverySettings(){
     }
     if(result.google.connected||result.google.connectionStatus==='revocation_pending'){const disconnect=button('Disconnect Google',async()=>{if(!confirm('Revoke this app’s Google access? Existing calendar events will remain.'))return;await api('integrations/google/disconnect',{});await show('delivery');},'danger');disconnect.disabled=!result.google.oauthEnabled;desk.append(disconnect);}
   }else desk.append(node('p','Santa manages the Google connection. Backup access does not grant OAuth or acknowledgment authority.'));
-  desk.append(node('p','Mrs. Claus SMS requires prior recorded consent. The reminder system never changes or cancels a booking. Secret Elf Notes collection remains off.'));
+  desk.append(node('p','Mrs. Claus email requires prior recorded consent. The reminder system never changes or cancels a booking. Secret Elf Notes collection remains off.'));
 }
 document.getElementById('delivery-settings').addEventListener('click',()=>{if(session)show('delivery').catch(e=>say(e.message));});
 `;

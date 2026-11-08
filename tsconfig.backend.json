@@ -5,10 +5,13 @@
   },
   "include": [
     "workers/booking/**/*.ts",
+    "workers/notifications/**/*.ts",
     "tests/backend/**/*.ts",
     "src/config/services.ts",
     "src/domain/booking/**/*.ts",
     "scripts/check-hq.ts",
-    "scripts/check-integrations.ts"
+    "scripts/check-integrations.ts",
+    "scripts/check-staging.ts",
+    "workers/site-router.ts"
   ]
 }

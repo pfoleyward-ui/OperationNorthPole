@@ -1,0 +1,91 @@
+{
+  "syntheticOnly": true,
+  "realMessagesSent": 0,
+  "provider": "Mocked Resend API via real durable email gateway",
+  "checks": [
+    {
+      "width": 390,
+      "customerInput": true,
+      "pendingPersistence": true,
+      "idempotentNetworkRecovery": "verified",
+      "santaEmail": true,
+      "authenticatedHQConfirmation": true,
+      "customerEmail": true,
+      "calendar": true,
+      "reminders": true,
+      "gotIt": true,
+      "noOverflow": true,
+      "realMessagesSent": 0
+    },
+    {
+      "width": 430,
+      "customerInput": true,
+      "pendingPersistence": true,
+      "idempotentNetworkRecovery": "covered at 390",
+      "santaEmail": true,
+      "authenticatedHQConfirmation": true,
+      "customerEmail": true,
+      "calendar": true,
+      "reminders": true,
+      "gotIt": true,
+      "noOverflow": true,
+      "realMessagesSent": 0
+    },
+    {
+      "width": 768,
+      "customerInput": true,
+      "pendingPersistence": true,
+      "idempotentNetworkRecovery": "covered at 390",
+      "santaEmail": true,
+      "authenticatedHQConfirmation": true,
+      "customerEmail": true,
+      "calendar": true,
+      "reminders": true,
+      "gotIt": true,
+      "noOverflow": true,
+      "realMessagesSent": 0
+    },
+    {
+      "width": 1024,
+      "customerInput": true,
+      "pendingPersistence": true,
+      "idempotentNetworkRecovery": "covered at 390",
+      "santaEmail": true,
+      "authenticatedHQConfirmation": true,
+      "customerEmail": true,
+      "calendar": true,
+      "reminders": true,
+      "gotIt": true,
+      "noOverflow": true,
+      "realMessagesSent": 0
+    },
+    {
+      "width": 1440,
+      "customerInput": true,
+      "pendingPersistence": true,
+      "idempotentNetworkRecovery": "covered at 390",
+      "santaEmail": true,
+      "authenticatedHQConfirmation": true,
+      "customerEmail": true,
+      "calendar": true,
+      "reminders": true,
+      "gotIt": true,
+      "noOverflow": true,
+      "realMessagesSent": 0
+    },
+    {
+      "width": 1920,
+      "customerInput": true,
+      "pendingPersistence": true,
+      "idempotentNetworkRecovery": "covered at 390",
+      "santaEmail": true,
+      "authenticatedHQConfirmation": true,
+      "customerEmail": true,
+      "calendar": true,
+      "reminders": true,
+      "gotIt": true,
+      "noOverflow": true,
+      "realMessagesSent": 0
+    }
+  ]
+}

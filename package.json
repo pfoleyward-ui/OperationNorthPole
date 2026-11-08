@@ -18,24 +18,35 @@
     "dev:backend": "wrangler dev --config wrangler.booking.jsonc --local",
     "check:hq": "node --experimental-strip-types scripts/check-hq.ts",
     "dev:integrations": "wrangler dev --config wrangler.integrations.jsonc --local",
-    "check:integrations": "node --experimental-strip-types scripts/check-integrations.ts"
+    "check:integrations": "node --experimental-strip-types scripts/check-integrations.ts",
+    "build:cloudflare": "opennextjs-cloudflare build --config wrangler.site.jsonc",
+    "check:staging": "node --experimental-strip-types scripts/check-staging.ts",
+    "check:deployment": "wrangler deploy --dry-run --config wrangler.site.jsonc --outdir /tmp/north-pole-site-bundle && wrangler deploy --dry-run --config wrangler.booking.jsonc --outdir /tmp/north-pole-booking-bundle && wrangler deploy --dry-run --config wrangler.integrations.jsonc --outdir /tmp/north-pole-integrations-bundle && wrangler deploy --dry-run --config wrangler.notifications.jsonc --outdir /tmp/north-pole-notifications-bundle",
+    "prebuild": "node scripts/prepare-images.mjs",
+    "predev": "node scripts/prepare-images.mjs"
   },
   "dependencies": {
     "@fontsource/berkshire-swash": "5.3.0",
     "@fontsource/caveat": "5.3.0",
     "@fontsource/cormorant-garamond": "5.3.0",
     "jose": "6.2.15",
-    "next": "16.4.2",
+    "next": "16.4.5",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "1.20.16",
     "@types/node": "24.10.0",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "miniflare": "5.20261102.0-beta",
     "playwright-core": "1.64.1",
+    "sharp": "0.35.5",
     "typescript": "5.9.3",
     "wrangler": "4.156.2"
+  },
+  "overrides": {
+    "glob": "14.0.4",
+    "minimatch": "11.0.5"
   }
 }

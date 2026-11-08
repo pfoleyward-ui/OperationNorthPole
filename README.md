@@ -1,5 +1,7 @@
 # Operation North Pole
 
+Phase 8 [private staging runbook](docs/PHASE8_STAGING.md) and [PASS/BLOCKED readiness report](docs/PHASE8_READINESS.md): real-input Turnstile/D1 wizard, private **email-only** gateway, customer updates, Calendar popups and synthetic end-to-end demo. Run `npm run build && npm run check:staging`. No real account, email delivery, public intake or deployment is enabled. Latest email-only requirements supersede historical SMS references below.
+
 Phase 7 [calendar, notifications, and Mrs. Claus Protocol](docs/CALENDAR_NOTIFICATIONS.md) adds encrypted Google OAuth/calendar synchronization, durable reminder delivery, authenticated Got It acknowledgment, and configurable escalation. `npm run check:integrations` uses mocked providers only. All real planning/delivery/OAuth/intake gates remain off; no deployment or real message has occurred.
 
 Phase 6 [Santa HQ](docs/SANTA_HQ.md) adds an authenticated private Worker dashboard and atomic booking operations. `npm run check:hq` reviews it locally with synthetic signed identities and D1. HQ, public intake, outgoing notifications, and Secret Elf Notes collection remain disabled in committed configuration. No deployment is enabled.
@@ -19,7 +21,7 @@ npm run dev
 
 Use one server on port 3000. Check existing processes before starting another. For validation, run `npm run build` and `npm run typecheck`. To serve the production build, stop the development server and run `npm run start`.
 
-Do not commit `.env` files, dependencies, or build outputs. Read AGENTS.md and PROJECT_STATUS.md before changing the design. Invitation links open email to santablizard@gmail.com; no booking form or confirmation service is implemented. The homepage follows the supplied visual render and includes the user-provided Facebook profile link. Child-photo commercial-use permission must be confirmed before launch.
+Do not commit `.env` files, dependencies, or build outputs. Read AGENTS.md and PROJECT_STATUS.md before changing the design. Invitation links open email to santablizard@gmail.com; the protected staging booking form and HQ confirmation workflow are documented above; public links still use the approved contact options. The homepage follows the supplied visual render and includes the user-provided Facebook profile link. Child-photo commercial-use permission must be confirmed before launch.
 
 ## Visual review workflow
 

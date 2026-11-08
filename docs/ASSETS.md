@@ -29,3 +29,7 @@ Original photographs, prior artwork, email destination, and Facebook destination
 - The authentic `santa-family.jpg` remains byte-for-byte unchanged. Its natural aspect ratio is retained, and decorative elements are kept clear of faces. The handwritten note says “Christmas wishes, SantaBlizard”; it is not a customer quote or testimonial.
 - Caveat 5.3.0 is self-hosted through Fontsource for the handwritten note (OFL-1.1). No font service or subscription is used.
 - `north-pole-arrow.webp`: separate blank rough-plank directional sign, with snow, grain, cracks, and iron nails. The “North Pole / This Way” lettering is live HTML; this is not the pale brand plaque.
+
+## Phase 8 static image delivery
+
+`scripts/prepare-images.mjs` generates ignored `public/_optimized` WebP variants from the five existing images used by Next Image. It uses the existing rotate/resize/quality-75 settings; source photographs, illustrations, approved components and layouts are unchanged. This prepares Cloudflare static assets without a paid Images service. Phase 7-to-Phase 8 comparison measured zero hero pixel difference and identical existing section geometry/copy at 390/768/1024/1440/1920px. These are technical derivatives, not new artwork or newly authorized photographs.

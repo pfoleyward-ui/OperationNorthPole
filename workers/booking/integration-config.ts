@@ -3,9 +3,9 @@ import { record } from '../../src/domain/booking/request.ts';
 import { localParts, resolveWallTime, validTime } from '../../src/domain/booking/time.ts';
 import { digest } from './shared.ts';
 
-export type Recipient = 'santa' | 'mrs_claus' | 'technical_admin';
-export type Kind = 'calendar' | 'new_request' | 'confirmation' | 'seven_days' | 'twenty_four_hours' | 'three_hours' | 'morning' | 'escalation_2' | 'escalation_3' | 'escalation_4' | 'resolution';
-export type Target = { recipientKey: string; channel: 'email' | 'sms' };
+export type Recipient = 'santa' | 'mrs_claus' | 'technical_admin' | 'customer';
+export type Kind = 'calendar' | 'new_request' | 'confirmation' | 'seven_days' | 'twenty_four_hours' | 'three_hours' | 'morning' | 'escalation_2' | 'escalation_3' | 'escalation_4' | 'resolution' | 'customer_update';
+export type Target = { recipientKey: string; channel: 'email' };
 export interface IntegrationEnv {
   DB: Database;
   HQ_ORIGIN?: string;
@@ -14,6 +14,8 @@ export interface IntegrationEnv {
   CALENDAR_SYNC_ENABLED?: string;
   NOTIFICATION_DELIVERY_ENABLED?: string;
   GOOGLE_OAUTH_ENABLED?: string;
+  NATIVE_CALENDAR_REMINDER_MINUTES?: string;
+  CUSTOMER_EMAIL_ENABLED?: string;
   GOOGLE_CLIENT_ID?: string;
   GOOGLE_CLIENT_SECRET?: string;
   GOOGLE_TOKEN_KEYS?: string;
@@ -54,8 +56,8 @@ export function target(env:IntegrationEnv,recipient:Recipient):Target|null {
   try {
     const all:unknown=JSON.parse(env.NOTIFICATION_TARGETS_JSON||'{}');
     if(!record(all))return null;const t=all[recipient];
-    if(!record(t)||typeof t.recipientKey!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(t.recipientKey)||!['email','sms'].includes(t.channel as string))return null;
-    if(recipient==='mrs_claus'&&t.channel!=='sms')return null;
+    if(!record(t)||typeof t.recipientKey!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(t.recipientKey)||!['email'].includes(t.channel as string))return null;
+    if(recipient==='mrs_claus'&&t.channel!=='email')return null;
     return {recipientKey:t.recipientKey,channel:t.channel as Target['channel']};
   }catch{return null;}
 }

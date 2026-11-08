@@ -1,5 +1,6 @@
 import type { IntegrationEnv } from './integration-config.ts';
 import { handleHq } from './hq.ts';
+import { authenticate } from './auth.ts';
 import type { AccessEnv } from './auth.ts';
 import { canonical, digest, bodyText } from './shared.ts';
 export { canonical } from './shared.ts';
@@ -10,6 +11,7 @@ export interface Env extends AccessEnv, IntegrationEnv {
   DB: Database;
   /** Deliberate deployment gate. Omitted/false in committed configuration. */
   PUBLIC_INTAKE_ENABLED?: string;
+  STAGING_INTAKE_ENABLED?: string;
   BOOKING_ORIGIN?: string;
   TURNSTILE_SECRET?: string;
   INTAKE_HMAC_SECRET?: string;
@@ -31,7 +33,11 @@ async function verifyBot(token: string, ip: string, env: Env, fetcher: typeof fe
 export async function handleBooking(request: Request, env: Env, fetcher: typeof fetch = fetch, now = Date.now()): Promise<Response> {
   if (new URL(request.url).pathname !== '/api/bookings') return reply(404, { error: 'not_found' });
   // Before reading body or touching D1; the practice wizard remains entirely disconnected.
-  if (env.PUBLIC_INTAKE_ENABLED !== 'true') return reply(503, { error: 'intake_disabled' });
+  if (env.PUBLIC_INTAKE_ENABLED !== 'true') {
+    if (env.STAGING_INTAKE_ENABLED !== 'true') return reply(503, { error: 'intake_disabled' });
+    try { if ((await authenticate(request, env, fetcher, now)).role !== 'santa') return reply(403, { error: 'forbidden' }); }
+    catch { return reply(403, { error: 'forbidden' }); }
+  }
   if (request.method !== 'POST') return reply(405, { error: 'method_not_allowed' });
   if (!env.DB || !env.BOOKING_ORIGIN || !env.TURNSTILE_SECRET || !env.INTAKE_HMAC_SECRET || env.INTAKE_HMAC_SECRET.length < 32) return reply(503, { error: 'unavailable' });
   try {
