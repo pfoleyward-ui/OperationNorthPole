@@ -1,0 +1,73 @@
+{
+  "createdAt": "2026-11-08T02:03:23.735Z",
+  "syntheticOnly": true,
+  "realMessagesSent": 0,
+  "checks": [
+    {
+      "width": 390,
+      "passed": true,
+      "authenticatedDeepLink": true,
+      "deliveryLedger": true,
+      "acknowledgment": "recorded without booking mutation",
+      "settings": true,
+      "noOverflow": true,
+      "noBrowserStorage": true,
+      "mockedProvidersOnly": true
+    },
+    {
+      "width": 430,
+      "passed": true,
+      "authenticatedDeepLink": true,
+      "deliveryLedger": true,
+      "acknowledgment": "already recorded",
+      "settings": true,
+      "noOverflow": true,
+      "noBrowserStorage": true,
+      "mockedProvidersOnly": true
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "authenticatedDeepLink": true,
+      "deliveryLedger": true,
+      "acknowledgment": "already recorded",
+      "settings": true,
+      "noOverflow": true,
+      "noBrowserStorage": true,
+      "mockedProvidersOnly": true
+    },
+    {
+      "width": 1024,
+      "passed": true,
+      "authenticatedDeepLink": true,
+      "deliveryLedger": true,
+      "acknowledgment": "already recorded",
+      "settings": true,
+      "noOverflow": true,
+      "noBrowserStorage": true,
+      "mockedProvidersOnly": true
+    },
+    {
+      "width": 1440,
+      "passed": true,
+      "authenticatedDeepLink": true,
+      "deliveryLedger": true,
+      "acknowledgment": "already recorded",
+      "settings": true,
+      "noOverflow": true,
+      "noBrowserStorage": true,
+      "mockedProvidersOnly": true
+    },
+    {
+      "width": 1920,
+      "passed": true,
+      "authenticatedDeepLink": true,
+      "deliveryLedger": true,
+      "acknowledgment": "already recorded",
+      "settings": true,
+      "noOverflow": true,
+      "noBrowserStorage": true,
+      "mockedProvidersOnly": true
+    }
+  ]
+}

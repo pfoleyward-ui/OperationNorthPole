@@ -16,7 +16,9 @@
     "test:backend": "node --experimental-strip-types --test tests/backend/*.test.ts",
     "typecheck:backend": "tsc --project tsconfig.backend.json",
     "dev:backend": "wrangler dev --config wrangler.booking.jsonc --local",
-    "check:hq": "node --experimental-strip-types scripts/check-hq.ts"
+    "check:hq": "node --experimental-strip-types scripts/check-hq.ts",
+    "dev:integrations": "wrangler dev --config wrangler.integrations.jsonc --local",
+    "check:integrations": "node --experimental-strip-types scripts/check-integrations.ts"
   },
   "dependencies": {
     "@fontsource/berkshire-swash": "5.3.0",

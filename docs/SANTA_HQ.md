@@ -1,5 +1,7 @@
 # Phase 6 — Santa HQ
 
+Phase 7 now adds the separately reviewed [calendar/notification integration](CALENDAR_NOTIFICATIONS.md), including the approved reminder/escalation defaults and authenticated acknowledgment. The Phase 6 future-work statements below are historical; all production delivery and notes-collection gates remain off.
+
 `phase6/santa-hq` is stacked on PR #3, commit `8824969` (`phase5/secure-booking-backend`). This is local implementation for review, not deployment. No remote/paid resource, production migration, public intake, outbound notification, or Secret Elf Notes collection is activated. Public pages, prices, imagery, sensory accommodations, and the practice wizard are unchanged.
 
 ## Santa’s daily desk

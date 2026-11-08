@@ -5,7 +5,7 @@
   "workers_dev": false,
   "preview_urls": false,
   "observability": { "enabled": false },
-  "vars": { "PUBLIC_INTAKE_ENABLED": "false", "HQ_ENABLED": "false", "BACKUP_ESCALATION_ENABLED": "false" },
+  "vars": { "PUBLIC_INTAKE_ENABLED": "false", "HQ_ENABLED": "false", "BACKUP_ESCALATION_ENABLED": "false", "INTEGRATION_PLANNER_ENABLED": "false", "CALENDAR_SYNC_ENABLED": "false", "NOTIFICATION_DELIVERY_ENABLED": "false", "GOOGLE_OAUTH_ENABLED": "false", "REMINDER_POLICY_JSON": "{\"timeZone\":\"America/New_York\",\"morningTime\":\"08:00\",\"quietStart\":\"21:00\",\"quietEnd\":\"08:00\",\"escalationMinutes\":[0,120,240,360],\"reconcileMinutes\":15,\"sevenDayHours\":168,\"acknowledgmentHours\":24,\"finalReminderHours\":3}" },
   // Local-only placeholder. No remote resource is provisioned in this phase.
   "d1_databases": [{
     "binding": "DB",

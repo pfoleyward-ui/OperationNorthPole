@@ -8,6 +8,7 @@
     "tests/backend/**/*.ts",
     "src/config/services.ts",
     "src/domain/booking/**/*.ts",
-    "scripts/check-hq.ts"
+    "scripts/check-hq.ts",
+    "scripts/check-integrations.ts"
   ]
 }

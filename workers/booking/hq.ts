@@ -1,3 +1,5 @@
+import { integrationRead, integrationWrite, finishGoogle } from './integration-hq.ts';
+import type { IntegrationEnv } from './integration-config.ts';
 import { authenticate, AccessDenied, type AccessEnv } from './auth.ts';
 import { bodyText, digest } from './shared.ts';
 import { createManual, getBooking, HqError, listBookings, mutateBooking, setUnavailable } from './hq-service.ts';
@@ -6,7 +8,7 @@ import { localParts, validDate } from '../../src/domain/booking/time.ts';
 import type { Database } from './repository.ts';
 import { hqHTML, hqCSS, hqJS } from './hq-ui.ts';
 
-export interface HqEnv extends AccessEnv { DB: Database; INTAKE_HMAC_SECRET?: string }
+export interface HqEnv extends AccessEnv, IntegrationEnv { DB: Database; INTAKE_HMAC_SECRET?: string }
 const safeHeaders = {
   'Cache-Control': 'no-store, private', 'Vary': 'CF-Access-Jwt-Assertion, Cookie',
   'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer',
@@ -24,9 +26,11 @@ export async function handleHq(request: Request, env: HqEnv, fetcher?: typeof fe
     if (origin.protocol !== 'https:' || origin.origin !== env.HQ_ORIGIN || url.origin !== origin.origin) return json({ error: 'invalid_hq_origin' }, 503);
     const principal = await authenticate(request, env, fetcher, now);
     if (request.method === 'GET') {
+      if(url.pathname==='/hq/oauth/google/callback'){await finishGoogle(env,principal,url,fetcher||fetch,now);return new Response(null,{status:303,headers:{...safeHeaders,Location:origin.origin+'/hq?integration=connected'}});}
+      const integration=await integrationRead(env,url.pathname,principal,now);if(integration!==undefined)return json(integration);
       const asset = url.pathname === '/hq' || url.pathname === '/hq/' ? [hqHTML, 'text/html'] : url.pathname === '/hq/app.js' ? [hqJS, 'application/javascript'] : url.pathname === '/hq/style.css' ? [hqCSS, 'text/css'] : null;
       if (asset) return new Response(asset[0], { headers: { ...safeHeaders, 'Content-Type': `${asset[1]}; charset=utf-8` } });
-      if (url.pathname === '/hq/api/session') return json({ role: principal.role, today: localParts(now).date, services: bookableServices, intakeEnabled: false, notificationsEnabled: false, elfCollectionEnabled: false });
+      if (url.pathname === '/hq/api/session') return json({ role: principal.role, today: localParts(now).date, services: bookableServices, intakeEnabled: false, notificationsEnabled: env.NOTIFICATION_DELIVERY_ENABLED==='true', elfCollectionEnabled: false });
       if (url.pathname === '/hq/api/bookings') {
         const view = url.searchParams.get('view') || 'new';
         const date = view === 'today' ? localParts(now).date : url.searchParams.get('date') || localParts(now).date;
@@ -55,6 +59,7 @@ export async function handleHq(request: Request, env: HqEnv, fetcher?: typeof fe
     let input: unknown;
     try { input = JSON.parse(await bodyText(request)); }
     catch (error) { return json({ error: 'invalid_body' }, error instanceof RangeError ? 413 : 400); }
+    const integration=await integrationWrite(env,url.pathname,input,principal,fetcher||fetch,now);if(integration!==undefined)return json(integration);
     if (url.pathname === '/hq/api/bookings') return json(await createManual(env.DB,input,principal,key,env.INTAKE_HMAC_SECRET,now));
     const match = /^\/hq\/api\/bookings\/([0-9a-f-]{36})\/actions$/.exec(url.pathname);
     if (match) return json(await mutateBooking(env.DB,match[1],input,principal,key,env.INTAKE_HMAC_SECRET,now));

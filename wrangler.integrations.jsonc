@@ -1,0 +1,24 @@
+{
+  "name": "operation-north-pole-integrations",
+  "main": "workers/booking/integration-runner.ts",
+  "compatibility_date": "2026-11-02",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": false },
+  "triggers": { "crons": ["* * * * *"] },
+  "vars": {
+    "INTEGRATION_PLANNER_ENABLED": "false",
+    "CALENDAR_SYNC_ENABLED": "false",
+    "NOTIFICATION_DELIVERY_ENABLED": "false",
+    "GOOGLE_OAUTH_ENABLED": "false",
+    "REMINDER_POLICY_JSON": "{\"timeZone\":\"America/New_York\",\"morningTime\":\"08:00\",\"quietStart\":\"21:00\",\"quietEnd\":\"08:00\",\"escalationMinutes\":[0,120,240,360],\"reconcileMinutes\":15,\"sevenDayHours\":168,\"acknowledgmentHours\":24,\"finalReminderHours\":3}"
+  },
+  // Bind NOTIFY only to a reviewed private idempotent delivery gateway.
+  // No provider service or remote D1 database is provisioned by this file.
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "operation-north-pole-booking",
+    "database_id": "00000000-0000-0000-0000-000000000000",
+    "migrations_dir": "migrations"
+  }]
+}
