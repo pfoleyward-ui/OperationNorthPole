@@ -1,5 +1,7 @@
 # Operation North Pole
 
+The owner-authorized public website release for `santablizard.com` uses [wrangler.public.jsonc](wrangler.public.jsonc) and the [login/deployment runbook](docs/PUBLIC_WEBSITE_RELEASE.md). Run `npm run build:public` then `npm run deploy:public` only after private Cloudflare authentication. Public deployment is currently blocked by this environment’s missing login/network access; no live URL has been verified. Booking, HQ, notifications, OAuth and notes stay disabled.
+
 Phase 8 [private staging runbook](docs/PHASE8_STAGING.md) and [PASS/BLOCKED readiness report](docs/PHASE8_READINESS.md): real-input Turnstile/D1 wizard, private **email-only** gateway, customer updates, Calendar popups and synthetic end-to-end demo. Run `npm run build && npm run check:staging`. No real account, email delivery, public intake or deployment is enabled. Latest email-only requirements supersede historical SMS references below.
 
 Phase 7 [calendar, notifications, and Mrs. Claus Protocol](docs/CALENDAR_NOTIFICATIONS.md) adds encrypted Google OAuth/calendar synchronization, durable reminder delivery, authenticated Got It acknowledgment, and configurable escalation. `npm run check:integrations` uses mocked providers only. All real planning/delivery/OAuth/intake gates remain off; no deployment or real message has occurred.

@@ -23,7 +23,9 @@
     "check:staging": "node --experimental-strip-types scripts/check-staging.ts",
     "check:deployment": "wrangler deploy --dry-run --config wrangler.site.jsonc --outdir /tmp/north-pole-site-bundle && wrangler deploy --dry-run --config wrangler.booking.jsonc --outdir /tmp/north-pole-booking-bundle && wrangler deploy --dry-run --config wrangler.integrations.jsonc --outdir /tmp/north-pole-integrations-bundle && wrangler deploy --dry-run --config wrangler.notifications.jsonc --outdir /tmp/north-pole-notifications-bundle",
     "prebuild": "node scripts/prepare-images.mjs",
-    "predev": "node scripts/prepare-images.mjs"
+    "predev": "node scripts/prepare-images.mjs",
+    "build:public": "opennextjs-cloudflare build --config wrangler.public.jsonc && node scripts/prepare-public-assets.mjs",
+    "deploy:public": "wrangler deploy --config wrangler.public.jsonc"
   },
   "dependencies": {
     "@fontsource/berkshire-swash": "5.3.0",

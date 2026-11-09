@@ -1,0 +1,76 @@
+{
+  "base": "http://127.0.0.1:8799",
+  "liveDomainVerified": false,
+  "checks": [
+    {
+      "path": "/",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/services",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/_optimized/santa-cutout-750.webp",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/images/santa-family.jpg",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/book",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/review",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/hq",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/hq/api/bookings",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/api/bookings",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/webhooks/resend",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/api/bookings",
+      "method": "POST",
+      "status": 404
+    },
+    {
+      "path": "/hq/api/bookings",
+      "method": "POST",
+      "status": 404
+    },
+    {
+      "path": "/webhooks/resend",
+      "method": "POST",
+      "status": 404
+    },
+    {
+      "path": "/book",
+      "method": "POST",
+      "status": 404
+    }
+  ]
+}
