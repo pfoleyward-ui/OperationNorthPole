@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   // Public-only release derived from the tested Phase 8 site configuration.
-  "name": "operation-north-pole-site",
+  "name": "operationnorthpole",
   "main": "workers/site.ts",
   "compatibility_date": "2026-11-08",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
@@ -29,7 +29,7 @@
     "CUSTOMER_EMAIL_ENABLED": "false",
     "GOOGLE_OAUTH_ENABLED": "false"
   },
-  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "operation-north-pole-site" }],
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "operationnorthpole" }],
   "routes": [
     { "pattern": "santablizard.com", "custom_domain": true },
     { "pattern": "www.santablizard.com", "custom_domain": true }

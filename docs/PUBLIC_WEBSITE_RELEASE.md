@@ -15,7 +15,7 @@ Target: **https://santablizard.com**, with **https://www.santablizard.com** redi
 
 ## Public-only configuration
 
-`wrangler.public.jsonc` derives from the tested Phase 8 `wrangler.site.jsonc`, using the same OpenNext build and Worker entry. It attaches both custom domains to `operation-north-pole-site` and uses the existing static image variants. It has no booking/notification service bindings, D1 database, cron trigger, provider/OAuth secrets or backend deployment. Only the standard OpenNext self-reference binding remains.
+`wrangler.public.jsonc` derives from the tested Phase 8 `wrangler.site.jsonc`, using the same OpenNext build and Worker entry. It attaches both custom domains to `operationnorthpole` and uses the existing static image variants. It has no booking/notification service bindings, D1 database, cron trigger, provider/OAuth secrets or backend deployment. Only the standard OpenNext self-reference binding remains.
 
 `PUBLIC_WEBSITE_ONLY=true` serves `/`, `/services`, and the static asset paths used by those pages. `/book`, `/hq*`, `/api*`, `/webhooks*`, `/review*`, encoded path attempts and other non-public paths return 404. Allowed public paths reject writes with 405. The synthetic wizard is not publicly accessible and no D1/test seeds or fixture database is uploaded. Development review assets are removed from the generated upload, without deleting source files. All activation flags remain false; no Secret Elf Notes collection is available.
 
