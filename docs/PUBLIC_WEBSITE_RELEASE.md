@@ -80,3 +80,7 @@ Run manual iPhone Safari checks for photos, service navigation, sensory messagin
 - Local development uses `wrangler dev --config wrangler.public.jsonc --local --infer-origin-from-routes=false --port 8799`. This avoids Wrangler mapping loopback requests to the real HTTP domain and rewriting the HTTPS canonical redirect into a local loop. Live HTTP/HTTPS/`www` checks remain blocked, not simulated as successful.
 
 Do not announce a live site until post-deployment HTTP and browser checks succeed. Previous Phase 8 booking-system staging/launch blockers remain separate; this authorization covers the approved public website only.
+
+## Connected production build — 2026-11-09
+
+Cloudflare Workers Builds uses `phase8/integration-launch-readiness` as the production branch. The public-only commands are `npm run build:public` and `npm run deploy:public`, both targeting `wrangler.public.jsonc`. Check each new build against its triggering commit SHA; the earlier failed build from `main` does not establish this branch's build result.
