@@ -7,8 +7,9 @@ import { bookableServices } from '../../src/config/services.ts';
 import { localParts, validDate } from '../../src/domain/booking/time.ts';
 import type { Database } from './repository.ts';
 import { hqHTML, hqCSS, hqJS } from './hq-ui.ts';
+import { elfHq, type ElfEnv } from './elf-notes.ts';
 
-export interface HqEnv extends AccessEnv, IntegrationEnv { DB: Database; INTAKE_HMAC_SECRET?: string }
+export interface HqEnv extends AccessEnv, IntegrationEnv, ElfEnv { DB: Database; INTAKE_HMAC_SECRET?: string }
 const safeHeaders = {
   'Cache-Control': 'no-store, private', 'Vary': 'CF-Access-Jwt-Assertion, Cookie',
   'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer',
@@ -30,7 +31,7 @@ export async function handleHq(request: Request, env: HqEnv, fetcher?: typeof fe
       const integration=await integrationRead(env,url.pathname,principal,now);if(integration!==undefined)return json(integration);
       const asset = url.pathname === '/hq' || url.pathname === '/hq/' ? [hqHTML, 'text/html'] : url.pathname === '/hq/app.js' ? [hqJS, 'application/javascript'] : url.pathname === '/hq/style.css' ? [hqCSS, 'text/css'] : null;
       if (asset) return new Response(asset[0], { headers: { ...safeHeaders, 'Content-Type': `${asset[1]}; charset=utf-8` } });
-      if (url.pathname === '/hq/api/session') return json({ role: principal.role, today: localParts(now).date, services: bookableServices, intakeEnabled: false, notificationsEnabled: env.NOTIFICATION_DELIVERY_ENABLED==='true', elfCollectionEnabled: false });
+      if (url.pathname === '/hq/api/session') return json({ role: principal.role, today: localParts(now).date, services: bookableServices, intakeEnabled: false, notificationsEnabled: env.NOTIFICATION_DELIVERY_ENABLED==='true', elfCollectionEnabled: env.ELF_NOTES_ENABLED==='true' });
       if (url.pathname === '/hq/api/bookings') {
         const view = url.searchParams.get('view') || 'new';
         const date = view === 'today' ? localParts(now).date : url.searchParams.get('date') || localParts(now).date;
@@ -59,6 +60,7 @@ export async function handleHq(request: Request, env: HqEnv, fetcher?: typeof fe
     let input: unknown;
     try { input = JSON.parse(await bodyText(request)); }
     catch (error) { return json({ error: 'invalid_body' }, error instanceof RangeError ? 413 : 400); }
+    const elf=await elfHq(env,url.pathname,input,principal,now);if(elf!==undefined)return json(elf);
     const integration=await integrationWrite(env,url.pathname,input,principal,fetcher||fetch,now);if(integration!==undefined)return json(integration);
     if (url.pathname === '/hq/api/bookings') return json(await createManual(env.DB,input,principal,key,env.INTAKE_HMAC_SECRET,now));
     const match = /^\/hq\/api\/bookings\/([0-9a-f-]{36})\/actions$/.exec(url.pathname);

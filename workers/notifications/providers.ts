@@ -5,7 +5,8 @@ export type ProviderResult = { state:'accepted'|'delivered'|'failed'|'retry'|'un
 export function providerConfigured(_channel:Message['channel'],env:ProviderEnv){return Boolean(env.RESEND_API_KEY&&env.EMAIL_FROM&&!/[\r\n]/.test(env.EMAIL_FROM)&&(!env.EMAIL_REPLY_TO||!/\s/.test(env.EMAIL_REPLY_TO)));}
 export async function send(message:Message,destination:string,env:ProviderEnv,fetcher:typeof fetch):Promise<ProviderResult>{
   try{
-    const response=await fetcher('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+env.RESEND_API_KEY,'Content-Type':'application/json','Idempotency-Key':message.idempotencyKey},body:JSON.stringify({from:env.EMAIL_FROM,to:[destination],subject:message.subject,text:message.text,tags:[{name:"onp_delivery",value:message.idempotencyKey}],...(env.EMAIL_REPLY_TO?{reply_to:env.EMAIL_REPLY_TO}:{})}),signal:AbortSignal.timeout(6000),redirect:'error'});
+    // Workers supports manual/follow only. Never forward provider credentials to redirects.
+    const response=await fetcher('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+env.RESEND_API_KEY,'Content-Type':'application/json','Idempotency-Key':message.idempotencyKey},body:JSON.stringify({from:env.EMAIL_FROM,to:[destination],subject:message.subject,text:message.text,tags:[{name:"onp_delivery",value:message.idempotencyKey}],...(env.EMAIL_REPLY_TO?{reply_to:env.EMAIL_REPLY_TO}:{})}),signal:AbortSignal.timeout(6000),redirect:'manual'});
     if(response.status===429)return {state:'retry',code:'provider_rate_limited'};
     if(response.status>=400&&response.status<500)return {state:'failed',code:'provider_rejected'};
     if(!response.ok)return {state:'uncertain',code:'provider_outcome_unknown'};
@@ -16,7 +17,7 @@ export async function send(message:Message,destination:string,env:ProviderEnv,fe
 }
 export async function poll(_channel:Message['channel'],id:string,env:ProviderEnv,fetcher:typeof fetch):Promise<ProviderResult>{
   try{
-    const response=await fetcher('https://api.resend.com/emails/'+encodeURIComponent(id),{headers:{Authorization:'Bearer '+env.RESEND_API_KEY},signal:AbortSignal.timeout(6000),redirect:'error'});
+    const response=await fetcher('https://api.resend.com/emails/'+encodeURIComponent(id),{headers:{Authorization:'Bearer '+env.RESEND_API_KEY},signal:AbortSignal.timeout(6000),redirect:'manual'});
     if(!response.ok)return {state:'accepted',id,code:'receipt_lookup_retry'};
     const value=await response.json() as {id?:string;last_event?:string};
     if(value.id!==id)return {state:'accepted',id,code:'receipt_identity_mismatch'};

@@ -10,7 +10,7 @@ export const syntheticQuote = () => ({ date: '2027-12-20', time: '14:00', durati
 export async function hqFixture(includeEmailMigration = true) {
   const mf = new Miniflare(convertV4MiniflareOptions({ workers: [{ name: 'hq-test', modules: true, script: 'export default { fetch(){ return new Response("test"); } }', compatibilityDate: '2026-11-02', d1Databases: ['DB'] }] }));
   const db = await mf.getD1Database('DB');
-  for (const file of ['0001_booking_intake.sql','0002_santa_hq.sql','0003_integrations.sql',...(includeEmailMigration ? ['0004_customer_email.sql'] : [])]) {
+  for (const file of ['0001_booking_intake.sql','0002_santa_hq.sql','0003_integrations.sql',...(includeEmailMigration ? ['0004_customer_email.sql','0005_elf_notes.sql'] : [])]) {
     const sql = (await readFile(new URL('../../migrations/'+file,import.meta.url),'utf8')).replace(/--[^\n]*/g,'');
     let pending = '', trigger = false;
     for (const line of sql.split('\n')) {

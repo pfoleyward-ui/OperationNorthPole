@@ -15,7 +15,7 @@ export async function routeSite(request:Request,env:SiteEnv,ctx:unknown,site:{fe
     catch{return new Response('Sign in through Cloudflare Access',{status:401,headers:{'Cache-Control':'no-store'}});}
   }
   const path=new URL(request.url).pathname;
-  if(path==='/api/bookings'||path==='/hq'||path.startsWith('/hq/')){
+  if(path==='/api/bookings'||path==='/hq'||path.startsWith('/hq/')||path==='/elf-notes'||path.startsWith('/elf-notes/')){
     if(!env.BOOKING)return new Response('Booking service unavailable',{status:503});
     // Preserve edge Access assertion, Origin and CF-Connecting-IP. No browser-supplied actor.
     return stagingHeaders(await env.BOOKING.fetch(request),env);

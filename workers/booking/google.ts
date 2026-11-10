@@ -48,7 +48,7 @@ function validTokens(value:unknown,now:number,old?:Tokens):Tokens{
   return {accessToken:value.access_token,refreshToken:refresh,expiresAt:now+value.expires_in*1000,scope};
 }
 async function tokenPost(fetcher:typeof fetch,body:URLSearchParams){
-  const r=await fetcher(TOKEN,{method:'POST',body,redirect:'error',signal:AbortSignal.timeout(8000)});
+  const r=await fetcher(TOKEN,{method:'POST',body,redirect:'manual',signal:AbortSignal.timeout(8000)});
   if(!r.ok)throw new IntegrationError(r.status===400||r.status===401?'google_reauthorization_required':'google_retry');
   return r.json();
 }
@@ -93,7 +93,7 @@ async function accessToken(env:IntegrationEnv,fetcher:typeof fetch,now:number):P
 }
 async function google(env:IntegrationEnv,fetcher:typeof fetch,path:string,now:number,init:RequestInit={}){
   const token=await accessToken(env,fetcher,now);
-  return fetcher(API+path,{...init,headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json',...Object.fromEntries(new Headers(init.headers))},redirect:'error',signal:AbortSignal.timeout(8000)});
+  return fetcher(API+path,{...init,headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json',...Object.fromEntries(new Headers(init.headers))},redirect:'manual',signal:AbortSignal.timeout(8000)});
 }
 export async function setupCalendar(env:IntegrationEnv,principal:Principal,input:unknown,fetcher:typeof fetch,now:number){
   enabled(env,principal);if(!record(input)||Object.keys(input).some(k=>k!=='calendarId'))throw new HqError(400,'invalid_calendar_setup');
@@ -128,7 +128,7 @@ export async function disconnectGoogle(env:IntegrationEnv,principal:Principal,fe
   enabled(env,principal);const c=await connection(env);if(!c?.encrypted_tokens)return {disconnected:true};
   await env.DB.batch([env.DB.prepare("UPDATE integration_google SET status='revocation_pending' WHERE id='google'")]);
   const stored=await unseal(env,c.encrypted_tokens,'google:tokens');if(!record(stored)||typeof stored.refreshToken!=='string')throw new IntegrationError('invalid_stored_tokens');
-  const r=await fetcher('https://oauth2.googleapis.com/revoke',{method:'POST',body:new URLSearchParams({token:stored.refreshToken}),redirect:'error',signal:AbortSignal.timeout(8000)});
+  const r=await fetcher('https://oauth2.googleapis.com/revoke',{method:'POST',body:new URLSearchParams({token:stored.refreshToken}),redirect:'manual',signal:AbortSignal.timeout(8000)});
   if(!r.ok)throw new IntegrationError('google_revocation_pending');
   await env.DB.batch([env.DB.prepare("UPDATE integration_google SET status='disconnected',encrypted_tokens=NULL,updated_at=? WHERE id='google' AND encrypted_tokens=?").bind(now,c.encrypted_tokens)]);
   return {disconnected:true};

@@ -1,4 +1,5 @@
 import {customerEmailState,customerEmailText} from './customer-email.ts';
+import {maintainElf} from './elf-notes.ts';
 import {digest} from './shared.ts';
 import { policy,quietAdjusted,target,mrsConsent,origin,stableHashKey,IntegrationError,type IntegrationEnv,type Recipient,type Target } from './integration-config.ts';
 import { cycleId,desiredCalendar,planBooking,planResolutions,snapshot,type Cycle,type Job } from './integration-plan.ts';
@@ -73,7 +74,7 @@ async function notification(env:IntegrationEnv,job:Job,now:number,clock:()=>numb
   if(!await attempt(env,job,now))return;
   // A gateway must durably implement lookup + idempotent acceptance for each key.
   // After a timeout we look up that same key; we never blindly resend an email.
-  const lookup=await gatewayResult(await env.NOTIFY.fetch(new Request('https://notify.internal/deliveries/'+job.id,{signal:AbortSignal.timeout(8000),redirect:'error'})),job.id);
+  const lookup=await gatewayResult(await env.NOTIFY.fetch(new Request('https://notify.internal/deliveries/'+job.id,{signal:AbortSignal.timeout(8000),redirect:'manual'})),job.id);
   if(lookup.status!=='not_found'){await outcome(env,job,lookup,clock());return;}
   if(job.accepted_at!==null||job.error_code==='gateway_delivery_uncertain'||job.attempts>=8){await settle(env,job,'uncertain',now,'accepted_receipt_missing');return;}
   now=clock();
@@ -103,7 +104,7 @@ async function notification(env:IntegrationEnv,job:Job,now:number,clock:()=>numb
   const allowed=(await env.DB.batch<{id:string}>(authorization))[0].results.length===1;
   if(!allowed){await settle(env,job,'canceled',now,'dispatch_no_longer_authorized');return;}
   job.dispatched_at=job.dispatched_at||now;
-  const result=await gatewayResult(await env.NOTIFY.fetch(new Request('https://notify.internal/deliveries/'+job.id,{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':job.id},body:payload,redirect:'error',signal:AbortSignal.timeout(8000)})),job.id);
+  const result=await gatewayResult(await env.NOTIFY.fetch(new Request('https://notify.internal/deliveries/'+job.id,{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':job.id},body:payload,redirect:'manual',signal:AbortSignal.timeout(8000)})),job.id);
   if(result.status==='not_found')throw new IntegrationError('notification_gateway_invalid_response');
   await outcome(env,job,result,clock());
 }
@@ -125,12 +126,19 @@ export async function processJob(env:IntegrationEnv,id:string,now:number,fetcher
   }
 }
 export async function runIntegrations(env:IntegrationEnv,now=Date.now(),fetcher:typeof fetch=fetch,clock:()=>number=()=>now){
+  await maintainElf(env,now);
   if(env.INTEGRATION_PLANNER_ENABLED!=='true')return {disabled:true,processed:0};
   await stableHashKey(env);
   policy(env);origin(env);
   const outbox=(await env.DB.batch<{source:'intake'|'hq';source_id:string;booking_id:string}>([env.DB.prepare(`SELECT 'intake' AS source,o.booking_id AS source_id,o.booking_id FROM booking_outbox o WHERE NOT EXISTS(SELECT 1 FROM integration_outbox_receipts r WHERE r.source='intake' AND r.source_id=o.booking_id)
     UNION ALL SELECT 'hq',o.operation_id,o.booking_id FROM hq_event_outbox o WHERE NOT EXISTS(SELECT 1 FROM integration_outbox_receipts r WHERE r.source='hq' AND r.source_id=o.operation_id) LIMIT 50`)]))[0].results;
-  for(const row of outbox)if(await planBooking(env,row.booking_id,now))await env.DB.batch([env.DB.prepare('INSERT INTO integration_outbox_receipts (source,source_id,booking_id,processed_at) VALUES (?,?,?,?) ON CONFLICT(source,source_id) DO NOTHING').bind(row.source,row.source_id,row.booking_id,now)]);
+  // All rows were captured before planning. One current snapshot covers every
+  // captured event for a booking; later concurrent events remain for the next run.
+  const planned=new Map<string,boolean>();
+  for(const row of outbox){
+    if(!planned.has(row.booking_id))planned.set(row.booking_id,await planBooking(env,row.booking_id,now));
+    if(planned.get(row.booking_id))await env.DB.batch([env.DB.prepare('INSERT INTO integration_outbox_receipts (source,source_id,booking_id,processed_at) VALUES (?,?,?,?) ON CONFLICT(source,source_id) DO NOTHING').bind(row.source,row.source_id,row.booking_id,now)]);
+  }
   const cursor=await env.DB.prepare("SELECT value FROM integration_control WHERE key='reconcile_cursor'").first<{value:string}>();
   const page=(await env.DB.batch<{id:string}>([env.DB.prepare('SELECT id FROM booking_requests WHERE id>? ORDER BY id LIMIT 25').bind(cursor?.value||'')]))[0].results;
   for(const row of page)await planBooking(env,row.id,now);

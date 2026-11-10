@@ -12,6 +12,9 @@
     "scripts/check-hq.ts",
     "scripts/check-integrations.ts",
     "scripts/check-staging.ts",
+    "scripts/check-elf.ts",
+    "workers/launch-test.ts",
+    "workers/private-site.ts",
     "workers/site-router.ts"
   ]
 }

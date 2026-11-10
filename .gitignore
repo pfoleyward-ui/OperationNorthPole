@@ -12,3 +12,4 @@ node_modules/
 .wrangler.generated/
 public/_optimized/
 wrangler.*.staging.jsonc
+work/

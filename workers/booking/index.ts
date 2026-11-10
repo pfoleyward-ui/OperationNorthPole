@@ -2,12 +2,13 @@ import type { IntegrationEnv } from './integration-config.ts';
 import { handleHq } from './hq.ts';
 import { authenticate } from './auth.ts';
 import type { AccessEnv } from './auth.ts';
+import { handleElf, type ElfEnv } from './elf-notes.ts';
 import { canonical, digest, bodyText } from './shared.ts';
 export { canonical } from './shared.ts';
 import { validateBookingRequest, record } from '../../src/domain/booking/request.ts';
 import { D1BookingRepository, IdempotencyConflict, type Database } from './repository.ts';
 
-export interface Env extends AccessEnv, IntegrationEnv {
+export interface Env extends AccessEnv, IntegrationEnv, ElfEnv {
   DB: Database;
   /** Deliberate deployment gate. Omitted/false in committed configuration. */
   PUBLIC_INTAKE_ENABLED?: string;
@@ -91,4 +92,4 @@ export async function handleBooking(request: Request, env: Env, fetcher: typeof 
     return reply(503, { error: 'unavailable' });
   }
 }
-export default { fetch: (request: Request, env: Env) => new URL(request.url).pathname.startsWith('/hq') ? handleHq(request, env) : handleBooking(request, env) };
+export default { fetch: (request: Request, env: Env) => new URL(request.url).pathname.startsWith('/elf-notes') ? handleElf(request, env) : new URL(request.url).pathname.startsWith('/hq') ? handleHq(request, env) : handleBooking(request, env) };

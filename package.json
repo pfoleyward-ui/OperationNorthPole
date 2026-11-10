@@ -21,6 +21,7 @@
     "check:integrations": "node --experimental-strip-types scripts/check-integrations.ts",
     "build:cloudflare": "opennextjs-cloudflare build --config wrangler.site.jsonc",
     "check:staging": "node --experimental-strip-types scripts/check-staging.ts",
+    "check:elf": "node --experimental-strip-types scripts/check-elf.ts",
     "check:deployment": "wrangler deploy --dry-run --config wrangler.site.jsonc --outdir /tmp/north-pole-site-bundle && wrangler deploy --dry-run --config wrangler.booking.jsonc --outdir /tmp/north-pole-booking-bundle && wrangler deploy --dry-run --config wrangler.integrations.jsonc --outdir /tmp/north-pole-integrations-bundle && wrangler deploy --dry-run --config wrangler.notifications.jsonc --outdir /tmp/north-pole-notifications-bundle",
     "prebuild": "node scripts/prepare-images.mjs",
     "predev": "node scripts/prepare-images.mjs",

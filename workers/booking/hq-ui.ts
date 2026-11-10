@@ -196,8 +196,16 @@ function renderDetail() {
             f.body.append(node('p', 'Verified attendant: ' + assigned.attendant_ref));
         desk.append(f.f);
     }
-    if (s.status === 'confirmed' && s.serviceId === 'home-visits') {
+    if (s.serviceId === 'home-visits' && (s.status === 'confirmed' || session.elfCollectionEnabled)) {
         const elf = node('section', undefined, 'notice');
+        if (session.elfCollectionEnabled && session.role === 'santa') {
+            elf.append(node('h3', 'Secret Elf Notes'), node('p', 'Optional for families. Notes stay private and are never included in Calendar or email. Creating a replacement invitation invalidates the previous link.'));
+            if (s.status === 'confirmed') elf.append(button('Create private invitation', async () => { const result = await api('bookings/' + s.id + '/elf/invite', {}); const link = node('a', 'Private invitation — share only with the guardian'); link.href = result.invitationUrl; link.referrerPolicy = 'no-referrer'; elf.append(link); }));
+            if (['confirmed', 'completed'].includes(s.status)) elf.append(button('Read Elf Notes', async () => { const result = await api('bookings/' + s.id + '/elf/read', {}); const display = node('section'); display.append(node('h4', 'Private preparation notes')); if (!result.notes) display.append(node('p', 'No optional notes submitted.')); for (const [index, child] of (result.notes?.children || []).entries()) { display.append(node('h5', 'Child ' + (index + 1))); for (const [key, value] of Object.entries(child)) display.append(node('p', key + ': ' + value)); } elf.append(display); }));
+            elf.append(button('Delete optional notes', async () => { await api('bookings/' + s.id + '/elf/delete', {}); await openBooking(s.id); say('Optional notes deleted.'); }));
+            desk.append(elf);
+            return;
+        }
         elf.append(node('h3', 'Secret Elf Notes — preparation only'), node('p', 'Sharing will be entirely voluntary. Skipping will never affect the visit. Collection is off until consent, private access, deletion, and retention controls are reviewed.'), node('p', d.elfInvitationPrepared ? 'Invitation plan prepared. Nothing sent; no notes collected.' : 'You may prepare an invitation plan. No message or family link will be created.'));
         if (!d.elfInvitationPrepared)
             elf.append(button('Prepare optional invitation plan', () => action('prepare_elf_invitation')));

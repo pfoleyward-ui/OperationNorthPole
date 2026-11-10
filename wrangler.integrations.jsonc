@@ -4,22 +4,42 @@
   "compatibility_date": "2026-11-02",
   "workers_dev": false,
   "preview_urls": false,
-  "observability": { "enabled": false },
-  "triggers": { "crons": ["* * * * *"] },
+  "observability": {
+    "enabled": false
+  },
+  "triggers": {
+    "crons": [
+      "* * * * *"
+    ]
+  },
   "vars": {
     "INTEGRATION_PLANNER_ENABLED": "false",
     "CALENDAR_SYNC_ENABLED": "false",
-    "NOTIFICATION_DELIVERY_ENABLED": "false", "CUSTOMER_EMAIL_ENABLED": "false", "NATIVE_CALENDAR_REMINDER_MINUTES": "10",
+    "NOTIFICATION_DELIVERY_ENABLED": "false",
+    "CUSTOMER_EMAIL_ENABLED": "false",
+    "NATIVE_CALENDAR_REMINDER_MINUTES": "10",
     "GOOGLE_OAUTH_ENABLED": "false",
-    "REMINDER_POLICY_JSON": "{\"timeZone\":\"America/New_York\",\"morningTime\":\"08:00\",\"quietStart\":\"21:00\",\"quietEnd\":\"08:00\",\"escalationMinutes\":[0,120,240,360],\"reconcileMinutes\":15,\"sevenDayHours\":168,\"acknowledgmentHours\":24,\"finalReminderHours\":3}"
+    "REMINDER_POLICY_JSON": "{\"timeZone\":\"America/New_York\",\"morningTime\":\"08:00\",\"quietStart\":\"21:00\",\"quietEnd\":\"08:00\",\"escalationMinutes\":[0,120,240,360],\"reconcileMinutes\":15,\"sevenDayHours\":168,\"acknowledgmentHours\":24,\"finalReminderHours\":3}",
+    "ELF_NOTES_ENABLED": "false",
+    "ELF_RETENTION_APPROVED": "false",
+    "GOOGLE_TOKEN_ACTIVE_KEY": "v1",
+    "ELF_ACTIVE_KEY": "v1",
+    "INTEGRATION_INSTALLATION_ID": "santablizard-production-20261110",
+    "HQ_ORIGIN": "https://hq.santablizard.com",
+    "ELF_ORIGIN": "https://santablizard.com"
   },
-  "services": [{ "binding": "NOTIFY", "service": "operation-north-pole-notifications" }],
-  // Private email-only gateway; no public routes or workers.dev endpoint.
-  // No provider service or remote D1 database is provisioned by this file.
-  "d1_databases": [{
-    "binding": "DB",
-    "database_name": "operation-north-pole-booking",
-    "database_id": "00000000-0000-0000-0000-000000000000",
-    "migrations_dir": "migrations"
-  }]
+  "services": [
+    {
+      "binding": "NOTIFY",
+      "service": "operation-north-pole-notifications"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "operation-north-pole-booking",
+      "database_id": "a2c79b9c-a578-4d0c-86c4-27f0b1e72b8c",
+      "migrations_dir": "migrations"
+    }
+  ]
 }

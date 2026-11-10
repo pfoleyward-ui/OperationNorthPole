@@ -1,0 +1,26 @@
+{
+  "name": "operation-north-pole-site",
+  "main": "workers/private-site.ts",
+  "compatibility_date": "2026-11-08",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": {
+    "enabled": false
+  },
+  "vars": {
+    "CUSTOMER_BOOKING_MODE": "disabled",
+    "SITE_STAGING_ENABLED": "false",
+    "HQ_ENABLED": "false",
+    "ACCESS_TEAM_DOMAIN": "proud-shape-91a4.cloudflareaccess.com"
+  },
+  "services": [
+    {
+      "binding": "BOOKING",
+      "service": "operation-north-pole-booking"
+    },
+    {
+      "binding": "NOTIFY_WEBHOOK",
+      "service": "operation-north-pole-notifications"
+    }
+  ]
+}

@@ -28,13 +28,14 @@ function validate(input: unknown, env: GatewayEnv): Message {
   if(x.recipientKey.startsWith('customer_')){if(x.subject!=='An update about your SantaBlizard booking'||typeof x.customerState!=='string')throw new InvalidRequest();return x as unknown as Message;}
   if(x.customerState!==undefined)throw new InvalidRequest();
   const subjects=['A new letter has arrived!','A little Christmas magic is confirmed','An upcoming sleigh stop needs a look','A Gentle Jingle','Your pre-event sleigh check','Today’s Christmas magic','The Elves Are Concerned','Mrs. Claus Has Been Notified','Santa Is Officially in the Doghouse','The sleigh check is resolved'];
-  if(!subjects.includes(x.subject))throw new InvalidRequest();
+  if(!subjects.includes(x.subject)&&x.subject!=='Optional Elf Notes are ready')throw new InvalidRequest();
   const lines=x.text.split('\n');
   const approved=[
     'The sleigh check is resolved. No booking was canceled by the reminder system.',
     'Santa, please open this booking and tap Got It! to acknowledge your pre-event check.',
     'Santa has not acknowledged this sleigh check yet. Please use the secure desk for details.',
     'A little Christmas planning is ready for your attention. Open the secure desk for details.',
+    'Optional preparation notes are ready. Open the secure desk for details.',
   ];
   if(lines.length!==2||!approved.includes(lines[0])||!lines[1].startsWith(origin.origin+'/hq?booking=')||!/^\/hq\?booking=[a-f0-9-]{36}#reminders$/.test(new URL(lines[1]).pathname+new URL(lines[1]).search+new URL(lines[1]).hash))throw new InvalidRequest();
   return x as unknown as Message;
