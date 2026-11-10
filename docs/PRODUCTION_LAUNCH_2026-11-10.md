@@ -48,6 +48,11 @@ The final remote scheduled run, `launch-test-20261110-v5`, persisted **46/46 pas
 
 Read the companion launch evidence for the final test counts, deployment versions and remote synthetic-run outcome. Local tests exercise real Miniflare D1 migrations/transactions and signed synthetic Access identities. Browser staging uses simulated Turnstile, Google and Resend; no messages are sent.
 
+- [Actual Cloudflare inventory, deployment versions and routing responses](review/launch-2026-11-10/cloudflare-inventory.json)
+- [Remote checks, local test results, cleanup and isolated recovery evidence](review/launch-2026-11-10/launch-evidence.json)
+- [Synthetic family mobile screenshot](review/launch-2026-11-10/elf-family-mobile.png)
+- [Synthetic Santa HQ mobile screenshot](review/launch-2026-11-10/elf-hq-mobile.png)
+
 The private scheduled Cloudflare test runner has no fetch route. It uses the actual staging D1 databases, real Worker runtime and private service-binding gate probes, then invokes the application handlers with simulated provider responses and a synthetic signed Access identity. Its persisted evidence contains only check names/statuses and safe diagnostic codes. It cleans its synthetic bookings and delivery records. **This does not verify real Google authorization, real Turnstile, Resend deliverability, actual Access login or iPhone behavior.**
 
 Actual Cloudflare execution exposed a defect missed by local tests: Workers rejects `Request.redirect="error"`. Notification service-binding requests and Google/Resend server requests now use `manual`; existing response-status checks reject redirects without following them or forwarding credentials. The browser's supported `redirect="error"` behavior remains unchanged. Provider redirect regression coverage was added.
