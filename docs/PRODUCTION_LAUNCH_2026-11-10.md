@@ -18,6 +18,8 @@ Initial Cloudflare discovery found only `operationnorthpole`, its two custom dom
 
 All four databases have actual API-verified migration histories: booking 0001–0005; gateway 0001. Historical booking migrations 0001–0004 were preserved. New 0005 isolates encrypted optional notes, hashed invitations, transactional arrival alerts and bounded rate-limit records. No production test records were inserted.
 
+The zone has no Worker path routes. Its only Worker custom domains are the existing apex/www mappings to `operationnorthpole`. HTTPS certificates are active; the zone reports TLS mode `full`. DNS record listing returned Authentication error (10000), so DNS Read/Edit permission is needed before inspecting/applying Resend's actual records.
+
 All private services have workers.dev and preview URLs disabled, no public routes, and observability/body logging disabled. Scheduler and email reconciliation have one-minute Cron triggers; activation gates prevent work. No queue is needed: the existing D1 outbox, claims and delivery receipts provide the durable workflow. No paid plan was purchased or upgraded. Account subscription/quotas cannot be verified with the current token.
 
 Distinct staging/production HMAC secrets and AES-256 keyrings were generated privately and installed as Cloudflare secrets. Google OAuth and Elf Notes use separate encryption keyrings. No secret values are included in source, inventories or this report. Secure owner-controlled archival of these application keys remains a launch requirement; changing stable HMAC identities or losing encryption keys requires a recovery/migration plan.
@@ -65,6 +67,17 @@ Live Wrangler tail streaming returned HTTP 403. Deployment API responses and the
 5. **Approved private recipients:** supply controlled test mailboxes and opaque route keys through secret configuration. Configure Santa, Mrs. Claus and technical backup explicitly; do not infer notification recipients from the public contact email. Mrs. Claus needs actual recorded consent bound to her exact route. The synthetic test consent is not real consent and is never installed on production services.
 6. **Secure recovery:** archive generated application HMAC/encryption keyrings in owner-controlled secure storage; preserve matching database snapshots and keys together. Enable the allowed export-download host for full backup testing, and the required live-log transport if streaming logs are required. Asset-upload credential scope/proxy behavior must be corrected before full-site staging uploads can be validated.
 7. **Privacy and device checks:** review final adult booking privacy/deletion operations and physical iPhone Access/Calendar/Focus/lock-screen behavior. The 30-day optional-note policy remains explicitly pending; no approval is inferred from elapsed time or this deployment.
+
+Missing deployment settings (provide secret values only through secure settings):
+
+| Service | Missing settings |
+|---|---|
+| Booking + full staging site/private gateway | `ACCESS_AUDIENCE`, verified `SANTA_SUBJECTS`; team domain is already prepared |
+| Booking | Real `TURNSTILE_SECRET`; staging frontend also needs public `TURNSTILE_SITE_KEY` |
+| Booking + scheduler | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`; real OAuth authorization and dedicated-calendar setup; private `NOTIFICATION_TARGETS_JSON` and actual `MRS_CLAUS_CONSENT_JSON` |
+| Email gateway | `RESEND_API_KEY`, `RESEND_WEBHOOK_SECRET`, verified `EMAIL_FROM`, `EMAIL_REPLY_TO`, approved `GATEWAY_RECIPIENTS_JSON` |
+
+App HMAC/encryption keys are installed. Only the booking service holds Elf Notes decryption/invitation secrets; the scheduler has Google token keys and its stable HMAC but no child-note decryption key. No real recipient/consent/provider values were fabricated.
 
 ## Activation and rollback checklist
 
