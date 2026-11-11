@@ -64,6 +64,18 @@ Evidence: [required permissions](review/launch-2026-11-11/continuation-permissio
 
 Reproduce the isolated data-recovery test with `npm run check:recovery:synthetic`. It creates and deletes temporary Cloudflare D1 databases using **only generated synthetic fixtures**. It is a recovery test, not an approved production backup job. Native R2 export download/point-in-time recovery and real provider-side reconciliation are not claimed as tested by this logical-copy verification.
 
+## Owner-guided readiness: current step
+
+`c8807086f646b35e1bc88256e72b974bcb6f8a19` was absent from GitHub and has now been pushed normally to `phase8/integration-launch-readiness`; `git ls-remote` verified that exact remote head. No force push, merge or production activation occurred.
+
+A real Chromium navigation to `https://staging.santablizard.com` reaches the correct team's Cloudflare Access sign-in page for **Operation North Pole private staging**. Its available sign-in button is **Cloudflare**. API reads confirm a single allow rule for exactly `santablizard@gmail.com`; no sign-in provider or policy was changed. All staging/backend and production business activation gates are rechecked off. Browser inspection did not submit credentials, send a code or authenticate as the owner.
+
+**Next owner action only:** open the staging URL in a private browser tab, choose Cloudflare, and sign in with the Cloudflare account whose email is `santablizard@gmail.com`, completing its normal MFA if prompted. An application-level “Sign in through Cloudflare Access” response after completing edge login is expected while HQ and subject enrollment remain disabled. Report whether login completed and the final message, without sharing passwords, MFA codes, cookies or JWTs. If that email is not a Cloudflare login, report that blocker before changing identity configuration; the agent has not assumed approval for a new provider.
+
+After verified owner login, proceed in order: real Turnstile challenge; Google OAuth/app-created calendar and sync; Resend domain/test-recipient/delivery checks; synthetic end-to-end booking/Elf Notes/reminder/Mrs. Claus scenarios; device/privacy/recovery review. Staging provider tests require the corresponding approved configuration and test recipients. Real customer notifications, production intake, actual child-information collection and automatic note deletion remain disabled. Earlier populated synthetic recovery evidence remains valid; no new recovery or live-provider success is claimed here.
+
+[Push, login-page and disabled-gate evidence](review/launch-2026-11-11/owner-login-readiness.json).
+
 ## Everything still needed from the owner
 
 Provide secret values through secure environment/credential settings, never chat or Git. Existing application HMAC/AES keys are already installed; do not replace or rotate them to satisfy this checklist.
