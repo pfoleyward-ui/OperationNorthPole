@@ -105,3 +105,7 @@ npx wrangler deploy --config wrangler.site.staging.jsonc
 ```
 
 The helper refuses production Worker names, public preview URLs, route-bearing manifests, an unprotected site, enabled public intake, a changed asset directory, custom ignore rules or symlinks. Continue to leave every business activation gate off. Do not invent a Santa subject to make the protected site accessible; enroll it only after a real verified owner login. Preserve all existing HMAC/AES keys.
+
+## Isolated Turnstile readiness page
+
+The protected staging frontend can enable `TURNSTILE_READINESS_ENABLED=true` in its gitignored staging manifest and install the existing staging widget's `TURNSTILE_SECRET` privately. This is a narrow exception to the normal site-only-public-key arrangement: the isolated `/launch-readiness/turnstile` checker calls siteverify directly, with no D1/private booking or outbound messaging action. All production manifests omit this gate; the route returns 404 outside the exact protected staging origin. The site still requires the enrolled Santa's signed Access assertion. Intake and backend HQ remain disabled. The page validates the distinct `launch_readiness` action, not a booking submission. Never use its test result or proof as a booking bypass.

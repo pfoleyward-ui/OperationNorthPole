@@ -1,5 +1,6 @@
+import {turnstileReadiness,type ReadinessEnv} from './turnstile-readiness.ts';
 import { authenticate, type AccessEnv } from './booking/auth.ts';
-export interface SiteEnv extends AccessEnv {
+export interface SiteEnv extends AccessEnv,ReadinessEnv {
   NOTIFY_WEBHOOK?: {fetch(request:Request):Promise<Response>};
   BOOKING?: {fetch(request:Request):Promise<Response>};
   CUSTOMER_BOOKING_MODE?: string;
@@ -15,6 +16,7 @@ export async function routeSite(request:Request,env:SiteEnv,ctx:unknown,site:{fe
     catch{return new Response('Sign in through Cloudflare Access',{status:401,headers:{'Cache-Control':'no-store'}});}
   }
   const path=new URL(request.url).pathname;
+  if(path==='/launch-readiness/turnstile')return stagingHeaders(await turnstileReadiness(request,env,fetcher),env);
   if(path==='/api/bookings'||path==='/hq'||path.startsWith('/hq/')||path==='/elf-notes'||path.startsWith('/elf-notes/')){
     if(!env.BOOKING)return new Response('Booking service unavailable',{status:503});
     // Preserve edge Access assertion, Origin and CF-Connecting-IP. No browser-supplied actor.
