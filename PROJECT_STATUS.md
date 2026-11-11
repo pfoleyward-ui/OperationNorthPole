@@ -192,3 +192,7 @@ Checks passed: backend 95/95; booking 148/148; application/backend/booking type 
 ## Owner-guided readiness handoff — November 11, 2026
 
 Pushed c880708 normally to phase8/integration-launch-readiness and verified exact remote head. Chromium verified staging redirects to the correct Access team/application and offers Cloudflare sign-in. API readback confirms the approved exact-email policy, and all staging backend/production business gates remain off. No credentials submitted, owner identity enrolled, provider test, production activation, key change or customer-data operation occurred. Updated launch checklist with the single next owner action: interactive login using the approved email. This documentation/evidence update needs no application test rerun; browser/API/Git checks provide direct validation.
+
+## Verified owner edge login — November 11, 2026
+
+Matched the owner's successful staging Access login to the approved email and immutable user ID using authenticated Cloudflare API records. Enrolled that subject privately on the staging frontend and deployed its shared JWT verifier with HQ_ENABLED=true on the site only. Backend HQ, staging/public intake, delivery, calendar, notes and retention remain off. Production gates/public Worker version unchanged; anonymous staging requests still redirect to Access. No keys or customer data changed. Real application JWT success awaits the owner's refresh; no live Turnstile/provider success is inferred. API/policy/config/deployment and HTTP readbacks passed; no source changes or repeated application tests.
