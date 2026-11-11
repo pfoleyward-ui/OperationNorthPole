@@ -54,6 +54,7 @@ async function deliverySettings(){
   fact(dl,'Escalation timing',result.policy.escalationMinutes.map((m,i)=>'Level '+(i+1)+': '+m+' minutes').join(' · '));
   desk.append(dl,node('p','Only confirmed appointments go to the SantaBlizard Bookings calendar. Private family notes and child information never belong in messages or calendar entries.'));
   if(result.runnerError)desk.append(node('p','Scheduler needs attention: '+String(result.runnerError.code).replaceAll('_',' ')));
+  if(result.elfNotesError)desk.append(node('p','Optional Elf Notes maintenance needs attention. Calendar and appointment reminders continue independently.'));
   if(session.role==='santa'){
     const connect=button('Connect Google securely',async()=>{
       const response=await api('integrations/google/start',{});const url=new URL(response.authorizationUrl);

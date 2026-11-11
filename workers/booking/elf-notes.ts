@@ -111,11 +111,11 @@ export async function maintainElf(env:ElfEnv,now=Date.now()){
  const rows=(await env.DB.batch<{id:string;booking_id:string;created_at:number}>([env.DB.prepare('SELECT id,booking_id,created_at FROM elf_alerts WHERE delivered_at IS NULL ORDER BY created_at LIMIT 10')]))[0].results;
  for(const row of rows){
   const key='elf_'+row.id;const endpoint='https://notify.internal/deliveries/'+key;
-  let response=await env.NOTIFY.fetch(new Request(endpoint));if(!response.ok)continue;
+  let response=await env.NOTIFY.fetch(new Request(endpoint,{redirect:'manual',signal:AbortSignal.timeout(8000)}));if(!response.ok)throw new Error('optional_notes_gateway_unavailable');
   let receipt=await response.json() as {status:string};
   if(receipt.status==='not_found'){
-   response=await env.NOTIFY.fetch(new Request(endpoint,{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':key},body:JSON.stringify({idempotencyKey:key,expiresAt:row.created_at+7*86400000,recipientKey:route.recipientKey,channel:'email',subject:'Optional Elf Notes are ready',text:'Optional preparation notes are ready. Open the secure desk for details.\n'+env.HQ_ORIGIN+'/hq?booking='+row.booking_id+'#reminders'})}));
-   if(!response.ok)continue;receipt=await response.json() as {status:string};
+   response=await env.NOTIFY.fetch(new Request(endpoint,{method:'POST',redirect:'manual',signal:AbortSignal.timeout(8000),headers:{'Content-Type':'application/json','Idempotency-Key':key},body:JSON.stringify({idempotencyKey:key,expiresAt:row.created_at+7*86400000,recipientKey:route.recipientKey,channel:'email',subject:'Optional Elf Notes are ready',text:'Optional preparation notes are ready. Open the secure desk for details.\n'+env.HQ_ORIGIN+'/hq?booking='+row.booking_id+'#reminders'})}));
+   if(!response.ok)throw new Error('optional_notes_gateway_unavailable');receipt=await response.json() as {status:string};
   }
   if(['accepted','delivered','failed','uncertain'].includes(receipt.status))await env.DB.batch([env.DB.prepare('UPDATE elf_alerts SET delivered_at=? WHERE id=?').bind(now,row.id)]);
  }

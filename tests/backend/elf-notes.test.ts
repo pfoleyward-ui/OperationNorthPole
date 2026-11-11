@@ -2,6 +2,7 @@ import {before,after,beforeEach,test} from 'node:test';
 import assert from 'node:assert/strict';
 import {hqFixture,testNow} from './hq-fixture.ts';
 import {handleElf,maintainElf,validateElfNotes} from '../../workers/booking/elf-notes.ts';
+import {runIntegrations} from '../../workers/booking/integration-runner.ts';
 let f:Awaited<ReturnType<typeof hqFixture>>;
 before(async()=>{f=await hqFixture();Object.assign(f.env,{ELF_NOTES_ENABLED:'true',ELF_ORIGIN:f.env.HQ_ORIGIN,ELF_TOKEN_SECRET:'synthetic-private-invitation-key-32-characters',ELF_ENCRYPTION_KEYS:JSON.stringify({v1:btoa('e'.repeat(32))}),ELF_ACTIVE_KEY:'v1'});});
 after(async()=>{await f?.dispose();});
@@ -16,3 +17,21 @@ test('cancellation revokes access and automatic deletion requires explicit reten
 test('arrival notification contains no child content and uses a durable idempotency key',async()=>{const {token}=await invitation();await call(token,'save',notes());const seen:string[]=[];const env={...f.env,NOTIFICATION_DELIVERY_ENABLED:'true',NOTIFICATION_TARGETS_JSON:JSON.stringify({santa:{recipientKey:'santa-stage',channel:'email'}}),NOTIFY:{fetch:async(r:Request)=>{if(r.method==='GET')return Response.json({status:'not_found'});seen.push(await r.text());return Response.json({status:'accepted'});}}};await maintainElf(env,testNow);await maintainElf(env,testNow);assert.equal(seen.length,1);assert.ok(!seen[0].includes('Synthetic A'));assert.ok(!seen[0].includes(token));assert.match(seen[0],/Optional Elf Notes are ready/);});
 test('canceled visits deny reading but retain guardian and Santa deletion controls',async()=>{const {id,token}=await invitation();await call(token,'save',notes());await f.mutate(id,'cancel');assert.equal((await call(token,'read')).status,404);assert.equal((await call(token,'save',notes(1))).status,404);assert.equal((await call(token,'delete')).status,200);assert.equal((await f.call('/hq/api/bookings/'+id+'/elf/delete',{})).status,200);});
 test('backup role cannot read notes, expired links fail, and ciphertext tampering reveals nothing',async()=>{const {id,token}=await invitation();await call(token,'save',notes());const backup=await f.token('backup-subject');assert.equal((await f.call('/hq/api/bookings/'+id+'/elf/read',{}, {token:backup,env:{...f.env,BACKUP_ESCALATION_ENABLED:'true'}})).status,403);await f.db.prepare("UPDATE elf_notes SET ciphertext='{}' WHERE booking_id=?").bind(id).run();const response=await call(token,'read');assert.equal(response.status,503);assert.ok(!(await response.text()).includes('Synthetic A'));await f.db.prepare('UPDATE elf_invitations SET expires_at=? WHERE booking_id=?').bind(testNow-1,id).run();assert.equal((await call(token,'read')).status,401);});
+test('optional notes outage does not block appointment notifications and clears after recovery',async()=>{
+ const {id,token}=await invitation();await call(token,'save',notes());let failElf=true;const sent:string[]=[];
+ const env={...f.env,INTEGRATION_PLANNER_ENABLED:'true',NOTIFICATION_DELIVERY_ENABLED:'true',NOTIFICATION_TARGETS_JSON:JSON.stringify({santa:{recipientKey:'santa-stage',channel:'email'}}),NOTIFY:{fetch:async(r:Request)=>{
+  const key=new URL(r.url).pathname.split('/').at(-1)!;
+  if(key.startsWith('elf_')&&failElf)throw new Error('Synthetic notes transport outage');
+  if(r.method==='GET')return Response.json({idempotencyKey:key,status:'not_found'});
+  const body=await r.json() as {subject:string};sent.push(body.subject);return Response.json({idempotencyKey:key,status:'accepted',providerId:'synthetic-receipt'});
+ }}};
+ await runIntegrations(env,testNow);
+ assert.ok(sent.includes('A new letter has arrived!'));assert.ok(sent.includes('A little Christmas magic is confirmed'));
+ const error=await f.db.prepare("SELECT value FROM integration_control WHERE key='last_elf_error'").first<{value:string}>();assert.equal(JSON.parse(error!.value).code,'optional_notes_maintenance_failed');
+ assert.equal((await f.db.prepare('SELECT COUNT(*) AS n FROM elf_alerts WHERE delivered_at IS NULL').first<{n:number}>())?.n,1);
+ const status=await(await f.call('/hq/api/integrations/status')).json() as {elfNotesError:{code:string}};assert.equal(status.elfNotesError.code,'optional_notes_maintenance_failed');
+ failElf=false;await runIntegrations(env,testNow+60000);assert.ok(sent.includes('Optional Elf Notes are ready'));
+ assert.equal(await f.db.prepare("SELECT value FROM integration_control WHERE key='last_elf_error'").first(),null);
+ assert.equal((await f.db.prepare('SELECT COUNT(*) AS n FROM elf_alerts WHERE delivered_at IS NULL').first<{n:number}>())?.n,0);
+ assert.equal((await f.db.prepare('SELECT status FROM hq_bookings WHERE booking_id=?').bind(id).first<{status:string}>())?.status,'confirmed');
+});

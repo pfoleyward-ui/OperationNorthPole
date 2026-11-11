@@ -81,11 +81,19 @@ async function run(bindings:Bindings){
   check('notes_encrypted',!(await db.prepare('SELECT ciphertext FROM elf_notes WHERE booking_id=?').bind(id).first<{ciphertext:string}>())?.ciphertext.includes('Synthetic child'));
   check('santa_read_notes',(await call('/hq/api/bookings/'+id+'/elf/read',{})).status===200);
   check('family_update',(await elf('save',{...optional,version:1})).status===200);
+  const normalNotify=env.NOTIFY!;
+  env.NOTIFY={fetch:request=>new URL(request.url).pathname.startsWith('/deliveries/elf_')?Promise.reject(new Error('Synthetic optional-notes outage')):normalNotify.fetch(request)};
+  await runIntegrations(env,now,provider);
+  const notesError=await db.prepare("SELECT value FROM integration_control WHERE key='last_elf_error'").first<{value:string}>();
+  const schedulerSuccess=await db.prepare("SELECT value FROM integration_control WHERE key='last_runner_success'").first<{value:string}>();
+  check('optional_notes_failure_isolated',!!notesError&&schedulerSuccess?.value===String(now));
+  env.NOTIFY=normalNotify;
   await maintainElf(env,now);check('generic_notes_notification',[...emails.values()].some(e=>JSON.stringify(e.body).includes('Optional Elf Notes are ready')));
   check('notes_never_in_email_or_calendar',!JSON.stringify([...emails.values(),...events.values()]).includes('Synthetic child'));
   check('family_delete',(await elf('delete')).status===200);check('notes_deleted',(await db.prepare('SELECT COUNT(*) AS n FROM elf_notes WHERE booking_id=?').bind(id).first<{n:number}>())?.n===0);
   phase='reminders_escalation';
   for(const time of ['2027-12-13T19:00:00Z','2027-12-19T19:00:00Z','2027-12-19T21:00:00Z','2027-12-19T23:00:00Z','2027-12-20T01:00:00Z']){now=Date.parse(time);await runIntegrations(env,now,provider);}
+  check('optional_notes_maintenance_recovers',!(await db.prepare("SELECT value FROM integration_control WHERE key='last_elf_error'").first()));
   const jobs=(await db.batch<{kind:string;state:string}>([db.prepare('SELECT kind,state FROM integration_jobs WHERE booking_id=?').bind(id)]))[0].results;
   for(const kind of ['seven_days','twenty_four_hours','escalation_2','escalation_3','escalation_4'])check(kind+'_delivered',jobs.some(j=>j.kind===kind&&['accepted','delivered'].includes(j.state)));
   const cycle=await db.prepare('SELECT id FROM integration_cycles WHERE booking_id=? AND state=\'active\'').bind(id).first<{id:string}>();check('santa_acknowledgment',(await call('/hq/api/bookings/'+id+'/reminders/ack',{cycleId:cycle?.id})).status===200);
