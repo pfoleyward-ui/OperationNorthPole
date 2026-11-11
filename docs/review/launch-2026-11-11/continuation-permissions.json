@@ -1,0 +1,43 @@
+{
+  "authentication_succeeds": true,
+  "permission_policy_read_status": 200,
+  "required_permission_groups": {
+    "Workers": {
+      "Workers Scripts Read": true,
+      "Workers Scripts Write": true,
+      "Workers Routes Read": true,
+      "Workers Routes Write": true
+    },
+    "D1": {
+      "D1 Read": true,
+      "D1 Write": true
+    },
+    "Cloudflare Access": {
+      "Access: Apps and Policies Read": true,
+      "Access: Apps and Policies Write": true,
+      "Access: Users Read": true,
+      "Access: Organizations Read": true,
+      "Access: Identity Providers Read": true
+    },
+    "Turnstile": {
+      "Turnstile Sites Read": true,
+      "Turnstile Sites Write": true
+    },
+    "DNS": {
+      "DNS Read": true,
+      "DNS Write": true
+    }
+  },
+  "dns_records_read_success": true,
+  "turnstile_create_status": 200,
+  "turnstile_create_success": true,
+  "turnstile_secret_install_success": true,
+  "turnstile_hostname": "staging.santablizard.com",
+  "workers_asset_upload": {
+    "session_http_status": 200,
+    "synthetic_upload_http_status": 201,
+    "temporary_jwt_accepted": true,
+    "wrangler_bulk_upload_http_status": 401,
+    "wrangler_error_source": "credential proxy"
+  }
+}

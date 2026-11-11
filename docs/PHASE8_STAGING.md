@@ -90,3 +90,18 @@ The booking Worker has integration settings because authenticated HQ can start O
 Planning estimates as of 2026-11-08, **not a quote or purchased plan**: at small booking volumes Cloudflare Workers/D1/Access and Resend may fit their free tiers. Budget roughly $5/month if a Workers paid plan is needed; D1/storage/CPU overages are separate. Resend’s published free allowance is commonly 3,000 emails/month with a 100/day cap; budget roughly $20/month if upgrading is necessary. Confirm current quotas/pricing in the actual account before approval: [Cloudflare Workers](https://developers.cloudflare.com/workers/platform/pricing/), [D1](https://developers.cloudflare.com/d1/platform/pricing/), [Access](https://www.cloudflare.com/plans/zero-trust-services/), [Resend](https://resend.com/pricing). Google Calendar API is quota-limited without a separate per-request charge; existing Google Workspace subscriptions, if chosen, are additional. Domain registration/renewal varies by registrar/TLD: allow approximately $10–30/year. No SMS, telephone number, R2, Cloudflare Images, paid monitoring or purchased account is required by these manifests. Free quotas may be unsuitable for the combined reminder/escalation/customer mail volume; each stage, resolution and customer update counts as an email.
 
 Public launch remains blocked on actual owner accounts/domain, approved remote staging and controlled email/device tests, production OAuth readiness, final adult customer privacy notice/retention and deletion handling, photo permissions already noted in AGENTS, and explicit intake/launch authorization. No retention period or irreversible deletion schedule is invented. For an authorized deletion request, technical maintenance must delete the customer’s booking and cascading HQ/integration rows and separately delete gateway rows matching `customer_<booking UUID>`/relevant operational delivery keys, plus review Google/provider copies/backups. This is a documented future operational requirement, not an exposed unauthenticated delete endpoint. Secret Elf Notes remains disabled pending separate consent/private access/encryption/retention/deletion implementation and review.
+
+## November 11 continuation: staging asset transport
+
+The account-owned credential verifies at `/accounts/{account_id}/tokens/verify`, not `/user/tokens/verify`. Required product permissions and the exact-email staging Access application are now verified; see the current launch-status document for remaining owner-login gates.
+
+Wrangler's bulk upload still receives a credential-proxy 401 for its temporary JWT. The staging-only helper uses the same documented API and inherited proxy/CA settings, with one asset per multipart request. It keeps the API token and session JWTs in memory and prints counts only. It neither deploys nor changes routing or credential/network configuration. A failed run can be resumed: Cloudflare returns only missing asset hashes on the next session.
+
+After building the private staging manifest and setting `SITE_STAGING_ENABLED=true` in that gitignored copy while keeping intake/HQ off:
+
+```sh
+python scripts/upload-staging-assets.py
+npx wrangler deploy --config wrangler.site.staging.jsonc
+```
+
+The helper refuses production Worker names, public preview URLs, route-bearing manifests, an unprotected site, enabled public intake, a changed asset directory, custom ignore rules or symlinks. Continue to leave every business activation gate off. Do not invent a Santa subject to make the protected site accessible; enroll it only after a real verified owner login. Preserve all existing HMAC/AES keys.
