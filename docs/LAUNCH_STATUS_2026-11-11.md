@@ -76,7 +76,9 @@ Deployed staging frontend authentication with the verified application audience 
 
 **Google preflight:** both staging booking and scheduler Workers lack `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`; their original `GOOGLE_TOKEN_KEYS` bindings remain present. OAuth and calendar synchronization are off. Prepared the staging booking audience and subject bindings from the same matched, authenticated Cloudflare account/application login records. Backend HQ remains off; this preparation grants no current operational access and replaces no HMAC/AES keys.
 
-**Next owner action only:** open Google Cloud Console's project selector, select an existing dedicated SantaBlizard staging project or choose **New Project**, name it **Operation North Pole Staging**, and create/select it. Report only its **Project ID** (not a secret). No billing upgrade, OAuth secret, API setup, calendar creation or authorization is requested in this step. Those follow in order after the project is identified. Agent-side Google Cloud account authorization is not available from the configured Cloudflare credential.
+**Google Cloud project selected:** the owner supplied Project ID `operation-north-pole-514123`. This is owner-provided configuration, not independently verified Google Cloud access; no agent-side Google Cloud management credential is configured.
+
+**Next owner action only:** open `https://console.cloud.google.com/apis/library/calendar-json.googleapis.com?project=operation-north-pole-514123`, confirm the selected project ID, and enable **Google Calendar API**. If the page shows **Manage** instead of **Enable**, the API is already enabled. Report completion before continuing to Google Auth Platform consent/client setup. Do not create a calendar manually or change application activation flags. OAuth authorization, app-created-calendar ownership/sync, and Google production consent readiness remain untested.
 
 [Owner-reported Turnstile pass and Google preflight](review/launch-2026-11-11/turnstile-owner-pass-google-preflight.json).
 

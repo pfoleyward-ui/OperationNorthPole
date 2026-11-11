@@ -1,0 +1,11 @@
+{
+  "project_id": "operation-north-pole-514123",
+  "source": "owner supplied",
+  "google_cloud_project_access_independently_verified": false,
+  "calendar_api_enabled": "awaiting owner confirmation",
+  "oauth_client_configured": false,
+  "oauth_authorization_tested": false,
+  "calendar_sync_tested": false,
+  "next_owner_action": "Enable Google Calendar API in selected project",
+  "production_changes": false
+}

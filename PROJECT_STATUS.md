@@ -206,3 +206,7 @@ Checks passed: all 99 backend tests including four new readiness security/provid
 ## Real Turnstile owner pass and Google preflight — November 11, 2026
 
 Owner reported the protected checker's server-generated PASS for a real Turnstile proof. Recorded this as owner-observed positive verification, alongside the earlier direct real invalid-proof rejection. No proof/session token, booking or child/customer data collected. Google staging client ID and secret are absent on booking/scheduler; existing GOOGLE_TOKEN_KEYS remain present and untouched. Prepared staging booking Access audience/subject bindings from the previously verified account/application login records; backend HQ/OAuth/sync and all production business/retention gates remain off. Next single owner action: select/create dedicated Google Cloud staging project and report Project ID only. Documentation/configuration readbacks passed; no application code changed or test suite rerun.
+
+## Owner-selected Google staging project — November 11, 2026
+
+Recorded owner-provided Google Cloud Project ID operation-north-pole-514123. No Google Cloud account access or API enablement is inferred. Next single owner action is enabling Google Calendar API in that exact project, using the project-specific Console link in the launch checklist. Existing OAuth/sync/booking/notification/child-collection/retention gates and keys are unchanged. Documentation-only update; git diff --check passed; no application tests rerun.
