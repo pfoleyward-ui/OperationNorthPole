@@ -1,0 +1,319 @@
+{
+  "token": {
+    "http_status": 200,
+    "success": true,
+    "errors": [],
+    "status": "active"
+  },
+  "workers": {
+    "http_status": 200,
+    "success": true,
+    "errors": [],
+    "names": [
+      "operation-north-pole-booking",
+      "operation-north-pole-booking-staging",
+      "operation-north-pole-integrations",
+      "operation-north-pole-integrations-staging",
+      "operation-north-pole-notifications",
+      "operation-north-pole-notifications-staging",
+      "operation-north-pole-site",
+      "operation-north-pole-site-staging",
+      "operationnorthpole"
+    ]
+  },
+  "d1": {
+    "http_status": 200,
+    "success": true,
+    "errors": [],
+    "databases": [
+      {
+        "name": "operation-north-pole-email",
+        "id": "2f5bf022-d088-48a8-af05-c9958be3c5a0"
+      },
+      {
+        "name": "operation-north-pole-booking",
+        "id": "a2c79b9c-a578-4d0c-86c4-27f0b1e72b8c"
+      },
+      {
+        "name": "operation-north-pole-email-staging",
+        "id": "6ae1f1e9-7014-4cd8-abcb-ba12e2549cf7"
+      },
+      {
+        "name": "operation-north-pole-booking-staging",
+        "id": "4db01c7d-9271-4b68-9839-323bb6887c6f"
+      }
+    ]
+  },
+  "access_apps": {
+    "http_status": 200,
+    "success": true,
+    "errors": [],
+    "applications": []
+  },
+  "access_org": {
+    "http_status": 403,
+    "success": false,
+    "errors": [
+      {
+        "code": 10000,
+        "message": "Authentication error"
+      }
+    ]
+  },
+  "access_users": {
+    "http_status": 403,
+    "success": false,
+    "errors": [
+      {
+        "code": 10000,
+        "message": "Authentication error"
+      }
+    ]
+  },
+  "turnstile": {
+    "http_status": 200,
+    "success": true,
+    "errors": [],
+    "count": 0
+  },
+  "domains": {
+    "http_status": 200,
+    "success": true,
+    "errors": [],
+    "domains": [
+      {
+        "hostname": "santablizard.com",
+        "worker": "operationnorthpole"
+      },
+      {
+        "hostname": "www.santablizard.com",
+        "worker": "operationnorthpole"
+      }
+    ]
+  },
+  "zone": {
+    "http_status": 200,
+    "success": true,
+    "errors": [],
+    "zones": [
+      {
+        "name": "santablizard.com",
+        "status": "active",
+        "id": "5b5baf130199b5b3fa16e0f64f0d80a0"
+      }
+    ]
+  },
+  "public_http": [
+    {
+      "path": "/",
+      "http_status": 200
+    },
+    {
+      "path": "/services",
+      "http_status": 200
+    },
+    {
+      "path": "/book",
+      "http_status": 404
+    },
+    {
+      "path": "/hq",
+      "http_status": 404
+    },
+    {
+      "path": "/api/bookings",
+      "http_status": 404
+    },
+    {
+      "path": "/elf-notes",
+      "http_status": 404
+    }
+  ],
+  "transport": "existing API credential; not MCP/OAuth",
+  "d1_read_queries": [
+    {
+      "database": "operation-north-pole-email",
+      "http_status": 200,
+      "success": true,
+      "migration_names": [
+        {
+          "name": "0001_notification_gateway.sql"
+        }
+      ],
+      "statement": "SELECT name FROM d1_migrations ORDER BY id"
+    },
+    {
+      "database": "operation-north-pole-booking",
+      "http_status": 200,
+      "success": true,
+      "migration_names": [
+        {
+          "name": "0001_booking_intake.sql"
+        },
+        {
+          "name": "0002_santa_hq.sql"
+        },
+        {
+          "name": "0003_integrations.sql"
+        },
+        {
+          "name": "0004_customer_email.sql"
+        },
+        {
+          "name": "0005_elf_notes.sql"
+        }
+      ],
+      "statement": "SELECT name FROM d1_migrations ORDER BY id"
+    },
+    {
+      "database": "operation-north-pole-email-staging",
+      "http_status": 200,
+      "success": true,
+      "migration_names": [
+        {
+          "name": "0001_notification_gateway.sql"
+        }
+      ],
+      "statement": "SELECT name FROM d1_migrations ORDER BY id"
+    },
+    {
+      "database": "operation-north-pole-booking-staging",
+      "http_status": 200,
+      "success": true,
+      "migration_names": [
+        {
+          "name": "0001_booking_intake.sql"
+        },
+        {
+          "name": "0002_santa_hq.sql"
+        },
+        {
+          "name": "0003_integrations.sql"
+        },
+        {
+          "name": "0004_customer_email.sql"
+        },
+        {
+          "name": "0005_elf_notes.sql"
+        }
+      ],
+      "statement": "SELECT name FROM d1_migrations ORDER BY id"
+    }
+  ],
+  "dns_records": {
+    "http_status": 403,
+    "success": false,
+    "errors": [
+      {
+        "code": 10000,
+        "message": "Authentication error"
+      }
+    ]
+  },
+  "permission_catalog": {
+    "http_status": 403,
+    "success": false,
+    "errors": [
+      {
+        "code": 9109,
+        "message": "Unauthorized to access requested resource"
+      }
+    ]
+  },
+  "worker_activation_flags": {
+    "operation-north-pole-booking": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-booking-staging": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-integrations": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-integrations-staging": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications-staging": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-site": {
+      "CUSTOMER_BOOKING_MODE": "disabled",
+      "HQ_ENABLED": "false",
+      "SITE_STAGING_ENABLED": "false"
+    },
+    "operation-north-pole-site-staging": {
+      "CUSTOMER_BOOKING_MODE": "disabled",
+      "HQ_ENABLED": "false",
+      "SITE_STAGING_ENABLED": "false"
+    },
+    "operationnorthpole": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_BOOKING_MODE": "disabled",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "PUBLIC_WEBSITE_ONLY": "true",
+      "SITE_STAGING_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    }
+  },
+  "public_deployment": {
+    "id": "62604bea-dac9-4bea-b235-52226a26ce12",
+    "created_on": "2026-11-09T23:07:41.71845Z",
+    "versions": [
+      {
+        "version_id": "29f336d2-5f3a-413b-aca6-cb5e4ede71e0",
+        "percentage": 100
+      }
+    ]
+  },
+  "validation_changes": {
+    "api_mutations": 0,
+    "sql_writes": 0,
+    "deployments": 0,
+    "customer_rows_read": 0
+  }
+}

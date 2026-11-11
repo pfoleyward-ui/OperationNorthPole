@@ -1,5 +1,11 @@
 # Operation North Pole
 
+## Cloudflare agent integration
+
+Official Cloudflare skills are vendored under `.agents/skills/`; read only relevant skills when needed. Use the existing project-local Wrangler for this repository; do not install the optional beta `cf` CLI or migrate the application as part of agent setup. Source provenance and hashes are recorded in `.agents/cloudflare-provenance.json`.
+
+Read `docs/CLOUDFLARE_AGENT_SETUP.md` for the official MCP configuration, OAuth/network requirements and verified persistence limits. A local MCP registration does not prove the managed Cloud task has loaded its tools. Keep OAuth credentials outside Git and never send the API credential to a new host without its configured destination binding. Setup validation is read-only: no deployments, booking activation, real notifications, child-data collection or production data changes.
+
 ## Product and design
 
 Build SantaBlizard’s nostalgic, polished Christmas website for Hudson Valley, New York. The approved homepage mockup governs implementation; the render was received in this conversation and has guided the current implementation. Use evergreen, burgundy, parchment, antique gold, warm light, and a storybook atmosphere. Preserve existing work when recovered.
