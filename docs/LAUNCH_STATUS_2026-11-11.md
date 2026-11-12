@@ -82,7 +82,9 @@ Deployed staging frontend authentication with the verified application audience 
 
 **OAuth overview screenshot:** the owner supplied a screenshot showing the OAuth Overview dashboard and “You haven't configured any OAuth clients for this project yet.” Audience, app name and publishing status are not visible; they are not inferred as verified.
 
-**Next owner action only:** open `https://console.cloud.google.com/auth/audience?project=operation-north-pole-514123`. Confirm **External** user type and **Testing** publishing status. If those match, under **Test users** choose **Add users**, enter `santablizard@gmail.com`, and save. If the status/type differs or the test-user section is missing, report the displayed state before changing it. No production publication or OAuth-client secret is requested. OAuth client creation with the exact staging redirect follows after audience verification. Runtime OAuth/sync and production activation remain disabled.
+**Audience/test user saved (owner-confirmed):** the owner confirmed the requested External/Testing audience and approved `santablizard@gmail.com` test-user setup is saved. This is owner-confirmed configuration; no OAuth grant has occurred.
+
+**Next owner action only:** create a Google OAuth client in `https://console.cloud.google.com/auth/clients?project=operation-north-pole-514123`: application type **Web application**, name **SantaBlizard Staging**, authorized redirect URI exactly `https://staging.santablizard.com/hq/oauth/google/callback`. Leave authorized JavaScript origins empty because authorization/code exchange is server-side. Keep the client secret private; do not paste credentials or client JSON into chat. Report client creation only, then follow the next secure secret-installation step. Do not add production callbacks or publish the consent app. Requested runtime scope remains only `https://www.googleapis.com/auth/calendar.app.created`; runtime OAuth/sync and all production activation gates remain disabled.
 
 [Owner-reported Turnstile pass and Google preflight](review/launch-2026-11-11/turnstile-owner-pass-google-preflight.json).
 

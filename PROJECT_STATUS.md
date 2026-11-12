@@ -218,3 +218,7 @@ Owner reports Google Cloud Console shows Calendar API already enabled in operati
 ## OAuth overview screenshot — November 12, 2026
 
 Owner screenshot confirms Google OAuth Overview is available and no OAuth clients are configured. It does not show audience/app name/publishing status. Next single task is Audience verification (External/Testing) and adding the approved Santa test user. No application/runtime changes; documentation-only diff validation.
+
+## Google audience/test-user saved — November 12, 2026
+
+Owner confirmed the requested External/Testing audience and Santa test-user setup is saved. Next single owner task: create the staging Web application OAuth client with the exact prepared callback and no JavaScript origins. No client secret requested in chat and no OAuth grant inferred. Documentation-only update; git diff --check passed; runtime/gates unchanged.

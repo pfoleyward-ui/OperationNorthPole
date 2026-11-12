@@ -6,9 +6,11 @@
   "oauth_client_configured": false,
   "oauth_authorization_tested": false,
   "calendar_sync_tested": false,
-  "next_owner_action": "Open Audience, confirm External/Testing, and add approved Santa email as test user",
+  "next_owner_action": "Create Web application OAuth client with exact staging callback; keep secret private",
   "production_changes": false,
   "calendar_api_confirmation_date": "2026-11-12",
   "oauth_overview_evidence": "Owner screenshot shows OAuth Overview and no configured OAuth clients",
-  "audience_and_publishing_status": "not visible in supplied screenshot; awaiting verification"
+  "audience_and_publishing_status": "owner confirmed requested External/Testing setup saved",
+  "approved_test_user": "santablizard@gmail.com",
+  "test_user_setup": "owner confirmed saved"
 }
