@@ -6,7 +6,7 @@
   "oauth_client_configured": "owner confirmed staging Web application client created",
   "oauth_authorization_tested": true,
   "calendar_sync_tested": false,
-  "next_owner_action": "Create dedicated calendar once through protected HQ and report status",
+  "next_owner_action": "Create synthetic staging booking through signed HQ, save Pending for controlled calendar sync test",
   "production_changes": false,
   "calendar_api_confirmation_date": "2026-11-12",
   "oauth_overview_evidence": "Owner screenshot shows OAuth Overview and no configured OAuth clients",
@@ -54,5 +54,6 @@
   "staging_booking_hq_and_oauth_enabled": true,
   "calendar_sync_enabled": false,
   "oauth_authorization_evidence": "Staging D1 connected metadata and valid encrypted-token envelope; no tokens selected",
-  "calendar_creation_verified": false
+  "calendar_creation_verified": true,
+  "calendar_creation_evidence": "Owner screenshots and independent D1 connected/ready/non-primary binding metadata"
 }

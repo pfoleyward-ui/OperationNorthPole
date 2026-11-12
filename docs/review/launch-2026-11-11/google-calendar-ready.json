@@ -1,0 +1,13 @@
+{
+  "owner_screenshots_google_connected_calendar_ready": true,
+  "staging_d1_calendar_metadata": {
+    "status": "connected",
+    "calendar_state": "ready",
+    "dedicated_calendar": 1
+  },
+  "calendar_id_or_oauth_tokens_selected": false,
+  "booking_count_before_synthetic_sync_test": 0,
+  "calendar_sync_intake_delivery_notes_retention_and_production": "off",
+  "real_event_sync_tested": false,
+  "next_owner_action": "Create a single explicitly synthetic manual staging booking through signed HQ; leave Pending"
+}

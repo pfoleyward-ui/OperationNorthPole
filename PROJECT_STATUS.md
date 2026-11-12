@@ -238,3 +238,7 @@ Cloudflare API confirms both staging Workers contain Google client bindings; pri
 ## Real staging Google OAuth connected — November 12, 2026
 
 Owner sees Create SantaBlizard Bookings calendar. Independent read-only staging D1 metadata confirms connected status, valid encrypted-token envelope present and missing calendar. No token/ciphertext/code selected; callback code validates exact narrow scope before encrypted persistence. All sync/planner/delivery/intake/notes/retention and production gates checked off. Next single owner action is app-mediated dedicated calendar creation once, then status confirmation. No calendar/event or synchronization success inferred. Documentation/evidence-only update; metadata/API checks passed; no application code or test rerun.
+
+## Dedicated Google calendar ready — November 12, 2026
+
+Owner screenshots and independent D1 metadata confirm connected Google account and ready, non-primary bookings calendar. No tokens/calendar ID selected. Zero staging bookings exist; sync/planner/delivery/intake/notes/retention and all production gates remain off. Next owner step creates one clearly synthetic adult-only manual booking via signed HQ, Pending only, to exercise the normal confirmation/calendar path. Actual event sync is not yet claimed. Documentation-only update with D1/gate metadata validation; no code/test rerun.
