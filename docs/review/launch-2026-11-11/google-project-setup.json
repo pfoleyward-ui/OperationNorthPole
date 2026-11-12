@@ -62,9 +62,10 @@
     "date": "2026-12-20",
     "reservations": 1,
     "calendar_mappings": 1,
-    "integration_jobs": 0,
     "version": 7,
     "elf_note_rows": 0,
-    "invitation_plan_rows": 1
+    "invitation_plan_rows": 1,
+    "calendar_job_state": "delivered",
+    "notification_jobs_accepted_or_delivered": 0
   }
 }
