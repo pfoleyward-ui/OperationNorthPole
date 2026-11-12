@@ -6,7 +6,7 @@
   "oauth_client_configured": "owner confirmed staging Web application client created",
   "oauth_authorization_tested": false,
   "calendar_sync_tested": false,
-  "next_owner_action": "Add only calendar.app.created scope to Google Auth Platform Data Access",
+  "next_owner_action": "Install client ID and client secret as Secret bindings on both staging booking and integrations Workers via Cloudflare dashboard",
   "production_changes": false,
   "calendar_api_confirmation_date": "2026-11-12",
   "oauth_overview_evidence": "Owner screenshot shows OAuth Overview and no configured OAuth clients",
@@ -15,5 +15,39 @@
   "test_user_setup": "owner confirmed saved",
   "oauth_client_redirect_uri": "https://staging.santablizard.com/hq/oauth/google/callback",
   "oauth_client_credentials_installed_in_staging": false,
-  "calendar_scope_consent_configuration": "awaiting owner confirmation"
+  "calendar_scope_consent_configuration": "owner confirmed calendar.app.created scope saved",
+  "secret_install_preflight": {
+    "operation-north-pole-booking-staging": {
+      "client_id_present": false,
+      "client_secret_present": false,
+      "existing_google_encryption_keys_present": true,
+      "business_gates": {
+        "BACKUP_ESCALATION_ENABLED": "false",
+        "CALENDAR_SYNC_ENABLED": "false",
+        "CUSTOMER_EMAIL_ENABLED": "false",
+        "ELF_NOTES_ENABLED": "false",
+        "ELF_RETENTION_APPROVED": "false",
+        "GOOGLE_OAUTH_ENABLED": "false",
+        "HQ_ENABLED": "false",
+        "INTEGRATION_PLANNER_ENABLED": "false",
+        "NOTIFICATION_DELIVERY_ENABLED": "false",
+        "PUBLIC_INTAKE_ENABLED": "false",
+        "STAGING_INTAKE_ENABLED": "false"
+      }
+    },
+    "operation-north-pole-integrations-staging": {
+      "client_id_present": false,
+      "client_secret_present": false,
+      "existing_google_encryption_keys_present": true,
+      "business_gates": {
+        "CALENDAR_SYNC_ENABLED": "false",
+        "CUSTOMER_EMAIL_ENABLED": "false",
+        "ELF_NOTES_ENABLED": "false",
+        "ELF_RETENTION_APPROVED": "false",
+        "GOOGLE_OAUTH_ENABLED": "false",
+        "INTEGRATION_PLANNER_ENABLED": "false",
+        "NOTIFICATION_DELIVERY_ENABLED": "false"
+      }
+    }
+  }
 }

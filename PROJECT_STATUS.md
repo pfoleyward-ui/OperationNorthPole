@@ -226,3 +226,7 @@ Owner confirmed the requested External/Testing audience and Santa test-user setu
 ## Staging Google OAuth client created — November 12, 2026
 
 Owner confirmed the requested staging Web application OAuth client was created. Credentials remain private and are not installed in Workers yet. Next single owner action is adding the exact calendar.app.created scope in Google Auth Platform Data Access. No Google grant/calendar/sync is inferred; runtime flags, keys and production are unchanged. Documentation-only diff validation; no application tests rerun.
+
+## Narrow Calendar scope saved and secret-install preflight — November 12, 2026
+
+Owner confirmed calendar.app.created consent scope saved. Fresh Cloudflare metadata reads show both staging booking/integrations Workers lack GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET, retain GOOGLE_TOKEN_KEYS, and have all business/retention gates off. Next single task is installing the same client credentials privately as Secret bindings on those two staging Workers in Cloudflare dashboard. No credential values requested or retrieved, runtime changes or provider grant made. Documentation-only diff validation; no application test rerun.
