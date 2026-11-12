@@ -246,3 +246,7 @@ Owner screenshots and independent D1 metadata confirm connected Google account a
 ## Synthetic calendar fixture saved Pending — November 12, 2026
 
 Owner screenshots/read-only staging D1 query confirm synthetic Pending version 1, no reservation/calendar mapping/integration job. Saved date is 2026-12-20 14:00 New York (future), rather than suggested 2027; retain existing fixture. Next single owner step is Review request through signed HQ. No code/config change or lifecycle mutation by agent; doc/evidence diff validation passed; sync/delivery remain off.
+
+## Confirmed synthetic fixture and first real Google event sync — November 12, 2026
+
+D1 confirms synthetic fixture Confirmed version 7 with one reservation; invitation-plan row exists but no Elf Notes data. Verified only this one synthetic booking exists, then ran a bounded actual staging scheduler/Google sync with planner/calendar on temporarily, email/collection/retention off, native popup reminders suppressed. Calendar job delivered on attempt 1 with synced mapping and no error. Restored scheduler disabled configuration and read back flags; all production flags/public Worker history unchanged. No encryption keys rotated, zero note rows and zero accepted/delivered notification jobs. Next owner action verifies exactly one 2026-12-20 14:00–14:30 New York event in SantaBlizard Bookings. Real event readback/replay/reschedule/cancel and device checks remain pending. Runtime test evidence saved; no source changes or redundant local test reruns.

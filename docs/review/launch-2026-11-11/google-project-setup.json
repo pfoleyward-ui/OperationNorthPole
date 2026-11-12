@@ -5,8 +5,8 @@
   "calendar_api_enabled": "owner confirmed Console shows already enabled",
   "oauth_client_configured": "owner confirmed staging Web application client created",
   "oauth_authorization_tested": true,
-  "calendar_sync_tested": false,
-  "next_owner_action": "Review synthetic request in protected HQ",
+  "calendar_sync_tested": "first actual synthetic confirmed-event write passed; reschedule/replay/cancel pending",
+  "next_owner_action": "Visually verify exactly one synthetic event in dedicated Google Calendar; automatic sync restored off",
   "production_changes": false,
   "calendar_api_confirmation_date": "2026-11-12",
   "oauth_overview_evidence": "Owner screenshot shows OAuth Overview and no configured OAuth clients",
@@ -58,10 +58,13 @@
   "calendar_creation_evidence": "Owner screenshots and independent D1 connected/ready/non-primary binding metadata",
   "synthetic_calendar_fixture": {
     "id": "8880afa8-2a30-4d4e-9384-f8646054665d",
-    "status": "pending",
+    "status": "confirmed",
     "date": "2026-12-20",
-    "reservations": 0,
-    "calendar_mappings": 0,
-    "integration_jobs": 0
+    "reservations": 1,
+    "calendar_mappings": 1,
+    "integration_jobs": 0,
+    "version": 7,
+    "elf_note_rows": 0,
+    "invitation_plan_rows": 1
   }
 }
