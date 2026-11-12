@@ -6,7 +6,9 @@
   "oauth_client_configured": false,
   "oauth_authorization_tested": false,
   "calendar_sync_tested": false,
-  "next_owner_action": "Configure or inspect Google Auth Platform initial consent setup; keep staging in Testing",
+  "next_owner_action": "Open Audience, confirm External/Testing, and add approved Santa email as test user",
   "production_changes": false,
-  "calendar_api_confirmation_date": "2026-11-12"
+  "calendar_api_confirmation_date": "2026-11-12",
+  "oauth_overview_evidence": "Owner screenshot shows OAuth Overview and no configured OAuth clients",
+  "audience_and_publishing_status": "not visible in supplied screenshot; awaiting verification"
 }

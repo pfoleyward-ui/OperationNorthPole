@@ -214,3 +214,7 @@ Recorded owner-provided Google Cloud Project ID operation-north-pole-514123. No 
 ## Calendar API owner confirmation — November 12, 2026
 
 Owner reports Google Cloud Console shows Calendar API already enabled in operation-north-pole-514123. Recorded as owner-confirmed, not an agent-side API probe or OAuth grant. Next single owner task: initialize/inspect Google Auth Platform consent setup with the staging app in Testing. No Cloudflare/runtime configuration or business/retention gates changed. Documentation-only update; git diff --check passed; no application test rerun.
+
+## OAuth overview screenshot — November 12, 2026
+
+Owner screenshot confirms Google OAuth Overview is available and no OAuth clients are configured. It does not show audience/app name/publishing status. Next single task is Audience verification (External/Testing) and adding the approved Santa test user. No application/runtime changes; documentation-only diff validation.

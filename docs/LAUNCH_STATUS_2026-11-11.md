@@ -80,7 +80,9 @@ Deployed staging frontend authentication with the verified application audience 
 
 **Calendar API enabled (owner-confirmed November 12):** the Google Cloud Console reports Calendar API is already enabled for `operation-north-pole-514123`. This does not establish OAuth client setup, a token grant or calendar synchronization.
 
-**Next owner action only:** open `https://console.cloud.google.com/auth/overview?project=operation-north-pole-514123`. If **Get started** is offered, complete the initial Google Auth Platform setup with app name **SantaBlizard Staging**, user support email **santablizard@gmail.com**, audience **External**, and contact email **santablizard@gmail.com**. Keep the app in **Testing**. If an existing OAuth dashboard is shown, report the existing app name/publishing status before modifying it. Next steps will add the approved test user and narrow scope, then create a staging web OAuth client with the exact callback. No OAuth secret is requested in chat. Do not manually create a calendar or change application activation flags. OAuth authorization, app-created-calendar ownership/sync, and production consent readiness remain untested.
+**OAuth overview screenshot:** the owner supplied a screenshot showing the OAuth Overview dashboard and “You haven't configured any OAuth clients for this project yet.” Audience, app name and publishing status are not visible; they are not inferred as verified.
+
+**Next owner action only:** open `https://console.cloud.google.com/auth/audience?project=operation-north-pole-514123`. Confirm **External** user type and **Testing** publishing status. If those match, under **Test users** choose **Add users**, enter `santablizard@gmail.com`, and save. If the status/type differs or the test-user section is missing, report the displayed state before changing it. No production publication or OAuth-client secret is requested. OAuth client creation with the exact staging redirect follows after audience verification. Runtime OAuth/sync and production activation remain disabled.
 
 [Owner-reported Turnstile pass and Google preflight](review/launch-2026-11-11/turnstile-owner-pass-google-preflight.json).
 
