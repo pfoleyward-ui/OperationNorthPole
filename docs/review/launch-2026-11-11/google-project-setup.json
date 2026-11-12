@@ -3,14 +3,17 @@
   "source": "owner supplied",
   "google_cloud_project_access_independently_verified": false,
   "calendar_api_enabled": "owner confirmed Console shows already enabled",
-  "oauth_client_configured": false,
+  "oauth_client_configured": "owner confirmed staging Web application client created",
   "oauth_authorization_tested": false,
   "calendar_sync_tested": false,
-  "next_owner_action": "Create Web application OAuth client with exact staging callback; keep secret private",
+  "next_owner_action": "Add only calendar.app.created scope to Google Auth Platform Data Access",
   "production_changes": false,
   "calendar_api_confirmation_date": "2026-11-12",
   "oauth_overview_evidence": "Owner screenshot shows OAuth Overview and no configured OAuth clients",
   "audience_and_publishing_status": "owner confirmed requested External/Testing setup saved",
   "approved_test_user": "santablizard@gmail.com",
-  "test_user_setup": "owner confirmed saved"
+  "test_user_setup": "owner confirmed saved",
+  "oauth_client_redirect_uri": "https://staging.santablizard.com/hq/oauth/google/callback",
+  "oauth_client_credentials_installed_in_staging": false,
+  "calendar_scope_consent_configuration": "awaiting owner confirmation"
 }

@@ -84,7 +84,9 @@ Deployed staging frontend authentication with the verified application audience 
 
 **Audience/test user saved (owner-confirmed):** the owner confirmed the requested External/Testing audience and approved `santablizard@gmail.com` test-user setup is saved. This is owner-confirmed configuration; no OAuth grant has occurred.
 
-**Next owner action only:** create a Google OAuth client in `https://console.cloud.google.com/auth/clients?project=operation-north-pole-514123`: application type **Web application**, name **SantaBlizard Staging**, authorized redirect URI exactly `https://staging.santablizard.com/hq/oauth/google/callback`. Leave authorized JavaScript origins empty because authorization/code exchange is server-side. Keep the client secret private; do not paste credentials or client JSON into chat. Report client creation only, then follow the next secure secret-installation step. Do not add production callbacks or publish the consent app. Requested runtime scope remains only `https://www.googleapis.com/auth/calendar.app.created`; runtime OAuth/sync and all production activation gates remain disabled.
+**OAuth client created (owner-confirmed):** the owner confirmed creation of the requested staging Web application client with callback `https://staging.santablizard.com/hq/oauth/google/callback`. Client credentials remain private and are not yet installed in staging Workers. No OAuth grant or real calendar is inferred.
+
+**Next owner action only:** open `https://console.cloud.google.com/auth/scopes?project=operation-north-pole-514123` (**Data Access**). Choose **Add or remove scopes** and add the exact scope `https://www.googleapis.com/auth/calendar.app.created`, using the manual entry field if necessary, then update/save. Do not substitute broad Calendar scopes. Keep the app in Testing. Secure installation of the client credentials in staging Worker secrets follows afterward; no secret or JSON is requested in chat. Runtime OAuth/sync and all production activation remain disabled.
 
 [Owner-reported Turnstile pass and Google preflight](review/launch-2026-11-11/turnstile-owner-pass-google-preflight.json).
 

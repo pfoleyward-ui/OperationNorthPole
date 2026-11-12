@@ -222,3 +222,7 @@ Owner screenshot confirms Google OAuth Overview is available and no OAuth client
 ## Google audience/test-user saved — November 12, 2026
 
 Owner confirmed the requested External/Testing audience and Santa test-user setup is saved. Next single owner task: create the staging Web application OAuth client with the exact prepared callback and no JavaScript origins. No client secret requested in chat and no OAuth grant inferred. Documentation-only update; git diff --check passed; runtime/gates unchanged.
+
+## Staging Google OAuth client created — November 12, 2026
+
+Owner confirmed the requested staging Web application OAuth client was created. Credentials remain private and are not installed in Workers yet. Next single owner action is adding the exact calendar.app.created scope in Google Auth Platform Data Access. No Google grant/calendar/sync is inferred; runtime flags, keys and production are unchanged. Documentation-only diff validation; no application tests rerun.
