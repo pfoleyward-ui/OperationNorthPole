@@ -5,8 +5,8 @@
   "calendar_api_enabled": "owner confirmed Console shows already enabled",
   "oauth_client_configured": "owner confirmed staging Web application client created",
   "oauth_authorization_tested": true,
-  "calendar_sync_tested": "first actual synthetic confirmed-event write passed; reschedule/replay/cancel pending",
-  "next_owner_action": "Visually verify exactly one synthetic event in dedicated Google Calendar; automatic sync restored off",
+  "calendar_sync_tested": "actual synthetic create and same-event replay passed; reschedule/cancellation pending",
+  "next_owner_action": "Propose synthetic reschedule from 14:00 to 15:00 New York, keeping original reservation until agreement/application",
   "production_changes": false,
   "calendar_api_confirmation_date": "2026-11-12",
   "oauth_overview_evidence": "Owner screenshot shows OAuth Overview and no configured OAuth clients",
@@ -67,5 +67,7 @@
     "invitation_plan_rows": 1,
     "calendar_job_state": "delivered",
     "notification_jobs_accepted_or_delivered": 0
-  }
+  },
+  "owner_visual_calendar_event_verified": true,
+  "same_event_id_replay_verified": true
 }
