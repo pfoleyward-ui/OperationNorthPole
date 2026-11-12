@@ -4,9 +4,9 @@
   "google_cloud_project_access_independently_verified": false,
   "calendar_api_enabled": "owner confirmed Console shows already enabled",
   "oauth_client_configured": "owner confirmed staging Web application client created",
-  "oauth_authorization_tested": false,
+  "oauth_authorization_tested": true,
   "calendar_sync_tested": false,
-  "next_owner_action": "Authorize Google from protected staging HQ as approved Santa test user",
+  "next_owner_action": "Create dedicated calendar once through protected HQ and report status",
   "production_changes": false,
   "calendar_api_confirmation_date": "2026-11-12",
   "oauth_overview_evidence": "Owner screenshot shows OAuth Overview and no configured OAuth clients",
@@ -52,5 +52,7 @@
   },
   "credential_installation_evidence": "Cloudflare binding metadata independently verified on both staging Workers",
   "staging_booking_hq_and_oauth_enabled": true,
-  "calendar_sync_enabled": false
+  "calendar_sync_enabled": false,
+  "oauth_authorization_evidence": "Staging D1 connected metadata and valid encrypted-token envelope; no tokens selected",
+  "calendar_creation_verified": false
 }
