@@ -78,7 +78,9 @@ Deployed staging frontend authentication with the verified application audience 
 
 **Google Cloud project selected:** the owner supplied Project ID `operation-north-pole-514123`. This is owner-provided configuration, not independently verified Google Cloud access; no agent-side Google Cloud management credential is configured.
 
-**Next owner action only:** open `https://console.cloud.google.com/apis/library/calendar-json.googleapis.com?project=operation-north-pole-514123`, confirm the selected project ID, and enable **Google Calendar API**. If the page shows **Manage** instead of **Enable**, the API is already enabled. Report completion before continuing to Google Auth Platform consent/client setup. Do not create a calendar manually or change application activation flags. OAuth authorization, app-created-calendar ownership/sync, and Google production consent readiness remain untested.
+**Calendar API enabled (owner-confirmed November 12):** the Google Cloud Console reports Calendar API is already enabled for `operation-north-pole-514123`. This does not establish OAuth client setup, a token grant or calendar synchronization.
+
+**Next owner action only:** open `https://console.cloud.google.com/auth/overview?project=operation-north-pole-514123`. If **Get started** is offered, complete the initial Google Auth Platform setup with app name **SantaBlizard Staging**, user support email **santablizard@gmail.com**, audience **External**, and contact email **santablizard@gmail.com**. Keep the app in **Testing**. If an existing OAuth dashboard is shown, report the existing app name/publishing status before modifying it. Next steps will add the approved test user and narrow scope, then create a staging web OAuth client with the exact callback. No OAuth secret is requested in chat. Do not manually create a calendar or change application activation flags. OAuth authorization, app-created-calendar ownership/sync, and production consent readiness remain untested.
 
 [Owner-reported Turnstile pass and Google preflight](review/launch-2026-11-11/turnstile-owner-pass-google-preflight.json).
 

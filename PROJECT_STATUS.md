@@ -210,3 +210,7 @@ Owner reported the protected checker's server-generated PASS for a real Turnstil
 ## Owner-selected Google staging project — November 11, 2026
 
 Recorded owner-provided Google Cloud Project ID operation-north-pole-514123. No Google Cloud account access or API enablement is inferred. Next single owner action is enabling Google Calendar API in that exact project, using the project-specific Console link in the launch checklist. Existing OAuth/sync/booking/notification/child-collection/retention gates and keys are unchanged. Documentation-only update; git diff --check passed; no application tests rerun.
+
+## Calendar API owner confirmation — November 12, 2026
+
+Owner reports Google Cloud Console shows Calendar API already enabled in operation-north-pole-514123. Recorded as owner-confirmed, not an agent-side API probe or OAuth grant. Next single owner task: initialize/inspect Google Auth Platform consent setup with the staging app in Testing. No Cloudflare/runtime configuration or business/retention gates changed. Documentation-only update; git diff --check passed; no application test rerun.

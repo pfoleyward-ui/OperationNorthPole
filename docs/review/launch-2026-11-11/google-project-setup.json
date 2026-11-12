@@ -2,10 +2,11 @@
   "project_id": "operation-north-pole-514123",
   "source": "owner supplied",
   "google_cloud_project_access_independently_verified": false,
-  "calendar_api_enabled": "awaiting owner confirmation",
+  "calendar_api_enabled": "owner confirmed Console shows already enabled",
   "oauth_client_configured": false,
   "oauth_authorization_tested": false,
   "calendar_sync_tested": false,
-  "next_owner_action": "Enable Google Calendar API in selected project",
-  "production_changes": false
+  "next_owner_action": "Configure or inspect Google Auth Platform initial consent setup; keep staging in Testing",
+  "production_changes": false,
+  "calendar_api_confirmation_date": "2026-11-12"
 }
