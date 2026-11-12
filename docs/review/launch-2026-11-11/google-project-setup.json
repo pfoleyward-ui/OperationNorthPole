@@ -6,7 +6,7 @@
   "oauth_client_configured": "owner confirmed staging Web application client created",
   "oauth_authorization_tested": false,
   "calendar_sync_tested": false,
-  "next_owner_action": "Install client ID and client secret as Secret bindings on both staging booking and integrations Workers via Cloudflare dashboard",
+  "next_owner_action": "Authorize Google from protected staging HQ as approved Santa test user",
   "production_changes": false,
   "calendar_api_confirmation_date": "2026-11-12",
   "oauth_overview_evidence": "Owner screenshot shows OAuth Overview and no configured OAuth clients",
@@ -14,7 +14,7 @@
   "approved_test_user": "santablizard@gmail.com",
   "test_user_setup": "owner confirmed saved",
   "oauth_client_redirect_uri": "https://staging.santablizard.com/hq/oauth/google/callback",
-  "oauth_client_credentials_installed_in_staging": false,
+  "oauth_client_credentials_installed_in_staging": true,
   "calendar_scope_consent_configuration": "owner confirmed calendar.app.created scope saved",
   "secret_install_preflight": {
     "operation-north-pole-booking-staging": {
@@ -49,5 +49,8 @@
         "NOTIFICATION_DELIVERY_ENABLED": "false"
       }
     }
-  }
+  },
+  "credential_installation_evidence": "Cloudflare binding metadata independently verified on both staging Workers",
+  "staging_booking_hq_and_oauth_enabled": true,
+  "calendar_sync_enabled": false
 }
