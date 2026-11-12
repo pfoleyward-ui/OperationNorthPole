@@ -254,3 +254,7 @@ D1 confirms synthetic fixture Confirmed version 7 with one reservation; invitati
 ## Owner-visible Google event and same-event replay — November 12, 2026
 
 Owner confirms exactly one synthetic event visible. Controlled maintenance replay requeued the existing synthetic calendar job and used actual staging scheduler/Google read-update flow; attempt 2 delivered with same Google event ID. Restored automatic sync off and read back flags; public deployment unchanged; zero note rows/accepted or delivered notification jobs. Next single owner task proposes 15:00 synthetic reschedule while preserving existing 14:00 reservation until agreed atomic apply. Update/cancellation tests remain pending; no source changes or redundant local tests.
+
+## Real Google reschedule update passed — November 12, 2026
+
+Owner applied synthetic reschedule. D1 confirms Confirmed version 11, quote revision 2, no pending change and one 15:00–15:30 reservation. Bounded actual scheduler/Google update delivered on attempt 1 using same Google event ID. Restored scheduler flags off and verified readback. Public deployment unchanged; note rows/accepted or delivered notification jobs remain zero. Next owner action visually verifies one 15:00 event and no 14:00 copy, then cancellation/removal test follows. No source, keys or production changes; actual runtime receipt is the relevant verification.
