@@ -242,3 +242,7 @@ Owner sees Create SantaBlizard Bookings calendar. Independent read-only staging 
 ## Dedicated Google calendar ready — November 12, 2026
 
 Owner screenshots and independent D1 metadata confirm connected Google account and ready, non-primary bookings calendar. No tokens/calendar ID selected. Zero staging bookings exist; sync/planner/delivery/intake/notes/retention and all production gates remain off. Next owner step creates one clearly synthetic adult-only manual booking via signed HQ, Pending only, to exercise the normal confirmation/calendar path. Actual event sync is not yet claimed. Documentation-only update with D1/gate metadata validation; no code/test rerun.
+
+## Synthetic calendar fixture saved Pending — November 12, 2026
+
+Owner screenshots/read-only staging D1 query confirm synthetic Pending version 1, no reservation/calendar mapping/integration job. Saved date is 2026-12-20 14:00 New York (future), rather than suggested 2027; retain existing fixture. Next single owner step is Review request through signed HQ. No code/config change or lifecycle mutation by agent; doc/evidence diff validation passed; sync/delivery remain off.

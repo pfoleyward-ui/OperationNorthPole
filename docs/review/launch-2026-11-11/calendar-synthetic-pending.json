@@ -1,0 +1,14 @@
+{
+  "synthetic_booking_id": "8880afa8-2a30-4d4e-9384-f8646054665d",
+  "read_only_staging_verification": {
+    "status": "pending",
+    "version": 1,
+    "requested_date": "2026-12-20",
+    "reservations": 0,
+    "calendar_mappings": 0,
+    "integration_jobs": 0
+  },
+  "owner_screenshots_show_synthetic_contact_and_event": true,
+  "date_difference": "Requested fixture instructions used 2027; owner saved 2026-12-20, also future and suitable. Keep existing fixture.",
+  "next_owner_action": "Review request through signed staging HQ; do not confirm yet"
+}

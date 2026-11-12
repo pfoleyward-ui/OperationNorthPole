@@ -6,7 +6,7 @@
   "oauth_client_configured": "owner confirmed staging Web application client created",
   "oauth_authorization_tested": true,
   "calendar_sync_tested": false,
-  "next_owner_action": "Create synthetic staging booking through signed HQ, save Pending for controlled calendar sync test",
+  "next_owner_action": "Review synthetic request in protected HQ",
   "production_changes": false,
   "calendar_api_confirmation_date": "2026-11-12",
   "oauth_overview_evidence": "Owner screenshot shows OAuth Overview and no configured OAuth clients",
@@ -55,5 +55,13 @@
   "calendar_sync_enabled": false,
   "oauth_authorization_evidence": "Staging D1 connected metadata and valid encrypted-token envelope; no tokens selected",
   "calendar_creation_verified": true,
-  "calendar_creation_evidence": "Owner screenshots and independent D1 connected/ready/non-primary binding metadata"
+  "calendar_creation_evidence": "Owner screenshots and independent D1 connected/ready/non-primary binding metadata",
+  "synthetic_calendar_fixture": {
+    "id": "8880afa8-2a30-4d4e-9384-f8646054665d",
+    "status": "pending",
+    "date": "2026-12-20",
+    "reservations": 0,
+    "calendar_mappings": 0,
+    "integration_jobs": 0
+  }
 }
