@@ -258,3 +258,7 @@ Owner confirms exactly one synthetic event visible. Controlled maintenance repla
 ## Real Google reschedule update passed — November 12, 2026
 
 Owner applied synthetic reschedule. D1 confirms Confirmed version 11, quote revision 2, no pending change and one 15:00–15:30 reservation. Bounded actual scheduler/Google update delivered on attempt 1 using same Google event ID. Restored scheduler flags off and verified readback. Public deployment unchanged; note rows/accepted or delivered notification jobs remain zero. Next owner action visually verifies one 15:00 event and no 14:00 copy, then cancellation/removal test follows. No source, keys or production changes; actual runtime receipt is the relevant verification.
+
+## Real Calendar cancellation sync — November 13, 2026
+
+Owner confirmed rescheduled event looked correct and canceled synthetic booking through signed HQ. D1 confirms Canceled version 12 with zero reservations. Bounded actual scheduler/Google cancellation job delivered on attempt 1, no error, synced cancellation mapping. Restored scheduler sync/planner off and verified staging notification/production flags off. Public deployment unchanged, zero note rows and accepted/delivered notification jobs, original encryption keys preserved. Next owner action visually confirms event removed before synthetic-fixture cleanup and Resend stage. Runtime receipt and metadata are the relevant verification; no source changes/local test reruns.
