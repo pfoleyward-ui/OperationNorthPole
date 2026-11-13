@@ -7,5 +7,10 @@
   "provider_account_access_verified": false,
   "domain_verified": false,
   "real_email_sent": false,
-  "next_owner_action": "Sign in to Resend and report Domains page status; no secret values requested"
+  "next_owner_action": "Run Resend domain verification and report status",
+  "owner_resend_dashboard_access_confirmed": true,
+  "owner_created_sending_domain": "mail.santablizard.com",
+  "exact_provider_dns_installed": true,
+  "public_dns_resolution_verified": true,
+  "provider_domain_status": "awaiting owner verification check"
 }
