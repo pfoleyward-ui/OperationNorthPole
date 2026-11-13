@@ -5,12 +5,12 @@
   "webhook_secret_present": false,
   "approved_private_recipient_map_present": false,
   "provider_account_access_verified": false,
-  "domain_verified": false,
+  "domain_verified": "owner reports Resend: Domain verified; ready to send emails",
   "real_email_sent": false,
-  "next_owner_action": "Run Resend domain verification and report status",
+  "next_owner_action": "Create staging Resend Full access API key for sending and receipt retrieval; keep key private for Cloudflare installation",
   "owner_resend_dashboard_access_confirmed": true,
   "owner_created_sending_domain": "mail.santablizard.com",
   "exact_provider_dns_installed": true,
   "public_dns_resolution_verified": true,
-  "provider_domain_status": "awaiting owner verification check"
+  "provider_domain_status": "verified (owner-confirmed dashboard message)"
 }

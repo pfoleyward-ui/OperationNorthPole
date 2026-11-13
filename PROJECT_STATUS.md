@@ -270,3 +270,7 @@ Owner confirms synthetic Google event removed. Guarded DELETE matched only the i
 ## Resend DNS records installed and publicly resolving — November 13, 2026
 
 Owner supplied complete public DNS values for mail.santablizard.com. Validated DKIM public key and added exactly TXT resend._domainkey.mail plus DNS-only CNAME rsend.mail→rsend.forge.rmta.net and send.mail→send.forge.rmta.net, TTL Auto. No conflict overwrites; all pre-existing zone records unchanged. Cloudflare exact readback and independent public DNS lookups pass for all three. Public homepage/services 200 and booking404; staging gateway delivery flag off. DMARC/receiving and production/runtime/keys unchanged. No Resend credentials, recipient authorization or messages configured. Next single owner action runs Resend verification and reports status. DNS/runtime readback is validation; no application code or tests changed.
+
+## Resend domain owner-verified — November 13, 2026
+
+Owner reports Resend domain verified/ready to send for mail.santablizard.com; exact public DNS was independently verified previously. This is provider dashboard confirmation, not an API grant or real email delivery test. Next single owner task creates a staging Full access API key (needed for send plus receipt retrieval), kept private for subsequent Cloudflare secret installation. No runtime/source/gate/key changes or emails occurred. Documentation-only git diff validation; no application tests rerun.
