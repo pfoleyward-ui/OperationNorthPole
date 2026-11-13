@@ -274,3 +274,7 @@ Owner supplied complete public DNS values for mail.santablizard.com. Validated D
 ## Resend domain owner-verified — November 13, 2026
 
 Owner reports Resend domain verified/ready to send for mail.santablizard.com; exact public DNS was independently verified previously. This is provider dashboard confirmation, not an API grant or real email delivery test. Next single owner task creates a staging Full access API key (needed for send plus receipt retrieval), kept private for subsequent Cloudflare secret installation. No runtime/source/gate/key changes or emails occurred. Documentation-only git diff validation; no application tests rerun.
+
+## Resend staging secret verified; sender choice pending — November 13, 2026
+
+Cloudflare metadata confirms RESEND_API_KEY as secret_text on notifications-staging; value not retrieved/logged. Delivery flag remains false; sender/reply-to/recipient map/webhook secret absent. Key authentication is not established by binding presence. Next single owner decision confirms displayed sender and reply-to identities; prior examples are not inferred approval. No runtime/source/config changes or real emails. Documentation diff validation; no test rerun.
