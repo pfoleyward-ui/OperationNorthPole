@@ -1,0 +1,11 @@
+{
+  "staging_provider_key_present": false,
+  "sender_present": false,
+  "reply_to_present": false,
+  "webhook_secret_present": false,
+  "approved_private_recipient_map_present": false,
+  "provider_account_access_verified": false,
+  "domain_verified": false,
+  "real_email_sent": false,
+  "next_owner_action": "Sign in to Resend and report Domains page status; no secret values requested"
+}

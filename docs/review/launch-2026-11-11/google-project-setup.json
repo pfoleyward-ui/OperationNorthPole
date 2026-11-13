@@ -5,8 +5,8 @@
   "calendar_api_enabled": "owner confirmed Console shows already enabled",
   "oauth_client_configured": "owner confirmed staging Web application client created",
   "oauth_authorization_tested": true,
-  "calendar_sync_tested": "actual synthetic create, same-event replay, reschedule and cancellation receipts passed; owner visual removal pending",
-  "next_owner_action": "Verify canceled event absent in Google Calendar; then cleanup and Resend setup",
+  "calendar_sync_tested": "actual synthetic create, same-event replay, reschedule and cancellation passed; owner visually verified updates/removal",
+  "next_owner_action": "Sign in to Resend Domains; Google staging scenario complete, device/production-consent gates outstanding",
   "production_changes": false,
   "calendar_api_confirmation_date": "2026-11-12",
   "oauth_overview_evidence": "Owner screenshot shows OAuth Overview and no configured OAuth clients",
@@ -61,18 +61,21 @@
     "status": "canceled",
     "date": "2026-12-20",
     "reservations": 0,
-    "calendar_mappings": 1,
+    "calendar_mappings": 0,
     "version": 12,
     "elf_note_rows": 0,
-    "invitation_plan_rows": 1,
-    "calendar_job_state": "delivered",
+    "invitation_plan_rows": 0,
     "notification_jobs_accepted_or_delivered": 0,
     "quote_revision": 2,
     "time_new_york": "15:00",
-    "duration_minutes": 30
+    "duration_minutes": 30,
+    "cleaned_up": true,
+    "database_record_present": false,
+    "last_calendar_job_state_before_cleanup": "delivered"
   },
   "owner_visual_calendar_event_verified": true,
   "same_event_id_replay_verified": true,
   "same_event_id_after_reschedule_verified": true,
-  "owner_visual_reschedule_verified": true
+  "owner_visual_reschedule_verified": true,
+  "owner_visual_cancellation_verified": true
 }
