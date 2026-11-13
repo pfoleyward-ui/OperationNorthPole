@@ -1,0 +1,15 @@
+{
+  "application_recovery": "passed",
+  "checks": [
+    "original receipt preserved",
+    "confirmed booking preserved",
+    "reservation preserved",
+    "encrypted optional notes decrypt with original key",
+    "encrypted OAuth tokens decrypt with original key",
+    "uncertain email receipt preserved",
+    "replay sends no replacement email",
+    "foreign keys valid"
+  ],
+  "provider_mode": "synthetic only",
+  "real_messages_sent": 0
+}

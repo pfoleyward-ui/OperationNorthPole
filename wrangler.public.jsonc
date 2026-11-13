@@ -1,0 +1,38 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Public-only release derived from the tested Phase 8 site configuration.
+  "name": "operationnorthpole",
+  "main": "workers/site.ts",
+  "compatibility_date": "2026-11-08",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": false },
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "html_handling": "none",
+    "not_found_handling": "none"
+  },
+  "vars": {
+    "PUBLIC_WEBSITE_ONLY": "true",
+    "CUSTOMER_BOOKING_MODE": "disabled",
+    "SITE_STAGING_ENABLED": "false",
+    "PUBLIC_INTAKE_ENABLED": "false",
+    "STAGING_INTAKE_ENABLED": "false",
+    "HQ_ENABLED": "false",
+    "BACKUP_ESCALATION_ENABLED": "false",
+    "INTEGRATION_PLANNER_ENABLED": "false",
+    "CALENDAR_SYNC_ENABLED": "false",
+    "NOTIFICATION_DELIVERY_ENABLED": "false",
+    "CUSTOMER_EMAIL_ENABLED": "false",
+    "GOOGLE_OAUTH_ENABLED": "false"
+  },
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "operationnorthpole" }],
+  "routes": [
+    { "pattern": "santablizard.com", "custom_domain": true },
+    { "pattern": "www.santablizard.com", "custom_domain": true }
+  ]
+  // No D1, booking/gateway bindings, cron, OAuth/provider secrets or backend deployment.
+}

@@ -1,0 +1,5 @@
+# Official Cloudflare MCP. OAuth credentials belong in Codex's credential store,
+# never in this repository. Loading project configuration requires project trust.
+[mcp_servers.cloudflare]
+url = "https://mcp.cloudflare.com/mcp"
+enabled = true

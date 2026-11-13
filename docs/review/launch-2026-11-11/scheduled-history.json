@@ -1,0 +1,32 @@
+[
+  {
+    "run_id": "launch-test-20261110-v1",
+    "status": "failed",
+    "checks_recorded": 13
+  },
+  {
+    "run_id": "launch-test-20261110-v2",
+    "status": "failed",
+    "checks_recorded": 13
+  },
+  {
+    "run_id": "launch-test-20261110-v3",
+    "status": "failed",
+    "checks_recorded": 13
+  },
+  {
+    "run_id": "launch-test-20261110-v4",
+    "status": "incomplete",
+    "checks_recorded": 0
+  },
+  {
+    "run_id": "launch-test-20261110-v5",
+    "status": "passed",
+    "checks_recorded": 46
+  },
+  {
+    "run_id": "launch-test-20261111-v6",
+    "status": "passed",
+    "checks_recorded": 48
+  }
+]

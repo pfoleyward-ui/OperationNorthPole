@@ -1,0 +1,65 @@
+{
+  "domain": "mail.santablizard.com",
+  "source": "Full DNS values copied by owner from Resend",
+  "records": [
+    {
+      "type": "TXT",
+      "name": "resend._domainkey.mail.santablizard.com",
+      "content": "DKIM public key; SHA256 below",
+      "ttl": 1
+    },
+    {
+      "type": "CNAME",
+      "name": "rsend.mail.santablizard.com",
+      "content": "rsend.forge.rmta.net",
+      "ttl": 1,
+      "proxied": false
+    },
+    {
+      "type": "CNAME",
+      "name": "send.mail.santablizard.com",
+      "content": "send.forge.rmta.net",
+      "ttl": 1,
+      "proxied": false
+    }
+  ],
+  "dkim_public_key_sha256": "d904c916e964422cbde3ce27d44c0c635a45872a665c17db3209d987fa248d5d",
+  "dkim_public_key_valid": true,
+  "created_record_ids": [
+    "5d4172f02f8d31415e5935c1f4a1bd1c",
+    "87c8b0e1acb7fee758f6914eee71893a",
+    "4d769684f2882d989feef979172be14c"
+  ],
+  "exact_record_readback_passed": true,
+  "all_preexisting_dns_records_unchanged": true,
+  "existing_record_count": 3,
+  "dmarc_or_receiving_changes": false,
+  "provider_verification_status": "awaiting Resend check",
+  "email_sending_enabled_in_application": false,
+  "public_dns_checks": [
+    {
+      "name": "resend._domainkey.mail.santablizard.com",
+      "type": "TXT",
+      "public_dns_matches": true,
+      "dns_status": 0
+    },
+    {
+      "name": "rsend.mail.santablizard.com",
+      "type": "CNAME",
+      "public_dns_matches": true,
+      "dns_status": 0
+    },
+    {
+      "name": "send.mail.santablizard.com",
+      "type": "CNAME",
+      "public_dns_matches": true,
+      "dns_status": 0
+    }
+  ],
+  "staging_gateway_delivery_enabled": false,
+  "public_http": {
+    "/": 200,
+    "/services": 200,
+    "/book": 404
+  }
+}

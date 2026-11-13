@@ -141,3 +141,148 @@ Stacked development branch: `phase4/customer-booking-preview`, based on PR #1 re
 - Automated baseline regression confirms all existing homepage section sizes/copy are preserved and hero screenshots have zero channel difference at every width. The new sensory panel intentionally adds page height. Original stylesheet/layout and image bytes were independently checked unchanged.
 - Selected fictional-data screenshots/reports are under docs/review/phase4 for PR review without deployment. No dependency additions, paid provisioning, database, OAuth, notifications, HQ, or real data intake.
 - Live submission remains blocked on an approved server-side validation/anti-spam boundary, secure D1 persistence with idempotent atomic writes, privacy/retention decisions, and end-to-end failure tests. Private preparation notes remain deferred. See docs/CUSTOMER_BOOKING_PREVIEW.md.
+
+## Phase 8 — integration and launch readiness (2026-11-08)
+
+Branch `phase8/integration-launch-readiness` is stacked on PR #5 / `2e162d1`. Latest owner direction is email + Google Calendar only; Phase 7 SMS instructions are superseded. Added protected real-input wizard/Turnstile/D1 Pending receipts with stable retry keys; private Resend gateway with durable deduplication, provider receipts/polling/signed webhook recovery; customer scheduling emails and email-only consent-gated escalation; native Calendar popup quiet-hour/collision guards; Cloudflare site/booking/scheduler/gateway manifests and account/DNS/secrets/cost instructions. Original booking migrations 0001–0003 remain unchanged; additive 0004 preserves historical receipts and adds customer jobs; gateway has a separate database/migration. Notes collection and all live activation remain off. No account provisioned, message sent, merge or remote deployment.
+
+82 backend and 148 booking tests pass; all TypeScript checks, Next/OpenNext build, all four Wrangler dry-runs, actual local multi-Worker service-binding probes, complete mocked-provider browser flow at 390/430/768/1024/1440/1920px, HQ/integration mobile suites and public homepage/service/preview checks pass. New static image variants reproduce prior WebP rendering: zero hero pixel delta and unchanged existing section geometry/copy versus Phase 7 at all five public widths. Full npm dependency audit: zero advisories after tested glob/minimatch overrides. Existing HQ browser check now waits for the async resource form before asserting exactly one form. Detailed evidence, limitations and launch blockers: docs/PHASE8_READINESS.md; exact owner setup: docs/PHASE8_STAGING.md. Physical iPhone, actual providers/accounts, remote restore and live delivery have not been tested. GitHub API access remains Forbidden; prepared PR body is docs/PHASE8_PR.md. Automatic Vercel deployment is disabled for the review branch.
+
+## Public website release preparation — 2026-11-08
+
+Owner authorized publishing the existing Phase 8 public website to Active Cloudflare domain santablizard.com, with www redirect and all private functionality disabled. Reviewed release overlay on `phase8/integration-launch-readiness` / `f766514`: derived `wrangler.public.jsonc`, public read-only routing/HTTPS canonical redirects, no D1/private service/cron/provider bindings, and build-time removal of development review assets. No designs/photos/prices/styles/content changed and no main merge.
+
+Public OpenNext build and deploy dry-run pass; 85 backend tests including three release-boundary tests pass; application/backend TypeScript pass. Actual local public Worker returns homepage/services/images 200 and private/preview/review GET/POST 404. Homepage/services mobile/navigation/image checks pass at 390/768/1024/1440/1920px; Phase 8 baseline hero pixel difference is zero with unchanged section geometry/copy. Redirect matrix is unit-tested; real www/DNS/TLS validation has not run successfully. Local boundary/layout reports are in docs/review/public-release.
+
+**Not deployed or verified live:** Wrangler reports not authenticated, and the environment proxy rejects CONNECT to api.cloudflare.com and santablizard.com with 403 Forbidden. No remote deploy, credentials, seeds or backend changes were sent. Added exact private Wrangler browser/device login, single-manifest deployment and post-deployment check instructions in docs/PUBLIC_WEBSITE_RELEASE.md. Network domain additions were saved as a draft only; the owner must review/save/publish them before this cloud environment can use those destinations. All private Phase 8 features remain off.
+# Production launch preparation — 2026-11-10
+
+See `docs/PRODUCTION_LAUNCH_2026-11-10.md` for actual resources, remaining owner actions and activation gates. Provisioned separate production booking/email D1 databases and reused both existing empty staging databases; applied/verified booking migrations 0001–0005 and email 0001. Deployed private booking/HQ, scheduler, email and small HQ gateway Workers in both environments with all activation gates off, no routes, workers.dev/previews/logging disabled. The existing `operationnorthpole` public deployment and apex/www mapping were preserved.
+
+Implemented encrypted, guardian-consented, multi-child optional Elf Notes, hashed private fragment invitations, authenticated Santa reading, family updates/deletion, generic durable arrival alerts and approval-gated retention. Owner explicitly left 30-day automatic deletion pending; it remains disabled. No real child information or customer notifications were used.
+
+Verification: `test:backend` 94/94, `test:booking` 148/148, `typecheck:backend`, `typecheck:booking`, `typecheck`, `build:cloudflare`, and four `check:deployment` dry-runs passed. `check:staging`, `check:hq`, `check:integrations` passed six widths; `check:elf` passed 390/768/1440px with inspected screenshots, no browser storage or overflow. Actual Cloudflare scheduled synthetic run v5 passed 46 checks and cleaned its records; temporary test Worker removed. Google/Resend/Turnstile were simulated. Actual execution exposed unsupported `redirect:error` on server requests; switched to manual with rejection of non-success responses. Reduced duplicate outbox planning; preserved browser redirect protection. Earlier failed/incomplete remote runs remain documented.
+
+Actual isolated recovery of both empty production schemas/migration histories passed (37 booking objects/5 migrations, 4 email objects/1 migration); temporary restore databases removed. Full export download is blocked by R2 destination policy. Access creation and Turnstile creation are blocked by API permissions. Full staging asset upload is blocked by secondary upload-credential proxy authentication. Live tail transport returned 403. Real Access login, Google OAuth/calendar, Resend delivery/webhooks/DNS, Mrs. Claus route consent, physical iPhone, populated recovery, key archival and final production activation remain unverified/blocked. Never infer approval from these preparatory deployments.
+
+## Official Cloudflare agent setup — 2026-11-11
+
+Installed all 22 official Cloudflare skills globally and in `.agents/skills/`; verified all 232 project files against upstream commit `cbf893b954222276bf1af57e5f23379231e0efb9`. Added the official MCP URL to the current default Codex configuration and a secret-free project `.codex/config.toml`. Executed the official `codex mcp login cloudflare --no-browser`; OAuth metadata discovery is blocked by the enforced network policy. Both requested official hosts (`developers.cloudflare.com`, `mcp.cloudflare.com`) return CONNECT 403. The exact official setup prompt was read from Cloudflare's documentation GitHub source. Beta `cf` CLI was not installed; Wrangler and application/deployment files are unchanged.
+
+Checks: `python scripts/setup-cloudflare-agent.py` and `--verify-only` passed; Python compilation passed. Native Codex administrative skills discovery found the 22 unique project/global skills. A separate local checkout exposed its own 22 skills but its project MCP layer was disabled as untrusted; a process-only trust override did not bypass this. Native MCP handshake failed with no tools and unknown authentication. No independent future Cloud task was started, and the reusable environment remains revision 1; cross-task MCP/OAuth persistence is unverified. No OAuth grant was obtained or credentials copied into Git.
+
+Read-only existing API tests passed for nine Workers, four D1 databases and all migration lists, the zone/custom domains, and the public HTTPS site. Access applications returned an empty visible list; Access organization/users and DNS reads returned 403. Public Worker version and disabled activation flags were confirmed unchanged. No deployments, SQL writes, customer-row reads, notifications, production activation or Cloudflare configuration changes were made. Owner network-allowlist change is required before OAuth can reach authorization. Full report and safe evidence: `docs/CLOUDFLARE_AGENT_SETUP.md`.
+
+## Launch continuation — November 11, 2026
+
+Refreshed live inventory and retried private staging Access app creation: still HTTP 403 / 1010 `auth.forbidden`. The official MCP remains blocked by this running environment's network policy; skills installation did not grant account permissions. Full-site staging asset upload was retried and still returns 401 from the temporary upload credential proxy. Public website version and all activation gates were preserved.
+
+Completed independent hardening: optional Elf Notes maintenance failure no longer aborts Calendar/reminder processing; added bounded internal requests, generic HQ status and outage/recovery regression coverage. Deployed updated private booking/HQ and scheduler Workers to staging and production with every activation gate off. Backend tests 95/95, backend/application type checks, private integration browser checks at six widths and four deployment dry-runs passed. Actual private scheduled run `launch-test-20261111-v6` passed 48/48 checks with simulated external providers; synthetic cleanup verified and temporary test Worker removed. Earlier failed/incomplete runs remain recorded.
+
+New `check:recovery:synthetic` test restored 45 synthetic booking/integration rows and 4 email rows through temporary Cloudflare D1 source/restore pairs. Exact schema/data and foreign keys matched; application validation decrypted synthetic notes/OAuth tokens with original synthetic keys, preserved reservation/receipt and prevented resending an uncertain handoff. All temporary databases removed; production databases not used. Google, Resend, real Access login, Turnstile, physical iPhone and native export/provider recovery remain unverified/blocked on owner configuration. Automatic note retention stays pending. Current feature-by-feature matrix and every remaining credential/authorization are in `docs/LAUNCH_STATUS_2026-11-11.md`; safe evidence is under `docs/review/launch-2026-11-11/`.
+
+## Protected staging continuation from 263e759 — November 11, 2026
+
+Account-owned Cloudflare token verification succeeds; required Workers/D1/Access/Turnstile/DNS permissions are available. Created and read back the whole-host staging Access application with one exact-email allow rule; no Everyone/bypass/service-token policy. Created hostname-restricted Turnstile widget and privately installed its secret on the staging booking Worker. Preserved existing application keys.
+
+Added staging-only asset pre-upload helper using inherited proxy/CA and in-memory session JWTs. Actual synthetic upload returned 201; full 145-asset manifest uploaded successfully and repeat run uploaded zero files. This avoids the Wrangler bulk client's continuing credential-proxy 401 without changing credentials, network rules or proxy configuration. Full staging site deployment succeeded. Attached staging.santablizard.com only after policy/protection readback; anonymous paths and a forged-assertion request to a real JS asset redirect to Access. HQ/intake and all other business gates remain off; owner interactive login/verified subject and real Turnstile validation are still required.
+
+Checks passed: backend 95/95; booking 148/148; application/backend/booking type checks; staging production build; four deployment dry-runs; synthetic staging browser flow at 390/430/768/1024/1440/1920px. Public deployment history/version unchanged, homepage/services 200, private paths 404; production gates and secret names unchanged. No production/customer data writes, messages, Google sync, collection, retention or key rotation. Fresh public visual/reference and remote scheduled/recovery tests were not repeated for this infrastructure-only continuation. See docs/LAUNCH_STATUS_2026-11-11.md and its continuation evidence for remaining owner actions.
+
+## Owner-guided readiness handoff — November 11, 2026
+
+Pushed c880708 normally to phase8/integration-launch-readiness and verified exact remote head. Chromium verified staging redirects to the correct Access team/application and offers Cloudflare sign-in. API readback confirms the approved exact-email policy, and all staging backend/production business gates remain off. No credentials submitted, owner identity enrolled, provider test, production activation, key change or customer-data operation occurred. Updated launch checklist with the single next owner action: interactive login using the approved email. This documentation/evidence update needs no application test rerun; browser/API/Git checks provide direct validation.
+
+## Verified owner edge login — November 11, 2026
+
+Matched the owner's successful staging Access login to the approved email and immutable user ID using authenticated Cloudflare API records. Enrolled that subject privately on the staging frontend and deployed its shared JWT verifier with HQ_ENABLED=true on the site only. Backend HQ, staging/public intake, delivery, calendar, notes and retention remain off. Production gates/public Worker version unchanged; anonymous staging requests still redirect to Access. No keys or customer data changed. Real application JWT success awaits the owner's refresh; no live Turnstile/provider success is inferred. API/policy/config/deployment and HTTP readbacks passed; no source changes or repeated application tests.
+
+## Owner-confirmed application access and isolated Turnstile check — November 11, 2026
+
+Owner confirmed protected homepage loads through signed Access verification. Added a protected staging-only Turnstile readiness page and bounded, same-origin JSON siteverify handler; the test uses a separate action and no D1/booking/email/Google operations. Installed the existing staging widget secret privately on the staging site and enabled only its gitignored readiness gate. Real invalid proof rejected by Cloudflare; actual positive browser challenge remains the next owner action.
+
+Checks passed: all 99 backend tests including four new readiness security/provider tests, backend/application type checks, staging deploy dry-run and synthetic browser success/rejection UI at 390/768/1440px with no overflow/application browser storage. Actual staging-only Worker deployment succeeded. Anonymous GET/POST return Access 302; production checker returns 404. Production public version and all staging-backend/production business gates remain unchanged/off. No encryption keys, customer data, child collection or retention changed. No new Next build or public reference comparison was needed for the isolated Worker route. Updated launch checklist and safe evidence; real Google/email/positive Turnstile results are not inferred.
+
+## Real Turnstile owner pass and Google preflight — November 11, 2026
+
+Owner reported the protected checker's server-generated PASS for a real Turnstile proof. Recorded this as owner-observed positive verification, alongside the earlier direct real invalid-proof rejection. No proof/session token, booking or child/customer data collected. Google staging client ID and secret are absent on booking/scheduler; existing GOOGLE_TOKEN_KEYS remain present and untouched. Prepared staging booking Access audience/subject bindings from the previously verified account/application login records; backend HQ/OAuth/sync and all production business/retention gates remain off. Next single owner action: select/create dedicated Google Cloud staging project and report Project ID only. Documentation/configuration readbacks passed; no application code changed or test suite rerun.
+
+## Owner-selected Google staging project — November 11, 2026
+
+Recorded owner-provided Google Cloud Project ID operation-north-pole-514123. No Google Cloud account access or API enablement is inferred. Next single owner action is enabling Google Calendar API in that exact project, using the project-specific Console link in the launch checklist. Existing OAuth/sync/booking/notification/child-collection/retention gates and keys are unchanged. Documentation-only update; git diff --check passed; no application tests rerun.
+
+## Calendar API owner confirmation — November 12, 2026
+
+Owner reports Google Cloud Console shows Calendar API already enabled in operation-north-pole-514123. Recorded as owner-confirmed, not an agent-side API probe or OAuth grant. Next single owner task: initialize/inspect Google Auth Platform consent setup with the staging app in Testing. No Cloudflare/runtime configuration or business/retention gates changed. Documentation-only update; git diff --check passed; no application test rerun.
+
+## OAuth overview screenshot — November 12, 2026
+
+Owner screenshot confirms Google OAuth Overview is available and no OAuth clients are configured. It does not show audience/app name/publishing status. Next single task is Audience verification (External/Testing) and adding the approved Santa test user. No application/runtime changes; documentation-only diff validation.
+
+## Google audience/test-user saved — November 12, 2026
+
+Owner confirmed the requested External/Testing audience and Santa test-user setup is saved. Next single owner task: create the staging Web application OAuth client with the exact prepared callback and no JavaScript origins. No client secret requested in chat and no OAuth grant inferred. Documentation-only update; git diff --check passed; runtime/gates unchanged.
+
+## Staging Google OAuth client created — November 12, 2026
+
+Owner confirmed the requested staging Web application OAuth client was created. Credentials remain private and are not installed in Workers yet. Next single owner action is adding the exact calendar.app.created scope in Google Auth Platform Data Access. No Google grant/calendar/sync is inferred; runtime flags, keys and production are unchanged. Documentation-only diff validation; no application tests rerun.
+
+## Narrow Calendar scope saved and secret-install preflight — November 12, 2026
+
+Owner confirmed calendar.app.created consent scope saved. Fresh Cloudflare metadata reads show both staging booking/integrations Workers lack GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET, retain GOOGLE_TOKEN_KEYS, and have all business/retention gates off. Next single task is installing the same client credentials privately as Secret bindings on those two staging Workers in Cloudflare dashboard. No credential values requested or retrieved, runtime changes or provider grant made. Documentation-only diff validation; no application test rerun.
+
+## Staging Google credentials verified and protected OAuth enabled — November 12, 2026
+
+Cloudflare API confirms both staging Workers contain Google client bindings; private client secrets remain unread. Booking client ID is a public variable (type-change request rejected without mutation); preserved that identifier in the gitignored staging manifest to prevent dashboard/config drift. Existing HMAC/AES secret bindings retained. Enabled only staging booking HQ and OAuth with the previously enrolled signed Access identity; calendar sync/planner/email/intake/notes/retention and all production gates remain off. Focused integration tests 29/29 and staging deploy dry-run passed; staging-only deployment succeeded. Metadata query confirms no connected Google record yet, anonymous HQ receives Access 302, public HQ remains 404, and public Worker version is unchanged. Next single owner action is interactive Google authorization from protected HQ; no Google grant or event success is claimed.
+
+## Real staging Google OAuth connected — November 12, 2026
+
+Owner sees Create SantaBlizard Bookings calendar. Independent read-only staging D1 metadata confirms connected status, valid encrypted-token envelope present and missing calendar. No token/ciphertext/code selected; callback code validates exact narrow scope before encrypted persistence. All sync/planner/delivery/intake/notes/retention and production gates checked off. Next single owner action is app-mediated dedicated calendar creation once, then status confirmation. No calendar/event or synchronization success inferred. Documentation/evidence-only update; metadata/API checks passed; no application code or test rerun.
+
+## Dedicated Google calendar ready — November 12, 2026
+
+Owner screenshots and independent D1 metadata confirm connected Google account and ready, non-primary bookings calendar. No tokens/calendar ID selected. Zero staging bookings exist; sync/planner/delivery/intake/notes/retention and all production gates remain off. Next owner step creates one clearly synthetic adult-only manual booking via signed HQ, Pending only, to exercise the normal confirmation/calendar path. Actual event sync is not yet claimed. Documentation-only update with D1/gate metadata validation; no code/test rerun.
+
+## Synthetic calendar fixture saved Pending — November 12, 2026
+
+Owner screenshots/read-only staging D1 query confirm synthetic Pending version 1, no reservation/calendar mapping/integration job. Saved date is 2026-12-20 14:00 New York (future), rather than suggested 2027; retain existing fixture. Next single owner step is Review request through signed HQ. No code/config change or lifecycle mutation by agent; doc/evidence diff validation passed; sync/delivery remain off.
+
+## Confirmed synthetic fixture and first real Google event sync — November 12, 2026
+
+D1 confirms synthetic fixture Confirmed version 7 with one reservation; invitation-plan row exists but no Elf Notes data. Verified only this one synthetic booking exists, then ran a bounded actual staging scheduler/Google sync with planner/calendar on temporarily, email/collection/retention off, native popup reminders suppressed. Calendar job delivered on attempt 1 with synced mapping and no error. Restored scheduler disabled configuration and read back flags; all production flags/public Worker history unchanged. No encryption keys rotated, zero note rows and zero accepted/delivered notification jobs. Next owner action verifies exactly one 2026-12-20 14:00–14:30 New York event in SantaBlizard Bookings. Real event readback/replay/reschedule/cancel and device checks remain pending. Runtime test evidence saved; no source changes or redundant local test reruns.
+
+## Owner-visible Google event and same-event replay — November 12, 2026
+
+Owner confirms exactly one synthetic event visible. Controlled maintenance replay requeued the existing synthetic calendar job and used actual staging scheduler/Google read-update flow; attempt 2 delivered with same Google event ID. Restored automatic sync off and read back flags; public deployment unchanged; zero note rows/accepted or delivered notification jobs. Next single owner task proposes 15:00 synthetic reschedule while preserving existing 14:00 reservation until agreed atomic apply. Update/cancellation tests remain pending; no source changes or redundant local tests.
+
+## Real Google reschedule update passed — November 12, 2026
+
+Owner applied synthetic reschedule. D1 confirms Confirmed version 11, quote revision 2, no pending change and one 15:00–15:30 reservation. Bounded actual scheduler/Google update delivered on attempt 1 using same Google event ID. Restored scheduler flags off and verified readback. Public deployment unchanged; note rows/accepted or delivered notification jobs remain zero. Next owner action visually verifies one 15:00 event and no 14:00 copy, then cancellation/removal test follows. No source, keys or production changes; actual runtime receipt is the relevant verification.
+
+## Real Calendar cancellation sync — November 13, 2026
+
+Owner confirmed rescheduled event looked correct and canceled synthetic booking through signed HQ. D1 confirms Canceled version 12 with zero reservations. Bounded actual scheduler/Google cancellation job delivered on attempt 1, no error, synced cancellation mapping. Restored scheduler sync/planner off and verified staging notification/production flags off. Public deployment unchanged, zero note rows and accepted/delivered notification jobs, original encryption keys preserved. Next owner action visually confirms event removed before synthetic-fixture cleanup and Resend stage. Runtime receipt and metadata are the relevant verification; no source changes/local test reruns.
+
+## Calendar visual removal and synthetic cleanup; Resend next — November 13, 2026
+
+Owner confirms synthetic Google event removed. Guarded DELETE matched only the identified synthetic canceled fixture with zero reservations/notes; dependent booking/HQ/calendar/job/invitation rows cascade-cleaned, counts zero and foreign-key check passed. Connected Google credentials/ready calendar retained. Staging gateway delivery/webhook rows zero; production/public Worker version, keys and all intake/delivery/collection/retention gates preserved. Controlled real Calendar create/replay/reschedule/cancel scenario complete; device and production consent/token-lifetime checks remain. Resend bindings are absent, so next single owner task opens the Resend Domains page and reports existing domain status. No real customer deletion policy or real email sending activated. Database cleanup/API checks are the validation; no source/test-suite changes.
+
+## Resend DNS records installed and publicly resolving — November 13, 2026
+
+Owner supplied complete public DNS values for mail.santablizard.com. Validated DKIM public key and added exactly TXT resend._domainkey.mail plus DNS-only CNAME rsend.mail→rsend.forge.rmta.net and send.mail→send.forge.rmta.net, TTL Auto. No conflict overwrites; all pre-existing zone records unchanged. Cloudflare exact readback and independent public DNS lookups pass for all three. Public homepage/services 200 and booking404; staging gateway delivery flag off. DMARC/receiving and production/runtime/keys unchanged. No Resend credentials, recipient authorization or messages configured. Next single owner action runs Resend verification and reports status. DNS/runtime readback is validation; no application code or tests changed.
+
+## Resend domain owner-verified — November 13, 2026
+
+Owner reports Resend domain verified/ready to send for mail.santablizard.com; exact public DNS was independently verified previously. This is provider dashboard confirmation, not an API grant or real email delivery test. Next single owner task creates a staging Full access API key (needed for send plus receipt retrieval), kept private for subsequent Cloudflare secret installation. No runtime/source/gate/key changes or emails occurred. Documentation-only git diff validation; no application tests rerun.
+
+## Resend staging secret verified; sender choice pending — November 13, 2026
+
+Cloudflare metadata confirms RESEND_API_KEY as secret_text on notifications-staging; value not retrieved/logged. Delivery flag remains false; sender/reply-to/recipient map/webhook secret absent. Key authentication is not established by binding presence. Next single owner decision confirms displayed sender and reply-to identities; prior examples are not inferred approval. No runtime/source/config changes or real emails. Documentation diff validation; no test rerun.
+
+## Approved staging email sender configured — November 13, 2026
+
+Owner approved SantaBlizard <bookings@mail.santablizard.com> with reply-to santablizard@gmail.com. Installed EMAIL_FROM/EMAIL_REPLY_TO as private staging gateway secrets and verified metadata; Resend API key preserved and delivery flag remains false. No real email sent or recipient inferred from reply-to identity. Next single owner decision selects the sole controlled test inbox. Configuration readback is validation; no code/test changes or production activation.
+
+## Sole test recipient and signed webhook ingress ready — November 13, 2026
+
+Owner approved only santablizard@gmail.com for controlled tests. Configured only Santa private test route, added staging gateway enforcement for operational/customer resolved addresses and [STAGING TEST] subject prefix; sending remains off. Built/deployed a staging-only, exact-host/path POST webhook ingress at webhooks-staging.santablizard.com/webhooks/resend, with no secret/D1/send bindings and no Access bypass. Gateway verifies raw Svix signatures/timestamps/replays; public POST currently503 until signing secret is installed, GET405, other paths404. Main stage HQ302/publicHQ404 and priorDNS/publicWorker version unchanged. All102 backend tests, app/backend typechecks and two deployment dry-runs passed. Only staging ingress/gateway deployed; no real emails, production activation, child data or key rotation. Next owner task registers the six receipt events in Resend and keeps signing key private for installation. No UI source changes/new Next build or screenshot comparison needed.
