@@ -17,6 +17,7 @@
     "workers/launch-test.ts",
     "workers/private-site.ts",
     "workers/site-router.ts",
-    "workers/resend-webhook.ts"
+    "workers/resend-webhook.ts",
+    "workers/email-readiness-test.ts"
   ]
 }
