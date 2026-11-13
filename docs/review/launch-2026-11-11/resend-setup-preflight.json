@@ -2,12 +2,12 @@
   "staging_provider_key_present": true,
   "sender_present": true,
   "reply_to_present": true,
-  "webhook_secret_present": false,
+  "webhook_secret_present": true,
   "approved_private_recipient_map_present": true,
   "provider_account_access_verified": false,
   "domain_verified": "owner reports Resend: Domain verified; ready to send emails",
   "real_email_sent": false,
-  "next_owner_action": "Register signed staging webhook in Resend; keep signing secret private for installation",
+  "next_owner_action": "Send Resend synthetic webhook test and report HTTP status; actual email sending remains off",
   "owner_resend_dashboard_access_confirmed": true,
   "owner_created_sending_domain": "mail.santablizard.com",
   "exact_provider_dns_installed": true,
@@ -24,5 +24,7 @@
   "sole_test_recipient": "santablizard@gmail.com",
   "oversight_mrs_claus_backup_routes_configured": false,
   "signature_webhook_endpoint": "https://webhooks-staging.santablizard.com/webhooks/resend",
-  "webhook_registered_with_provider": false
+  "webhook_registered_with_provider": "owner confirmed creation",
+  "unsigned_webhook_rejected_http": 403,
+  "valid_provider_signed_event_tested": false
 }
