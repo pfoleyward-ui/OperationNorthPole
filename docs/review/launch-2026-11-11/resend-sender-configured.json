@@ -1,0 +1,10 @@
+{
+  "worker": "operation-north-pole-notifications-staging",
+  "owner_approved_sender": "SantaBlizard <bookings@mail.santablizard.com>",
+  "owner_approved_reply_to": "santablizard@gmail.com",
+  "sender_and_reply_to_installed_as_secret_bindings": true,
+  "resend_api_key_binding_preserved": true,
+  "delivery_enabled": false,
+  "test_recipient_approved": false,
+  "real_email_sent": false
+}

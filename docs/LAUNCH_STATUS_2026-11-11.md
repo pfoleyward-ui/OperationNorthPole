@@ -118,7 +118,9 @@ Deployed staging frontend authentication with the verified application audience 
 
 **Resend API secret installed (independently verified):** Cloudflare binding metadata confirms `RESEND_API_KEY` is a Secret on `operation-north-pole-notifications-staging`. The key value was neither selected nor logged. Gateway delivery remains false; no sender, reply-to, recipient map or webhook secret exists yet. Provider authentication/key permissions are not inferred from binding presence. [Secret-binding verification](review/launch-2026-11-11/resend-key-installed.json).
 
-**Next owner decision only:** confirm the proposed displayed sender **SantaBlizard <bookings@mail.santablizard.com>** and reply-to **santablizard@gmail.com**, or provide preferred identities. These were examples in conversation and have not been treated as approved configuration. No API key value is needed in chat. Explicit test-recipient approval, webhook setup and controlled real sends follow separately; production/customer sending remains off.
+**Sender identities approved and configured:** the owner approved **SantaBlizard <bookings@mail.santablizard.com>** and reply-to **santablizard@gmail.com**. Installed only `EMAIL_FROM` and `EMAIL_REPLY_TO` as secret bindings on the private staging notification Worker. Metadata readback confirms those bindings and the existing Resend key; delivery remains false. The reply-to approval is not inferred permission to use the inbox as a test or notification destination. No provider send/authentication or deliverability success is claimed. [Sender configuration evidence](review/launch-2026-11-11/resend-sender-configured.json).
+
+**Next owner decision only:** choose the sole controlled staging test-recipient inbox; proposed **santablizard@gmail.com**, or an owner-controlled alternative. No customer/Mrs. Claus/backup route or consent is inferred. Bounded synthetic real-email tests, webhook configuration and receipt validation follow after the recipient is explicitly selected; all production/customer email gates remain off.
 
 [Bounded actual Calendar sync evidence](review/launch-2026-11-11/calendar-sync-bounded-result.json).
 

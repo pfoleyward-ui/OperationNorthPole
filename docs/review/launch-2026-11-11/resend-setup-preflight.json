@@ -1,13 +1,13 @@
 {
   "staging_provider_key_present": true,
-  "sender_present": false,
-  "reply_to_present": false,
+  "sender_present": true,
+  "reply_to_present": true,
   "webhook_secret_present": false,
   "approved_private_recipient_map_present": false,
   "provider_account_access_verified": false,
   "domain_verified": "owner reports Resend: Domain verified; ready to send emails",
   "real_email_sent": false,
-  "next_owner_action": "Approve proposed sender/reply-to or choose preferred identities; sending remains off",
+  "next_owner_action": "Select sole owner-controlled staging test mailbox; no recipient inferred from reply-to approval",
   "owner_resend_dashboard_access_confirmed": true,
   "owner_created_sending_domain": "mail.santablizard.com",
   "exact_provider_dns_installed": true,
@@ -15,7 +15,10 @@
   "provider_domain_status": "verified (owner-confirmed dashboard message)",
   "staging_provider_key_binding_type": "secret_text",
   "provider_key_authentication_tested": false,
-  "sender_identity_approved": false,
+  "sender_identity_approved": true,
   "proposed_sender": "SantaBlizard <bookings@mail.santablizard.com>",
-  "proposed_reply_to": "santablizard@gmail.com"
+  "proposed_reply_to": "santablizard@gmail.com",
+  "configured_sender": "SantaBlizard <bookings@mail.santablizard.com>",
+  "configured_reply_to": "santablizard@gmail.com",
+  "test_recipient_approved": false
 }
