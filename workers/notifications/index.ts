@@ -1,4 +1,4 @@
-import {resendReadiness,TEST_EMAIL_SUBJECT,TEST_EMAIL_TEXT} from './readiness.ts';
+import {resendReadiness,TEST_EMAIL_SUBJECT,FRESH_TEST_EMAIL_SUBJECT,TEST_EMAIL_TEXT} from './readiness.ts';
 import {policy,quietAdjusted} from '../booking/integration-config.ts';
 import {snapshot} from '../booking/integration-plan.ts';
 import {customerEmailState,customerEmailText} from '../booking/customer-email.ts';
@@ -27,7 +27,7 @@ function validate(input: unknown, env: GatewayEnv): Message {
   if(Object.keys(x).filter(k=>k!=='customerState').sort().join(',')!=='channel,expiresAt,idempotencyKey,recipientKey,subject,text')throw new InvalidRequest();
   if(typeof x.idempotencyKey!=='string'||!/^[A-Za-z0-9_-]{16,128}$/.test(x.idempotencyKey)||typeof x.recipientKey!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(x.recipientKey)||x.channel!=='email'||typeof x.subject!=='string'||x.subject.length<1||x.subject.length>120||/[\r\n]/.test(x.subject)||typeof x.text!=='string'||x.text.length>1200||!Number.isSafeInteger(x.expiresAt))throw new InvalidRequest();
   const origin=new URL(env.HQ_ORIGIN!);if(origin.protocol!=='https:'||origin.origin!==env.HQ_ORIGIN)throw new InvalidRequest();
-  if(x.subject===TEST_EMAIL_SUBJECT){if(env.HQ_ORIGIN!=='https://staging.santablizard.com'||!env.STAGING_TEST_RECIPIENT||x.recipientKey!=='santa-stage'||x.customerState!==undefined||x.text!==TEST_EMAIL_TEXT)throw new InvalidRequest();return x as unknown as Message;}
+  if(x.subject===TEST_EMAIL_SUBJECT||x.subject===FRESH_TEST_EMAIL_SUBJECT){if(env.HQ_ORIGIN!=='https://staging.santablizard.com'||!env.STAGING_TEST_RECIPIENT||x.recipientKey!=='santa-stage'||x.customerState!==undefined||x.text!==TEST_EMAIL_TEXT)throw new InvalidRequest();return x as unknown as Message;}
   // Only the reviewed generic templates may cross this boundary; no arbitrary body/child notes.
   if(x.recipientKey.startsWith('customer_')){if(x.subject!=='An update about your SantaBlizard booking'||typeof x.customerState!=='string')throw new InvalidRequest();return x as unknown as Message;}
   if(x.customerState!==undefined)throw new InvalidRequest();
@@ -53,7 +53,7 @@ function destination(message: Message,env: GatewayEnv):string {
 async function row(env:GatewayEnv,key:string) {return env.DB.prepare('SELECT * FROM gateway_deliveries WHERE id=?').bind(key).first<Row>();}
 export async function handleGateway(request:Request,env:GatewayEnv,fetcher:typeof fetch=fetch,now=Date.now(),clock:()=>number=()=>now):Promise<Response>{
   const url=new URL(request.url);
-  if(url.pathname==='/readiness/resend')return resendReadiness(request,env,fetcher);
+  if(url.pathname==='/readiness/resend'||url.pathname.startsWith('/readiness/resend/receipts/'))return resendReadiness(request,env,fetcher);
   if(url.pathname==='/webhooks/resend')return handleWebhook(request,env,now);const key=url.pathname.match(/^\/deliveries\/([A-Za-z0-9_-]{16,128})$/)?.[1];
   if(url.origin!=='https://notify.internal'||!key||url.search)return reply(404,{error:'not_found'});
   if(!['GET','POST'].includes(request.method))return reply(405,{error:'method_not_allowed'});

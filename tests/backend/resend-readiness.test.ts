@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {resendReadiness,TEST_EMAIL_SUBJECT,TEST_EMAIL_TEXT} from '../../workers/notifications/readiness.ts';
+import {resendReadiness,TEST_EMAIL_SUBJECT,FRESH_TEST_EMAIL_SUBJECT,TEST_EMAIL_TEXT} from '../../workers/notifications/readiness.ts';
 import {gatewayFixture} from './gateway-fixture.ts';
 import {handleGateway} from '../../workers/notifications/index.ts';
 import {runEmailReadiness} from '../../workers/email-readiness-test.ts';
@@ -32,4 +32,22 @@ test('uncertain one-shot handoff and preflight-only mode do not authorize a repl
  await runEmailReadiness({...f.runner,MODE:'preflight',RUN_ID:'synthetic-email-preflight-test'},testNow);assert.equal(f.email.calls,0);
  f.email.loseResponse=true;await runEmailReadiness(f.runner,testNow);await runEmailReadiness(f.runner,testNow+1000);assert.equal(f.email.calls,1);assert.equal((await f.db.prepare('SELECT state FROM gateway_deliveries WHERE id=?').bind(f.runner.RUN_ID).first())?.state,'uncertain');
  }finally{await f.dispose();}
+});
+
+test('receipt audit reads only the approved test receipt, sanitizes metadata and cannot send another message',async()=>{
+ const f=await fixture();try{
+ await runEmailReadiness(f.runner,testNow);assert.equal(f.email.calls,1);
+ const env={...f.runner,MODE:'receipt',RUN_ID:'synthetic-email-receipt-audit',AUDIT_DELIVERY_KEY:f.runner.RUN_ID,NOTIFY:{fetch:(r:Request)=>handleGateway(r,f.gatewayEnv,async(url,init)=>{
+ assert.ok(String(url).startsWith('https://api.resend.com/emails/'));assert.notEqual(init?.method,'POST');
+ return Response.json({id:'email-0',to:['santa@example.test'],from:f.gatewayEnv.EMAIL_FROM,reply_to:[f.gatewayEnv.EMAIL_REPLY_TO],subject:'[STAGING TEST] '+TEST_EMAIL_SUBJECT,last_event:'delivered',created_at:'2026-11-13T20:00:00Z',text:'must-not-return'});
+ },testNow)}};
+ await runEmailReadiness(env,testNow);assert.equal(f.email.calls,1);
+ const row=await f.db.prepare('SELECT report FROM synthetic_email_evidence WHERE id=?').bind(env.RUN_ID).first<{report:string}>();const metadata=JSON.parse(row!.report);assert.equal(metadata.recipientMatchesApproved,true);assert.equal(metadata.providerIdentityMatches,true);assert.equal(metadata.fromMatchesConfigured,true);assert.equal(metadata.replyToMatchesConfigured,true);assert.equal(metadata.lastEvent,'delivered');assert.ok(!row!.report.includes('must-not-return'));
+ f.gatewayEnv.STAGING_TEST_RECIPIENT='different@example.test';const response=await f.runner.NOTIFY.fetch(new Request('https://notify.internal/readiness/resend/receipts/'+f.runner.RUN_ID));assert.equal(response.status,404);assert.equal(f.email.calls,1);
+ }finally{await f.dispose();}
+});
+
+
+test('explicit fresh check uses its fixed distinct subject and still sends at most once',async()=>{
+ const f=await fixture();try{const env={...f.runner,RUN_ID:'synthetic-fresh-delivery-test-v2',FRESH_DELIVERY_CHECK:'true'};await runEmailReadiness(env,testNow);await runEmailReadiness(env,testNow+1000);assert.equal(f.email.calls,1);assert.equal([...f.email.sent.values()][0].body.subject,'[STAGING TEST] '+FRESH_TEST_EMAIL_SUBJECT);}finally{await f.dispose();}
 });

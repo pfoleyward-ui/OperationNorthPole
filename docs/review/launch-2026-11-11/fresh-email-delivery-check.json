@@ -1,0 +1,81 @@
+{
+  "owner_explicitly_requested_one_fresh_message": true,
+  "test_key": "staging-email-fresh-20261113-v2",
+  "subject": "[STAGING TEST] Fresh staging email delivery check 2",
+  "sole_recipient": "santablizard@gmail.com",
+  "maximum_new_emails": 1,
+  "gateway_receipt": {
+    "state": "delivered",
+    "attempts": 1,
+    "provider_receipt_present": 1,
+    "error_code": null
+  },
+  "signed_webhook_receipts": 2,
+  "outcome": "provider_reported_delivered_and_signed_callbacks",
+  "sending_and_original_scheduler_restored_off": true,
+  "original_receipt_unchanged": true,
+  "public_worker_history_unchanged": true,
+  "owner_confirmed_fresh_message_received": true,
+  "original_message_found_in_trash": true,
+  "trash_move_cause": "not verified; no Gmail mailbox access",
+  "global_test_receipts": [
+    {
+      "id": "staging-email-smoke-20261113-v1",
+      "state": "delivered",
+      "attempts": 1,
+      "approved_recipient": 1
+    },
+    {
+      "id": "staging-email-fresh-20261113-v2",
+      "state": "delivered",
+      "attempts": 1,
+      "approved_recipient": 1
+    }
+  ],
+  "disabled_flags_read_back": {
+    "operation-north-pole-notifications-staging": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-integrations-staging": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-booking": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-integrations": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    }
+  },
+  "targeted_gateway_and_readiness_tests_passed": 13,
+  "application_backend_typechecks": "passed",
+  "fresh_deployment_dry_runs": 2
+}

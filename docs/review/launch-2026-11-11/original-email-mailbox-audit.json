@@ -1,0 +1,23 @@
+{
+  "read_only_provider_audit": true,
+  "additional_emails_requested": 0,
+  "provider_receipt": {
+    "providerHttpStatus": 200,
+    "providerMessageId": "01a1d67e-cba1-7dea-b259-6f7be2c69d9c",
+    "providerIdentityMatches": true,
+    "recipientMatchesApproved": true,
+    "approvedRecipient": "santablizard@gmail.com",
+    "fromMatchesConfigured": true,
+    "replyToMatchesConfigured": true,
+    "subjectMatchesExpected": true,
+    "lastEvent": "delivered",
+    "createdAt": "2026-11-13 19:59:56.483000+00"
+  },
+  "original_disabled_scheduler_restored": true,
+  "delivery_row_count_unchanged": true,
+  "send_attempts_unchanged": true,
+  "owner_located_original_message_in_trash": true,
+  "reason_for_trash_move": "not established; recipient mailbox/client activity not visible to this integration",
+  "owner_requested_one_new_distinct_test": true,
+  "gmail_mailbox_permissions_added": false
+}

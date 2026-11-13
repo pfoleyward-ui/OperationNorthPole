@@ -7,7 +7,7 @@
   "provider_account_access_verified": false,
   "domain_verified": "owner reports Resend: Domain verified; ready to send emails",
   "real_email_sent": true,
-  "next_owner_action": "Check approved Gmail Inbox/Spam for labeled test and sender/reply-to identity",
+  "next_owner_action": "Confirm fresh message displayed From and Reply-To; no reply/new email requested",
   "owner_resend_dashboard_access_confirmed": true,
   "owner_created_sending_domain": "mail.santablizard.com",
   "exact_provider_dns_installed": true,
@@ -29,9 +29,12 @@
   "valid_provider_signed_event_tested": true,
   "open_tracking": false,
   "click_tracking": false,
-  "confirmed_real_test_emails": 1,
+  "confirmed_real_test_emails": 2,
   "provider_reported_delivery": "delivered",
   "distinct_signed_webhook_receipts": 2,
   "application_sending_restored_off": true,
-  "owner_inbox_identity_verification": "pending"
+  "owner_inbox_identity_verification": "original found in Trash; fresh received; sender-details confirmation next",
+  "provider_receipt_retrieval_tested": true,
+  "fresh_test_received_owner_confirmed": true,
+  "trash_move_cause": "not verified"
 }
