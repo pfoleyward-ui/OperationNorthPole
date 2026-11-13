@@ -16,6 +16,7 @@
     "scripts/synthetic-recovery.ts",
     "workers/launch-test.ts",
     "workers/private-site.ts",
-    "workers/site-router.ts"
+    "workers/site-router.ts",
+    "workers/resend-webhook.ts"
   ]
 }

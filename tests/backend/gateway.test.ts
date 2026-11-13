@@ -72,3 +72,18 @@ test('slow gateway preparation cannot cross quiet hours or the delivery deadline
   assert.equal((await handleGateway(r,f.gatewayEnv,f.provider,testNow,()=>Date.parse('2026-11-03T02:00:00Z'))).status,503);assert.equal(f.email.calls,0);
  }finally{await f.dispose();}
 });
+
+
+test('real staging test mode restricts both operational and customer mail to the approved inbox and labels subjects',async()=>{
+ const f=await gatewayFixture();try{
+ f.gatewayEnv.HQ_ORIGIN='https://staging.santablizard.com';
+ const message=()=>{const m=operationalMessage();return {...m,text:m.text.replace('https://hq.example.test','https://staging.santablizard.com')}};
+ let m=message();assert.equal((await f.gatewayCall(m.idempotencyKey,m)).status,503);assert.equal(f.email.calls,0);
+ f.gatewayEnv.STAGING_TEST_RECIPIENT='santa@example.test';m=message();assert.equal((await f.gatewayCall(m.idempotencyKey,m)).status,200);assert.equal(f.email.calls,1);
+ const sent=[...f.email.sent.values()][0].body;assert.deepEqual(sent.to,['santa@example.test']);assert.equal(sent.subject,'[STAGING TEST] A new letter has arrived!');
+ m={...message(),recipientKey:'mrs-test'};assert.equal((await f.gatewayCall(m.idempotencyKey,m)).status,403);assert.equal(f.email.calls,1);
+ const id=await f.ready();await f.mutate(id,'confirm',{beforeMinutes:0,afterMinutes:0});const booking=(await snapshot(f.env.DB,id))!;
+ const customer={...message(),recipientKey:'customer_'+id,subject:'An update about your SantaBlizard booking',text:customerEmailText(booking),customerState:customerEmailState(booking)};
+ assert.equal((await f.gatewayCall(customer.idempotencyKey,customer)).status,403);assert.equal(f.email.calls,1);
+ }finally{await f.dispose();}
+});

@@ -1,7 +1,7 @@
 // Generates gitignored, disabled staging manifests. Does not deploy or copy secrets.
 import {readFile,writeFile} from 'node:fs/promises';
 const ids={booking:'4db01c7d-9271-4b68-9839-323bb6887c6f',email:'6ae1f1e9-7014-4cd8-abcb-ba12e2549cf7'};
-for(const service of ['booking','integrations','notifications','private-site','site']){
+for(const service of ['booking','integrations','notifications','private-site','site','resend-webhook']){
  const source=`wrangler.${service}.jsonc`;const config=JSON.parse(await readFile(source,'utf8'));
  config.name+='-staging';
  for(const db of config.d1_databases||[]){const role=db.database_name.endsWith('booking')?'booking':'email';db.database_id=ids[role];db.database_name+='-staging';}

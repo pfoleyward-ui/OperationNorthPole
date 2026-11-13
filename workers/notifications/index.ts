@@ -8,6 +8,8 @@ export interface GatewayEnv extends ProviderEnv {
   DB: Database;
   BOOKING_DB?: Database;
   GATEWAY_DELIVERY_ENABLED?: string;
+  /** Sole owner-approved physical destination for real staging tests. */
+  STAGING_TEST_RECIPIENT?: string;
   GATEWAY_HMAC_SECRET?: string;
   /** Server-only mapping opaque keys to explicitly approved destinations. */
   GATEWAY_RECIPIENTS_JSON?: string;
@@ -74,6 +76,8 @@ export async function handleGateway(request:Request,env:GatewayEnv,fetcher:typeo
       customerTo=booking.request.customer.email;
     }
     const to=existing?.destination||customerTo||destination(message,env);
+    if(env.HQ_ORIGIN==='https://staging.santablizard.com'&&!env.STAGING_TEST_RECIPIENT)return reply(503,{error:'staging_test_recipient_required'});
+    if(env.STAGING_TEST_RECIPIENT&&(env.HQ_ORIGIN!=='https://staging.santablizard.com'||to!==env.STAGING_TEST_RECIPIENT))return reply(403,{error:'test_destination_not_allowed'});
     await env.DB.batch([env.DB.prepare(`INSERT INTO gateway_deliveries(id,payload_hash,payload_json,destination,state,next_at,created_at,updated_at) VALUES(?,?,?,?,'retry',?,?,?) ON CONFLICT(id) DO NOTHING`).bind(key,hash,JSON.stringify(message),to,now,now,now)]);
     existing=await row(env,key);
     if(!existing||existing.payload_hash!==hash)return reply(409,{error:'idempotency_conflict'});
@@ -86,7 +90,8 @@ export async function handleGateway(request:Request,env:GatewayEnv,fetcher:typeo
       await env.DB.batch([env.DB.prepare("UPDATE gateway_deliveries SET state=?,error_code=?,next_at=?,updated_at=? WHERE id=? AND state='sending'").bind(dispatchAt>=message.expiresAt?'failed':'retry',dispatchAt>=message.expiresAt?'delivery_expired':'quiet_hours',quiet,dispatchAt,key)]);
       return reply(dispatchAt>=message.expiresAt?410:503,{error:'delivery_deferred_or_expired'});
     }
-    const result=await send(message,claimed.destination,env,fetcher);
+    const outbound=env.STAGING_TEST_RECIPIENT?{...message,subject:'[STAGING TEST] '+message.subject}:message;
+    const result=await send(outbound,claimed.destination,env,fetcher);
     await env.DB.batch([env.DB.prepare(`UPDATE gateway_deliveries SET state=?,provider_id=?,error_code=?,next_at=?,updated_at=? WHERE id=? AND state='sending'`).bind(result.state,result.id||null,result.code||null,now+60000,now,key)]);
     existing=(await row(env,key))!;
     if(existing.state==='retry')return reply(503,{error:'provider_rate_limited'});

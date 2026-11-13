@@ -1,0 +1,105 @@
+{
+  "webhook_domain": {
+    "hostname": "webhooks-staging.santablizard.com",
+    "worker": "operation-north-pole-resend-webhook-staging",
+    "domain_attached": true,
+    "all_preexisting_dns_records_unchanged": true,
+    "workers_dev_and_previews_disabled": true,
+    "no_secret_or_d1_bindings_on_ingress": true,
+    "signed_webhook_endpoint": "https://webhooks-staging.santablizard.com/webhooks/resend",
+    "access_bypass_or_everyone_rule_created": false
+  },
+  "endpoint_http_checks": [
+    {
+      "path": "/",
+      "method": "GET",
+      "status": 404,
+      "curl_exit": 0
+    },
+    {
+      "path": "/hq",
+      "method": "GET",
+      "status": 404,
+      "curl_exit": 0
+    },
+    {
+      "path": "/deliveries/should-not-exist",
+      "method": "GET",
+      "status": 404,
+      "curl_exit": 0
+    },
+    {
+      "path": "/webhooks/resend",
+      "method": "GET",
+      "status": 405,
+      "curl_exit": 0
+    },
+    {
+      "path": "/webhooks/resend",
+      "method": "POST",
+      "status": 503,
+      "curl_exit": 0
+    }
+  ],
+  "main_staging_and_production_hq_http": {
+    "staging.santablizard.com": 302,
+    "santablizard.com": 404
+  },
+  "webhook_signature_secret_configured": false,
+  "unsigned_post_rejected_until_secret_installation": true,
+  "backend_tests_passed": 102,
+  "application_and_backend_typechecks": "passed",
+  "staging_deployment_dry_runs": 2,
+  "staging_deployments": [
+    "webhook ingress",
+    "notification gateway test-recipient restriction"
+  ],
+  "configured_test_destination_only": "santablizard@gmail.com",
+  "operational_and_customer_test_destination_guard": "regression tested",
+  "test_subject_prefix": "[STAGING TEST]",
+  "email_sends": 0,
+  "production_public_worker_version_unchanged": true,
+  "disabled_flags": {
+    "operation-north-pole-notifications-staging": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-integrations-staging": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-booking": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-integrations": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    }
+  }
+}
