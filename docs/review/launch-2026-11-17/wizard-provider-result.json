@@ -113,5 +113,11 @@
     }
   ],
   "new_signed_webhook_receipts": 6,
-  "public_worker_history_unchanged": true
+  "public_worker_history_unchanged": true,
+  "owner_visual_confirmation": {
+    "customer_confirmation_email_received": true,
+    "appointment_december_20_2026_1400_new_york_matches": true,
+    "calendar_visual_confirmation": "pending",
+    "sender_reply_to_visual_confirmation": "not separately confirmed"
+  }
 }
