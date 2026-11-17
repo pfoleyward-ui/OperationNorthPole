@@ -125,6 +125,13 @@
       "end": "14:30",
       "timezone": "America/New_York"
     },
-    "sender_reply_to_visual_confirmation": "not separately confirmed"
+    "sender_reply_to_visual_confirmation": "not separately confirmed",
+    "physical_iphone_safari": {
+      "passed": true,
+      "access_hq_booking_loads": true,
+      "readable_without_horizontal_scroll": true,
+      "calendar_app_visibility": "pending",
+      "focus_lock_screen_alerts": "not tested"
+    }
   }
 }
