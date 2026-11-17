@@ -22,5 +22,12 @@
       "total_attempts": 3
     }
   ],
-  "verification": "actual protected wizard submission persisted through real bot-verification path; no CAPTCHA or Access bypass"
+  "verification": "actual protected wizard submission persisted through real bot-verification path; no CAPTCHA or Access bypass",
+  "subsequent_hq_verification": {
+    "status": "confirmed",
+    "version": 6,
+    "reservations": 1,
+    "notes": 0,
+    "owner_performed_quote_agreement_confirmation": true
+  }
 }
