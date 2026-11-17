@@ -130,7 +130,15 @@
       "passed": true,
       "access_hq_booking_loads": true,
       "readable_without_horizontal_scroll": true,
-      "calendar_app_visibility": "pending",
+      "calendar_app_visibility": {
+        "passed": true,
+        "calendar": "SantaBlizard Bookings",
+        "date": "2026-12-20",
+        "start": "14:00",
+        "end": "14:30",
+        "timezone": "America/New_York",
+        "app_name": "not specified by owner"
+      },
       "focus_lock_screen_alerts": "not tested"
     }
   }
