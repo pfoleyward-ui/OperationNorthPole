@@ -1,0 +1,38 @@
+{
+  "backend_tests_passed": 113,
+  "domain_tests_passed": 148,
+  "focused_elf_tests_passed": 10,
+  "isolated_runner_tests_passed": 2,
+  "actual_cloudflare_rehearsal_checks_passed": 22,
+  "types_passed": [
+    "app",
+    "backend",
+    "booking"
+  ],
+  "elf_browser_widths": [
+    390,
+    768,
+    1440
+  ],
+  "reminder_browser_widths": [
+    390,
+    430,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "dry_runs_passed": [
+    "site",
+    "booking",
+    "integrations",
+    "notifications",
+    "default-off isolated runner"
+  ],
+  "new_real_messages": 3,
+  "sole_real_recipient": "santablizard@gmail.com",
+  "collection_and_retention_enabled_on_operational_services": false,
+  "google_public_website_or_production_activated": false,
+  "app_source_changed": false,
+  "build_baseline": "Previously passed OpenNext staging build; unchanged app source, Worker-only change bundled by Wrangler dry-runs"
+}

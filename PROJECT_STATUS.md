@@ -1,5 +1,14 @@
 # Operation North Pole — current status
 
+## Independent Elf Notes/reminder backend completion — November 17, 2026
+
+Fixed final optional-note alert authorization: slow receipt lookups cannot send after cancellation, guardian deletion, quiet hours or seven-day alert expiry. Added regression coverage and wrong-booking ciphertext/invariant checks. Staging booking/scheduler code updated safely; operational collection and retention remain disabled.
+
+Disposable Cloudflare D1 rehearsal passed 22 checks including two-child consent/encryption/private read/edit/delete, automatic deletion staying off, a real-clock 24-hour reminder, isolated synthetic-principal acknowledgment, cancellation of unsent escalation and resolution. Three real generic staging messages reached the approved Gmail once each with signed receipts. No operational booking/note changes; existing keys/public Worker preserved; disposable database deleted; original scheduler/gateway restored off. This does not claim real owner Got It or Mrs. Claus/backup consent/delivery, nor open family routing. See [Elf Notes readiness](docs/ELF_NOTES_READINESS.md) and [launch checklist](docs/LAUNCH_STATUS_2026-11-11.md).
+
+113 backend + 148 booking-domain tests, all three type checks, four normal deployment dry-runs plus default-off rehearsal dry-run, three-width Elf browser and six-width reminder browser checks passed. Frontend source/design unchanged; prior OpenNext build remains the build baseline. Owner confirmed email previews When Unlocked; Focus/device alert testing deferred because Santa is unavailable. Remaining owner gates are actual extra recipients/consent, family privacy/routing/retention decisions, Google production consent/token readiness, real key custody/operational backup and final production activation approval. No further phone task blocks independent backend work.
+
+
 ## Phase 8 readiness continuation — November 17, 2026
 
 Real protected website submission → HQ quote/agreement/confirmation → actual Google Calendar and transactional email now passed for the existing synthetic wizard fixture. Calendar delivered on attempt 1; three real Gmail-only messages reached Delivered with one gateway/provider attempt each and six signed callbacks. Follow-up scheduler receipt reads did not resend. Future reminders/escalations have zero attempts. All automatic provider/planner/customer-email gates restored off; public Worker unchanged; notes zero. Owner confirmed the customer email and exactly one Calendar event with the correct appointment; physical iPhone Safari Access/HQ/layout also passed; controlled reminders, phone alerts/privacy and business gates remain. Owner also confirmed the correct Calendar event appears in the iPhone Calendar app. See `docs/review/launch-2026-11-17/wizard-provider-result.json`.

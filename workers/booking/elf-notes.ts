@@ -99,7 +99,7 @@ export async function handleElf(request:Request,env:ElfEnv,now=Date.now()):Promi
   return reply(200,{saved:true,version:(result[0] as {version:number}).version});
  }catch(error){return reply(error instanceof HqError?error.status:error instanceof RangeError?413:503,{error:error instanceof HqError?error.message:'optional_notes_unavailable'});}
 }
-export async function maintainElf(env:ElfEnv,now=Date.now()){
+export async function maintainElf(env:ElfEnv,now=Date.now(),clock:()=>number=()=>now){
  if(env.ELF_NOTES_ENABLED!=='true')return;
  if(env.ELF_RETENTION_APPROVED==='true'&&env.ELF_RETENTION_APPROVAL_REFERENCE){
   // Read current visit end, so rescheduling cannot leave an obsolete deletion date.
@@ -108,12 +108,18 @@ export async function maintainElf(env:ElfEnv,now=Date.now()){
  }
  if(env.NOTIFICATION_DELIVERY_ENABLED!=='true'||!env.NOTIFY||quietAdjusted(now,policy(env))>now)return;
  const route=target(env,'santa');if(!route)return;
- const rows=(await env.DB.batch<{id:string;booking_id:string;created_at:number}>([env.DB.prepare('SELECT id,booking_id,created_at FROM elf_alerts WHERE delivered_at IS NULL ORDER BY created_at LIMIT 10')]))[0].results;
+ const rows=(await env.DB.batch<{id:string;booking_id:string;created_at:number}>([env.DB.prepare("SELECT a.id,a.booking_id,a.created_at FROM elf_alerts a JOIN elf_notes n ON n.booking_id=a.booking_id JOIN hq_bookings b ON b.booking_id=a.booking_id WHERE a.delivered_at IS NULL AND a.created_at>? AND b.status IN ('confirmed','completed') ORDER BY a.created_at LIMIT 10").bind(now-7*86400000)]))[0].results;
  for(const row of rows){
   const key='elf_'+row.id;const endpoint='https://notify.internal/deliveries/'+key;
   let response=await env.NOTIFY.fetch(new Request(endpoint,{redirect:'manual',signal:AbortSignal.timeout(8000)}));if(!response.ok)throw new Error('optional_notes_gateway_unavailable');
   let receipt=await response.json() as {status:string};
   if(receipt.status==='not_found'){
+   // A lookup can outlive a cancellation, guardian deletion, quiet-hour boundary
+   // or expiry. Recheck immediately before crossing the provider boundary.
+   const dispatchAt=clock();
+   if(dispatchAt>=row.created_at+7*86400000||quietAdjusted(dispatchAt,policy(env))>dispatchAt)continue;
+   const authorized=await env.DB.prepare("SELECT a.id FROM elf_alerts a JOIN elf_notes n ON n.booking_id=a.booking_id JOIN hq_bookings b ON b.booking_id=a.booking_id WHERE a.id=? AND a.delivered_at IS NULL AND b.status IN ('confirmed','completed')").bind(row.id).first();
+   if(!authorized)continue;
    response=await env.NOTIFY.fetch(new Request(endpoint,{method:'POST',redirect:'manual',signal:AbortSignal.timeout(8000),headers:{'Content-Type':'application/json','Idempotency-Key':key},body:JSON.stringify({idempotencyKey:key,expiresAt:row.created_at+7*86400000,recipientKey:route.recipientKey,channel:'email',subject:'Optional Elf Notes are ready',text:'Optional preparation notes are ready. Open the secure desk for details.\n'+env.HQ_ORIGIN+'/hq?booking='+row.booking_id+'#reminders'})}));
    if(!response.ok)throw new Error('optional_notes_gateway_unavailable');receipt=await response.json() as {status:string};
   }

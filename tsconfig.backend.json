@@ -18,6 +18,7 @@
     "workers/private-site.ts",
     "workers/site-router.ts",
     "workers/resend-webhook.ts",
-    "workers/email-readiness-test.ts"
+    "workers/email-readiness-test.ts",
+    "workers/backend-readiness-test.ts"
   ]
 }

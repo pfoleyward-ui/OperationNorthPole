@@ -4,13 +4,13 @@
       "c173158b-9483-4092-b688-619c264c1773"
     ],
     "operation-north-pole-booking-staging": [
-      "10a8cbb2-6507-47d0-a1c1-7d82e844212d"
+      "0f2b9f1a-49e2-41d5-b9d3-72518cda045d"
     ],
     "operation-north-pole-integrations-staging": [
-      "265762ff-616b-4bd7-9046-3d142d600594"
+      "9d7f87a7-dbf0-488d-85ee-b713bd208c2c"
     ],
     "operation-north-pole-notifications-staging": [
-      "3d0dc876-e3bc-42d2-aff3-8a1f7026eb4b"
+      "33e74693-9485-42c5-9e1f-2dd551cf4ff1"
     ]
   },
   "credential_values_read": false,

@@ -35,3 +35,34 @@ test('optional notes outage does not block appointment notifications and clears 
  assert.equal((await f.db.prepare('SELECT COUNT(*) AS n FROM elf_alerts WHERE delivered_at IS NULL').first<{n:number}>())?.n,0);
  assert.equal((await f.db.prepare('SELECT status FROM hq_bookings WHERE booking_id=?').bind(id).first<{status:string}>())?.status,'confirmed');
 });
+
+
+test('generic note alerts stop after cancellation, guardian deletion, expiry and quiet-hour crossings',async()=>{
+ for(const scenario of ['cancellation','deletion','quiet','expiry'] as const){
+  await f.clear();const {id,token}=await invitation();await call(token,'save',notes());let posts=0;
+  const start=scenario==='quiet'?Date.parse('2026-11-03T01:59:59Z'):testNow;let dispatch=start;
+  const env={...f.env,NOTIFICATION_DELIVERY_ENABLED:'true',NOTIFICATION_TARGETS_JSON:JSON.stringify({santa:{recipientKey:'santa-stage',channel:'email'}}),NOTIFY:{fetch:async(r:Request)=>{
+   if(r.method==='POST'){posts++;return Response.json({status:'accepted'});}
+   if(scenario==='cancellation')await f.mutate(id,'cancel');
+   if(scenario==='deletion')assert.equal((await call(token,'delete')).status,200);
+   if(scenario==='quiet')dispatch=Date.parse('2026-11-03T02:00:00Z');
+   if(scenario==='expiry')dispatch=testNow+7*86400000;
+   return Response.json({status:'not_found'});
+  }}};
+  await maintainElf(env,start,()=>dispatch);assert.equal(posts,0,scenario);
+ }
+});
+
+test('note ciphertext is bound to its booking and optional notes never change booking or reservations',async()=>{
+ const first=await invitation();const before=await f.db.prepare('SELECT state_json,version FROM hq_bookings WHERE booking_id=?').bind(first.id).first();
+ const reservations=await f.db.prepare('SELECT COUNT(*) AS n FROM hq_reservations WHERE booking_id=?').bind(first.id).first();
+ assert.equal((await call(first.token,'save',notes())).status,200);
+ const ciphertext=(await f.db.prepare('SELECT ciphertext FROM elf_notes WHERE booking_id=?').bind(first.id).first<{ciphertext:string}>())!.ciphertext;
+ const second=await f.create({...((await import('./hq-fixture.ts')).syntheticRequest()),timing:{date:'2027-12-21',time:'14:00'}});
+ await f.db.prepare('INSERT INTO elf_notes(booking_id,ciphertext,version,consent_version,consent_at,updated_at) VALUES(?,?,1,?, ?, ?)').bind(second.id,ciphertext,'synthetic-only',testNow,testNow).run();
+ const {unseal}=await import('../../workers/booking/google.ts');
+ await assert.rejects(unseal({...f.env,GOOGLE_TOKEN_KEYS:f.env.ELF_ENCRYPTION_KEYS,GOOGLE_TOKEN_ACTIVE_KEY:f.env.ELF_ACTIVE_KEY},ciphertext,'elf:'+second.id));
+ assert.equal((await call(first.token,'delete')).status,200);
+ assert.deepEqual(await f.db.prepare('SELECT state_json,version FROM hq_bookings WHERE booking_id=?').bind(first.id).first(),before);
+ assert.deepEqual(await f.db.prepare('SELECT COUNT(*) AS n FROM hq_reservations WHERE booking_id=?').bind(first.id).first(),reservations);
+});

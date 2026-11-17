@@ -128,7 +128,7 @@ export async function processJob(env:IntegrationEnv,id:string,now:number,fetcher
 export async function runIntegrations(env:IntegrationEnv,now=Date.now(),fetcher:typeof fetch=fetch,clock:()=>number=()=>now){
   // Optional-note delivery must never stop Calendar or appointment reminders.
   let elfFailed=false;
-  try{await maintainElf(env,now);}catch{elfFailed=true;}
+  try{await maintainElf(env,now,clock);}catch{elfFailed=true;}
   if((env as {ELF_NOTES_ENABLED?:string}).ELF_NOTES_ENABLED==='true'){
     await env.DB.batch([elfFailed
       ?env.DB.prepare("INSERT INTO integration_control (key,value) VALUES ('last_elf_error',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(JSON.stringify({code:'optional_notes_maintenance_failed',at:now}))

@@ -139,7 +139,8 @@
         "timezone": "America/New_York",
         "app_name": "not specified by owner"
       },
-      "focus_lock_screen_alerts": "not tested"
+      "focus_lock_screen_alerts": "Focus configuration and actual locked-device alerts deferred: Santa unavailable; no backend dependency",
+      "email_show_previews": "When Unlocked (owner-confirmed)"
     }
   }
 }
