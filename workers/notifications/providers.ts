@@ -1,5 +1,5 @@
 /** Transactional email only. Provider keys and approved routes never reach browsers. */
-export interface ProviderEnv { RESEND_WEBHOOK_SECRET?:string; RESEND_API_KEY?: string; EMAIL_FROM?: string; EMAIL_REPLY_TO?: string }
+export interface ProviderEnv { RESEND_WEBHOOK_SECRET?:string; RESEND_API_KEY?: string; EMAIL_FROM?: string; EMAIL_REPLY_TO?: string; HQ_ORIGIN?:string; STAGING_TEST_RECIPIENT?:string; STAGING_DISCARD_RECEIPT_KEY?:string }
 export type Message = { idempotencyKey:string; recipientKey:string; channel:'email'; subject:string; text:string; expiresAt:number; customerState?:string };
 export type ProviderResult = { state:'accepted'|'delivered'|'failed'|'retry'|'uncertain'; id?:string; code?:string };
 export function providerConfigured(_channel:Message['channel'],env:ProviderEnv){return Boolean(env.RESEND_API_KEY&&env.EMAIL_FROM&&!/[\r\n]/.test(env.EMAIL_FROM)&&(!env.EMAIL_REPLY_TO||!/\s/.test(env.EMAIL_REPLY_TO)));}
@@ -10,6 +10,8 @@ export async function send(message:Message,destination:string,env:ProviderEnv,fe
     if(response.status===429)return {state:'retry',code:'provider_rate_limited'};
     if(response.status>=400&&response.status<500)return {state:'failed',code:'provider_rejected'};
     if(!response.ok)return {state:'uncertain',code:'provider_outcome_unknown'};
+    // Bounded staging fault injection: discard only the selected successful API receipt.
+    if(env.HQ_ORIGIN==='https://staging.santablizard.com'&&env.STAGING_TEST_RECIPIENT===destination&&env.STAGING_DISCARD_RECEIPT_KEY===message.idempotencyKey)return {state:'uncertain',code:'staging_receipt_response_discarded'};
     const value=await response.json() as {id?:string};
     if(typeof value.id!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(value.id))return {state:'uncertain',code:'provider_receipt_invalid'};
     return {state:'accepted',id:value.id};

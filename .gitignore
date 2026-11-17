@@ -13,3 +13,5 @@ node_modules/
 public/_optimized/
 wrangler.*.staging.jsonc
 work/
+
+__pycache__/

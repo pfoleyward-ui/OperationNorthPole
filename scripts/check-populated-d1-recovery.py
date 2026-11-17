@@ -41,27 +41,31 @@ def fingerprint(snapshot):
     normalized={'schema':sorted(snapshot['schema'],key=lambda x:(x['type'],x['name'])),'tables':{name:sorted(table['rows'],key=lambda row:json.dumps(row,sort_keys=True)) for name,table in sorted(snapshot['tables'].items())}}
     return hashlib.sha256(json.dumps(normalized,sort_keys=True,separators=(',',':')).encode()).hexdigest()
 
-payload=json.loads(Path('work/synthetic-recovery-source.json').read_text())
-assert payload.get('syntheticOnly') is True and payload.get('source')=='local application handlers with synthetic fixtures'
-for row in payload['booking']['tables']['booking_requests']['rows']:
-    request=json.loads(row['request_json']);assert request['customer']['email'].endswith('@example.test')
-for row in payload['email']['tables']['gateway_deliveries']['rows']:
-    assert row['destination'].endswith('@example.test')
-report=[];restored={'reference':payload['reference']}
-for role in ['booking','email']:
-    created=[]
-    try:
-        for suffix in ['source','restore']:
-            database=api('/d1/database',{'name':'onp-synthetic-recovery-'+role+'-'+suffix})
-            created.append(database['uuid'])
-        populate(created[0],payload[role]);backup=export(created[0],payload[role]);assert fingerprint(backup)==fingerprint(payload[role])
-        path=Path('work/synthetic-recovery-'+role+'-backup.json');path.write_text(json.dumps(backup));path.chmod(0o600)
-        populate(created[1],json.loads(path.read_text()));result=export(created[1],payload[role]);assert fingerprint(result)==fingerprint(backup)
-        assert query(created[1],'PRAGMA foreign_key_check')==[]
-        restored[role]=result
-        report.append({'role':role,'result':'passed','populated_rows':sum(len(t['rows']) for t in result['tables'].values()),'tables':len(result['tables']),'exact_schema_and_data_match':True,'foreign_key_check':'passed','production_databases_used':False})
-    finally:
-        for database in reversed(created):api('/d1/database/'+database,method='DELETE')
-path=Path('work/synthetic-recovery-restored.json');path.write_text(json.dumps(restored));path.chmod(0o600)
-Path('work/synthetic-recovery-cloudflare-report.json').write_text(json.dumps(report,indent=2))
-print(json.dumps({'cloudflare_populated_recovery':report,'temporary_databases_removed':True,'production_writes':0}))
+def main():
+    payload=json.loads(Path('work/synthetic-recovery-source.json').read_text())
+    assert payload.get('syntheticOnly') is True and payload.get('source')=='local application handlers with synthetic fixtures'
+    for row in payload['booking']['tables']['booking_requests']['rows']:
+        request=json.loads(row['request_json']);assert request['customer']['email'].endswith('@example.test')
+    for row in payload['email']['tables']['gateway_deliveries']['rows']:
+        assert row['destination'].endswith('@example.test')
+    report=[];restored={'reference':payload['reference']}
+    for role in ['booking','email']:
+        created=[]
+        try:
+            for suffix in ['source','restore']:
+                database=api('/d1/database',{'name':'onp-synthetic-recovery-'+role+'-'+suffix})
+                created.append(database['uuid'])
+            populate(created[0],payload[role]);backup=export(created[0],payload[role]);assert fingerprint(backup)==fingerprint(payload[role])
+            path=Path('work/synthetic-recovery-'+role+'-backup.json');path.write_text(json.dumps(backup));path.chmod(0o600)
+            populate(created[1],json.loads(path.read_text()));result=export(created[1],payload[role]);assert fingerprint(result)==fingerprint(backup)
+            assert query(created[1],'PRAGMA foreign_key_check')==[]
+            restored[role]=result
+            report.append({'role':role,'result':'passed','populated_rows':sum(len(t['rows']) for t in result['tables'].values()),'tables':len(result['tables']),'exact_schema_and_data_match':True,'foreign_key_check':'passed','production_databases_used':False})
+        finally:
+            for database in reversed(created):api('/d1/database/'+database,method='DELETE')
+    path=Path('work/synthetic-recovery-restored.json');path.write_text(json.dumps(restored));path.chmod(0o600)
+    Path('work/synthetic-recovery-cloudflare-report.json').write_text(json.dumps(report,indent=2))
+    print(json.dumps({'cloudflare_populated_recovery':report,'temporary_databases_removed':True,'production_writes':0}))
+
+if __name__=='__main__':
+    main()

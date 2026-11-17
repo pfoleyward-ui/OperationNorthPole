@@ -1,4 +1,4 @@
-import {resendReadiness,TEST_EMAIL_SUBJECT,FRESH_TEST_EMAIL_SUBJECT,TEST_EMAIL_TEXT} from './readiness.ts';
+import {resendReadiness,TEST_EMAIL_SUBJECT,FRESH_TEST_EMAIL_SUBJECT,RECOVERY_TEST_EMAIL_SUBJECT,TEST_EMAIL_TEXT} from './readiness.ts';
 import {policy,quietAdjusted} from '../booking/integration-config.ts';
 import {snapshot} from '../booking/integration-plan.ts';
 import {customerEmailState,customerEmailText} from '../booking/customer-email.ts';
@@ -27,7 +27,7 @@ function validate(input: unknown, env: GatewayEnv): Message {
   if(Object.keys(x).filter(k=>k!=='customerState').sort().join(',')!=='channel,expiresAt,idempotencyKey,recipientKey,subject,text')throw new InvalidRequest();
   if(typeof x.idempotencyKey!=='string'||!/^[A-Za-z0-9_-]{16,128}$/.test(x.idempotencyKey)||typeof x.recipientKey!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(x.recipientKey)||x.channel!=='email'||typeof x.subject!=='string'||x.subject.length<1||x.subject.length>120||/[\r\n]/.test(x.subject)||typeof x.text!=='string'||x.text.length>1200||!Number.isSafeInteger(x.expiresAt))throw new InvalidRequest();
   const origin=new URL(env.HQ_ORIGIN!);if(origin.protocol!=='https:'||origin.origin!==env.HQ_ORIGIN)throw new InvalidRequest();
-  if(x.subject===TEST_EMAIL_SUBJECT||x.subject===FRESH_TEST_EMAIL_SUBJECT){if(env.HQ_ORIGIN!=='https://staging.santablizard.com'||!env.STAGING_TEST_RECIPIENT||x.recipientKey!=='santa-stage'||x.customerState!==undefined||x.text!==TEST_EMAIL_TEXT)throw new InvalidRequest();return x as unknown as Message;}
+  if([TEST_EMAIL_SUBJECT,FRESH_TEST_EMAIL_SUBJECT,RECOVERY_TEST_EMAIL_SUBJECT].includes(x.subject as string)){if(env.HQ_ORIGIN!=='https://staging.santablizard.com'||!env.STAGING_TEST_RECIPIENT||x.recipientKey!=='santa-stage'||x.customerState!==undefined||x.text!==TEST_EMAIL_TEXT)throw new InvalidRequest();return x as unknown as Message;}
   // Only the reviewed generic templates may cross this boundary; no arbitrary body/child notes.
   if(x.recipientKey.startsWith('customer_')){if(x.subject!=='An update about your SantaBlizard booking'||typeof x.customerState!=='string')throw new InvalidRequest();return x as unknown as Message;}
   if(x.customerState!==undefined)throw new InvalidRequest();
@@ -98,7 +98,7 @@ export async function handleGateway(request:Request,env:GatewayEnv,fetcher:typeo
     await env.DB.batch([env.DB.prepare(`UPDATE gateway_deliveries SET state=?,provider_id=?,error_code=?,next_at=?,updated_at=? WHERE id=? AND state='sending'`).bind(result.state,result.id||null,result.code||null,now+60000,now,key)]);
     existing=(await row(env,key))!;
     if(existing.state==='retry')return reply(503,{error:'provider_rate_limited'});
-    return reply(200,receipt(existing,now));
+    return reply(200,{...receipt(existing,now),...(result.code==='staging_receipt_response_discarded'?{stagingFaultInjectionApplied:true}:{})});
   }catch(error){return reply(error instanceof RangeError?413:error instanceof InvalidRequest||error instanceof SyntaxError?400:503,{error:'gateway_request_failed'});}
 }
 /** Poll receipts only. Retrying a send must return through the booking runner's

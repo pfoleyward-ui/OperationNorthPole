@@ -87,3 +87,14 @@ test('real staging test mode restricts both operational and customer mail to the
  assert.equal((await f.gatewayCall(customer.idempotencyKey,customer)).status,403);assert.equal(f.email.calls,1);
  }finally{await f.dispose();}
 });
+
+test('selected staging receipt loss recovers through signature verification without replacement sends; production is unaffected',async()=>{
+ const f=await gatewayFixture();try{
+ const {handleWebhook}=await import('../../workers/notifications/index.ts');const {send}=await import('../../workers/notifications/providers.ts');
+ const m=operationalMessage();m.text=m.text.replace('https://hq.example.test','https://staging.santablizard.com');Object.assign(f.gatewayEnv,{HQ_ORIGIN:'https://staging.santablizard.com',STAGING_TEST_RECIPIENT:'santa@example.test',STAGING_DISCARD_RECEIPT_KEY:m.idempotencyKey});
+ assert.equal((await(await f.gatewayCall(m.idempotencyKey,m)).json()).status,'uncertain');assert.equal((await f.db.prepare('SELECT provider_id FROM gateway_deliveries WHERE id=?').bind(m.idempotencyKey).first())?.provider_id,null);await f.gatewayCall(m.idempotencyKey,m);assert.equal(f.email.calls,1);
+ const secret='synthetic-recovery-signature-32-bytes';f.gatewayEnv.RESEND_WEBHOOK_SECRET='whsec_'+btoa(secret);const provider=[...f.email.sent.values()][0];const raw=JSON.stringify({type:'email.delivered',data:{email_id:provider.id,tags:{onp_delivery:m.idempotencyKey}}});const id='staging-recovery-event',time=String(Math.floor(testNow/1000));const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(secret),{name:'HMAC',hash:'SHA-256'},false,['sign']);const signature=btoa(String.fromCharCode(...new Uint8Array(await crypto.subtle.sign('HMAC',key,new TextEncoder().encode(id+'.'+time+'.'+raw)))));
+ assert.equal((await handleWebhook(new Request('https://staging.example.test/webhooks/resend',{method:'POST',headers:{'svix-id':id,'svix-timestamp':time,'svix-signature':'v1,'+signature},body:raw}),f.gatewayEnv,testNow)).status,200);assert.equal((await(await f.gatewayCall(m.idempotencyKey)).json()).status,'delivered');assert.equal(f.email.calls,1);
+ const other={...m,channel:'email' as const,idempotencyKey:crypto.randomUUID()};assert.equal((await send(other,'santa@example.test',{...f.gatewayEnv,HQ_ORIGIN:'https://production.example',STAGING_DISCARD_RECEIPT_KEY:other.idempotencyKey},f.provider)).state,'accepted');
+ }finally{await f.dispose();}
+});

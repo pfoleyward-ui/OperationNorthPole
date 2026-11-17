@@ -51,3 +51,7 @@ test('receipt audit reads only the approved test receipt, sanitizes metadata and
 test('explicit fresh check uses its fixed distinct subject and still sends at most once',async()=>{
  const f=await fixture();try{const env={...f.runner,RUN_ID:'synthetic-fresh-delivery-test-v2',FRESH_DELIVERY_CHECK:'true'};await runEmailReadiness(env,testNow);await runEmailReadiness(env,testNow+1000);assert.equal(f.email.calls,1);assert.equal([...f.email.sent.values()][0].body.subject,'[STAGING TEST] '+FRESH_TEST_EMAIL_SUBJECT);}finally{await f.dispose();}
 });
+
+test('replay mode repeats only a delivered fixed test receipt without a new provider send',async()=>{
+ const f=await fixture();try{await runEmailReadiness(f.runner,testNow);f.setNow(testNow+60001);await f.poll();const replay={...f.runner,MODE:'replay',RUN_ID:'synthetic-replay-existing-message',AUDIT_DELIVERY_KEY:f.runner.RUN_ID};await runEmailReadiness(replay,testNow+60001);await runEmailReadiness(replay,testNow+60002);assert.equal(f.email.calls,1);const report=await f.db.prepare('SELECT report FROM synthetic_email_evidence WHERE id=?').bind(replay.RUN_ID).first<{report:string}>();assert.equal(JSON.parse(report!.report).deliveryStatus,'delivered');}finally{await f.dispose();}
+});

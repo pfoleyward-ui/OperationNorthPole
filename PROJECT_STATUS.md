@@ -1,5 +1,16 @@
 # Operation North Pole — current status
 
+## Phase 8 readiness continuation — November 17, 2026
+
+On `phase8/integration-launch-readiness`, completed native D1 synthetic export/download/import and application recovery (45 booking rows/25 tables; four email rows/two tables). Fixed restore statement ordering without changing schema/data or disabling foreign keys; all temporary databases removed. Added reusable native recovery command/runbook and three parser tests. Original real keys and operational data were not exported or changed.
+
+Real Resend existing-receipt replay returned the original without another delivery. One approved Gmail-only test deliberately discarded its successful API receipt; signed callbacks recovered Delivered with one send attempt. Original receipts unchanged; sending and original scheduler restored off. No production activation or public website change.
+
+Deployed protected staging booking mode and owner-authenticated staging intake only. The next required owner action is a synthetic submission at `https://staging.santablizard.com/book?service=home-visits` with actual Access/Turnstile. Anonymous access redirects to Access. No fake authentication or CAPTCHA success. Public intake, all production gates, automatic sync/planner/delivery/customer email, notes collection and retention remain off.
+
+Validation: 109 backend + 148 booking-domain + 15 focused email tests, three Python parser tests, all TypeScript checks, OpenNext staging build, four Worker dry-runs; six-size booking/HQ/integration and three-size Elf browser checks passed. Browser providers are mocked; actual wizard submission and physical iPhone checks remain pending. Remaining owner/business gates and sanitized live evidence are in [launch status](docs/LAUNCH_STATUS_2026-11-11.md) and `docs/review/launch-2026-11-17/`.
+
+
 ## Phase 7 calendar, notifications, and Mrs. Claus Protocol — 2026-11-07 (America/New_York)
 
 Implemented on `phase7/calendar-notifications`, stacked on PR #4 / `phase6/santa-hq` at `3db7e74`. The failed earlier attempt changed nothing; this work began after the execution environment recovered. No real Google login/calendar change, message, paid provisioning, remote migration, merge, or deployment. Committed planner/OAuth/calendar/notification/HQ/public-intake/backup gates remain false; notes collection remains absent. Vercel automatic deployment is disabled for the new branch.
