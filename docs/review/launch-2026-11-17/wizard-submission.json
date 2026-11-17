@@ -1,0 +1,26 @@
+{
+  "as_of": "2026-11-17",
+  "submissions": [
+    {
+      "id": "36f5ca8d-30cf-49ef-a648-7902508a207f",
+      "status": "pending",
+      "version": 1,
+      "received_at": 1794938932549,
+      "synthetic_name_matches": 1,
+      "approved_email_matches": 1,
+      "operational_status": "pending",
+      "reservations": 0,
+      "calendar_mappings": 0,
+      "integration_jobs": 0,
+      "customer_email_jobs": 0
+    }
+  ],
+  "notes_count": 0,
+  "email_gateway_totals": [
+    {
+      "n": 3,
+      "total_attempts": 3
+    }
+  ],
+  "verification": "actual protected wizard submission persisted through real bot-verification path; no CAPTCHA or Access bypass"
+}
