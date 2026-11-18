@@ -38,7 +38,7 @@ async function publicWebsite(request:Request,env:SiteEnv,ctx:unknown,site:{fetch
   if(env.CUSTOMER_BOOKING_MODE!=='disabled'||env.SITE_STAGING_ENABLED==='true'||env.HQ_ENABLED==='true')return new Response('Website release configuration is invalid',{status:503,headers});
   if(url.hostname==='www.santablizard.com'||(url.hostname==='santablizard.com'&&url.protocol==='http:'))return new Response(null,{status:308,headers:{...headers,Location:'https://santablizard.com'+path+url.search}});
   // A document/static-asset allowlist also hides the synthetic preview and review gallery.
-  const allowed=!path.includes('%')&&(path==='/'||path==='/services'||path==='/services/'||path==='/favicon.ico'||['/_next/static/','/images/','/_optimized/'].some(prefix=>path.startsWith(prefix)));
+  const allowed=!path.includes('%')&&(path==='/'||path==='/services'||path==='/services/'||path==='/privacy'||path==='/privacy/'||path==='/terms'||path==='/terms/'||path==='/favicon.ico'||['/_next/static/','/images/','/_optimized/'].some(prefix=>path.startsWith(prefix)));
   if(!allowed)return new Response('Not found',{status:404,headers});
   if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405,headers:{...headers,Allow:'GET, HEAD'}});
   return site.fetch(request,env,ctx);

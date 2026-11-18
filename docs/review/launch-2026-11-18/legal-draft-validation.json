@@ -1,0 +1,32 @@
+{
+  "as_of": "2026-11-18",
+  "status": "prepared_unpublished_owner_review_pending",
+  "build": "OpenNext public passed",
+  "types": [
+    "app",
+    "backend"
+  ],
+  "public_boundary_unit_tests": 3,
+  "bundled_public_boundary": "passed using route-free local preview",
+  "legal_browser_pages": [
+    "privacy",
+    "terms"
+  ],
+  "widths": [
+    390,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "public_worker_dry_run": "passed",
+  "notes_collection_enabled": false,
+  "automatic_retention_enabled": false,
+  "public_or_backend_deployment": false,
+  "live_urls_verified": false,
+  "initial_live_http_observations": {
+    "/privacy": 403,
+    "/terms": 403
+  },
+  "owner_scope_question": "Whether initial launch should include Elf Notes; current drafts say collection disabled"
+}

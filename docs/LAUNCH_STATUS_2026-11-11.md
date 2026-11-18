@@ -1,8 +1,14 @@
-# Operation North Pole launch status — reviewed November 17, 2026
+# Operation North Pole launch status — reviewed November 18, 2026
 
 **Prepared private services are deployed; the business platform is not ready for public activation.** The existing public website stays live on its unchanged Worker version. Production intake, HQ, OAuth/sync, email delivery, reminders/planning, child-note collection and automatic retention remain disabled. Protected staging HQ/OAuth and the owner-only staging booking wizard are enabled for synthetic testing. Automatic staging sync, delivery, planner, notes and retention stay off.
 
 The current continuation environment reports an enforced **unrestricted** network policy. Its configured **account-owned API token authenticates successfully** at the account token-verification endpoint; the user-token endpoint returns 401 because it is the wrong verification endpoint for this credential type. Required Workers, D1, Access apps/policies/organization/identity-provider/users, Turnstile and zone DNS read/write permissions are present. Working product access is through the API credential; no authenticated MCP/OAuth session is claimed.
+
+## Google Branding and policy continuation — November 18
+
+Google's Audience screen blocks switching to external production because Branding is incomplete. Owner reports Privacy Policy and Terms of Service link fields remain. Prepared complete **unpublished drafts** and matching responsive site pages at proposed `/privacy` and `/terms`, with homepage/Services footer links and an exact read-only public-route allowlist. [Copy, validation and publication review](legal/REVIEW.md). App-created Calendar scope/Google Limited Use, data-provider uses, deletion requests and existing retention limits are disclosed. No unsupported fees/refund rules are introduced. Public build, types, boundary tests and five-width browser checks passed; no deployment or business activation ran. Proposed live-URL checks returned HTTP 403, so neither new page is claimed live or supplied as an existing Google URL.
+
+Owner asked why Elf Notes cannot be enabled. Its backend passed; remaining conditions are reviewed family access (the entire staging host is Santa-only), guardian notice/consent and retention/deletion handling. Automatic deletion can remain off. Current drafts accurately say collection is off; revise them before approval/publication if initial launch will include real notes. No retention or collection approval is inferred from the question.
 
 ## Current backend review — November 17
 

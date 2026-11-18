@@ -4,7 +4,7 @@ const base=process.env.PUBLIC_BASE_URL||'http://127.0.0.1:8799';
 const output=process.env.VISUAL_OUTPUT_DIR||'/workspace/public-release-validation';
 await mkdir(output,{recursive:true});
 const checks=[];
-for(const [path,status] of [['/',200],['/services',200],['/_optimized/santa-cutout-750.webp',200],['/images/santa-family.jpg',200],['/book',404],['/review',404],['/hq',404],['/hq/api/bookings',404],['/api/bookings',404],['/webhooks/resend',404]]){
+for(const [path,status] of [['/',200],['/services',200],['/privacy',200],['/terms',200],['/_optimized/santa-cutout-750.webp',200],['/images/santa-family.jpg',200],['/book',404],['/review',404],['/hq',404],['/hq/api/bookings',404],['/api/bookings',404],['/webhooks/resend',404]]){
  const response=await fetch(base+path,{redirect:'manual'});assert.equal(response.status,status,path);await response.arrayBuffer();checks.push({path,method:'GET',status});
 }
 for(const path of ['/api/bookings','/hq/api/bookings','/webhooks/resend','/book']){

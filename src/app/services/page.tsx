@@ -65,6 +65,7 @@ export default function ServicesPage() {
         <h2>Shall We Make a Little Christmas Magic?</h2>
         <p>Tell Santa about your event, location, and preferred date. Your inquiry starts a conversation; it does not confirm a booking.</p>
         <address><a href={contact.phoneHref}>{contact.phone}</a> · <a href={`mailto:${contact.email}`}>{contact.email}</a></address>
+        <nav aria-label="Website policies"><a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a></nav>
         <a className={styles.home} href="/">Return to the North Pole ↑</a>
       </footer>
     </main>

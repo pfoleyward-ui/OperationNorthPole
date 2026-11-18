@@ -1,5 +1,9 @@
 # Operation North Pole — current status
 
+## Google Branding policy drafts — November 18, 2026
+
+Prepared unpublished Privacy Policy/Terms drafts, responsive `/privacy` and `/terms` pages, footer links and exact read-only public route support. Public OpenNext build, app/backend types, public boundary tests and five-width policy-page browser checks passed. No deployment or activation. Google requires completed Branding before external-production switch; working public policy URLs remain pending owner copy/scope review and publication. Current drafts say Elf Notes is off. Owner asked about enabling it: backend tests pass, but real family routing/guardian notice/retention handling still need review; no collection/deletion approval inferred. See [policy review](docs/legal/REVIEW.md).
+
 ## Independent Elf Notes/reminder backend completion — November 17, 2026
 
 Fixed final optional-note alert authorization: slow receipt lookups cannot send after cancellation, guardian deletion, quiet hours or seven-day alert expiry. Added regression coverage and wrong-booking ciphertext/invariant checks. Staging booking/scheduler code updated safely; operational collection and retention remain disabled.
