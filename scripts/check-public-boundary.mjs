@@ -10,6 +10,9 @@ for(const [path,status] of [['/',200],['/services',200],['/privacy',200],['/term
 for(const path of ['/api/bookings','/hq/api/bookings','/webhooks/resend','/book']){
  const response=await fetch(base+path,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}',redirect:'manual'});assert.equal(response.status,404,path);checks.push({path,method:'POST',status:response.status});
 }
+for(const path of ['/privacy','/terms']){
+ const response=await fetch(base+path,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}',redirect:'manual'});assert.equal(response.status,405,path);await response.arrayBuffer();checks.push({path,method:'POST',status:response.status});
+}
 // Wrangler's loopback server rewrites Host; verify real domain routing only live.
 if(new URL(base).hostname==='santablizard.com'){
  const redirected=await fetch('https://www.santablizard.com/services?source=invite',{redirect:'manual'});

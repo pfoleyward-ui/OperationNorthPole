@@ -35,7 +35,7 @@ try {
       await image.scrollIntoViewIfNeeded();
       await image.evaluate((i) => i.decode());
     }
-    for (const link of await page.locator("nav a").all()) {
+    for (const link of await page.getByRole("navigation", { name: "Main navigation" }).locator("a").all()) {
       if (!(await link.isVisible()))
         throw new Error(`Hidden navigation at ${width}`);
       await link.click();

@@ -2,7 +2,13 @@
 
 The owner authorized public website deployment from Phase 8 `f766514`. The release changes are confined to a public-only manifest, routing safeguards, asset packaging and verification. Existing homepage/services/photos/prices/styles/sensory messaging remain unchanged. No merge to `main` is performed.
 
-## Current outcome
+## Current outcome — November 18, 2026
+
+The public homepage, Services, Privacy Policy and Terms pages are live and verified over HTTPS. Policy URLs are `https://santablizard.com/privacy` and `https://santablizard.com/terms`; the current public Worker version is `f329e733-213f-4dcd-8c9f-bc876915eaaf`. The owner authorized adding the policy links and including optional Elf Notes in launch scope, with 30-day manual retention and automatic deletion off.
+
+Only policy pages/footer links and their read-only route allowlist were released. Public booking/HQ/notes/API/webhook routes stay blocked; production backend versions/flags/secret bindings remain unchanged. The prior-live homepage hero is pixel-identical at five widths, and the existing public photo hashes are unchanged. See the current launch checklist and `docs/review/launch-2026-11-18/` for verified evidence.
+
+## Historical initial release attempt
 
 **Prepared and locally tested; not deployed or verified live from this environment.**
 
@@ -17,7 +23,7 @@ Target: **https://santablizard.com**, with **https://www.santablizard.com** redi
 
 `wrangler.public.jsonc` derives from the tested Phase 8 `wrangler.site.jsonc`, using the same OpenNext build and Worker entry. It attaches both custom domains to `operationnorthpole` and uses the existing static image variants. It has no booking/notification service bindings, D1 database, cron trigger, provider/OAuth secrets or backend deployment. Only the standard OpenNext self-reference binding remains.
 
-`PUBLIC_WEBSITE_ONLY=true` serves `/`, `/services`, and the static asset paths used by those pages. `/book`, `/hq*`, `/api*`, `/webhooks*`, `/review*`, encoded path attempts and other non-public paths return 404. Allowed public paths reject writes with 405. The synthetic wizard is not publicly accessible and no D1/test seeds or fixture database is uploaded. Development review assets are removed from the generated upload, without deleting source files. All activation flags remain false; no Secret Elf Notes collection is available.
+`PUBLIC_WEBSITE_ONLY=true` serves `/`, `/services`, `/privacy`, `/terms`, and the static asset paths used by those pages. `/book`, `/hq*`, `/api*`, `/webhooks*`, `/review*`, encoded path attempts and other non-public paths return 404. Allowed public paths reject writes with 405. The synthetic wizard is not publicly accessible and no D1/test seeds or fixture database is uploaded. Development review assets are removed from the generated upload, without deleting source files. All activation flags remain false; no Secret Elf Notes collection is available.
 
 The Worker issues a permanent 308 redirect from `www` to `https://santablizard.com`, preserving path/query. HTTP requests for either configured domain canonicalize to HTTPS. It fails closed if HQ or staging is mistakenly enabled. `workers_dev` and preview URLs remain disabled.
 

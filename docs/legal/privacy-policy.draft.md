@@ -1,3 +1,5 @@
+> Historical draft, superseded by the [published policy](privacy-policy.md). The live policy includes the owner-approved Elf Notes launch scope and 30-day manual retention.
+
 # Privacy Policy — DRAFT FOR OWNER REVIEW
 
 Not published. Prepared November 18, 2026. Proposed URL: https://santablizard.com/privacy

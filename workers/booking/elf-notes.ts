@@ -36,16 +36,18 @@ function encryption(env:ElfEnv):IntegrationEnv {return {...env,GOOGLE_TOKEN_KEYS
 function configured(env:ElfEnv){if(env.ELF_NOTES_ENABLED!=='true'||!env.ELF_TOKEN_SECRET||env.ELF_TOKEN_SECRET.length<32||!env.ELF_ORIGIN||new URL(env.ELF_ORIGIN).origin!==env.ELF_ORIGIN||!env.ELF_ORIGIN.startsWith('https:'))throw new HqError(503,'optional_notes_unavailable');}
 async function eligible(env:ElfEnv,id:string,now:number,inviting=false){
  const row=await env.DB.prepare("SELECT status,json_extract(state_json,'$.serviceId') AS service,json_extract(state_json,'$.quote.end') AS visit_end FROM hq_bookings WHERE booking_id=?").bind(id).first<{status:string;service:string;visit_end:number}>();
- if(!row||row.service!=='home-visits'||!(inviting?row.status==='confirmed':['confirmed','completed'].includes(row.status))||!Number.isSafeInteger(row.visit_end)||(inviting&&row.visit_end<=now))throw new HqError(404,'optional_notes_unavailable');
+ if(!row||row.service!=='home-visits'||!(inviting?row.status==='confirmed':['confirmed','completed'].includes(row.status))||!Number.isSafeInteger(row.visit_end)||(inviting&&row.visit_end<=now)||(!inviting&&now>=row.visit_end+30*86400000))throw new HqError(404,'optional_notes_unavailable');
  return row;
 }
 export async function elfHq(env:ElfEnv,path:string,input:unknown,principal:Principal,now:number){
  const match=/^\/hq\/api\/bookings\/([a-f0-9-]{36})\/elf\/(invite|read|delete)$/.exec(path);
  if(!match)return undefined;
  if(principal.role!=='santa')throw new HqError(403,'santa_required');
- configured(env);const id=match[1];
+ const id=match[1];
  if(!record(input)||Object.keys(input).length)throw new HqError(400,'invalid_request');
+ // Authorized deletion remains possible even while collection is disabled.
  if(match[2]==='delete'){await erase(env,id);return {deleted:true};}
+ configured(env);
  const booking=await eligible(env,id,now,match[2]==='invite');
  if(match[2]==='invite'){
   const token=Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,'0')).join('');
@@ -56,6 +58,11 @@ export async function elfHq(env:ElfEnv,path:string,input:unknown,principal:Princ
  }
  const row=await env.DB.prepare('SELECT ciphertext,version FROM elf_notes WHERE booking_id=?').bind(id).first<{ciphertext:string;version:number}>();
  return row?{notes:await unseal(encryption(env),row.ciphertext,'elf:'+id),version:row.version}:{notes:null,version:0};
+}
+export async function elfRetentionReview(env:ElfEnv,principal:Principal,now:number){
+ if(principal.role!=='santa')throw new HqError(403,'santa_required');
+ const rows=(await env.DB.batch<{booking_id:string;visit_end:number;delete_by:number}>([env.DB.prepare("SELECT * FROM (SELECT n.booking_id,json_extract(b.state_json,'$.quote.end') AS visit_end,CASE WHEN b.status='canceled' THEN COALESCE((SELECT MAX(occurred_at) FROM hq_operations o WHERE o.booking_id=n.booking_id AND o.action='cancel'),n.updated_at) ELSE json_extract(b.state_json,'$.quote.end')+? END AS delete_by FROM elf_notes n JOIN hq_bookings b ON b.booking_id=n.booking_id) WHERE delete_by<=? ORDER BY delete_by,booking_id LIMIT 100").bind(30*86400000,now+7*86400000)]))[0].results;
+ return {retentionDays:30,automaticDeletionEnabled:env.ELF_RETENTION_APPROVED==='true'&&!!env.ELF_RETENTION_APPROVAL_REFERENCE,reviewWindowDays:7,limit:100,notes:rows.map(row=>({bookingId:row.booking_id,visitEnd:row.visit_end,deleteBy:row.delete_by,overdue:row.delete_by<=now}))};
 }
 async function erase(env:ElfEnv,id:string){await env.DB.batch([env.DB.prepare('DELETE FROM elf_notes WHERE booking_id=?').bind(id),env.DB.prepare('DELETE FROM elf_alerts WHERE booking_id=?').bind(id)]);}
 export async function handleElf(request:Request,env:ElfEnv,now=Date.now()):Promise<Response>{
@@ -70,7 +77,14 @@ export async function handleElf(request:Request,env:ElfEnv,now=Date.now()):Promi
   const token=request.headers.get('authorization')?.match(/^Bearer ([a-f0-9]{64})$/)?.[1];
   if(!token)return reply(401,{error:'private_invitation_required'});
   const hash=await digest(env.ELF_TOKEN_SECRET!,token);
-  const bucket=Math.floor(now/60000);const rate=await digest(env.ELF_TOKEN_SECRET!,'elf-rate:'+bucket+':'+hash);
+  const bucket=Math.floor(now/60000);
+  const edgeIp=request.headers.get('cf-connecting-ip');
+  if(edgeIp){
+   const ipKey=await digest(env.ELF_TOKEN_SECRET!,'elf-edge:'+bucket+':'+edgeIp);
+   const attempt=await env.DB.prepare('INSERT INTO elf_rate_limits (key,attempts,expires_at) VALUES (?,1,?) ON CONFLICT(key) DO UPDATE SET attempts=attempts+1 WHERE attempts<40 RETURNING attempts').bind(ipKey,(bucket+2)*60000).first();
+   if(!attempt)return reply(429,{error:'try_later'});
+  }
+  const rate=await digest(env.ELF_TOKEN_SECRET!,'elf-rate:'+bucket+':'+hash);
   const limited=await env.DB.batch([env.DB.prepare('DELETE FROM elf_rate_limits WHERE expires_at<=?').bind(now),env.DB.prepare('INSERT INTO elf_rate_limits (key,attempts,expires_at) VALUES (?,1,?) ON CONFLICT(key) DO UPDATE SET attempts=attempts+1 WHERE attempts<20 RETURNING attempts').bind(rate,now+120000)]);
   if(!limited[1].results.length)return reply(429,{error:'try_later'});
   const invite=await env.DB.prepare('SELECT booking_id FROM elf_invitations WHERE token_hash=? AND expires_at>?').bind(hash,now).first<{booking_id:string}>();
@@ -91,9 +105,9 @@ export async function handleElf(request:Request,env:ElfEnv,now=Date.now()):Promi
   const notes=validateElfNotes(input);const ciphertext=await seal(encryption(env),{children:notes.children},'elf:'+id);
   // Eligibility and optimistic version are checked in the same atomic SQL write.
   const saved=await env.DB.batch([env.DB.prepare(`INSERT INTO elf_notes (booking_id,ciphertext,version,consent_version,consent_at,updated_at)
-   SELECT ?,?,1,'guardian-v1',?,? WHERE ?=0 AND EXISTS(SELECT 1 FROM elf_invitations i JOIN hq_bookings b ON b.booking_id=i.booking_id WHERE i.booking_id=? AND i.token_hash=? AND i.expires_at>? AND b.status IN ('confirmed','completed') AND json_extract(b.state_json,'$.serviceId')='home-visits')
+   SELECT ?,?,1,'guardian-v2-20261118',?,? WHERE ?=0 AND EXISTS(SELECT 1 FROM elf_invitations i JOIN hq_bookings b ON b.booking_id=i.booking_id WHERE i.booking_id=? AND i.token_hash=? AND i.expires_at>? AND b.status IN ('confirmed','completed') AND json_extract(b.state_json,'$.serviceId')='home-visits')
    ON CONFLICT(booking_id) DO NOTHING RETURNING version`).bind(id,ciphertext,now,now,notes.version,id,hash,now),
-   env.DB.prepare(`UPDATE elf_notes SET ciphertext=?,version=version+1,consent_version='guardian-v1',consent_at=?,updated_at=? WHERE booking_id=? AND version=? AND ?>0 AND EXISTS(SELECT 1 FROM hq_bookings b JOIN elf_invitations i ON i.booking_id=b.booking_id WHERE b.booking_id=? AND b.status IN ('confirmed','completed') AND json_extract(b.state_json,'$.serviceId')='home-visits' AND i.token_hash=? AND i.expires_at>?) RETURNING version`).bind(ciphertext,now,now,id,notes.version,notes.version,id,hash,now)]);
+   env.DB.prepare(`UPDATE elf_notes SET ciphertext=?,version=version+1,consent_version='guardian-v2-20261118',consent_at=?,updated_at=? WHERE booking_id=? AND version=? AND ?>0 AND EXISTS(SELECT 1 FROM hq_bookings b JOIN elf_invitations i ON i.booking_id=b.booking_id WHERE b.booking_id=? AND b.status IN ('confirmed','completed') AND json_extract(b.state_json,'$.serviceId')='home-visits' AND i.token_hash=? AND i.expires_at>?) RETURNING version`).bind(ciphertext,now,now,id,notes.version,notes.version,id,hash,now)]);
   const result=saved.flatMap(r=>r.results);
   if(!result.length)return reply(409,{error:'notes_changed_reload'});
   return reply(200,{saved:true,version:(result[0] as {version:number}).version});

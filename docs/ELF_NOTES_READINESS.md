@@ -1,6 +1,6 @@
 # Secret Elf Notes readiness
 
-Secret Elf Notes is implemented, but **real collection and automatic deletion remain disabled**. The preparation panel is not an invitation sent to a family. Skipping notes never changes a booking, its price, confirmation or reservation.
+Owner selected Elf Notes for initial launch and a **30-day retention period after the visit**, enforced by manual review/deletion. **Real collection and automatic deletion remain disabled** until final launch activation. The preparation panel is not an invitation sent to a family. Skipping notes never changes a booking, its price, confirmation or reservation.
 
 ## What the backend supports
 
@@ -17,12 +17,19 @@ Local workerd/D1 and browser tests cover consent, private/expired/rotated links,
 
 For a future separately authorized repeat, `python scripts/check-isolated-backend.py --send-approved-staging-emails` explicitly runs the live-email rehearsal using the existing private staging configs. It creates its own database and restores the original disabled services before deleting the database. Do not rerun merely to recheck an uncertain receipt; reconcile that original receipt instead. The default-off `workers/backend-readiness-test.ts` has no HTTP trigger. Its enabled rehearsal requires a pre-seeded disposable-database guard and rejects operational staging IDs. Only its isolated application environment enables synthetic notes. It can send three approved-inbox staging messages through the existing private gateway: generic notes alert, real-clock 24-hour reminder and acknowledgment resolution. A synthetic principal acknowledges only the disposable booking; this does not impersonate Santa on the deployed HQ or establish a real interactive Got It test. The reminder's fixture appointment is tomorrow, with the normal 24-hour reminder becoming due two to three real minutes after preparation. Other jobs are not dispatched; Calendar/customer-email remain off. Links in these generic test emails refer to disposable fixture IDs and are not family invitation links or operational booking records.
 
-## Decisions still required before collecting real notes
+## Family access and manual retention prepared November 18
 
-1. Review the family notice/guardian-consent copy and authorized uses. Existing copy limits use to visit preparation and explicitly says skipping never affects the visit.
-2. Approve and verify family routing. The existing exact-email Access policy protects the entire staging host; families cannot use this hostname without being that approved owner. No Everyone or service-token bypass is permitted or has been created. A family link's bearer access model and separate route/domain require an explicit review before release.
-3. Decide retention and the handling of requests, expired links, backups and provider copies. Current invitation access expires 30 days after the visit; this is separate from data deletion. No automatic retention/deletion approval is inferred. Existing proposed 30-day deletion remains off.
-4. Securely archive the existing distinct keyrings and confirm the approved operational recovery/custody process. Preserve existing keys; do not rotate them to satisfy this checklist.
-5. Separately approve collection activation. Adult booking launch can proceed with Secret Elf Notes disabled once its own launch gates pass.
+The live [Privacy Policy](https://santablizard.com/privacy#elf-notes) and [Terms](https://santablizard.com/terms) cover guardian consent, permitted fields, private bearer access, restricted use and the approved manual 30-day period. The parent screen links to them and records `guardian-v2-20261118` on saves.
 
-The current panel can safely remain “preparation only” while these decisions are pending. No owner phone setup is required to finish the independent backend tests.
+The separate family ingress serves only exact `/elf-notes` assets and read/save/delete APIs. It rejects other routes/methods, foreign origins, missing/malformed invitation headers, oversized bodies and redirects, and forwards no Santa cookies/Access assertions/actor headers. Edge IP buckets use keyed hashes, never raw stored addresses. Actual random-invitation authorization, crypto and state/version checks remain in the private backend. No Access policy or Everyone/service-token bypass was added.
+
+Real HTTPS tests on `notes-staging.santablizard.com` passed at mobile/desktop widths against a disposable synthetic database. The temporary data/worker/database were removed; this ingress is restored **off (503)** and points back to booking-staging, which also has collection off. No real family invitation was issued. Production family routing is prepared in a default-off, unrouted manifest for the later release.
+
+Santa's **Elf Notes privacy review** button lists metadata only (reference, visit/deletion dates) for upcoming seven-day deadlines and canceled visits. Review daily when real collection is open. Delete each record by its deadline, and promptly process cancellation/guardian deletion requests. Each deletion requires a checkbox and deliberate submit; booking/price/reservation are unchanged. The deletion endpoint works for authenticated Santa even when collection is off. Ordinary notes reads stop after 30 days. Canceled notes become immediately due for manual review. No automatic cleanup was enabled. `ELF_RETENTION_APPROVED` stays false: it is the automation gate, distinct from the now-approved manual period.
+
+## Remaining before real collection
+
+- Complete production private-family routing/bindings and final collection activation under the final launch approval. Do not repurpose the Santa-only staging Access policy or open HQ to families.
+- Preserve and securely archive the existing dedicated keyrings and review operational backup/deletion-request custody. Recovery must not reintroduce records that should have been deleted.
+- Follow the published notice and require guardian consent before each save. Do not collect real child information while the collection gate is closed.
+- Automatic deletion remains a separate future decision; approval of 30-day retention did not authorize a schedule.

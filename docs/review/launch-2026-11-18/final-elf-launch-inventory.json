@@ -1,0 +1,153 @@
+{
+  "date": "2026-11-18",
+  "flags": {
+    "operationnorthpole": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "SITE_STAGING_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-booking": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_ORIGIN": "https://santablizard.com",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-integrations": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_ORIGIN": "https://santablizard.com",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-booking-staging": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_ORIGIN": "https://notes-staging.santablizard.com",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "true",
+      "HQ_ENABLED": "true",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "true"
+    },
+    "operation-north-pole-integrations-staging": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_ORIGIN": "https://notes-staging.santablizard.com",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications-staging": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-elf-family-staging": {
+      "ELF_FAMILY_ENABLED": "false"
+    }
+  },
+  "versions": {
+    "operationnorthpole": [
+      {
+        "version_id": "f329e733-213f-4dcd-8c9f-bc876915eaaf",
+        "percentage": 100
+      }
+    ],
+    "operation-north-pole-booking": [
+      {
+        "version_id": "3766df18-b1d3-4a3c-86cf-db12666d9634",
+        "percentage": 100
+      }
+    ],
+    "operation-north-pole-integrations": [
+      {
+        "version_id": "6a07f3e9-1223-46cf-97f4-9e10331bffb7",
+        "percentage": 100
+      }
+    ],
+    "operation-north-pole-notifications": [
+      {
+        "version_id": "679cfadf-4245-4d20-a138-7bebe0928918",
+        "percentage": 100
+      }
+    ],
+    "operation-north-pole-booking-staging": [
+      {
+        "version_id": "2a7597bc-a5d0-48ad-82d6-e0cb2f8e8d07",
+        "percentage": 100
+      }
+    ],
+    "operation-north-pole-integrations-staging": [
+      {
+        "version_id": "235dcf44-22cc-435d-8beb-d903f74569c9",
+        "percentage": 100
+      }
+    ],
+    "operation-north-pole-notifications-staging": [
+      {
+        "version_id": "33e74693-9485-42c5-9e1f-2dd551cf4ff1",
+        "percentage": 100
+      }
+    ],
+    "operation-north-pole-elf-family-staging": [
+      {
+        "version_id": "ac237637-5023-4947-8af8-8e07dc071b5b",
+        "percentage": 100
+      }
+    ]
+  },
+  "staging_counts": [
+    {
+      "bookings": 1,
+      "notes": 0,
+      "private_invitations": 0
+    }
+  ],
+  "gateway_metadata": [
+    {
+      "receipts": 9,
+      "attempts": 9
+    }
+  ],
+  "disposable_family_workers_remaining": 0,
+  "disposable_family_databases_remaining": 0,
+  "http": {
+    "https://santablizard.com/": 200,
+    "https://santablizard.com/privacy": 200,
+    "https://santablizard.com/terms": 200,
+    "https://santablizard.com/book": 404,
+    "https://santablizard.com/hq": 404,
+    "https://santablizard.com/elf-notes": 404,
+    "https://staging.santablizard.com/hq": 302,
+    "https://notes-staging.santablizard.com/elf-notes": 503
+  }
+}

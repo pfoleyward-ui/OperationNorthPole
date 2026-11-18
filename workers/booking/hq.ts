@@ -7,7 +7,7 @@ import { bookableServices } from '../../src/config/services.ts';
 import { localParts, validDate } from '../../src/domain/booking/time.ts';
 import type { Database } from './repository.ts';
 import { hqHTML, hqCSS, hqJS } from './hq-ui.ts';
-import { elfHq, type ElfEnv } from './elf-notes.ts';
+import { elfHq, elfRetentionReview, type ElfEnv } from './elf-notes.ts';
 
 export interface HqEnv extends AccessEnv, IntegrationEnv, ElfEnv { DB: Database; INTAKE_HMAC_SECRET?: string }
 const safeHeaders = {
@@ -31,6 +31,7 @@ export async function handleHq(request: Request, env: HqEnv, fetcher?: typeof fe
       const integration=await integrationRead(env,url.pathname,principal,now);if(integration!==undefined)return json(integration);
       const asset = url.pathname === '/hq' || url.pathname === '/hq/' ? [hqHTML, 'text/html'] : url.pathname === '/hq/app.js' ? [hqJS, 'application/javascript'] : url.pathname === '/hq/style.css' ? [hqCSS, 'text/css'] : null;
       if (asset) return new Response(asset[0], { headers: { ...safeHeaders, 'Content-Type': `${asset[1]}; charset=utf-8` } });
+      if(url.pathname==='/hq/api/elf-retention')return json(await elfRetentionReview(env,principal,now));
       if (url.pathname === '/hq/api/session') return json({ role: principal.role, today: localParts(now).date, services: bookableServices, intakeEnabled: false, notificationsEnabled: env.NOTIFICATION_DELIVERY_ENABLED==='true', elfCollectionEnabled: env.ELF_NOTES_ENABLED==='true' });
       if (url.pathname === '/hq/api/bookings') {
         const view = url.searchParams.get('view') || 'new';

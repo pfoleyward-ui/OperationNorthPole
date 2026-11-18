@@ -1,5 +1,13 @@
 # Operation North Pole — current status
 
+## Elf Notes launch scope and published Google policy links — November 18, 2026
+
+Owner selected Elf Notes for launch and 30 days after the visit with manual review/deletion; no automatic cleanup approval. Published and verified `https://santablizard.com/privacy` and `/terms`, plus guardian notice at `/privacy#elf-notes`. Policy-only public deployment preserves production backend versions/flags/secret names, photo hashes and prior-live hero pixels at five widths.
+
+Added exact-path, invitation-only family ingress with edge rate limiting and no forwarded Santa identity; real HTTPS synthetic consent/save/edit/delete tests passed at two widths using a disposable database. All temporary resources/data removed, ingress restored 503, no Access policy/Everyone/service-token bypass, real collection still off. Added Santa-only metadata retention review and explicit deletion even while collection is off, and normal read cutoff at 30 days. No key rotation or schema changes. Staging backend code updated safely; production backend activation is unchanged.
+
+118 backend + 148 domain tests, 15 focused security tests, types/build/dry-runs, notes/manual-retention/HQ browser checks and five-width live legal/homepage/Services checks passed. Next owner action: save the two live URLs in Google Branding. Remaining production/account/recovery/final activation gates are still governed by the launch checklist. See [published policy review](docs/legal/REVIEW.md).
+
 ## Google Branding policy drafts — November 18, 2026
 
 Prepared unpublished Privacy Policy/Terms drafts, responsive `/privacy` and `/terms` pages, footer links and exact read-only public route support. Public OpenNext build, app/backend types, public boundary tests and five-width policy-page browser checks passed. No deployment or activation. Google requires completed Branding before external-production switch; working public policy URLs remain pending owner copy/scope review and publication. Current drafts say Elf Notes is off. Owner asked about enabling it: backend tests pass, but real family routing/guardian notice/retention handling still need review; no collection/deletion approval inferred. See [policy review](docs/legal/REVIEW.md).

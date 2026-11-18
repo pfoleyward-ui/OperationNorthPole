@@ -1,0 +1,14 @@
+{
+  "attempts_before_final_pass": [
+    {
+      "phase": "initial hostname/client readiness checks",
+      "outcome": "inconclusive HTTP 403 responses; default-off gate later independently verified by API readback and HTTPS 503"
+    },
+    {
+      "phase": "first enabled synthetic browser attempt",
+      "outcome": "failed before successful final repetition; temporary worker/database removed, default-off gateway restored; subsequent run waited for deployment propagation"
+    }
+  ],
+  "final_result": "family-route-rehearsal.json",
+  "notes": "No production collection or actual customer/child records were used; existing Access policy unchanged."
+}
