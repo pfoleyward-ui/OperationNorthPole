@@ -1,0 +1,75 @@
+{
+  "backend_tests": {
+    "passed": 118,
+    "failed": 0
+  },
+  "booking_domain_tests": {
+    "passed": 148,
+    "failed": 0
+  },
+  "focused_family_and_retention_tests": {
+    "passed": 15,
+    "failed": 0
+  },
+  "types_passed": [
+    "app",
+    "backend",
+    "booking"
+  ],
+  "public_OpenNext_build": "passed",
+  "dry_runs": [
+    "public-only website",
+    "default-off production family ingress"
+  ],
+  "browser_checks": {
+    "local_notes_and_manual_retention": [
+      390,
+      768,
+      1440
+    ],
+    "local_HQ": [
+      390,
+      430,
+      768,
+      1024,
+      1440,
+      1920
+    ],
+    "live_legal_pages": [
+      390,
+      768,
+      1024,
+      1440,
+      1920
+    ],
+    "live_homepage": [
+      390,
+      768,
+      1024,
+      1440,
+      1920
+    ],
+    "live_services": [
+      390,
+      768,
+      1024,
+      1440,
+      1920
+    ],
+    "live_synthetic_family_route": [
+      390,
+      1440
+    ]
+  },
+  "public_private_http_boundary": "passed",
+  "prior_live_hero_900px_changed_channels": 0,
+  "notes_retention_days_owner_approved": 30,
+  "retention_enforcement": "manual review and explicit deletion",
+  "automatic_deletion_enabled": false,
+  "real_notes_collection_enabled": false,
+  "real_notes_collected": 0,
+  "extra_emails_sent_this_continuation": 0,
+  "new_schema_migrations": 0,
+  "keys_rotated": false,
+  "initial_probe_failures": "recorded separately; final real family and closed-gate verification passed"
+}

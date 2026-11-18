@@ -1,7 +1,8 @@
+import {localParts} from '../../src/domain/booking/time.ts';
 import { record } from '../../src/domain/booking/request.ts';
 import { bookableServices } from '../../src/config/services.ts';
 import { canonical,digest } from './shared.ts';
-import { origin,lease,release,IntegrationError,type IntegrationEnv } from './integration-config.ts';
+import { origin,lease,release,policy,quietAdjusted,wall,IntegrationError,type IntegrationEnv } from './integration-config.ts';
 import { snapshot,desiredCalendar,type Job } from './integration-plan.ts';
 import type { Principal } from './auth.ts';
 import { HqError } from './hq-service.ts';
@@ -47,7 +48,7 @@ function validTokens(value:unknown,now:number,old?:Tokens):Tokens{
   return {accessToken:value.access_token,refreshToken:refresh,expiresAt:now+value.expires_in*1000,scope};
 }
 async function tokenPost(fetcher:typeof fetch,body:URLSearchParams){
-  const r=await fetcher(TOKEN,{method:'POST',body,redirect:'error',signal:AbortSignal.timeout(8000)});
+  const r=await fetcher(TOKEN,{method:'POST',body,redirect:'manual',signal:AbortSignal.timeout(8000)});
   if(!r.ok)throw new IntegrationError(r.status===400||r.status===401?'google_reauthorization_required':'google_retry');
   return r.json();
 }
@@ -92,7 +93,7 @@ async function accessToken(env:IntegrationEnv,fetcher:typeof fetch,now:number):P
 }
 async function google(env:IntegrationEnv,fetcher:typeof fetch,path:string,now:number,init:RequestInit={}){
   const token=await accessToken(env,fetcher,now);
-  return fetcher(API+path,{...init,headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json',...Object.fromEntries(new Headers(init.headers))},redirect:'error',signal:AbortSignal.timeout(8000)});
+  return fetcher(API+path,{...init,headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json',...Object.fromEntries(new Headers(init.headers))},redirect:'manual',signal:AbortSignal.timeout(8000)});
 }
 export async function setupCalendar(env:IntegrationEnv,principal:Principal,input:unknown,fetcher:typeof fetch,now:number){
   enabled(env,principal);if(!record(input)||Object.keys(input).some(k=>k!=='calendarId'))throw new HqError(400,'invalid_calendar_setup');
@@ -127,7 +128,7 @@ export async function disconnectGoogle(env:IntegrationEnv,principal:Principal,fe
   enabled(env,principal);const c=await connection(env);if(!c?.encrypted_tokens)return {disconnected:true};
   await env.DB.batch([env.DB.prepare("UPDATE integration_google SET status='revocation_pending' WHERE id='google'")]);
   const stored=await unseal(env,c.encrypted_tokens,'google:tokens');if(!record(stored)||typeof stored.refreshToken!=='string')throw new IntegrationError('invalid_stored_tokens');
-  const r=await fetcher('https://oauth2.googleapis.com/revoke',{method:'POST',body:new URLSearchParams({token:stored.refreshToken}),redirect:'error',signal:AbortSignal.timeout(8000)});
+  const r=await fetcher('https://oauth2.googleapis.com/revoke',{method:'POST',body:new URLSearchParams({token:stored.refreshToken}),redirect:'manual',signal:AbortSignal.timeout(8000)});
   if(!r.ok)throw new IntegrationError('google_revocation_pending');
   await env.DB.batch([env.DB.prepare("UPDATE integration_google SET status='disconnected',encrypted_tokens=NULL,updated_at=? WHERE id='google' AND encrypted_tokens=?").bind(now,c.encrypted_tokens)]);
   return {disconnected:true};
@@ -164,11 +165,22 @@ export async function synchronizeCalendar(env:IntegrationEnv,job:Job,fetcher:typ
       const event={id:eventId,summary:bookableServices[s.state.serviceId].name,location:s.request.location,
         description:'SantaBlizard booking reference '+s.id+'\nManage securely: '+origin(env)+'/hq?booking='+s.id,
         start:{dateTime:new Date(q.start).toISOString(),timeZone:'America/New_York'},end:{dateTime:new Date(q.end).toISOString(),timeZone:'America/New_York'},
-        visibility:'private',transparency:'opaque',reminders:{useDefault:false,overrides:[]},extendedProperties:{private:{onp_booking_id:s.id,onp_installation:env.INTEGRATION_INSTALLATION_ID}}};
+        visibility:'private',transparency:'opaque',reminders:{useDefault:false,overrides:nativeReminders(env,s.state.quote!.start)},extendedProperties:{private:{onp_booking_id:s.id,onp_installation:env.INTEGRATION_INSTALLATION_ID}}};
       const result=await google(env,fetcher,base+(existing?'/'+eventId:'')+'?sendUpdates=none',now,{method:existing?'PUT':'POST',headers:existing?.etag?{'If-Match':existing.etag}:{},body:JSON.stringify(event)});
       if(!result.ok)throw new IntegrationError(result.status===409||result.status===412?'google_reconcile_retry':'google_retry');
     }else return 'superseded';
     await env.DB.batch([env.DB.prepare('INSERT INTO integration_calendar (booking_id,event_id,synced_hash,checked_at) VALUES (?,?,?,?) ON CONFLICT(booking_id) DO UPDATE SET event_id=excluded.event_id,synced_hash=excluded.synced_hash,checked_at=excluded.checked_at,error_code=NULL').bind(s.id,eventId,job.calendar_hash!,now)]);
     return 'synced';
   }finally{await release(env.DB,'calendar:'+job.booking_id,owner);}
+}
+
+export function nativeReminders(env:IntegrationEnv,start:number){
+  if(!env.NATIVE_CALENDAR_REMINDER_MINUTES)return [];
+  const minutes=Number(env.NATIVE_CALENDAR_REMINDER_MINUTES);
+  if(!Number.isSafeInteger(minutes)||minutes<1||minutes>40320)throw new IntegrationError('invalid_native_calendar_reminder');
+  const p=policy(env),at=start-minutes*60000;
+  if(quietAdjusted(at,p)!==at)return [];
+  const emailTimes=[...([p.sevenDayHours,p.acknowledgmentHours,p.finalReminderHours].map(hours=>quietAdjusted(start-hours*3600000,p))),wall(localParts(start).date,p.morningTime)];
+  if(emailTimes.includes(at))return [];
+  return [{method:'popup',minutes}];
 }

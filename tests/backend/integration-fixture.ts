@@ -31,7 +31,7 @@ export class MockGoogle {
   tombstones=new Set<string>();
   createCalls=0;eventWrites=0;deletes=0;refreshes=0;tokens=0;revokes=0;
   fail=false;loseEventResponse=false;loseCalendarResponse=false;etag=0;
-  tokenScope=GOOGLE_SCOPE;
+  tokenScope=GOOGLE_SCOPE; nativeReminderMinutes:number|null=null;
   async fetch(url:RequestInfo|URL,init?:RequestInit):Promise<Response>{
     const u=new URL(String(url));const method=init?.method||'GET';
     if(this.fail)throw new Error('Synthetic Google outage');
@@ -58,7 +58,7 @@ export class MockGoogle {
       this.events.delete(id);this.tombstones.add(id);this.deletes++;return new Response(null,{status:204});
     }
     const body=JSON.parse(init?.body as string) as Record<string,unknown>;
-    assert.ok(!JSON.stringify(body).includes('DO_NOT_EXPORT'));assert.equal(body.visibility,'private');assert.deepEqual(body.reminders,{useDefault:false,overrides:[]});
+    assert.ok(!JSON.stringify(body).includes('DO_NOT_EXPORT'));assert.equal(body.visibility,'private');assert.deepEqual(body.reminders,{useDefault:false,overrides:this.nativeReminderMinutes===null?[]:[{method:'popup',minutes:this.nativeReminderMinutes}]});
     const eventId=id||body.id as string;
     if(method==='POST'&&this.events.has(eventId))return new Response(null,{status:409});
     if(method==='PUT'&&new Headers(init?.headers).get('if-match')!==this.events.get(eventId)?.etag)return new Response(null,{status:412});
@@ -72,7 +72,7 @@ export async function integrationFixture(){
   const env:HqEnv={...f.env,INTEGRATION_PLANNER_ENABLED:'true',CALENDAR_SYNC_ENABLED:'true',NOTIFICATION_DELIVERY_ENABLED:'true',GOOGLE_OAUTH_ENABLED:'true',
     INTEGRATION_INSTALLATION_ID:'synthetic-installation-001',GOOGLE_CLIENT_ID:'synthetic-client',GOOGLE_CLIENT_SECRET:'synthetic-secret',
     GOOGLE_TOKEN_ACTIVE_KEY:'test-key',GOOGLE_TOKEN_KEYS:JSON.stringify({'test-key':btoa('0'.repeat(32))}),NOTIFY:gateway,
-    NOTIFICATION_TARGETS_JSON:JSON.stringify({santa:{recipientKey:'santa-test',channel:'email'},mrs_claus:{recipientKey:'mrs-test',channel:'sms'},technical_admin:{recipientKey:'admin-test',channel:'email'}}),
+    NOTIFICATION_TARGETS_JSON:JSON.stringify({santa:{recipientKey:'santa-test',channel:'email'},mrs_claus:{recipientKey:'mrs-test',channel:'email'},technical_admin:{recipientKey:'admin-test',channel:'email'}}),
     MRS_CLAUS_CONSENT_JSON:JSON.stringify({granted:true,recipientKey:'mrs-test',reference:'synthetic-consent',grantedAt:testNow-1000})};
   const fetcher:typeof fetch=async(url,init)=>String(url).startsWith('https://synthetic-team.cloudflareaccess.com')?f.jwksFetch(url,init):google.fetch(url,init);
   const call=(path:string,body?:unknown,options:Parameters<typeof f.call>[2]={})=>f.call(path,body,{...options,env:options.env||env,fetcher});

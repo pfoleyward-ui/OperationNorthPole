@@ -1,0 +1,14 @@
+{
+  "staging_google_connection": {
+    "status": "connected",
+    "calendar_state": "missing",
+    "encrypted_tokens_present": 1,
+    "encrypted_envelope_valid": 1
+  },
+  "verification": "Authenticated Cloudflare D1 metadata query; no OAuth tokens or ciphertext selected",
+  "token_exchange_scope_enforced_by_code": "https://www.googleapis.com/auth/calendar.app.created",
+  "owner_reports_create_calendar_button": true,
+  "calendar_creation_verified": false,
+  "next_owner_action": "Click Create SantaBlizard Bookings calendar once, then report status",
+  "calendar_sync_intake_delivery_notes_retention_and_production_gates": "off"
+}

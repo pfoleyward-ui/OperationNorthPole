@@ -1,0 +1,20 @@
+{
+  "owner_authorized": "include Elf Notes and build privacy/terms links",
+  "only_public_website_deployed": true,
+  "production_backend_deployments_flags_and_secret_binding_names_unchanged": true,
+  "original_public_photo_hashes_unchanged": true,
+  "public_previous_versions": [
+    {
+      "version_id": "29f336d2-5f3a-413b-aca6-cb5e4ede71e0",
+      "percentage": 100
+    }
+  ],
+  "public_new_versions": [
+    {
+      "version_id": "f329e733-213f-4dcd-8c9f-bc876915eaaf",
+      "percentage": 100
+    }
+  ],
+  "scope": "privacy/terms documents, policy footer links, exact read-only legal routes; no booking or notes activation",
+  "automatic_deletion_enabled": false
+}

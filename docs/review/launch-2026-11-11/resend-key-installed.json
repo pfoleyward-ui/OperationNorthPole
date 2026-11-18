@@ -1,0 +1,11 @@
+{
+  "worker": "operation-north-pole-notifications-staging",
+  "resend_api_key_secret_present": true,
+  "key_value_read_or_logged": false,
+  "provider_authentication_tested": false,
+  "delivery_enabled": false,
+  "sender_configured": false,
+  "reply_to_configured": false,
+  "approved_recipient_map_configured": false,
+  "webhook_secret_configured": false
+}

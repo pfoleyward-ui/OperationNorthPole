@@ -1,0 +1,21 @@
+{
+  "versions": {
+    "operation-north-pole-site-staging": [
+      "c173158b-9483-4092-b688-619c264c1773"
+    ],
+    "operation-north-pole-booking-staging": [
+      "0f2b9f1a-49e2-41d5-b9d3-72518cda045d"
+    ],
+    "operation-north-pole-integrations-staging": [
+      "9d7f87a7-dbf0-488d-85ee-b713bd208c2c"
+    ],
+    "operation-north-pole-notifications-staging": [
+      "33e74693-9485-42c5-9e1f-2dd551cf4ff1"
+    ]
+  },
+  "credential_values_read": false,
+  "public_worker_version": "29f336d2-5f3a-413b-aca6-cb5e4ede71e0",
+  "public_worker_unchanged": true,
+  "temporary_receipt_fault_removed": true,
+  "original_scheduler_restored": true
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "role": "booking",
+    "result": "passed",
+    "populated_rows": 45,
+    "tables": 25,
+    "exact_schema_and_data_match": true,
+    "foreign_key_check": "passed",
+    "production_databases_used": false
+  },
+  {
+    "role": "email",
+    "result": "passed",
+    "populated_rows": 4,
+    "tables": 2,
+    "exact_schema_and_data_match": true,
+    "foreign_key_check": "passed",
+    "production_databases_used": false
+  }
+]

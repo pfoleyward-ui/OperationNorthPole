@@ -1,0 +1,44 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "operation-north-pole-site",
+  "main": "workers/site.ts",
+  "compatibility_date": "2026-11-08",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": {
+    "enabled": false
+  },
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "html_handling": "none",
+    "not_found_handling": "none"
+  },
+  "vars": {
+    "CUSTOMER_BOOKING_MODE": "disabled",
+    "SITE_STAGING_ENABLED": "false",
+    "HQ_ENABLED": "false",
+    "PUBLIC_INTAKE_ENABLED": "false",
+    "ELF_NOTES_ENABLED": "false",
+    "ELF_RETENTION_APPROVED": "false"
+  },
+  "services": [
+    {
+      "binding": "NOTIFY_WEBHOOK",
+      "service": "operation-north-pole-notifications"
+    },
+    {
+      "binding": "BOOKING",
+      "service": "operation-north-pole-booking"
+    },
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "operation-north-pole-site"
+    }
+  ]
+}

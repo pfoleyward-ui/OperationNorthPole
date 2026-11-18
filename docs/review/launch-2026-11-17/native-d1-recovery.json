@@ -1,0 +1,29 @@
+{
+  "results": [
+    {
+      "role": "booking",
+      "native_export_download_import": "passed",
+      "restore_statement_order": "all tables, dependency-ordered original inserts, then original indexes/triggers",
+      "sql_bytes": 32223,
+      "sql_sha256": "b70747d00891dec1a1e36bd837d051828ed449ee467d5b691ee1c603f81cc6e5",
+      "rows": 45,
+      "tables": 25,
+      "exact_schema_data_and_foreign_keys": "passed",
+      "operational_account_databases_read": false
+    },
+    {
+      "role": "email",
+      "native_export_download_import": "passed",
+      "restore_statement_order": "all tables, dependency-ordered original inserts, then original indexes/triggers",
+      "sql_bytes": 4025,
+      "sql_sha256": "442b4e8ea999373959cab4a73594fd749cd186669b76f0a900d0f83fef53f55e",
+      "rows": 4,
+      "tables": 2,
+      "exact_schema_data_and_foreign_keys": "passed",
+      "operational_account_databases_read": false
+    }
+  ],
+  "temporary_database_cleanup_complete": true,
+  "production_and_operational_staging_data_used": false,
+  "signed_urls_or_credentials_logged": false
+}

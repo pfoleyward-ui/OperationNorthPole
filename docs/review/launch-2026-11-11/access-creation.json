@@ -1,0 +1,10 @@
+{
+  "http_status": 403,
+  "success": false,
+  "errors": [
+    {
+      "code": 1010,
+      "error": "auth.forbidden"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+import {before,after,beforeEach,test} from 'node:test';
+import assert from 'node:assert/strict';
+import {hqFixture,testNow} from './hq-fixture.ts';
+import {handleElf,maintainElf,validateElfNotes} from '../../workers/booking/elf-notes.ts';
+import {runIntegrations} from '../../workers/booking/integration-runner.ts';
+let f:Awaited<ReturnType<typeof hqFixture>>;
+before(async()=>{f=await hqFixture();Object.assign(f.env,{ELF_NOTES_ENABLED:'true',ELF_ORIGIN:f.env.HQ_ORIGIN,ELF_TOKEN_SECRET:'synthetic-private-invitation-key-32-characters',ELF_ENCRYPTION_KEYS:JSON.stringify({v1:btoa('e'.repeat(32))}),ELF_ACTIVE_KEY:'v1'});});
+after(async()=>{await f?.dispose();});
+beforeEach(async()=>{await f.clear();});
+const notes=(version=0)=>({version,guardianConsent:true,children:[{firstName:'Synthetic A',interests:'Trains'},{favoriteToys:'Synthetic toy',traditions:'Carols'}]});
+async function invitation(){const id=await f.ready();assert.equal((await f.mutate(id,'confirm',{beforeMinutes:0,afterMinutes:0})).status,200);const r=await f.call('/hq/api/bookings/'+id+'/elf/invite',{});assert.equal(r.status,200);const data=await r.json() as {invitationUrl:string};return {id,token:new URL(data.invitationUrl).hash.slice(1)};}
+function call(token:string,action:string,body:unknown={},now=testNow,origin=f.env.HQ_ORIGIN!){return handleElf(new Request(f.env.HQ_ORIGIN+'/elf-notes/'+action,{method:'POST',headers:{Authorization:'Bearer '+token,Origin:origin,'Content-Type':'application/json'},body:JSON.stringify(body)}),f.env,now);}
+test('invitation requires confirmed home visit and Santa identity; collection gate fails closed',async()=>{const {id}=await f.create();assert.equal((await f.call('/hq/api/bookings/'+id+'/elf/invite',{})).status,404);assert.equal((await f.call('/hq/api/bookings/'+id+'/elf/read',{}, {token:''})).status,401);assert.equal((await handleElf(new Request(f.env.HQ_ORIGIN+'/elf-notes'),{...f.env,ELF_NOTES_ENABLED:'false'})).status,503);});
+test('guardian consent, strict field and count limits exclude prohibited structured fields',()=>{assert.throws(()=>validateElfNotes({...notes(),guardianConsent:false}));for(const key of ['diagnosis','medical','school','birthdate'])assert.throws(()=>validateElfNotes({...notes(),children:[{[key]:'forbidden'}]}));assert.throws(()=>validateElfNotes({...notes(),children:Array(13).fill({})}));assert.equal(validateElfNotes(notes()).children.length,2);});
+test('encrypted multi-child save/read/update, stale writes, authorization, deletion and rotation',async()=>{const {id,token}=await invitation();assert.equal((await call('0'.repeat(64),'read')).status,401);assert.equal((await call(token,'save',notes(),testNow,'https://attacker.test')).status,403);assert.equal((await call(token,'save',notes())).status,200);const row=await f.db.prepare('SELECT ciphertext FROM elf_notes WHERE booking_id=?').bind(id).first<{ciphertext:string}>();assert.ok(row);assert.ok(!row.ciphertext.includes('Synthetic A'));const read=await call(token,'read');assert.match(read.headers.get('cache-control')!,/no-store/);assert.deepEqual((await read.json() as {notes:unknown}).notes,{children:notes().children});assert.equal((await call(token,'save',notes())).status,409);assert.equal((await call(token,'save',notes(1))).status,200);const alerts=await f.db.prepare('SELECT COUNT(*) AS n FROM elf_alerts').first<{n:number}>();assert.equal(alerts?.n,2);assert.equal((await f.call('/hq/api/bookings/'+id+'/elf/read',{})).status,200);await f.call('/hq/api/bookings/'+id+'/elf/invite',{});assert.equal((await call(token,'read')).status,401);const replacement=await f.call('/hq/api/bookings/'+id+'/elf/invite',{});const next=new URL((await replacement.json() as {invitationUrl:string}).invitationUrl).hash.slice(1);assert.equal((await call(next,'delete')).status,200);assert.equal((await f.db.prepare('SELECT COUNT(*) AS n FROM elf_notes').first<{n:number}>())?.n,0);});
+test('cancellation revokes access and automatic deletion requires explicit retention approval',async()=>{const {id,token}=await invitation();await call(token,'save',notes());const end=await f.db.prepare("SELECT json_extract(state_json,'$.quote.end') AS e FROM hq_bookings WHERE booking_id=?").bind(id).first<{e:number}>();await maintainElf(f.env,end!.e+31*86400000);assert.equal((await f.db.prepare('SELECT COUNT(*) AS n FROM elf_notes').first<{n:number}>())?.n,1);await maintainElf({...f.env,ELF_RETENTION_APPROVED:'true',ELF_RETENTION_APPROVAL_REFERENCE:'synthetic-approval'},end!.e+31*86400000);assert.equal((await f.db.prepare('SELECT COUNT(*) AS n FROM elf_notes').first<{n:number}>())?.n,0);await f.db.prepare("UPDATE hq_bookings SET status='canceled' WHERE booking_id=?").bind(id).run();assert.equal((await call(token,'read')).status,401);});
+test('arrival notification contains no child content and uses a durable idempotency key',async()=>{const {token}=await invitation();await call(token,'save',notes());const seen:string[]=[];const env={...f.env,NOTIFICATION_DELIVERY_ENABLED:'true',NOTIFICATION_TARGETS_JSON:JSON.stringify({santa:{recipientKey:'santa-stage',channel:'email'}}),NOTIFY:{fetch:async(r:Request)=>{if(r.method==='GET')return Response.json({status:'not_found'});seen.push(await r.text());return Response.json({status:'accepted'});}}};await maintainElf(env,testNow);await maintainElf(env,testNow);assert.equal(seen.length,1);assert.ok(!seen[0].includes('Synthetic A'));assert.ok(!seen[0].includes(token));assert.match(seen[0],/Optional Elf Notes are ready/);});
+test('canceled visits deny reading but retain guardian and Santa deletion controls',async()=>{const {id,token}=await invitation();await call(token,'save',notes());await f.mutate(id,'cancel');const due=await(await f.call('/hq/api/elf-retention')).json() as {notes:{bookingId:string;overdue:boolean}[]};assert.equal(due.notes[0].bookingId,id);assert.equal(due.notes[0].overdue,true);assert.equal((await call(token,'read')).status,404);assert.equal((await call(token,'save',notes(1))).status,404);assert.equal((await call(token,'delete')).status,200);assert.equal((await f.call('/hq/api/bookings/'+id+'/elf/delete',{})).status,200);});
+test('backup role cannot read notes, expired links fail, and ciphertext tampering reveals nothing',async()=>{const {id,token}=await invitation();await call(token,'save',notes());const backup=await f.token('backup-subject');assert.equal((await f.call('/hq/api/bookings/'+id+'/elf/read',{}, {token:backup,env:{...f.env,BACKUP_ESCALATION_ENABLED:'true'}})).status,403);await f.db.prepare("UPDATE elf_notes SET ciphertext='{}' WHERE booking_id=?").bind(id).run();const response=await call(token,'read');assert.equal(response.status,503);assert.ok(!(await response.text()).includes('Synthetic A'));await f.db.prepare('UPDATE elf_invitations SET expires_at=? WHERE booking_id=?').bind(testNow-1,id).run();assert.equal((await call(token,'read')).status,401);});
+test('optional notes outage does not block appointment notifications and clears after recovery',async()=>{
+ const {id,token}=await invitation();await call(token,'save',notes());let failElf=true;const sent:string[]=[];
+ const env={...f.env,INTEGRATION_PLANNER_ENABLED:'true',NOTIFICATION_DELIVERY_ENABLED:'true',NOTIFICATION_TARGETS_JSON:JSON.stringify({santa:{recipientKey:'santa-stage',channel:'email'}}),NOTIFY:{fetch:async(r:Request)=>{
+  const key=new URL(r.url).pathname.split('/').at(-1)!;
+  if(key.startsWith('elf_')&&failElf)throw new Error('Synthetic notes transport outage');
+  if(r.method==='GET')return Response.json({idempotencyKey:key,status:'not_found'});
+  const body=await r.json() as {subject:string};sent.push(body.subject);return Response.json({idempotencyKey:key,status:'accepted',providerId:'synthetic-receipt'});
+ }}};
+ await runIntegrations(env,testNow);
+ assert.ok(sent.includes('A new letter has arrived!'));assert.ok(sent.includes('A little Christmas magic is confirmed'));
+ const error=await f.db.prepare("SELECT value FROM integration_control WHERE key='last_elf_error'").first<{value:string}>();assert.equal(JSON.parse(error!.value).code,'optional_notes_maintenance_failed');
+ assert.equal((await f.db.prepare('SELECT COUNT(*) AS n FROM elf_alerts WHERE delivered_at IS NULL').first<{n:number}>())?.n,1);
+ const status=await(await f.call('/hq/api/integrations/status')).json() as {elfNotesError:{code:string}};assert.equal(status.elfNotesError.code,'optional_notes_maintenance_failed');
+ failElf=false;await runIntegrations(env,testNow+60000);assert.ok(sent.includes('Optional Elf Notes are ready'));
+ assert.equal(await f.db.prepare("SELECT value FROM integration_control WHERE key='last_elf_error'").first(),null);
+ assert.equal((await f.db.prepare('SELECT COUNT(*) AS n FROM elf_alerts WHERE delivered_at IS NULL').first<{n:number}>())?.n,0);
+ assert.equal((await f.db.prepare('SELECT status FROM hq_bookings WHERE booking_id=?').bind(id).first<{status:string}>())?.status,'confirmed');
+});
+
+
+test('generic note alerts stop after cancellation, guardian deletion, expiry and quiet-hour crossings',async()=>{
+ for(const scenario of ['cancellation','deletion','quiet','expiry'] as const){
+  await f.clear();const {id,token}=await invitation();await call(token,'save',notes());let posts=0;
+  const start=scenario==='quiet'?Date.parse('2026-11-03T01:59:59Z'):testNow;let dispatch=start;
+  const env={...f.env,NOTIFICATION_DELIVERY_ENABLED:'true',NOTIFICATION_TARGETS_JSON:JSON.stringify({santa:{recipientKey:'santa-stage',channel:'email'}}),NOTIFY:{fetch:async(r:Request)=>{
+   if(r.method==='POST'){posts++;return Response.json({status:'accepted'});}
+   if(scenario==='cancellation')await f.mutate(id,'cancel');
+   if(scenario==='deletion')assert.equal((await call(token,'delete')).status,200);
+   if(scenario==='quiet')dispatch=Date.parse('2026-11-03T02:00:00Z');
+   if(scenario==='expiry')dispatch=testNow+7*86400000;
+   return Response.json({status:'not_found'});
+  }}};
+  await maintainElf(env,start,()=>dispatch);assert.equal(posts,0,scenario);
+ }
+});
+
+test('note ciphertext is bound to its booking and optional notes never change booking or reservations',async()=>{
+ const first=await invitation();const before=await f.db.prepare('SELECT state_json,version FROM hq_bookings WHERE booking_id=?').bind(first.id).first();
+ const reservations=await f.db.prepare('SELECT COUNT(*) AS n FROM hq_reservations WHERE booking_id=?').bind(first.id).first();
+ assert.equal((await call(first.token,'save',notes())).status,200);
+ const ciphertext=(await f.db.prepare('SELECT ciphertext FROM elf_notes WHERE booking_id=?').bind(first.id).first<{ciphertext:string}>())!.ciphertext;
+ const second=await f.create({...((await import('./hq-fixture.ts')).syntheticRequest()),timing:{date:'2027-12-21',time:'14:00'}});
+ await f.db.prepare('INSERT INTO elf_notes(booking_id,ciphertext,version,consent_version,consent_at,updated_at) VALUES(?,?,1,?, ?, ?)').bind(second.id,ciphertext,'synthetic-only',testNow,testNow).run();
+ const {unseal}=await import('../../workers/booking/google.ts');
+ await assert.rejects(unseal({...f.env,GOOGLE_TOKEN_KEYS:f.env.ELF_ENCRYPTION_KEYS,GOOGLE_TOKEN_ACTIVE_KEY:f.env.ELF_ACTIVE_KEY},ciphertext,'elf:'+second.id));
+ assert.equal((await call(first.token,'delete')).status,200);
+ assert.deepEqual(await f.db.prepare('SELECT state_json,version FROM hq_bookings WHERE booking_id=?').bind(first.id).first(),before);
+ assert.deepEqual(await f.db.prepare('SELECT COUNT(*) AS n FROM hq_reservations WHERE booking_id=?').bind(first.id).first(),reservations);
+});
+
+test('manual retention review is Santa-only, metadata-only, and deletion works with collection off',async()=>{
+ const {id,token}=await invitation();await call(token,'save',notes());const visitEnd=(await f.db.prepare("SELECT json_extract(state_json,'$.quote.end') AS e FROM hq_bookings WHERE booking_id=?").bind(id).first<{e:number}>())!.e;
+ const at=visitEnd+29*86400000;const signed=await f.token('santa-subject',{},at);
+ const response=await f.call('/hq/api/elf-retention',undefined,{token:signed,now:at,env:{...f.env,ELF_NOTES_ENABLED:'false'}});assert.equal(response.status,200);const review=await response.json() as {notes:{bookingId:string;deleteBy:number;overdue:boolean}[];automaticDeletionEnabled:boolean};assert.equal(review.automaticDeletionEnabled,false);assert.equal(review.notes[0].bookingId,id);assert.equal(review.notes[0].deleteBy,visitEnd+30*86400000);assert.equal(review.notes[0].overdue,false);assert.ok(!JSON.stringify(review).includes('Synthetic A'));
+ const expiredAt=visitEnd+31*86400000;const expiredAuth=await f.token('santa-subject',{},expiredAt);assert.equal((await f.call('/hq/api/bookings/'+id+'/elf/read',{}, {token:expiredAuth,now:expiredAt})).status,404);
+ const backup=await f.token('backup-subject',{},at);assert.equal((await f.call('/hq/api/elf-retention',undefined,{token:backup,now:at,env:{...f.env,BACKUP_ESCALATION_ENABLED:'true'}})).status,403);
+ assert.equal((await f.call('/hq/api/bookings/'+id+'/elf/delete',{}, {env:{...f.env,ELF_NOTES_ENABLED:'false'}})).status,200);
+ assert.equal((await f.db.prepare('SELECT COUNT(*) AS n FROM elf_notes').first<{n:number}>())!.n,0);
+});
+
+test('family edge limits use keyed IP buckets across different invalid tokens without storing raw addresses',async()=>{
+ const {token}=await invitation();for(let i=0;i<40;i++){
+  const req=new Request(f.env.HQ_ORIGIN+'/elf-notes/read',{method:'POST',headers:{Origin:f.env.HQ_ORIGIN!,'Content-Type':'application/json',Authorization:'Bearer '+i.toString(16).padStart(64,'0'),'CF-Connecting-IP':'192.0.2.77'},body:'{}'});
+  assert.equal((await handleElf(req,f.env,testNow)).status,401);
+ }
+ const req=new Request(f.env.HQ_ORIGIN+'/elf-notes/read',{method:'POST',headers:{Origin:f.env.HQ_ORIGIN!,'Content-Type':'application/json',Authorization:'Bearer '+token,'CF-Connecting-IP':'192.0.2.77'},body:'{}'});assert.equal((await handleElf(req,f.env,testNow)).status,429);
+ const rows=(await f.db.prepare('SELECT key FROM elf_rate_limits').all()).results;assert.ok(!JSON.stringify(rows).includes('192.0.2.77'));
+});

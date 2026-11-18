@@ -1,0 +1,1042 @@
+{
+  "workers": [
+    {
+      "name": "operation-north-pole-booking",
+      "modified_on": "2026-11-10T16:56:55.481766Z",
+      "bindings": [
+        {
+          "name": "ACCESS_TEAM_DOMAIN",
+          "type": "plain_text",
+          "value": "proud-shape-91a4.cloudflareaccess.com"
+        },
+        {
+          "name": "BACKUP_ESCALATION_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "BOOKING_ORIGIN",
+          "type": "plain_text"
+        },
+        {
+          "name": "CALENDAR_SYNC_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "CUSTOMER_EMAIL_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "DB",
+          "type": "d1",
+          "id": "a2c79b9c-a578-4d0c-86c4-27f0b1e72b8c"
+        },
+        {
+          "name": "ELF_ACTIVE_KEY",
+          "type": "plain_text"
+        },
+        {
+          "name": "ELF_ENCRYPTION_KEYS",
+          "type": "secret_text"
+        },
+        {
+          "name": "ELF_NOTES_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "ELF_ORIGIN",
+          "type": "plain_text"
+        },
+        {
+          "name": "ELF_RETENTION_APPROVED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "ELF_TOKEN_SECRET",
+          "type": "secret_text"
+        },
+        {
+          "name": "GOOGLE_OAUTH_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "GOOGLE_TOKEN_ACTIVE_KEY",
+          "type": "plain_text"
+        },
+        {
+          "name": "GOOGLE_TOKEN_KEYS",
+          "type": "secret_text"
+        },
+        {
+          "name": "HQ_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "HQ_ORIGIN",
+          "type": "plain_text"
+        },
+        {
+          "name": "INTAKE_HMAC_SECRET",
+          "type": "secret_text"
+        },
+        {
+          "name": "INTEGRATION_INSTALLATION_ID",
+          "type": "plain_text"
+        },
+        {
+          "name": "INTEGRATION_PLANNER_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "NATIVE_CALENDAR_REMINDER_MINUTES",
+          "type": "plain_text"
+        },
+        {
+          "name": "NOTIFICATION_DELIVERY_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "PUBLIC_INTAKE_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "REMINDER_POLICY_JSON",
+          "type": "plain_text"
+        },
+        {
+          "name": "STAGING_INTAKE_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        }
+      ],
+      "logging": {
+        "logpush": false,
+        "observability": null
+      },
+      "subdomain": {
+        "enabled": false,
+        "previews_enabled": false
+      },
+      "schedules": [],
+      "latest_deployment": {
+        "id": "c893f44e-571c-411d-baa5-036b38df56df",
+        "created_on": "2026-11-10T16:56:54.208677Z",
+        "versions": [
+          {
+            "version_id": "782d4b23-572c-4330-b468-1e8105ddbd4a",
+            "percentage": 100
+          }
+        ]
+      }
+    },
+    {
+      "name": "operation-north-pole-booking-staging",
+      "modified_on": "2026-11-10T16:56:38.914109Z",
+      "bindings": [
+        {
+          "name": "ACCESS_TEAM_DOMAIN",
+          "type": "plain_text",
+          "value": "proud-shape-91a4.cloudflareaccess.com"
+        },
+        {
+          "name": "BACKUP_ESCALATION_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "BOOKING_ORIGIN",
+          "type": "plain_text"
+        },
+        {
+          "name": "CALENDAR_SYNC_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "CUSTOMER_EMAIL_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "DB",
+          "type": "d1",
+          "id": "4db01c7d-9271-4b68-9839-323bb6887c6f"
+        },
+        {
+          "name": "ELF_ACTIVE_KEY",
+          "type": "plain_text"
+        },
+        {
+          "name": "ELF_ENCRYPTION_KEYS",
+          "type": "secret_text"
+        },
+        {
+          "name": "ELF_NOTES_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "ELF_ORIGIN",
+          "type": "plain_text"
+        },
+        {
+          "name": "ELF_RETENTION_APPROVED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "ELF_TOKEN_SECRET",
+          "type": "secret_text"
+        },
+        {
+          "name": "GOOGLE_OAUTH_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "GOOGLE_TOKEN_ACTIVE_KEY",
+          "type": "plain_text"
+        },
+        {
+          "name": "GOOGLE_TOKEN_KEYS",
+          "type": "secret_text"
+        },
+        {
+          "name": "HQ_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "HQ_ORIGIN",
+          "type": "plain_text"
+        },
+        {
+          "name": "INTAKE_HMAC_SECRET",
+          "type": "secret_text"
+        },
+        {
+          "name": "INTEGRATION_INSTALLATION_ID",
+          "type": "plain_text"
+        },
+        {
+          "name": "INTEGRATION_PLANNER_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "NATIVE_CALENDAR_REMINDER_MINUTES",
+          "type": "plain_text"
+        },
+        {
+          "name": "NOTIFICATION_DELIVERY_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "PUBLIC_INTAKE_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "REMINDER_POLICY_JSON",
+          "type": "plain_text"
+        },
+        {
+          "name": "STAGING_INTAKE_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        }
+      ],
+      "logging": {
+        "logpush": false,
+        "observability": null
+      },
+      "subdomain": {
+        "enabled": false,
+        "previews_enabled": false
+      },
+      "schedules": [],
+      "latest_deployment": {
+        "id": "809a5e1a-69fe-4144-bcac-8b8ff715b6a6",
+        "created_on": "2026-11-10T16:56:37.711214Z",
+        "versions": [
+          {
+            "version_id": "c7841d52-0d40-4011-9c3f-acc270c6e96e",
+            "percentage": 100
+          }
+        ]
+      }
+    },
+    {
+      "name": "operation-north-pole-integrations",
+      "modified_on": "2026-11-10T17:00:53.808883Z",
+      "bindings": [
+        {
+          "name": "CALENDAR_SYNC_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "CUSTOMER_EMAIL_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "DB",
+          "type": "d1",
+          "id": "a2c79b9c-a578-4d0c-86c4-27f0b1e72b8c"
+        },
+        {
+          "name": "ELF_ACTIVE_KEY",
+          "type": "plain_text"
+        },
+        {
+          "name": "ELF_NOTES_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "ELF_ORIGIN",
+          "type": "plain_text"
+        },
+        {
+          "name": "ELF_RETENTION_APPROVED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "GOOGLE_OAUTH_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "GOOGLE_TOKEN_ACTIVE_KEY",
+          "type": "plain_text"
+        },
+        {
+          "name": "GOOGLE_TOKEN_KEYS",
+          "type": "secret_text"
+        },
+        {
+          "name": "HQ_ORIGIN",
+          "type": "plain_text"
+        },
+        {
+          "name": "INTAKE_HMAC_SECRET",
+          "type": "secret_text"
+        },
+        {
+          "name": "INTEGRATION_INSTALLATION_ID",
+          "type": "plain_text"
+        },
+        {
+          "name": "INTEGRATION_PLANNER_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "NATIVE_CALENDAR_REMINDER_MINUTES",
+          "type": "plain_text"
+        },
+        {
+          "name": "NOTIFICATION_DELIVERY_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "NOTIFY",
+          "type": "service",
+          "service": "operation-north-pole-notifications"
+        },
+        {
+          "name": "REMINDER_POLICY_JSON",
+          "type": "plain_text"
+        }
+      ],
+      "logging": {
+        "logpush": false,
+        "observability": null
+      },
+      "subdomain": {
+        "enabled": false,
+        "previews_enabled": false
+      },
+      "schedules": [
+        {
+          "cron": "* * * * *",
+          "created_on": "2026-11-10T16:40:37.900955Z",
+          "modified_on": "2026-11-10T16:40:37.900955Z"
+        }
+      ],
+      "latest_deployment": {
+        "id": "12141e7f-7517-4691-9ae2-4744dd2c4bc4",
+        "created_on": "2026-11-10T17:03:30.527684Z",
+        "versions": [
+          {
+            "version_id": "00fea990-eb4a-4edb-817d-a9ae9c7b69ad",
+            "percentage": 100
+          }
+        ]
+      }
+    },
+    {
+      "name": "operation-north-pole-integrations-staging",
+      "modified_on": "2026-11-10T17:00:47.566498Z",
+      "bindings": [
+        {
+          "name": "CALENDAR_SYNC_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "CUSTOMER_EMAIL_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "DB",
+          "type": "d1",
+          "id": "4db01c7d-9271-4b68-9839-323bb6887c6f"
+        },
+        {
+          "name": "ELF_ACTIVE_KEY",
+          "type": "plain_text"
+        },
+        {
+          "name": "ELF_NOTES_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "ELF_ORIGIN",
+          "type": "plain_text"
+        },
+        {
+          "name": "ELF_RETENTION_APPROVED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "GOOGLE_OAUTH_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "GOOGLE_TOKEN_ACTIVE_KEY",
+          "type": "plain_text"
+        },
+        {
+          "name": "GOOGLE_TOKEN_KEYS",
+          "type": "secret_text"
+        },
+        {
+          "name": "HQ_ORIGIN",
+          "type": "plain_text"
+        },
+        {
+          "name": "INTAKE_HMAC_SECRET",
+          "type": "secret_text"
+        },
+        {
+          "name": "INTEGRATION_INSTALLATION_ID",
+          "type": "plain_text"
+        },
+        {
+          "name": "INTEGRATION_PLANNER_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "NATIVE_CALENDAR_REMINDER_MINUTES",
+          "type": "plain_text"
+        },
+        {
+          "name": "NOTIFICATION_DELIVERY_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "NOTIFY",
+          "type": "service",
+          "service": "operation-north-pole-notifications-staging"
+        },
+        {
+          "name": "REMINDER_POLICY_JSON",
+          "type": "plain_text"
+        }
+      ],
+      "logging": {
+        "logpush": false,
+        "observability": null
+      },
+      "subdomain": {
+        "enabled": false,
+        "previews_enabled": false
+      },
+      "schedules": [
+        {
+          "cron": "* * * * *",
+          "created_on": "2026-11-10T16:39:37.620163Z",
+          "modified_on": "2026-11-10T16:39:37.620163Z"
+        }
+      ],
+      "latest_deployment": {
+        "id": "d6509ad2-abf1-4872-b7b4-3201ca187a30",
+        "created_on": "2026-11-10T17:03:29.688206Z",
+        "versions": [
+          {
+            "version_id": "5d98b527-2c29-4a8a-988c-88d0efd65b43",
+            "percentage": 100
+          }
+        ]
+      }
+    },
+    {
+      "name": "operation-north-pole-notifications",
+      "modified_on": "2026-11-10T17:03:41.886964Z",
+      "bindings": [
+        {
+          "name": "BOOKING_DB",
+          "type": "d1",
+          "id": "a2c79b9c-a578-4d0c-86c4-27f0b1e72b8c"
+        },
+        {
+          "name": "DB",
+          "type": "d1",
+          "id": "2f5bf022-d088-48a8-af05-c9958be3c5a0"
+        },
+        {
+          "name": "ELF_NOTES_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "ELF_RETENTION_APPROVED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "GATEWAY_DELIVERY_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "GATEWAY_HMAC_SECRET",
+          "type": "secret_text"
+        },
+        {
+          "name": "HQ_ORIGIN",
+          "type": "plain_text"
+        },
+        {
+          "name": "REMINDER_POLICY_JSON",
+          "type": "plain_text"
+        }
+      ],
+      "logging": {
+        "logpush": false,
+        "observability": null
+      },
+      "subdomain": {
+        "enabled": false,
+        "previews_enabled": false
+      },
+      "schedules": [
+        {
+          "cron": "* * * * *",
+          "created_on": "2026-11-10T16:40:28.167605Z",
+          "modified_on": "2026-11-10T16:40:28.167605Z"
+        }
+      ],
+      "latest_deployment": {
+        "id": "ad659fec-a8a6-4407-981e-34181c0674d6",
+        "created_on": "2026-11-10T17:03:40.388457Z",
+        "versions": [
+          {
+            "version_id": "679cfadf-4245-4d20-a138-7bebe0928918",
+            "percentage": 100
+          }
+        ]
+      }
+    },
+    {
+      "name": "operation-north-pole-notifications-staging",
+      "modified_on": "2026-11-10T17:03:36.207162Z",
+      "bindings": [
+        {
+          "name": "BOOKING_DB",
+          "type": "d1",
+          "id": "4db01c7d-9271-4b68-9839-323bb6887c6f"
+        },
+        {
+          "name": "DB",
+          "type": "d1",
+          "id": "6ae1f1e9-7014-4cd8-abcb-ba12e2549cf7"
+        },
+        {
+          "name": "ELF_NOTES_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "ELF_RETENTION_APPROVED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "GATEWAY_DELIVERY_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "GATEWAY_HMAC_SECRET",
+          "type": "secret_text"
+        },
+        {
+          "name": "HQ_ORIGIN",
+          "type": "plain_text"
+        },
+        {
+          "name": "REMINDER_POLICY_JSON",
+          "type": "plain_text"
+        }
+      ],
+      "logging": {
+        "logpush": false,
+        "observability": null
+      },
+      "subdomain": {
+        "enabled": false,
+        "previews_enabled": false
+      },
+      "schedules": [
+        {
+          "cron": "* * * * *",
+          "created_on": "2026-11-10T16:39:24.605342Z",
+          "modified_on": "2026-11-10T16:39:24.605342Z"
+        }
+      ],
+      "latest_deployment": {
+        "id": "fc243475-6f11-4990-86e2-7067d5e9f988",
+        "created_on": "2026-11-10T17:03:34.788689Z",
+        "versions": [
+          {
+            "version_id": "e8b5d66c-c15a-43b4-9a42-44535ebd7a3f",
+            "percentage": 100
+          }
+        ]
+      }
+    },
+    {
+      "name": "operation-north-pole-site",
+      "modified_on": "2026-11-10T16:47:22.826171Z",
+      "bindings": [
+        {
+          "name": "ACCESS_TEAM_DOMAIN",
+          "type": "plain_text",
+          "value": "proud-shape-91a4.cloudflareaccess.com"
+        },
+        {
+          "name": "BOOKING",
+          "type": "service",
+          "service": "operation-north-pole-booking"
+        },
+        {
+          "name": "CUSTOMER_BOOKING_MODE",
+          "type": "plain_text",
+          "value": "disabled"
+        },
+        {
+          "name": "HQ_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "NOTIFY_WEBHOOK",
+          "type": "service",
+          "service": "operation-north-pole-notifications"
+        },
+        {
+          "name": "SITE_STAGING_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        }
+      ],
+      "logging": {
+        "logpush": false,
+        "observability": null
+      },
+      "subdomain": {
+        "enabled": false,
+        "previews_enabled": false
+      },
+      "schedules": [],
+      "latest_deployment": {
+        "id": "3a691743-57f0-45e9-955b-8c57c0e929e7",
+        "created_on": "2026-11-10T16:47:21.796817Z",
+        "versions": [
+          {
+            "version_id": "2e093904-d042-4ede-bd21-0a3619297ac3",
+            "percentage": 100
+          }
+        ]
+      }
+    },
+    {
+      "name": "operation-north-pole-site-staging",
+      "modified_on": "2026-11-10T16:47:17.251515Z",
+      "bindings": [
+        {
+          "name": "ACCESS_TEAM_DOMAIN",
+          "type": "plain_text",
+          "value": "proud-shape-91a4.cloudflareaccess.com"
+        },
+        {
+          "name": "BOOKING",
+          "type": "service",
+          "service": "operation-north-pole-booking-staging"
+        },
+        {
+          "name": "CUSTOMER_BOOKING_MODE",
+          "type": "plain_text",
+          "value": "disabled"
+        },
+        {
+          "name": "HQ_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "NOTIFY_WEBHOOK",
+          "type": "service",
+          "service": "operation-north-pole-notifications-staging"
+        },
+        {
+          "name": "SITE_STAGING_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        }
+      ],
+      "logging": {
+        "logpush": false,
+        "observability": null
+      },
+      "subdomain": {
+        "enabled": false,
+        "previews_enabled": false
+      },
+      "schedules": [],
+      "latest_deployment": {
+        "id": "9af0d751-0d5a-4667-b183-3f9887090b3b",
+        "created_on": "2026-11-10T16:47:16.000247Z",
+        "versions": [
+          {
+            "version_id": "cff36a66-f886-448d-9b69-70b42bd6f75a",
+            "percentage": 100
+          }
+        ]
+      }
+    },
+    {
+      "name": "operationnorthpole",
+      "modified_on": "2026-11-09T23:07:42.831258Z",
+      "bindings": [
+        {
+          "name": "ASSETS",
+          "type": "assets"
+        },
+        {
+          "name": "BACKUP_ESCALATION_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "CALENDAR_SYNC_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "CUSTOMER_BOOKING_MODE",
+          "type": "plain_text",
+          "value": "disabled"
+        },
+        {
+          "name": "CUSTOMER_EMAIL_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "GOOGLE_OAUTH_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "HQ_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "INTEGRATION_PLANNER_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "NOTIFICATION_DELIVERY_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "PUBLIC_INTAKE_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "PUBLIC_WEBSITE_ONLY",
+          "type": "plain_text",
+          "value": "true"
+        },
+        {
+          "name": "SITE_STAGING_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "STAGING_INTAKE_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "WORKER_SELF_REFERENCE",
+          "type": "service",
+          "service": "operationnorthpole"
+        }
+      ],
+      "logging": {
+        "logpush": false,
+        "observability": null
+      },
+      "subdomain": {
+        "enabled": false,
+        "previews_enabled": false
+      },
+      "schedules": [],
+      "latest_deployment": {
+        "id": "62604bea-dac9-4bea-b235-52226a26ce12",
+        "created_on": "2026-11-09T23:07:41.71845Z",
+        "versions": [
+          {
+            "version_id": "29f336d2-5f3a-413b-aca6-cb5e4ede71e0",
+            "percentage": 100
+          }
+        ]
+      }
+    }
+  ],
+  "domains": [
+    {
+      "id": "3e26eb120649c93edde9d2ef16e9a164b2e5cf5e",
+      "zone_id": "5b5baf130199b5b3fa16e0f64f0d80a0",
+      "zone_name": "santablizard.com",
+      "hostname": "santablizard.com",
+      "service": "operationnorthpole",
+      "environment": "production",
+      "cert_id": "0224fdcc-1323-4d01-9440-df0d39bd0b74",
+      "previews_enabled": false,
+      "enabled": true
+    },
+    {
+      "id": "000fcaccc37a509bb5f3bf6e4876df6d8c377391",
+      "zone_id": "5b5baf130199b5b3fa16e0f64f0d80a0",
+      "zone_name": "santablizard.com",
+      "hostname": "www.santablizard.com",
+      "service": "operationnorthpole",
+      "environment": "production",
+      "cert_id": "0dd1b388-7f1a-4c70-b853-caa5f20f5822",
+      "previews_enabled": false,
+      "enabled": true
+    }
+  ],
+  "queues": [],
+  "access_apps": {
+    "result": [],
+    "success": true,
+    "errors": [],
+    "messages": [],
+    "result_info": {
+      "page": 1,
+      "per_page": 1000,
+      "count": 0,
+      "total_count": 0,
+      "total_pages": 0
+    }
+  },
+  "identity_providers": {
+    "result": [],
+    "success": true,
+    "errors": [],
+    "messages": [],
+    "result_info": {
+      "page": 1,
+      "per_page": 200,
+      "count": 0,
+      "total_count": 0,
+      "total_pages": 0
+    }
+  },
+  "access_organization": {
+    "success": false,
+    "http_status": 403,
+    "errors": [
+      {
+        "code": 10000,
+        "message": "Authentication error"
+      }
+    ]
+  },
+  "databases": [
+    {
+      "name": "operation-north-pole-email",
+      "uuid": "2f5bf022-d088-48a8-af05-c9958be3c5a0",
+      "migrations": [
+        {
+          "name": "0001_notification_gateway.sql"
+        }
+      ],
+      "migration_query_success": true
+    },
+    {
+      "name": "operation-north-pole-booking",
+      "uuid": "a2c79b9c-a578-4d0c-86c4-27f0b1e72b8c",
+      "migrations": [
+        {
+          "name": "0001_booking_intake.sql"
+        },
+        {
+          "name": "0002_santa_hq.sql"
+        },
+        {
+          "name": "0003_integrations.sql"
+        },
+        {
+          "name": "0004_customer_email.sql"
+        },
+        {
+          "name": "0005_elf_notes.sql"
+        }
+      ],
+      "migration_query_success": true
+    },
+    {
+      "name": "operation-north-pole-email-staging",
+      "uuid": "6ae1f1e9-7014-4cd8-abcb-ba12e2549cf7",
+      "migrations": [
+        {
+          "name": "0001_notification_gateway.sql"
+        }
+      ],
+      "migration_query_success": true
+    },
+    {
+      "name": "operation-north-pole-booking-staging",
+      "uuid": "4db01c7d-9271-4b68-9839-323bb6887c6f",
+      "migrations": [
+        {
+          "name": "0001_booking_intake.sql"
+        },
+        {
+          "name": "0002_santa_hq.sql"
+        },
+        {
+          "name": "0003_integrations.sql"
+        },
+        {
+          "name": "0004_customer_email.sql"
+        },
+        {
+          "name": "0005_elf_notes.sql"
+        }
+      ],
+      "migration_query_success": true
+    }
+  ],
+  "public_http": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/services",
+      "status": 200
+    },
+    {
+      "path": "/book",
+      "status": 404
+    },
+    {
+      "path": "/hq",
+      "status": 404
+    },
+    {
+      "path": "/api/bookings",
+      "status": 404
+    },
+    {
+      "path": "/review",
+      "status": 404
+    },
+    {
+      "path": "/elf-notes",
+      "status": 404
+    },
+    {
+      "path": "/webhooks/resend",
+      "status": 404
+    },
+    {
+      "url": "https://www.santablizard.com/",
+      "status": 308
+    }
+  ],
+  "zone_routing": {
+    "worker_routes": {
+      "result": [],
+      "success": true,
+      "errors": [],
+      "messages": []
+    },
+    "tls_mode": {
+      "result": {
+        "id": "ssl",
+        "value": "full",
+        "modified_on": null,
+        "certificate_status": "active",
+        "validation_errors": [],
+        "editable": true
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    },
+    "dns_records": {
+      "success": false,
+      "errors": [
+        {
+          "code": 10000,
+          "message": "Authentication error",
+          "documentation_url": "https://developers.cloudflare.com/api/resources/dns/subresources/records/methods/list"
+        }
+      ],
+      "messages": [],
+      "result": null
+    }
+  }
+}

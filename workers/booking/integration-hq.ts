@@ -9,7 +9,8 @@ import { record } from '../../src/domain/booking/request.ts';
 export async function integrationRead(env:IntegrationEnv,path:string,principal:Principal,now:number):Promise<unknown|undefined>{
   if(path==='/hq/api/integrations/status'){
     const error=await env.DB.prepare("SELECT value FROM integration_control WHERE key='last_runner_error'").first<{value:string}>();
-    return {google:await googleStatus(env),plannerEnabled:env.INTEGRATION_PLANNER_ENABLED==='true',notificationDeliveryEnabled:env.NOTIFICATION_DELIVERY_ENABLED==='true',policy:policy(env),runnerError:error?JSON.parse(error.value):null};
+    const elfError=await env.DB.prepare("SELECT value FROM integration_control WHERE key='last_elf_error'").first<{value:string}>();
+    return {google:await googleStatus(env),plannerEnabled:env.INTEGRATION_PLANNER_ENABLED==='true',notificationDeliveryEnabled:env.NOTIFICATION_DELIVERY_ENABLED==='true',policy:policy(env),runnerError:error?JSON.parse(error.value):null,elfNotesError:elfError?JSON.parse(elfError.value):null};
   }
   const match=/^\/hq\/api\/bookings\/([0-9a-f-]{36})\/delivery$/.exec(path);
   if(!match)return undefined;

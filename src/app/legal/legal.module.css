@@ -1,0 +1,11 @@
+.site { padding: clamp(18px, 4vw, 48px); }
+.paper { max-width: 900px; margin: auto; padding: clamp(22px, 5vw, 58px); background: var(--paper) center / cover; border: 2px solid #856037; box-shadow: 0 5px 12px #100803aa; }
+.paper h1 { font: 400 clamp(36px, 5vw, 60px)/1.15 'Berkshire Swash', Georgia, serif; color: #84221e; margin: 20px 0; }
+.paper h2 { font-size: clamp(26px, 3vw, 34px); line-height: 1.2; color: #75221b; margin: 32px 0 14px; }
+.paper p { font-size: 22px; line-height: 1.5; overflow-wrap: anywhere; }
+.paper a { color: #75221b; text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
+.paper a:focus-visible { outline: 3px solid #75221b; outline-offset: 5px; }
+.paper header > a, .paper nav a { display: inline-block; padding-block: 12px; }
+.paper .eyebrow { font-size: 16px; letter-spacing: .08em; margin-top: 24px; }
+.paper footer { border-top: 1px solid #856037; margin-top: 32px; padding-top: 16px; }
+.paper nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }

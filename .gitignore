@@ -7,3 +7,11 @@ node_modules/
 .cache/
 .wrangler/
 .dev.vars*
+
+.open-next/
+.wrangler.generated/
+public/_optimized/
+wrangler.*.staging.jsonc
+work/
+
+__pycache__/

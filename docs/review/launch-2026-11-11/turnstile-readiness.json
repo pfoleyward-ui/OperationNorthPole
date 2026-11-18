@@ -1,0 +1,53 @@
+{
+  "owner_confirmed_protected_homepage_loads": true,
+  "staging_checker_deployed": true,
+  "staging_site_version": "244c5eaa-f961-4a21-a32e-4c291108bac6",
+  "real_provider_negative_test": {
+    "actual_cloudflare_siteverify_called": true,
+    "invalid_proof_rejected": true,
+    "error_codes": [
+      "invalid-input-response"
+    ],
+    "real_positive_challenge": "pending owner browser"
+  },
+  "actual_positive_browser_challenge": "pending owner",
+  "backend_tests_passed": 99,
+  "typechecks": [
+    "backend",
+    "application"
+  ],
+  "staging_dry_run": "passed",
+  "synthetic_browser_widths": [
+    390,
+    768,
+    1440
+  ],
+  "synthetic_browser_success_and_rejection_ui": "passed; not a real challenge",
+  "http_protection": [
+    {
+      "host": "staging.santablizard.com",
+      "method": "GET",
+      "status": 302
+    },
+    {
+      "host": "staging.santablizard.com",
+      "method": "POST",
+      "status": 302
+    },
+    {
+      "host": "santablizard.com",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "host": "santablizard.com",
+      "method": "POST",
+      "status": 404
+    }
+  ],
+  "backend_staging_and_production_gates": "off",
+  "production_public_worker_unchanged": true,
+  "customer_database_writes": 0,
+  "real_messages_sent": 0,
+  "encryption_key_changes": false
+}

@@ -1,0 +1,49 @@
+{
+  "synthetic_only": true,
+  "host": "notes-staging.santablizard.com",
+  "production_collection_enabled": false,
+  "automatic_deletion_enabled": false,
+  "closed_ingress_initial_status": 503,
+  "browser": {
+    "outcome": "passed",
+    "results": [
+      {
+        "width": 390,
+        "status": "passed",
+        "checks": [
+          "real HTTPS family route",
+          "no Santa Access cookie or bypass",
+          "bearer fragment removed",
+          "guardian consent",
+          "two-child encrypted save/edit",
+          "explicit family deletion",
+          "privacy notice link",
+          "no browser storage or overflow"
+        ]
+      },
+      {
+        "width": 1440,
+        "status": "passed",
+        "checks": [
+          "real HTTPS family route",
+          "no Santa Access cookie or bypass",
+          "bearer fragment removed",
+          "guardian consent",
+          "two-child encrypted save/edit",
+          "explicit family deletion",
+          "privacy notice link",
+          "no browser storage or overflow"
+        ]
+      }
+    ],
+    "only_synthetic_data": true,
+    "real_customer_data_collected": false
+  },
+  "remaining_synthetic_note_rows": 0,
+  "final_family_status": 503,
+  "family_collection_restored_off": true,
+  "closed_gate_readback_verified": true,
+  "disposable_worker_deleted": true,
+  "disposable_database_deleted": true,
+  "original_santa_access_policy_unchanged": true
+}

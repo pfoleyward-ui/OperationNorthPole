@@ -1,0 +1,32 @@
+[
+  {
+    "width": 390,
+    "comparison": "first 900 pixels of prior-live versus updated-live homepage",
+    "changed_channels": 0,
+    "mean_absolute_channel_difference": 0
+  },
+  {
+    "width": 768,
+    "comparison": "first 900 pixels of prior-live versus updated-live homepage",
+    "changed_channels": 0,
+    "mean_absolute_channel_difference": 0
+  },
+  {
+    "width": 1024,
+    "comparison": "first 900 pixels of prior-live versus updated-live homepage",
+    "changed_channels": 0,
+    "mean_absolute_channel_difference": 0
+  },
+  {
+    "width": 1440,
+    "comparison": "first 900 pixels of prior-live versus updated-live homepage",
+    "changed_channels": 0,
+    "mean_absolute_channel_difference": 0
+  },
+  {
+    "width": 1920,
+    "comparison": "first 900 pixels of prior-live versus updated-live homepage",
+    "changed_channels": 0,
+    "mean_absolute_channel_difference": 0
+  }
+]

@@ -1,0 +1,97 @@
+{
+  "run_id": "backend-readiness-20261117-80310abf",
+  "synthetic_disposable_database_only": true,
+  "sole_real_recipient": "santablizard@gmail.com",
+  "maximum_new_test_emails": 3,
+  "operational_notes_collection_enabled": false,
+  "automatic_retention_enabled": false,
+  "production_changed": false,
+  "rehearsal": {
+    "checks": [
+      "disposable_database_initially_empty",
+      "invalid_private_link_denied",
+      "guardian_consent_required",
+      "synthetic_multi_child_save",
+      "encrypted_at_rest",
+      "santa_decrypts_synthetic_notes",
+      "generic_note_alert_handoff",
+      "stale_edit_rejected",
+      "family_edit",
+      "automatic_retention_stays_off",
+      "family_explicit_delete",
+      "notes_and_pending_alerts_erased",
+      "notes_never_change_booking_or_reservation",
+      "normal_24_hour_reminder_due_in_future",
+      "reminder_exists",
+      "real_reminder_handoff_accepted",
+      "acknowledgment_idempotent",
+      "ack_stops_all_unsent_escalation",
+      "one_resolution_for_alerted_santa",
+      "ack_never_changes_booking_or_reservation",
+      "only_three_expected_handoffs",
+      "all_three_real_gateway_receipts_delivered"
+    ],
+    "deliveryKeys": [
+      "elf_ad4daedd82e51d64abf84ff226486c82",
+      "ca05dee12d648e7f35585b353c0a7af5459f784d5161d109ebd998497cb5e133",
+      "2cb455c8c8b3b3c26afc808704809228f92e43159d9901409fda4e0ff36d4313"
+    ],
+    "phase": "passed",
+    "bookingId": "1f338f53-be0c-4d30-8545-d64fd4f7ea89",
+    "baseline": "{\"booking\":{\"state_json\":\"{\\\"id\\\":\\\"1f338f53-be0c-4d30-8545-d64fd4f7ea89\\\",\\\"serviceId\\\":\\\"home-visits\\\",\\\"status\\\":\\\"confirmed\\\",\\\"version\\\":6,\\\"quote\\\":{\\\"id\\\":\\\"d1e68098-cabf-4326-b6ad-29c863649de7\\\",\\\"bookingId\\\":\\\"1f338f53-be0c-4d30-8545-d64fd4f7ea89\\\",\\\"serviceId\\\":\\\"home-visits\\\",\\\"revision\\\":1,\\\"catalogVersion\\\":2,\\\"currency\\\":\\\"USD\\\",\\\"totalCents\\\":15000,\\\"start\\\":1795029360000,\\\"end\\\":1795031160000,\\\"createdAt\\\":1794942835036,\\\"expiresAt\\\":1794985980000},\\\"acceptance\\\":{\\\"quoteId\\\":\\\"d1e68098-cabf-4326-b6ad-29c863649de7\\\",\\\"revision\\\":1,\\\"acceptedAt\\\":1794942835036,\\\"source\\\":\\\"recorded_offline\\\",\\\"terms\\\":{\\\"id\\\":\\\"d1e68098-cabf-4326-b6ad-29c863649de7\\\",\\\"bookingId\\\":\\\"1f338f53-be0c-4d30-8545-d64fd4f7ea89\\\",\\\"serviceId\\\":\\\"home-visits\\\",\\\"revision\\\":1,\\\"catalogVersion\\\":2,\\\"currency\\\":\\\"USD\\\",\\\"totalCents\\\":15000,\\\"start\\\":1795029360000,\\\"end\\\":1795031160000,\\\"createdAt\\\":1794942835036,\\\"expiresAt\\\":1794985980000}}}\",\"version\":6},\"reservations\":[{\"booking_id\":\"1f338f53-be0c-4d30-8545-d64fd4f7ea89\",\"resource\":\"santa\",\"start\":1795029360000,\"end\":1795031160000}]}",
+    "cycleId": "81deeccea6f77ac5f8fb3f3e541ce8e5ee73d89b74dc63286a17671431f3a828",
+    "dueAt": 1794942960000,
+    "outcome": "synthetic notes, real-clock reminder, synthetic-principal acknowledgment and real email resolution passed"
+  },
+  "gateway_and_original_scheduler_restored_off": true,
+  "new_gateway_receipts": [
+    {
+      "state": "delivered",
+      "attempts": 1,
+      "provider_receipt_present": 1,
+      "sole_approved_destination": 1
+    },
+    {
+      "state": "delivered",
+      "attempts": 1,
+      "provider_receipt_present": 1,
+      "sole_approved_destination": 1
+    },
+    {
+      "state": "delivered",
+      "attempts": 1,
+      "provider_receipt_present": 1,
+      "sole_approved_destination": 1
+    }
+  ],
+  "signed_webhook_receipts": 6,
+  "public_worker_history_unchanged": true,
+  "operational_booking_and_note_metadata_unchanged": true,
+  "temporary_database_deleted": true,
+  "actual_gateway_payload_privacy_checks": [
+    {
+      "subject": "The sleigh check is resolved",
+      "state": "delivered",
+      "attempts": 1,
+      "no_note_content_or_invitation": 1
+    },
+    {
+      "subject": "A Gentle Jingle",
+      "state": "delivered",
+      "attempts": 1,
+      "no_note_content_or_invitation": 1
+    },
+    {
+      "subject": "Optional Elf Notes are ready",
+      "state": "delivered",
+      "attempts": 1,
+      "no_note_content_or_invitation": 1
+    }
+  ],
+  "scope_limits": [
+    "synthetic test principal acknowledged only disposable booking; real owner HQ Got It not claimed",
+    "real Mrs. Claus/backup routes unconfigured; no extra recipients used",
+    "family browser/routing remains local synthetic only; operational collection disabled",
+    "no child retention policy approved; automatic deletion remains disabled"
+  ]
+}
