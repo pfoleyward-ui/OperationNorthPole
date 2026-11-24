@@ -1,8 +1,28 @@
-# Operation North Pole launch status — reviewed November 18, 2026
+# Operation North Pole launch status — reviewed November 24, 2026
 
-**Prepared private services are deployed; the business platform is not ready for public activation.** The existing public website stays live on its unchanged Worker version. Production intake, HQ, OAuth/sync, email delivery, reminders/planning, child-note collection and automatic retention remain disabled. Protected staging HQ/OAuth and the owner-only staging booking wizard are enabled for synthetic testing. Automatic staging sync, delivery, planner, notes and retention stay off.
+**Public website and policy pages are live; the booking platform is implemented/tested in protected staging but is not yet activated for customers.** November 24 read-only checks confirm homepage/Services/Privacy/Terms return 200; public booking/HQ/notes remain 404; staging HQ redirects to the exact-email Access application, and staged family collection is closed (503). All production business and automatic-deletion gates remain off. The current public version is the authorized November 18 policy-only release, with no newer public or backend deployment in this review.
 
 The current continuation environment reports an enforced **unrestricted** network policy. Its configured **account-owned API token authenticates successfully** at the account token-verification endpoint; the user-token endpoint returns 401 because it is the wrong verification endpoint for this credential type. Required Workers, D1, Access apps/policies/organization/identity-provider/users, Turnstile and zone DNS read/write permissions are present. Working product access is through the API credential; no authenticated MCP/OAuth session is claimed.
+
+## Current readiness review — November 24
+
+Fresh read-only Cloudflare configuration/deployment, HTTPS and D1 metadata checks passed. No service deployment, provider refresh, message, data write, key rotation or activation ran. Current source before this documentation update is pushed commit `6f5d3bf`. [Review evidence](review/launch-2026-11-24/status.json).
+
+**Completed:** live public pages and policy URLs; actual protected booking/HQ/Calendar/customer-email workflow and owner visual/iPhone checks; Resend signed callbacks and uncertain-send recovery; real-clock synthetic reminder/acknowledgment/resolution; synthetic private family consent/encryption/edit/delete and manual privacy review; populated native synthetic D1 recovery. Latest saved complete validation is 118 backend tests plus 148 domain tests and passing types/build/browser checks from November 18, not a new full-suite run today.
+
+**Still required:**
+
+1. Confirm Google Branding was saved and Audience publishing status is In production; configure the production callback/client and complete a fresh owner authorization as needed. Stored staging metadata remains connected/ready, last updated November 17; metadata is not current refresh-token or Google API health proof. The Google console's current publishing status cannot be inferred from Cloudflare.
+2. Prepare/deploy the current production frontend/backend/private HQ/family/webhook routes while gated off, then run production-safe checks. Only apex/www are currently attached production domains. Production booking is missing Google client ID/secret and Santa subject enrollment. Production notifications is missing the Resend key/webhook secret, sender/reply-to and recipient map. These must be installed privately; never request secret values in chat or replace existing encryption/HMAC keyrings.
+3. Configure actual Mrs. Claus/oversight/backup email destinations and recorded route-bound consent before enabling those routes. Only the test Gmail destination has been approved so far.
+4. Complete secure existing-key custody and the operational backup/deletion-request recovery process. Native populated synthetic recovery has passed; real key custody and operational scheduling are not established by that rehearsal.
+5. Perform the final production smoke/security check and obtain separate explicit activation approval before opening intake, customer mail, sync/reminders or real Elf Notes collection. Actual device Focus/locked-alert testing remains deferred while Santa is unavailable; it does not block independent backend preparation.
+
+Elf Notes remains included in initial launch scope. Its owner-approved retention period is **30 days after the visit, with manual review/deletion**; automatic deletion stays off. The production family rollout and final collection activation remain pending, not another retention-policy decision.
+
+Current staging still contains one synthetic website booking, zero child-note rows and zero private family invitations. Nine retained approved-inbox test receipts are Delivered, one provider attempt each. Exact-email staging Access is unchanged.
+
+**Next owner action only:** open Google Auth Platform → Audience for `operation-north-pole-514123` and report whether Publishing status is Testing or In production. The live policy links are already available if Branding still needs them.
 
 ## Google Branding and policy continuation — November 18
 
@@ -215,10 +235,10 @@ Provide secrets only through secure credential settings or Cloudflare secrets, n
 | Mrs. Claus and owner oversight | Four-level email-only code exists; actual extra routes/consent unconfigured | Choose oversight/Mrs. Claus/technical-backup recipients and obtain route-bound consent before real notifications to those destinations; do not infer them from public contacts |
 | Google production readiness | Staging OAuth and Calendar lifecycle tested; last owner-confirmed app status was External/Testing | Resolve consent/publishing, refresh-token lifetime and production callback/configuration before launch; no new grant/refresh health check was run in today's status review |
 | Physical iPhone | Owner confirmed Safari Access/HQ/readable booking and correct Calendar event visibility | Verify actual alerts, Focus/quiet hours and lock-screen privacy on the device |
-| Privacy and optional notes | Synthetic consent/private access/encryption/edit/delete and generic alert verified; collection off | Review family notice, actual family routing, access expiry, key custody and separately approve real collection; automatic deletion remains pending |
+| Privacy and optional notes | Live guardian policy and 30-day manual retention approved; synthetic real family routing/edit/delete tested; collection off | Finish production family rollout, key custody and final collection activation; automatic deletion remains off |
 | Retention decision | Owner approved 30 days after the visit with manual review/deletion; automatic deletion remains off | Review upcoming deadlines/cancellations and delete explicitly; any automated schedule requires separate approval |
 | Key custody and operational recovery | Native populated synthetic booking/email round trip and real lost-response recovery passed | Archive existing stable keyrings securely; establish operational backup custody/scheduling without changing keys or production data |
-| Production preparation and activation | Public website unchanged; all business activation gates off | Prepare production private HQ Access/routing, appropriate provider/OAuth/Turnstile configuration and final checks; obtain separate explicit activation approval after critical gates pass |
+| Production preparation and activation | Public pages/policies live; production business gates off and private routes/credentials still incomplete | Prepare production private HQ Access/routing, appropriate provider/OAuth/Turnstile configuration and final checks; obtain separate explicit activation approval after critical gates pass |
 
 Cloudflare MCP/OAuth agent integration is optional tooling and is not a business-platform launch dependency. The existing API credential already supports the required Cloudflare work.
 

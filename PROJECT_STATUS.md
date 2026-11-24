@@ -1,5 +1,11 @@
 # Operation North Pole — current status
 
+## Read-only launch review — November 24, 2026
+
+Public homepage/Services/Privacy/Terms are live (200); public bookings/HQ/notes remain closed (404), staging HQ requires Access (302), and family staging is off (503). Production business/retention gates remain off. No deployment, message, Google refresh, data change or key rotation in this review. Saved full validation remains November 18: 118 backend + 148 domain tests and types/build/browser passes.
+
+Remaining: confirm Google Audience In production and production OAuth authorization; deploy/configure private production HQ/family/webhook/frontends and missing Google/Access/Resend bindings while gated off; approve real extra-recipient routes/consent; finish existing-key/operational backup custody; final smoke check and explicit activation approval. Elf Notes is included with approved 30-day manual retention; automatic deletion stays off. Next single owner action is report Google Audience Publishing status. [Current checklist](docs/LAUNCH_STATUS_2026-11-11.md) · [live review evidence](docs/review/launch-2026-11-24/status.json).
+
 ## Elf Notes launch scope and published Google policy links — November 18, 2026
 
 Owner selected Elf Notes for launch and 30 days after the visit with manual review/deletion; no automatic cleanup approval. Published and verified `https://santablizard.com/privacy` and `/terms`, plus guardian notice at `/privacy#elf-notes`. Policy-only public deployment preserves production backend versions/flags/secret names, photo hashes and prior-live hero pixels at five widths.
