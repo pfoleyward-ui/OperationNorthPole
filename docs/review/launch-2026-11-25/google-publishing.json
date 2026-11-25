@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-25",
+  "google_project": "operation-north-pole-514123",
+  "publishing_status": "In production",
+  "verification_source": "owner-confirmed in Google console; no Google management API access claimed",
+  "production_callback_to_register": "https://hq.santablizard.com/hq/oauth/google/callback",
+  "website_or_backend_activated": false,
+  "production_bindings": {
+    "operation-north-pole-booking": {
+      "google_client_id_present": false,
+      "google_client_secret_present": false,
+      "original_encryption_key_binding_present": true,
+      "gates": {
+        "CALENDAR_SYNC_ENABLED": "false",
+        "CUSTOMER_EMAIL_ENABLED": "false",
+        "ELF_NOTES_ENABLED": "false",
+        "ELF_RETENTION_APPROVED": "false",
+        "GOOGLE_OAUTH_ENABLED": "false",
+        "HQ_ENABLED": "false",
+        "INTEGRATION_PLANNER_ENABLED": "false",
+        "NOTIFICATION_DELIVERY_ENABLED": "false",
+        "PUBLIC_INTAKE_ENABLED": "false"
+      }
+    },
+    "operation-north-pole-integrations": {
+      "google_client_id_present": false,
+      "google_client_secret_present": false,
+      "original_encryption_key_binding_present": true,
+      "gates": {
+        "CALENDAR_SYNC_ENABLED": "false",
+        "CUSTOMER_EMAIL_ENABLED": "false",
+        "ELF_NOTES_ENABLED": "false",
+        "ELF_RETENTION_APPROVED": "false",
+        "GOOGLE_OAUTH_ENABLED": "false",
+        "INTEGRATION_PLANNER_ENABLED": "false",
+        "NOTIFICATION_DELIVERY_ENABLED": "false"
+      }
+    }
+  }
+}

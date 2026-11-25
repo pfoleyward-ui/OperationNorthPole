@@ -1,8 +1,16 @@
-# Operation North Pole launch status — reviewed November 24, 2026
+# Operation North Pole launch status — reviewed November 25, 2026
 
 **Public website and policy pages are live; the booking platform is implemented/tested in protected staging but is not yet activated for customers.** November 24 read-only checks confirm homepage/Services/Privacy/Terms return 200; public booking/HQ/notes remain 404; staging HQ redirects to the exact-email Access application, and staged family collection is closed (503). All production business and automatic-deletion gates remain off. The current public version is the authorized November 18 policy-only release, with no newer public or backend deployment in this review.
 
 The current continuation environment reports an enforced **unrestricted** network policy. Its configured **account-owned API token authenticates successfully** at the account token-verification endpoint; the user-token endpoint returns 401 because it is the wrong verification endpoint for this credential type. Required Workers, D1, Access apps/policies/organization/identity-provider/users, Turnstile and zone DNS read/write permissions are present. Working product access is through the API credential; no authenticated MCP/OAuth session is claimed.
+
+## Google production publishing confirmed — November 25
+
+Owner reports the Google Auth Platform publishing status is now **In production** after completing Branding. This clears the publishing-status task. It is owner-confirmed console state, not a claim of Google management API verification, an independent verification badge, a fresh token grant or working production OAuth.
+
+Read-only Cloudflare binding checks confirm both production booking and scheduler still lack Google client ID/secret; their existing token-encryption key bindings remain present and all inspected business/collection/retention gates are false. No service deployment, public activation, messages, Google refresh or data changes ran. [Owner confirmation and production binding evidence](review/launch-2026-11-25/google-publishing.json).
+
+**Next owner action only:** Google Auth Platform → Clients → existing Web application client → Authorized redirect URIs: add `https://hq.santablizard.com/hq/oauth/google/callback` and save, retaining the existing staging callback. This registers a future authorized callback; it does not enable bookings or authorize Calendar access by itself. Private production dashboard/routing, secure client credential installation and a fresh owner Calendar grant remain subsequent work.
 
 ## Current readiness review — November 24
 
@@ -12,7 +20,7 @@ Fresh read-only Cloudflare configuration/deployment, HTTPS and D1 metadata check
 
 **Still required:**
 
-1. Confirm Google Branding was saved and Audience publishing status is In production; configure the production callback/client and complete a fresh owner authorization as needed. Stored staging metadata remains connected/ready, last updated November 17; metadata is not current refresh-token or Google API health proof. The Google console's current publishing status cannot be inferred from Cloudflare.
+1. Google publishing is now owner-confirmed In production (November 25); configure the production callback/client and complete a fresh owner authorization as needed. Stored staging metadata remains connected/ready, last updated November 17; metadata is not current refresh-token or Google API health proof. The Google console's current publishing status cannot be inferred from Cloudflare.
 2. Prepare/deploy the current production frontend/backend/private HQ/family/webhook routes while gated off, then run production-safe checks. Only apex/www are currently attached production domains. Production booking is missing Google client ID/secret and Santa subject enrollment. Production notifications is missing the Resend key/webhook secret, sender/reply-to and recipient map. These must be installed privately; never request secret values in chat or replace existing encryption/HMAC keyrings.
 3. Configure actual Mrs. Claus/oversight/backup email destinations and recorded route-bound consent before enabling those routes. Only the test Gmail destination has been approved so far.
 4. Complete secure existing-key custody and the operational backup/deletion-request recovery process. Native populated synthetic recovery has passed; real key custody and operational scheduling are not established by that rehearsal.
@@ -233,7 +241,7 @@ Provide secrets only through secure credential settings or Cloudflare secrets, n
 | Test email identity | Sender/reply-to approved and independently matched in provider receipt; fresh message received | Confirm visible From/Reply-To in the fresh message; original Trash move cause remains unverified |
 | Controlled end-to-end staging | Wizard/HQ/Calendar/customer confirmation, real-clock reminder, synthetic acknowledgment/resolution and generic notes alert passed; only approved Gmail used | Real owner Got It, broader live customer-email/bounce scenarios and other-recipient consent/routing remain; no real customer data |
 | Mrs. Claus and owner oversight | Four-level email-only code exists; actual extra routes/consent unconfigured | Choose oversight/Mrs. Claus/technical-backup recipients and obtain route-bound consent before real notifications to those destinations; do not infer them from public contacts |
-| Google production readiness | Staging OAuth and Calendar lifecycle tested; last owner-confirmed app status was External/Testing | Resolve consent/publishing, refresh-token lifetime and production callback/configuration before launch; no new grant/refresh health check was run in today's status review |
+| Google production readiness | Owner confirmed In production November 25; staging OAuth/Calendar lifecycle tested | Register production callback, securely install production credentials and complete fresh owner authorization/health checks before launch |
 | Physical iPhone | Owner confirmed Safari Access/HQ/readable booking and correct Calendar event visibility | Verify actual alerts, Focus/quiet hours and lock-screen privacy on the device |
 | Privacy and optional notes | Live guardian policy and 30-day manual retention approved; synthetic real family routing/edit/delete tested; collection off | Finish production family rollout, key custody and final collection activation; automatic deletion remains off |
 | Retention decision | Owner approved 30 days after the visit with manual review/deletion; automatic deletion remains off | Review upcoming deadlines/cancellations and delete explicitly; any automated schedule requires separate approval |

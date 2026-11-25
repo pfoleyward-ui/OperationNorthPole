@@ -1,5 +1,9 @@
 # Operation North Pole — current status
 
+## Google publishing gate cleared — November 25, 2026
+
+Owner confirmed Google Auth Platform publishing status In production. Read-only production binding checks show both booking/scheduler still lack the Google client ID/secret; original encryption-key bindings are present and business/notes/retention gates remain off. No activation, deployment, message, data change or Google refresh. Next single owner action is adding `https://hq.santablizard.com/hq/oauth/google/callback` to the existing Web client’s authorized redirect URIs, preserving staging. Secure production credential installation, private routing and owner authorization follow. [Evidence](docs/review/launch-2026-11-25/google-publishing.json).
+
 ## Read-only launch review — November 24, 2026
 
 Public homepage/Services/Privacy/Terms are live (200); public bookings/HQ/notes remain closed (404), staging HQ requires Access (302), and family staging is off (503). Production business/retention gates remain off. No deployment, message, Google refresh, data change or key rotation in this review. Saved full validation remains November 18: 118 backend + 148 domain tests and types/build/browser passes.
