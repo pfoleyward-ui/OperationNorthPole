@@ -1,5 +1,9 @@
 # Operation North Pole — current status
 
+## Quote-save validation feedback fixed and deployed — November 25, 2026
+
+Owner expiry was after appointment; generic server rejection was offscreen. Corrected quote saved: verified $150/30 minutes and valid expiry. HQ now shows required/server errors beside Save and focuses rejected-request feedback; specific expiry instruction added without changing domain rules. 130 backend tests, types and six-width HQ lifecycle/error/browser checks pass. Production booking-only deployment preserves keys, variables/gates, saved quote and public version; public/family collection stays closed. Next synthetic-owner step: reload, record quote shared offline by Phone, then report saved. [Evidence/checklist](docs/LAUNCH_STATUS_2026-11-11.md).
+
 ## Production synthetic pending request verified — November 25, 2026
 
 One pending production test request, zero reservations/notes verified through aggregate-only D1 reads. Owner sees sync/notifications off and no scheduled deliveries. Next owner action: Review request and save the synthetic December 20 14:00/30-minute house-call proposal, approved default $150, test expiry December 1 noon New York. No confirmation/reservation/delivery or configuration activation. [Evidence](docs/review/launch-2026-11-25/production-test-pending.json).

@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-25",
+  "backend_passed": 130,
+  "backend_failed": 0,
+  "backend_types": "passed",
+  "hq_browser_widths": [
+    390,
+    430,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "quote_error_checks": [
+    "missing expiry fields show inline errors and submit no request",
+    "expiry after appointment shows specific visible inline error",
+    "invalid proposal preserves entered values and booking state",
+    "corrected quote succeeds; share/agreement/confirmation/reschedule/cancel still pass"
+  ],
+  "mobile_error_screenshot_inspected": true,
+  "new_next_build": "Not run: Worker-served private UI only; public Next application unchanged.",
+  "real_messages_sent": false
+}

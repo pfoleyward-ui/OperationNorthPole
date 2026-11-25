@@ -204,3 +204,11 @@ test('booth reschedule needs new staffing; old reservations survive failure',asy
   await f.mutate(id,'verify_staffing',{attendantRef:'Attendant B'});
   assert.equal((await f.mutate(id,'apply_reschedule',{beforeMinutes:0,afterMinutes:0})).status,200);assert.notDeepEqual(await reservations(id),old);
 });
+
+test('quote expiry after the appointment or in the past reports the specific error without changing the booking',async()=>{
+ const created=await f.create();assert.equal((await f.mutate(created.id,'review')).status,200);const before=await stored(created.id);
+ for(const expiryDate of ['2027-12-26','2026-11-01']){
+  const response=await f.mutate(created.id,'propose',{quote:{...syntheticQuote(),expiryDate}});assert.equal(response.status,400);assert.equal((await response.json() as {error:string}).error,'invalid_quote_expiry');assert.deepEqual(await stored(created.id),before);assert.equal((await reservations(created.id)).length,0);
+ }
+ assert.equal((await f.mutate(created.id,'propose',{quote:syntheticQuote()})).status,200);
+});

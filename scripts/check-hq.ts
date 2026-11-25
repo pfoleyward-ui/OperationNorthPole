@@ -60,6 +60,15 @@ try {
     await page.getByRole('button',{name:'Save as Pending',exact:true}).click();await page.getByRole('heading',{name:'Sample Caller '+width,exact:true}).waitFor();
     if(width===390){
       await page.getByRole('button',{name:'Review request',exact:true}).click();
+      let proposalRequests=0;page.on('request',request=>{if(request.method()==='POST'&&request.url().endsWith('/actions')&&request.postDataJSON()?.action==='propose')proposalRequests++;});
+      await page.getByRole('button',{name:'Save proposal',exact:true}).click();
+      const quoteError=page.locator('form .form-error');await quoteError.waitFor({state:'visible'});
+      assert.match(await quoteError.innerText(),/Quote expiry date/);assert.equal(proposalRequests,0,'Missing fields must not submit a proposal');
+      await page.getByLabel('Quote expiry date — Santa’s choice (New York)',{exact:true}).fill('2027-12-26');await page.getByLabel('Quote expiry time (New York)',{exact:true}).fill('12:00');
+      await page.getByRole('button',{name:'Save proposal',exact:true}).click();await quoteError.filter({hasText:'Choose a quote expiry in the future, no later than the appointment.'}).waitFor({state:'visible'});
+      await quoteError.waitFor({state:'visible'});assert.equal(proposalRequests,1);assert.equal(await page.getByLabel('Quote expiry date — Santa’s choice (New York)',{exact:true}).inputValue(),'2027-12-26');
+      const errorBox=await quoteError.boundingBox();assert.ok(errorBox&&errorBox.y>=0&&errorBox.y+errorBox.height<=1000,'Rejected proposal must show a visible inline error');
+      await page.screenshot({path:output+'/quote-error-390.jpg',fullPage:false});
       await page.getByLabel('Quote expiry date — Santa’s choice (New York)',{exact:true}).fill('2027-12-01');await page.getByLabel('Quote expiry time (New York)',{exact:true}).fill('12:00');
       await page.getByLabel('Custom total (USD; blank uses approved duration price)',{exact:true}).fill('350');await page.getByLabel('Explain a custom price adjustment (no private child details)',{exact:true}).fill('Agreed travel logistics');
       await page.getByRole('button',{name:'Save proposal',exact:true}).click();
@@ -85,7 +94,7 @@ try {
     assert.equal(await page.evaluate(()=>localStorage.length+sessionStorage.length),0);
     await page.screenshot({path:output+'/calendar-'+width+'.jpg',fullPage:true});
     await page.keyboard.press('Tab');assert.ok(await page.evaluate(()=>document.activeElement!==document.body));
-    assert.deepEqual(errors,[]);report.push({width,passed:true,overflow:false,anonymousDenied:true,manualPending:true,elfCollectionDisabled:true,...(width===390?{quoteAgreementConfirmationRescheduleCancel:true,resourceBlockRelease:true}:{})});
+    assert.deepEqual(errors,[]);report.push({width,passed:true,overflow:false,anonymousDenied:true,manualPending:true,elfCollectionDisabled:true,...(width===390?{quoteAgreementConfirmationRescheduleCancel:true,resourceBlockRelease:true,quoteErrorsVisible:true}:{})});
     console.log('PASS '+width+'px: protected dashboard, today, manual booking, calendar, contact shortcuts, disabled Elf collection, keyboard, no overflow or browser storage');await context.close();
   }
   await writeFile(output+'/hq-report.json',JSON.stringify({createdAt:new Date().toISOString(),syntheticOnly:true,checks:report},null,2)+'\n');

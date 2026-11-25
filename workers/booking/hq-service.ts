@@ -83,7 +83,8 @@ function makeQuote(input: unknown, state: HqState, now: number): Quote {
     expiresAt: instant(input.expiryDate, input.expiryTime, input.expiryDisambiguation),
     ...(input.adjustmentReason === undefined ? {} : { adjustmentReason: input.adjustmentReason as string }),
   };
-  check(validateQuote(quote).ok, 'invalid_quote');
+  const validation = validateQuote(quote);
+  check(validation.ok, !validation.ok && validation.issues.some(issue => issue.code === 'invalid_quote_expiry') ? 'invalid_quote_expiry' : 'invalid_quote');
   return quote;
 }
 async function operation(db: Database, key: string, hash: string, principal: Principal): Promise<HqState | null> {

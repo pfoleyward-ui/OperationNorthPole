@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-25",
+  "worker": "operation-north-pole-booking",
+  "before_booking_metadata": [
+    {
+      "bookings": 1,
+      "quotes": 1,
+      "latest_version": 3
+    }
+  ],
+  "flags_preserved": true,
+  "secret_binding_names_preserved": true,
+  "after_booking_metadata": [
+    {
+      "bookings": 1,
+      "quotes": 1,
+      "latest_version": 3
+    }
+  ],
+  "booking_metadata_unchanged_during_deploy": true,
+  "public_version_unchanged": true,
+  "versions": [
+    {
+      "version_id": "862a7330-48dd-4d3f-9e9c-eb72b429e50e",
+      "percentage": 100
+    }
+  ],
+  "http": {
+    "https://hq.santablizard.com/hq": 302,
+    "https://santablizard.com/": 200,
+    "https://santablizard.com/book": 404,
+    "https://notes.santablizard.com/elf-notes": 503
+  },
+  "saved_test_quote_metadata": [
+    {
+      "status": "alternative_proposed",
+      "total_cents": 15000,
+      "duration_ms": 1800000,
+      "expiry_not_after_appointment": 1
+    }
+  ]
+}
