@@ -22,3 +22,7 @@ test('front opening cannot bypass backend intake gate or missing verification co
  assert.equal((await routeSite(new Request(origin+'/book'),{...opened,TURNSTILE_SITE_KEY:''},{},site)).status,503);
  assert.equal((await routeSite(new Request(origin+'/'),{...opened,HQ_ENABLED:'true'},{},site)).status,503);
 });
+
+test('production public documents preserve production runtime variables for booking links',async()=>{
+ const opened={...env,PUBLIC_BOOKING_SITE_ENABLED:'true',TURNSTILE_SITE_KEY:'synthetic-key'};let mode:string|undefined;const renderer={async fetch(_r:Request,runtime:SiteEnv){mode=runtime.CUSTOMER_BOOKING_MODE;return new Response('services');}};assert.equal((await routeSite(new Request(origin+'/services'),opened,{},renderer)).status,200);assert.equal(mode,'production');
+});

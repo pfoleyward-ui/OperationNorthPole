@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Services & Pricing | SantaBlizard",
   description: "Home visits, photography studio days, DJ Santa, staffed photo booths, and off-season appearances in the Hudson Valley. Explore base prices and inquire with SantaBlizard.",
 };
-const onlineRequests = process.env.CUSTOMER_BOOKING_MODE === "production" && process.env.PUBLIC_BOOKING_SITE_ENABLED === "true";
+const onlineRequests = process.env.NEXT_PUBLIC_BOOKINGS_OPEN === "true";
 const inquire = (service: string, serviceId?: string) => onlineRequests ? `/book${isServiceId(serviceId) ? `?service=${serviceId}` : ""}` : `mailto:${contact.email}?subject=${encodeURIComponent(`SantaBlizard inquiry: ${service}`)}`;
 
 export default function ServicesPage() {

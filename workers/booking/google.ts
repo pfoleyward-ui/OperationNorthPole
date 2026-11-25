@@ -134,6 +134,14 @@ export async function disconnectGoogle(env:IntegrationEnv,principal:Principal,fe
   return {disconnected:true};
 }
 export async function googleStatus(env:IntegrationEnv){const c=await connection(env);return {oauthEnabled:env.GOOGLE_OAUTH_ENABLED==='true',syncEnabled:env.CALENDAR_SYNC_ENABLED==='true',connected:c?.status==='connected',connectionStatus:c?.status||'not_connected',calendarState:c?.calendar_state||'missing'};}
+/** Internal read-only check of the already-bound app-owned calendar. No event writes. */
+export async function calendarHealth(env:IntegrationEnv,fetcher:typeof fetch=fetch,now=Date.now()){
+  const c=await connection(env);if(!c||c.status!=='connected'||c.calendar_state!=='ready'||!c.calendar_id)throw new IntegrationError('google_calendar_not_ready');
+  const response=await google(env,fetcher,'calendars/'+encodeURIComponent(c.calendar_id),now);
+  if(!response.ok)return {connected:true,calendarReachable:false,providerHttpStatus:response.status};
+  const value=await response.json() as {id?:string;summary?:string;description?:string};
+  return {connected:true,calendarReachable:true,calendarIdentityMatches:value.id===c.calendar_id,calendarNameMatches:value.summary==='SantaBlizard Bookings',calendarOwnershipMatches:value.description==='Operation North Pole installation '+env.INTEGRATION_INSTALLATION_ID};
+}
 export async function synchronizeCalendar(env:IntegrationEnv,job:Job,fetcher:typeof fetch,now:number){
   if(env.CALENDAR_SYNC_ENABLED!=='true')throw new IntegrationError('calendar_sync_disabled');
   const owner=await lease(env.DB,'calendar:'+job.booking_id,now);if(!owner)throw new IntegrationError('google_busy_retry');

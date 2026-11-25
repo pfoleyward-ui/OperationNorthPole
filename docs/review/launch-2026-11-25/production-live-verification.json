@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-25",
+  "http": {
+    "https://santablizard.com/": 200,
+    "https://santablizard.com/services": 200,
+    "https://santablizard.com/book": 200,
+    "https://santablizard.com/privacy": 200,
+    "https://santablizard.com/terms": 200,
+    "https://santablizard.com/hq": 404,
+    "https://santablizard.com/elf-notes": 404,
+    "https://hq.santablizard.com/hq": 302,
+    "https://notes.santablizard.com/elf-notes": 200
+  },
+  "flags": {
+    "operation-north-pole-booking": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "true",
+      "CUSTOMER_EMAIL_ENABLED": "true",
+      "ELF_NOTES_ENABLED": "true",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "true",
+      "HQ_ENABLED": "true",
+      "INTEGRATION_PLANNER_ENABLED": "true",
+      "NOTIFICATION_DELIVERY_ENABLED": "true",
+      "PUBLIC_INTAKE_ENABLED": "true",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-integrations": {
+      "CALENDAR_SYNC_ENABLED": "true",
+      "CUSTOMER_EMAIL_ENABLED": "true",
+      "ELF_NOTES_ENABLED": "true",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "true",
+      "INTEGRATION_PLANNER_ENABLED": "true",
+      "NOTIFICATION_DELIVERY_ENABLED": "true"
+    },
+    "operation-north-pole-notifications": {
+      "ELF_NOTES_ENABLED": "true",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "true"
+    },
+    "operation-north-pole-elf-family": {
+      "ELF_FAMILY_ENABLED": "true"
+    }
+  },
+  "minimal_release_checks_only": true,
+  "synthetic_submissions_created": 0,
+  "service_booking_links_present": true,
+  "production_booking_copy_present": true,
+  "staging_copy_absent": true,
+  "booking_html_has_public_sitekey": true,
+  "anonymous_private_notes_read_status": 401,
+  "private_credentials_remain_encrypted": true,
+  "public_version": [
+    {
+      "version_id": "4932d5ea-3a04-49cf-9182-27dcdce6ae04",
+      "percentage": 100
+    }
+  ],
+  "booking_counts": [
+    {
+      "bookings": 0,
+      "reservations": 0,
+      "notes": 0
+    }
+  ],
+  "google": [
+    {
+      "status": "connected",
+      "calendar_state": "ready"
+    }
+  ],
+  "runner_errors": [],
+  "live": true
+}

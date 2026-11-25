@@ -66,5 +66,5 @@ async function productionBookingWebsite(request:Request,env:SiteEnv,ctx:unknown,
   return site.fetch(request,env,ctx);
  }
  // Reuse the strict read-only document/asset boundary; never route private APIs.
- return publicWebsite(request,{...env,CUSTOMER_BOOKING_MODE:'disabled'},ctx,site);
+ return publicWebsite(request,{...env,CUSTOMER_BOOKING_MODE:'disabled'},ctx,{fetch:(documentRequest,_guardEnv,context)=>site.fetch(documentRequest,env,context)});
 }

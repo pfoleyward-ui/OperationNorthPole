@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-25",
+  "owner_requested_skip_remaining_rehearsals_and_go_to_production": true,
+  "live_features_authorized": [
+    "public booking requests",
+    "Google Calendar synchronization",
+    "transactional customer emails",
+    "Santa booking alerts and reminders",
+    "optional invitation-only Elf Notes"
+  ],
+  "owner_approved_santa_destination": "santablizard@gmail.com",
+  "mrs_claus_and_backup_destinations_enabled": false,
+  "automatic_elf_notes_deletion_enabled": false,
+  "manual_elf_retention_days_after_visit": 30,
+  "additional_manual_rehearsals_run_after_request": false
+}

@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-25",
+  "before_counts": [
+    {
+      "bookings": 1,
+      "reservations": 1,
+      "prepared_plans": 1,
+      "private_links": 0,
+      "notes": 0
+    }
+  ],
+  "real_messages_sent": 0,
+  "calendar_event_writes": 0,
+  "family_collection_enabled": false,
+  "automatic_deletion_enabled": false,
+  "health": {
+    "connected": true,
+    "calendarReachable": true,
+    "calendarIdentityMatches": true,
+    "calendarNameMatches": true,
+    "calendarOwnershipMatches": true
+  },
+  "scheduler_restored": true,
+  "secrets_and_gates_preserved": true,
+  "public_version_unchanged": true,
+  "after_counts": [
+    {
+      "bookings": 1,
+      "reservations": 1,
+      "prepared_plans": 1,
+      "private_links": 0,
+      "notes": 0
+    }
+  ]
+}

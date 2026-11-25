@@ -1,4 +1,14 @@
-# Operation North Pole — current status
+# Operation North Pole — LIVE November 25, 2026
+
+## Live launch completed
+
+Owner explicitly approved production and stopping further rehearsals; approved santablizard@gmail.com for Santa live alerts/reminders, with Mrs. Claus/backup routes off. Public requests, Google sync, customer transactional emails and optional private-invitation Elf Notes are live. Automatic notes deletion stays off; 30-day manual review/deletion applies. Public version 4932d5ea-3a04-49cf-9182-27dcdce6ae04.
+
+Production booking and Services links return 200; HQ remains exact-email Access protected; anonymous notes reads denied. Live config/credential readback and scheduler error checks passed, no new fake submissions or test emails. Archived and removed only the known synthetic test/reservation before scheduler activation; actual Google/key data and staging preserved. Existing 130-test/six-width baseline reused; required release builds and brief live checks completed.
+
+Website: https://santablizard.com/ · Book: https://santablizard.com/book · Santa HQ: https://hq.santablizard.com/hq. Confirmed home visits can use Create private invitation for guardian notes. No further owner rehearsal/setup required before accepting requests. Base manifests remain default-off; use the actual live profiles for routine redeployment. [Live checklist and evidence](docs/LAUNCH_STATUS_2026-11-11.md).
+
+The checkpoints below are historical.
 
 ## Quote-save validation feedback fixed and deployed — November 25, 2026
 

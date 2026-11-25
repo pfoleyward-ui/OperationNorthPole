@@ -84,7 +84,7 @@ function makeQuote(input: unknown, state: HqState, now: number): Quote {
     ...(input.adjustmentReason === undefined ? {} : { adjustmentReason: input.adjustmentReason as string }),
   };
   const validation = validateQuote(quote);
-  check(validation.ok, !validation.ok && validation.issues.some(issue => issue.code === 'invalid_quote_expiry') ? 'invalid_quote_expiry' : 'invalid_quote');
+  if (validation.ok === false) throw new HqError(400, validation.issues.some(issue => issue.code === 'invalid_quote_expiry') ? 'invalid_quote_expiry' : 'invalid_quote');
   return quote;
 }
 async function operation(db: Database, key: string, hash: string, principal: Principal): Promise<HqState | null> {

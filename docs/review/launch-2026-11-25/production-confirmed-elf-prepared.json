@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-25",
+  "bookings": [
+    {
+      "status": "confirmed",
+      "count": 1
+    }
+  ],
+  "metadata": [
+    {
+      "reservations": 1,
+      "prepared_plans": 1,
+      "private_links": 0,
+      "notes": 0
+    }
+  ],
+  "operations": [
+    {
+      "action": "confirm",
+      "count": 1
+    },
+    {
+      "action": "manual_create",
+      "count": 1
+    },
+    {
+      "action": "prepare_elf_invitation",
+      "count": 1
+    },
+    {
+      "action": "propose",
+      "count": 1
+    },
+    {
+      "action": "record_agreement",
+      "count": 1
+    },
+    {
+      "action": "review",
+      "count": 1
+    },
+    {
+      "action": "share_quote",
+      "count": 1
+    }
+  ]
+}

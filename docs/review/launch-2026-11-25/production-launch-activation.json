@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-25",
+  "owner_authorized_live_launch": true,
+  "owner_approved_santa_email": "santablizard@gmail.com",
+  "mrs_claus_and_backup_routes_enabled": false,
+  "automatic_deletion_enabled": false,
+  "steps": [
+    "launch-operation-north-pole-notifications",
+    "launch-operation-north-pole-booking",
+    "launch-operation-north-pole-elf-family",
+    "launch-operation-north-pole-integrations"
+  ],
+  "synthetic_fixture_archived_privately_and_removed": true,
+  "real_customer_records_deleted": 0,
+  "backend_and_private_family_live": true
+}
