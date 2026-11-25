@@ -1,0 +1,18 @@
+{
+  "httpStatus": 200,
+  "authenticationSucceeded": true,
+  "domainVerified": true,
+  "openTracking": false,
+  "clickTracking": false,
+  "webhookReadHttpStatus": 200,
+  "webhookConfigured": true,
+  "webhookEnabled": true,
+  "events": [
+    "email.failed",
+    "email.bounced",
+    "email.delivered",
+    "email.complained",
+    "email.sent",
+    "email.suppressed"
+  ]
+}

@@ -1,5 +1,5 @@
 import type {Database} from './booking/repository.ts';
-const key='production-provider-preflight-20261125-v1';
+const key='production-provider-preflight-20261125-v2';
 interface Env {DB:Database;NOTIFY:{fetch(request:Request):Promise<Response>};PRODUCTION_PROVIDER_CHECK?:string;INTEGRATION_INSTALLATION_ID?:string;INTEGRATION_PLANNER_ENABLED?:string;CALENDAR_SYNC_ENABLED?:string;NOTIFICATION_DELIVERY_ENABLED?:string;CUSTOMER_EMAIL_ENABLED?:string;ELF_NOTES_ENABLED?:string;ELF_RETENTION_APPROVED?:string}
 /** Temporary scheduled read-only provider check. No public trigger or send operation. */
 export async function checkProductionProvider(env:Env){

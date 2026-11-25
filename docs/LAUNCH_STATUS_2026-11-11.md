@@ -4,6 +4,20 @@
 
 The current continuation environment reports an enforced **unrestricted** network policy. Its configured **account-owned API token authenticates successfully** at the account token-verification endpoint; the user-token endpoint returns 401 because it is the wrong verification endpoint for this credential type. Required Workers, D1, Access apps/policies/organization/identity-provider/users, Turnstile and zone DNS read/write permissions are present. Working product access is through the API credential; no authenticated MCP/OAuth session is claimed.
 
+## Production Resend verification passed — November 25
+
+Owner created the actual production Resend API key. Readback confirmed its correct provider format; converted the dashboard plain variable to an encrypted Secret without changing the key, preserving the webhook signing secret and existing keyrings. The conversion held the value in memory and sanitized Wrangler output before writing logs; no credential value was printed or committed. [Secret-storage evidence](review/launch-2026-11-25/production-resend-secret-storage.json).
+
+**Live, read-only provider checks passed:** authentication succeeded; `mail.santablizard.com` verified; open and click tracking both false; production webhook `https://webhooks.santablizard.com/webhooks/resend` found and enabled, with sent/delivered/bounced/complained/failed/suppressed subscriptions. No send endpoint was called. The temporary checker saved only a second sanitized operational preflight row and was restored to the original integrations source with all scheduler business gates off. [Verified provider result](review/launch-2026-11-25/production-resend-verified.json).
+
+Five focused provider/runner tests and backend types passed after advancing the diagnostic evidence key to v2, preserving the original unsuccessful preflight. Prior complete backend validation remains 129/129; no UI change or new browser/build claim. A real signed production callback still requires the later controlled test email; registration alone is not callback proof.
+
+**Next owner action only:** replace the Google OAuth client secret that appeared in earlier deployment diagnostics before fresh production Google authorization. Use the existing Web client in project `operation-north-pole-514123`; preserve the separate older client secret, client ID, callback URLs and all data-encryption/HMAC keyrings. Save the replacement privately and update `GOOGLE_CLIENT_SECRET` as encrypted Secret on production booking, production integrations and the accidentally updated staging integrations Worker. No public intake, sending, sync/planner, family collection or automatic-deletion activation is authorized by this credential step.
+
+Final readback confirms both production Resend bindings are encrypted Secrets. Private Access/signature rejection, zero production booking/notes/delivery counts, closed collection/delivery gates and unchanged public version passed again. [Final verification](review/launch-2026-11-25/production-resend-final.json).
+
+The credential-correction request in the earlier rollout record below is resolved; this is the current next action.
+
 ## Current production rollout — November 25
 
 **Core production source is deployed.** Booking, integrations and notifications were deployed with their business gates closed. All database table counts/schema fingerprints and foreign-key checks matched before/after. The existing public website version remains `f329e733-213f-4dcd-8c9f-bc876915eaaf`; the public launch frontend was not deployed. [Core rollout evidence](review/launch-2026-11-25/production-core-rollout.json).

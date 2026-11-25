@@ -1,0 +1,133 @@
+{
+  "date": "2026-11-25",
+  "workers": {
+    "operation-north-pole-booking": {
+      "flags": {
+        "BACKUP_ESCALATION_ENABLED": "false",
+        "CALENDAR_SYNC_ENABLED": "false",
+        "CUSTOMER_EMAIL_ENABLED": "false",
+        "ELF_NOTES_ENABLED": "false",
+        "ELF_RETENTION_APPROVED": "false",
+        "GOOGLE_OAUTH_ENABLED": "true",
+        "HQ_ENABLED": "true",
+        "INTEGRATION_PLANNER_ENABLED": "false",
+        "NOTIFICATION_DELIVERY_ENABLED": "false",
+        "PUBLIC_INTAKE_ENABLED": "false",
+        "STAGING_INTAKE_ENABLED": "false"
+      },
+      "secret_binding_names_preserved": true,
+      "versions": [
+        {
+          "version_id": "d38d2c59-6649-4335-b2d6-230243f03551",
+          "percentage": 100
+        }
+      ]
+    },
+    "operation-north-pole-integrations": {
+      "flags": {
+        "CALENDAR_SYNC_ENABLED": "false",
+        "CUSTOMER_EMAIL_ENABLED": "false",
+        "ELF_NOTES_ENABLED": "false",
+        "ELF_RETENTION_APPROVED": "false",
+        "GOOGLE_OAUTH_ENABLED": "false",
+        "INTEGRATION_PLANNER_ENABLED": "false",
+        "NOTIFICATION_DELIVERY_ENABLED": "false"
+      },
+      "secret_binding_names_preserved": true,
+      "versions": [
+        {
+          "version_id": "80df4327-7b26-4fef-8b97-5bfdf5036c8a",
+          "percentage": 100
+        }
+      ]
+    },
+    "operation-north-pole-notifications": {
+      "flags": {
+        "ELF_NOTES_ENABLED": "false",
+        "ELF_RETENTION_APPROVED": "false",
+        "GATEWAY_DELIVERY_ENABLED": "false"
+      },
+      "secret_binding_names_preserved": true,
+      "versions": [
+        {
+          "version_id": "0e19041e-c96a-49aa-becf-4eb02a48e238",
+          "percentage": 100
+        }
+      ]
+    },
+    "operation-north-pole-hq": {
+      "flags": {
+        "BACKUP_ESCALATION_ENABLED": "false",
+        "HQ_ENABLED": "true",
+        "HQ_INGRESS_ENABLED": "true"
+      },
+      "secret_binding_names_preserved": true,
+      "versions": [
+        {
+          "version_id": "43fc96c4-be1d-41b5-b348-3cf29a47ce0e",
+          "percentage": 100
+        }
+      ]
+    },
+    "operation-north-pole-elf-family": {
+      "flags": {
+        "ELF_FAMILY_ENABLED": "false"
+      },
+      "secret_binding_names_preserved": true,
+      "versions": [
+        {
+          "version_id": "7eb79f49-7f19-4421-9653-25770404c21a",
+          "percentage": 100
+        }
+      ]
+    },
+    "operation-north-pole-resend-webhook": {
+      "flags": {
+        "RESEND_WEBHOOK_INGRESS_ENABLED": "true"
+      },
+      "secret_binding_names_preserved": true,
+      "versions": [
+        {
+          "version_id": "82668263-fece-4d95-82d3-d6285d146df3",
+          "percentage": 100
+        }
+      ]
+    }
+  },
+  "http": {
+    "https://hq.santablizard.com/hq": 302,
+    "https://notes.santablizard.com/elf-notes": 503,
+    "https://webhooks.santablizard.com/webhooks/resend": 405,
+    "https://santablizard.com/": 200,
+    "https://santablizard.com/book": 404,
+    "https://santablizard.com/hq": 404,
+    "https://santablizard.com/privacy": 200,
+    "https://santablizard.com/terms": 200,
+    "webhook_unsigned_POST": 403,
+    "webhook_forged_POST": 403
+  },
+  "exact_santa_email_access_policy": true,
+  "public_versions": [
+    {
+      "version_id": "f329e733-213f-4dcd-8c9f-bc876915eaaf",
+      "percentage": 100
+    }
+  ],
+  "booking_metadata": [
+    {
+      "bookings": 0,
+      "notes": 0,
+      "invitations": 0,
+      "google_connections": 0
+    }
+  ],
+  "email_metadata": [
+    {
+      "deliveries": 0,
+      "webhook_receipts": 0
+    }
+  ],
+  "fresh_google_authorization_pending": true,
+  "real_signed_production_callback_pending": true,
+  "resend_api_and_webhook_bindings_encrypted": true
+}

@@ -1,5 +1,9 @@
 # Operation North Pole — current status
 
+## Production Resend read-only verification passed — November 25, 2026
+
+Actual replacement key verified and converted to encrypted Secret without logging its value. Live provider authentication succeeds; sending domain verified; open/click tracking off; enabled production webhook has all six required subscriptions. No mail sent; normal integrations source restored with business gates off. Five focused tests and backend types pass; complete baseline remains 129 backend tests. Next owner action: replace exposed Google OAuth client secret before fresh owner authorization, preserving the other client secret, callback and encryption/HMAC keys. [Current checklist](docs/LAUNCH_STATUS_2026-11-11.md).
+
 ## Production core rollout and credential correction — November 25, 2026
 
 Deployed current booking/integrations/notification source with business gates off; database counts/schema/FKs and existing public version unchanged. Enabled only exact-email private Santa HQ/owner Google OAuth and the signed webhook receiver. Public bookings, sending/sync/planners, real notes and automatic deletion remain off.
