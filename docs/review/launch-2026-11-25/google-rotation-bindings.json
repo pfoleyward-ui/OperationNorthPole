@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-25",
+  "owner_reports_exposed_google_secret_replaced": true,
+  "secret_values_read_or_logged": false,
+  "workers": {
+    "operation-north-pole-booking": {
+      "google_secret_present": true,
+      "binding_type": "secret_text",
+      "encrypted": true
+    },
+    "operation-north-pole-integrations": {
+      "google_secret_present": true,
+      "binding_type": "secret_text",
+      "encrypted": true
+    },
+    "operation-north-pole-integrations-staging": {
+      "google_secret_present": true,
+      "binding_type": "secret_text",
+      "encrypted": true
+    }
+  }
+}

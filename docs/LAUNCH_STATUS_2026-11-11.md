@@ -4,6 +4,14 @@
 
 The current continuation environment reports an enforced **unrestricted** network policy. Its configured **account-owned API token authenticates successfully** at the account token-verification endpoint; the user-token endpoint returns 401 because it is the wrong verification endpoint for this credential type. Required Workers, D1, Access apps/policies/organization/identity-provider/users, Turnstile and zone DNS read/write permissions are present. Working product access is through the API credential; no authenticated MCP/OAuth session is claimed.
 
+## Google secret replacement reported — next production authorization
+
+Owner reports replacing the exposed Google OAuth client secret. Independent readback confirms `GOOGLE_CLIENT_SECRET` is an encrypted Secret on production booking, production integrations and staging integrations. No value was retrieved/logged; binding metadata cannot prove which value was saved or Google-side revocation. Fresh production owner authorization is the next functional credential verification. Existing data-encryption/HMAC keys are preserved. [Binding verification](review/launch-2026-11-25/google-rotation-bindings.json).
+
+**Next owner action only:** open `https://hq.santablizard.com/hq`, sign in through the exact-email Access policy with `santablizard@gmail.com`, select **Calendar & delivery settings → Connect Google securely**, choose the intended Santa Google account and approve the requested Calendar authorization. Report when Google connection says Connected. Do not enable scheduling/sync/notifications or collection. Calendar creation/health verification follows the fresh grant; no public launch is implied. The older Google-secret replacement request below is now superseded by this authorization step.
+
+Fresh gate/HTTPS readback confirms exact-email Access, unsigned/forged webhook rejection, zero production booking/notes/delivery records and unchanged public website version. [Post-replacement gate verification](review/launch-2026-11-25/google-rotation-gates.json). No code changes or external Google/Resend provider calls ran in this credential-presence check. Complete backend validation remains 129/129 plus the latest five focused provider tests and types; no repeat build/browser claim.
+
 ## Production Resend verification passed — November 25
 
 Owner created the actual production Resend API key. Readback confirmed its correct provider format; converted the dashboard plain variable to an encrypted Secret without changing the key, preserving the webhook signing secret and existing keyrings. The conversion held the value in memory and sanitized Wrangler output before writing logs; no credential value was printed or committed. [Secret-storage evidence](review/launch-2026-11-25/production-resend-secret-storage.json).

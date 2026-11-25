@@ -1,5 +1,9 @@
 # Operation North Pole — current status
 
+## Google secret replacement reported; owner authorization next — November 25, 2026
+
+Owner reports replacing exposed OAuth secret. Metadata independently confirms encrypted GOOGLE_CLIENT_SECRET bindings on production booking/integrations and staging integrations, without reading values. Google revocation/value validity are not inferred from binding presence. Next owner action: production HQ → Calendar & delivery settings → Connect Google securely with the approved Santa account. Customer collection/delivery/sync/planners and automatic deletion stay off; existing encryption keys preserved. [Current checklist](docs/LAUNCH_STATUS_2026-11-11.md).
+
 ## Production Resend read-only verification passed — November 25, 2026
 
 Actual replacement key verified and converted to encrypted Secret without logging its value. Live provider authentication succeeds; sending domain verified; open/click tracking off; enabled production webhook has all six required subscriptions. No mail sent; normal integrations source restored with business gates off. Five focused tests and backend types pass; complete baseline remains 129 backend tests. Next owner action: replace exposed Google OAuth client secret before fresh owner authorization, preserving the other client secret, callback and encryption/HMAC keys. [Current checklist](docs/LAUNCH_STATUS_2026-11-11.md).
