@@ -6,11 +6,15 @@ The current continuation environment reports an enforced **unrestricted** networ
 
 ## Google production publishing confirmed — November 25
 
+**Callback step already complete:** owner inspected the existing Web client and reports the production redirect URI was already saved from November 12. No repeat edit is required. Reused the existing staging client’s public identifier in both production booking and scheduler secret bindings, without printing it. Readback verified all preexisting bindings and disabled gates are unchanged; public website deployment history is unchanged. No stored private client-secret value was retrieved/exported, no key was rotated, and no OAuth/booking/notes/delivery activation occurred. [Reuse evidence](review/launch-2026-11-25/google-client-reuse.json).
+
+**Current credential gap:** `GOOGLE_CLIENT_SECRET` remains absent on both production Workers. Its staging Secret binding exists, but Cloudflare does not reveal a saved secret's value through the settings API. The execution environment also has no configured Google client-secret value. Next ask only whether the owner retains the original secret or downloaded client JSON privately; never ask for its value in chat. Secure installation can follow once its location is known.
+
 Owner reports the Google Auth Platform publishing status is now **In production** after completing Branding. This clears the publishing-status task. It is owner-confirmed console state, not a claim of Google management API verification, an independent verification badge, a fresh token grant or working production OAuth.
 
-Read-only Cloudflare binding checks confirm both production booking and scheduler still lack Google client ID/secret; their existing token-encryption key bindings remain present and all inspected business/collection/retention gates are false. No service deployment, public activation, messages, Google refresh or data changes ran. [Owner confirmation and production binding evidence](review/launch-2026-11-25/google-publishing.json).
+Initial read-only binding checks (before the client-ID reuse above) confirmed both production booking and scheduler lacked Google client ID/secret; their existing token-encryption key bindings remain present and all inspected business/collection/retention gates are false. No service deployment, public activation, messages, Google refresh or data changes ran. [Owner confirmation and production binding evidence](review/launch-2026-11-25/google-publishing.json).
 
-**Next owner action only:** Google Auth Platform → Clients → existing Web application client → Authorized redirect URIs: add `https://hq.santablizard.com/hq/oauth/google/callback` and save, retaining the existing staging callback. This registers a future authorized callback; it does not enable bookings or authorize Calendar access by itself. Private production dashboard/routing, secure client credential installation and a fresh owner Calendar grant remain subsequent work.
+**Earlier callback instruction is superseded:** owner confirmed it was already present. No Google redirect edit is needed; follow the current credential gap above.
 
 ## Current readiness review — November 24
 

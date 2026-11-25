@@ -1,5 +1,9 @@
 # Operation North Pole — current status
 
+## Existing callback confirmed and public client ID reused — November 25, 2026
+
+Owner reports the production OAuth callback was already saved November 12; do not ask for another edit. Reused the existing public Google client identifier in both disabled production Workers; all preexisting bindings/gates and public website deployment history are unchanged. No private Google secret was read/exported or keys rotated. The remaining Google credential gap is the production client secret, whose staging value cannot be retrieved through Cloudflare settings. Next single question is whether the original secret/downloaded JSON is retained privately; never request the value in chat. [Evidence](docs/review/launch-2026-11-25/google-client-reuse.json).
+
 ## Google publishing gate cleared — November 25, 2026
 
 Owner confirmed Google Auth Platform publishing status In production. Read-only production binding checks show both booking/scheduler still lack the Google client ID/secret; original encryption-key bindings are present and business/notes/retention gates remain off. No activation, deployment, message, data change or Google refresh. Next single owner action is adding `https://hq.santablizard.com/hq/oauth/google/callback` to the existing Web client’s authorized redirect URIs, preserving staging. Secure production credential installation, private routing and owner authorization follow. [Evidence](docs/review/launch-2026-11-25/google-publishing.json).
