@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-25",
+  "public_website_changed": false,
+  "customer_or_notes_collection_enabled": false,
+  "automatic_deletion_enabled": false,
+  "private_preparation_only": true,
+  "steps": [
+    "production Access application created; no public route yet",
+    "prepare-production-hq",
+    "prepare-production-family",
+    "prepare-production-webhook",
+    "trusted production identity enrolled on operation-north-pole-hq",
+    "trusted production identity enrolled on operation-north-pole-booking",
+    "prepared hostname hq.santablizard.com",
+    "prepared hostname notes.santablizard.com",
+    "prepared hostname webhooks.santablizard.com"
+  ],
+  "production_hq_exact_owner_policy_verified": true,
+  "http": {
+    "https://hq.santablizard.com/hq": 302,
+    "https://notes.santablizard.com/elf-notes": 503,
+    "https://webhooks.santablizard.com/webhooks/resend": 404
+  },
+  "existing_staging_access_policy_unchanged": true,
+  "final_gates": {
+    "operation-north-pole-hq": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "HQ_INGRESS_ENABLED": "false"
+    },
+    "operation-north-pole-booking": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-integrations": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-elf-family": {
+      "ELF_FAMILY_ENABLED": "false"
+    },
+    "operation-north-pole-resend-webhook": {
+      "RESEND_WEBHOOK_INGRESS_ENABLED": "false"
+    }
+  },
+  "outcome": "passed"
+}

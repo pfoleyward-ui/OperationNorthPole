@@ -16,3 +16,12 @@ test('raw webhook bytes and signatures reach private verifier; no unsigned accep
  assert.equal(calls,1);assert.equal(response.status,401);assert.equal(response.headers.get('set-cookie'),null);assert.equal(response.headers.get('cache-control'),'no-store');
  const broken=await routeWebhookIngress(new Request(origin+path,{method:'POST',headers:{'content-type':'application/json'},body:raw}),{RESEND_WEBHOOK_INGRESS_ENABLED:'true',NOTIFY_WEBHOOK:{fetch:async()=>{throw new Error('failure')}}});assert.equal(broken.status,503);
 });
+
+test('production webhook host requires explicit configuration and remains gated independently of staging',async()=>{
+ const prod='https://webhooks.santablizard.com';let calls=0;const env={RESEND_WEBHOOK_INGRESS_ENABLED:'true',RESEND_WEBHOOK_ORIGIN:prod,NOTIFY_WEBHOOK:{fetch:async(r:Request)=>{calls++;assert.equal(r.url,'https://notify.internal/webhooks/resend');assert.equal(await r.text(),'{}');return Response.json({error:'invalid_signature'},{status:403});}}};
+ const post=(host:string)=>new Request(host+'/webhooks/resend',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+ assert.equal((await routeWebhookIngress(post(prod),{...env,RESEND_WEBHOOK_INGRESS_ENABLED:'false'})).status,404);
+ assert.equal((await routeWebhookIngress(post(origin),env)).status,404);
+ assert.equal((await routeWebhookIngress(post('https://attacker.test'),{...env,RESEND_WEBHOOK_ORIGIN:'https://attacker.test'})).status,404);assert.equal(calls,0);
+ assert.equal((await routeWebhookIngress(post(prod),env)).status,403);assert.equal(calls,1);
+});

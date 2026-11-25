@@ -5,10 +5,12 @@ export interface SiteEnv extends AccessEnv,ReadinessEnv {
   BOOKING?: {fetch(request:Request):Promise<Response>};
   CUSTOMER_BOOKING_MODE?: string;
   PUBLIC_WEBSITE_ONLY?: string;
+  PUBLIC_BOOKING_SITE_ENABLED?: string;
   SITE_STAGING_ENABLED?: string;
 }
 export async function routeSite(request:Request,env:SiteEnv,ctx:unknown,site:{fetch(request:Request,env:SiteEnv,ctx:unknown):Promise<Response>},fetcher?:typeof fetch,now=Date.now()){
   if(env.PUBLIC_WEBSITE_ONLY==='true')return publicWebsite(request,env,ctx,site);
+  if(env.CUSTOMER_BOOKING_MODE==='production')return productionBookingWebsite(request,env,ctx,site);
   if(new URL(request.url).pathname==='/webhooks/resend')return env.NOTIFY_WEBHOOK?env.NOTIFY_WEBHOOK.fetch(request):new Response('Not found',{status:404});
   if(env.CUSTOMER_BOOKING_MODE==='staging'&&env.SITE_STAGING_ENABLED!=='true')return new Response('Staging protection is required',{status:503});
   if(env.SITE_STAGING_ENABLED==='true'){
@@ -42,4 +44,27 @@ async function publicWebsite(request:Request,env:SiteEnv,ctx:unknown,site:{fetch
   if(!allowed)return new Response('Not found',{status:404,headers});
   if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405,headers:{...headers,Allow:'GET, HEAD'}});
   return site.fetch(request,env,ctx);
+}
+
+/** Production storefront: exact public documents and separately gated intake only.
+ * Private HQ/family/webhooks and development previews are always absent here.
+ */
+async function productionBookingWebsite(request:Request,env:SiteEnv,ctx:unknown,site:{fetch(request:Request,env:SiteEnv,ctx:unknown):Promise<Response>}){
+ const url=new URL(request.url),path=url.pathname;const headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};
+ if(env.SITE_STAGING_ENABLED==='true'||env.HQ_ENABLED==='true')return new Response('Website configuration is invalid',{status:503,headers});
+ if(!['santablizard.com','www.santablizard.com'].includes(url.hostname))return new Response('Not found',{status:404,headers});
+ if(url.hostname==='www.santablizard.com'||url.protocol==='http:')return new Response(null,{status:308,headers:{...headers,Location:'https://santablizard.com'+path+url.search}});
+ if(path.includes('%'))return new Response('Not found',{status:404,headers});
+ if(path==='/book'||path==='/book/'||path==='/api/bookings'){
+  if(env.PUBLIC_BOOKING_SITE_ENABLED!=='true')return new Response('Not found',{status:404,headers});
+  if(!env.BOOKING||!env.TURNSTILE_SITE_KEY)return new Response('Booking requests are unavailable',{status:503,headers});
+  if(path==='/api/bookings'){
+   if(request.method!=='POST')return new Response('Method not allowed',{status:405,headers});
+   return env.BOOKING.fetch(new Request(request,{redirect:'manual'}));
+  }
+  if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405,headers});
+  return site.fetch(request,env,ctx);
+ }
+ // Reuse the strict read-only document/asset boundary; never route private APIs.
+ return publicWebsite(request,{...env,CUSTOMER_BOOKING_MODE:'disabled'},ctx,site);
 }

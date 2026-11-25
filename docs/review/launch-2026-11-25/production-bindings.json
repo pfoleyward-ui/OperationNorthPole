@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-25",
+  "public_site_deployed": false,
+  "all_launch_gates_remain_off": true,
+  "google_secrets_read_or_printed": false,
+  "existing_encryption_keys_rotated": false,
+  "production_turnstile_created_and_secret_installed": true,
+  "turnstile_domains": [
+    "santablizard.com",
+    "www.santablizard.com"
+  ],
+  "staging_widget_unchanged": true,
+  "approved_sender_bindings_prepared": [
+    "EMAIL_FROM",
+    "EMAIL_REPLY_TO",
+    "GATEWAY_RECIPIENTS_JSON"
+  ],
+  "production_recipients_not_enabled": true
+}

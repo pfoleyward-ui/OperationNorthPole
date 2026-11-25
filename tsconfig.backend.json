@@ -21,6 +21,7 @@
     "workers/email-readiness-test.ts",
     "workers/backend-readiness-test.ts",
     "workers/elf-family.ts",
-    "workers/elf-family-rehearsal.ts"
+    "workers/elf-family-rehearsal.ts",
+    "workers/hq-ingress.ts"
   ]
 }

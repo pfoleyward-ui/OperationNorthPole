@@ -1,10 +1,16 @@
 # Operation North Pole — current status
 
-## Existing callback confirmed and public client ID reused — November 25, 2026
+## Production credentials and gated infrastructure — November 25, 2026
+
+Both production Google client ID/secret bindings independently confirmed, including the corrected integrations installation. No secret deletion/reset required; fresh authorization remains pending. Prepared exact-email Access and trusted Santa subject enrollment, deployed default-off private HQ/family/webhook ingresses, and installed production-only Turnstile. Approved sender identity is prepared with an empty recipient map; production Resend API/signing secrets remain missing. Public deployment remains f329e733-213f-4dcd-8c9f-bc876915eaaf, all business/collection/retention flags off, encryption keys preserved.
+
+Prepared but did not deploy a separately gated production storefront, customer-mode wizard/legal links and matching launch build helper. Core production backend code rollout and fresh owner Google authorization are still pending. Validation: 124 backend + 148 domain tests, all types, both production OpenNext builds, three ingress/frontend dry-runs and six-width mocked production customer/HQ/reminder browser flows passed. No live customer messages. Next owner action: securely install RESEND_API_KEY on operation-north-pole-notifications. [Current checklist and evidence](docs/LAUNCH_STATUS_2026-11-11.md).
+
+## Earlier callback/client-ID checkpoint (superseded above) — November 25, 2026
 
 Owner reports the production OAuth callback was already saved November 12; do not ask for another edit. Reused the existing public Google client identifier in both disabled production Workers; all preexisting bindings/gates and public website deployment history are unchanged. No private Google secret was read/exported or keys rotated. The remaining Google credential gap is the production client secret, whose staging value cannot be retrieved through Cloudflare settings. Next single question is whether the original secret/downloaded JSON is retained privately; never request the value in chat. [Evidence](docs/review/launch-2026-11-25/google-client-reuse.json).
 
-## Google publishing gate cleared — November 25, 2026
+## Earlier Google publishing checkpoint (superseded above) — November 25, 2026
 
 Owner confirmed Google Auth Platform publishing status In production. Read-only production binding checks show both booking/scheduler still lack the Google client ID/secret; original encryption-key bindings are present and business/notes/retention gates remain off. No activation, deployment, message, data change or Google refresh. Next single owner action is adding `https://hq.santablizard.com/hq/oauth/google/callback` to the existing Web client’s authorized redirect URIs, preserving staging. Secure production credential installation, private routing and owner authorization follow. [Evidence](docs/review/launch-2026-11-25/google-publishing.json).
 

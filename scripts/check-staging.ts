@@ -12,13 +12,14 @@ import {testNow} from '../tests/backend/hq-fixture.ts';
 import {handleBooking,type Env} from '../workers/booking/index.ts';
 import {handleHq} from '../workers/booking/hq.ts';
 import {runIntegrations} from '../workers/booking/integration-runner.ts';
+const productionTest=process.env.PRODUCTION_BOOKING_TEST==='true';
 const f=await integrationFixture(),g=await gatewayFixture();
 const output=process.env.VISUAL_OUTPUT_DIR||'/tmp/santablizard-staging-review';await mkdir(output,{recursive:true});
 const nextPort=Number(process.env.STAGING_NEXT_PORT||3118);
-const next=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port',String(nextPort)],{env:{...process.env,CUSTOMER_BOOKING_MODE:'staging',TURNSTILE_SITE_KEY:'synthetic-site-key'},stdio:['ignore','pipe','pipe']});
+const next=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port',String(nextPort)],{env:{...process.env,CUSTOMER_BOOKING_MODE:productionTest?'production':'staging',PUBLIC_BOOKING_SITE_ENABLED:productionTest?'true':'false',TURNSTILE_SITE_KEY:'synthetic-site-key'},stdio:['ignore','pipe','pipe']});
 let nextLog='';next.stdout?.on('data',v=>{nextLog+=v;});next.stderr?.on('data',v=>{nextLog+=v;});
 let now=testNow,base='',last:Page|undefined;let browser:Awaited<ReturnType<typeof chromium.launch>>|undefined;
-const env:Env={...f.env,NOTIFY:g.gateway,CUSTOMER_EMAIL_ENABLED:'true',STAGING_INTAKE_ENABLED:'true',PUBLIC_INTAKE_ENABLED:'false',BOOKING_ORIGIN:f.env.HQ_ORIGIN,TURNSTILE_SECRET:'synthetic-secret'};
+const env:Env={...f.env,NOTIFY:g.gateway,CUSTOMER_EMAIL_ENABLED:'true',STAGING_INTAKE_ENABLED:productionTest?'false':'true',PUBLIC_INTAKE_ENABLED:productionTest?'true':'false',BOOKING_ORIGIN:f.env.HQ_ORIGIN,TURNSTILE_SECRET:'synthetic-secret'};
 g.gatewayEnv.BOOKING_DB=f.env.DB;
 const fetcher:typeof fetch=async(url,init)=>String(url).includes('turnstile/v0/siteverify')?Response.json({success:true,hostname:new URL(env.BOOKING_ORIGIN!).hostname,action:'booking'}):f.fetcher(url,init);
 const server=createServer(async(req,res)=>{
@@ -45,10 +46,10 @@ try{
  const anonymous=await browser.newContext();assert.equal((await anonymous.request.get(base+'/hq/api/bookings')).status(),401);assert.equal((await anonymous.request.post(base+'/api/bookings',{data:{}})).status(),403);await anonymous.close();
  for(const width of [390,430,768,1024,1440,1920]){
   now=testNow;g.setNow(now);await f.clear();f.google.events.clear();await f.connect();
-  const context=await browser.newContext({viewport:{width,height:1000},isMobile:width<=430,hasTouch:width<=430,reducedMotion:'reduce',extraHTTPHeaders:{'cf-access-jwt-assertion':f.signed}});const page=await context.newPage();last=page;const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+  const context=await browser.newContext({viewport:{width,height:1000},isMobile:width<=430,hasTouch:width<=430,reducedMotion:'reduce',extraHTTPHeaders:productionTest?{}:{'cf-access-jwt-assertion':f.signed}});const page=await context.newPage();last=page;const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
   // Official challenge requests are replaced only in this synthetic test browser.
   await context.route('https://challenges.cloudflare.com/turnstile/v0/api.js*',route=>route.fulfill({contentType:'application/javascript',body:`window.turnstile={render(node,o){window.__syntheticChallenge=o;queueMicrotask(()=>o.callback(crypto.randomUUID()));return 'synthetic-widget';},reset(){queueMicrotask(()=>window.__syntheticChallenge.callback(crypto.randomUUID()));},remove(){}};`}));
-  await page.goto(base+'/book?service=home-visits',{waitUntil:'networkidle'});await page.getByText('Protected staging — synthetic adult details only.').waitFor();
+  await page.goto(base+'/book?service=home-visits',{waitUntil:'networkidle'});await page.getByText(productionTest?'Your request begins a conversation with Santa.':'Protected staging — synthetic adult details only.').waitFor();
   await page.getByLabel('I prefer a sensory-friendly interaction (optional)').check();await page.getByRole('button',{name:'Continue',exact:true}).click();
   await page.getByLabel('Preferred date',{exact:true}).fill('2027-12-20');await page.getByLabel('Preferred time',{exact:true}).fill('14:00');await page.getByLabel('Event location',{exact:true}).fill('Synthetic Hudson Valley venue');await page.getByRole('button',{name:'Continue',exact:true}).click();
   await page.getByLabel('Adult organizer name',{exact:true}).fill('Synthetic Adult '+width);await page.getByLabel('Email',{exact:true}).fill('sample@example.test');await page.getByLabel('Phone',{exact:true}).fill('202-555-0100');await page.getByLabel('Event type',{exact:true}).fill('Synthetic visit');await page.getByRole('button',{name:'Continue',exact:true}).click();
@@ -62,6 +63,7 @@ try{
   assert.equal((await f.db.prepare('SELECT COUNT(*) AS n FROM hq_reservations').first<{n:number}>())!.n,0);
   await runIntegrations(env,now,fetcher);assert.ok([...g.email.sent.values()].some(v=>(v.body.to as string[])[0]==='santa@example.test'));assert.equal(f.google.events.size,0);
   await page.screenshot({path:output+'/customer-receipt-'+width+'.jpg',fullPage:true});
+  if(productionTest){assert.equal((await context.request.get(base+'/hq/api/session')).status(),401);await context.setExtraHTTPHeaders({'cf-access-jwt-assertion':f.signed});}
   await page.goto(base+'/hq?booking='+id);await page.getByRole('heading',{name:'Booking correspondence',exact:true}).waitFor();
   await page.getByRole('button',{name:'Review request',exact:true}).click();await page.getByLabel('Quote expiry date — Santa’s choice (New York)',{exact:true}).fill('2027-12-01');await page.getByLabel('Quote expiry time (New York)',{exact:true}).fill('12:00');await page.getByRole('button',{name:'Save proposal',exact:true}).click();
   await page.getByLabel('I have shared these exact quote terms with the customer outside this dashboard.',{exact:true}).check();await page.getByRole('button',{name:'Record quote shared',exact:true}).click();await page.getByLabel('I have the customer’s agreement to this exact quote, price, and appointment.',{exact:true}).check();await page.getByRole('button',{name:'Record exact agreement',exact:true}).click();
@@ -74,6 +76,6 @@ try{
   await page.locator('#reminders summary').click();await page.screenshot({path:output+'/hq-acknowledged-'+width+'.jpg',fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);assert.equal(await page.evaluate(()=>localStorage.length+sessionStorage.length),0);assert.deepEqual(errors,[]);
   reports.push({width,customerInput:true,pendingPersistence:true,idempotentNetworkRecovery:width===390?'verified':'covered at 390',santaEmail:true,authenticatedHQConfirmation:true,customerEmail:true,calendar:true,reminders:true,gotIt:true,noOverflow:true,realMessagesSent:0});console.log('PASS '+width+'px: customer → Pending/D1 → email gateway → HQ confirmation → calendar → reminders → Got It');await context.close();
  }
- await writeFile(output+'/staging-report.json',JSON.stringify({syntheticOnly:true,realMessagesSent:0,provider:'Mocked Resend API via real durable email gateway',checks:reports},null,2)+'\n');
+ await writeFile(output+'/staging-report.json',JSON.stringify({syntheticOnly:true,mode:productionTest?'production UI with mock providers':'staging UI with mock providers',realMessagesSent:0,provider:'Mocked Resend API via real durable email gateway',checks:reports},null,2)+'\n');
 }catch(error){if(last&&!last.isClosed())await last.screenshot({path:output+'/failure.jpg',fullPage:true});throw error;}
 finally{await browser?.close();if(server.listening)await new Promise<void>(r=>server.close(()=>r()));next.kill('SIGTERM');await f.dispose();await g.dispose();}

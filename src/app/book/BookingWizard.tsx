@@ -25,7 +25,8 @@ function issueMessage(issue: Issue): string {
 }
 type Turnstile = { render: (node: HTMLElement, options: Record<string, unknown>) => string; reset: (id: string) => void; remove: (id: string) => void };
 declare global { interface Window { turnstile?: Turnstile } }
-export function BookingWizard({ initialService, unknownService, staging = false, siteKey = "" }: { initialService: ServiceId; unknownService: boolean; staging?: boolean; siteKey?: string }) {
+export function BookingWizard({ initialService, unknownService, staging = false, production = false, siteKey = "" }: { initialService: ServiceId; unknownService: boolean; staging?: boolean; production?: boolean; siteKey?: string }) {
+  const connected = staging || production;
   const [customer, setCustomer] = useState({ name: "", email: "", phone: "" });
   const [location, setLocation] = useState("");
   const [eventType, setEventType] = useState("");
@@ -50,7 +51,7 @@ export function BookingWizard({ initialService, unknownService, staging = false,
   const [complete, setComplete] = useState(false);
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
-    if (!staging || step !== 3 || complete || !siteKey) return;
+    if (!connected || step !== 3 || complete || !siteKey) return;
     let disposed = false;
     const script = document.createElement("script");
     script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
@@ -60,12 +61,12 @@ export function BookingWizard({ initialService, unknownService, staging = false,
     script.onerror = () => setSubmissionError("Verification could not load. Please retry.");
     if (window.turnstile) mount(); else document.head.appendChild(script);
     return () => { disposed = true; if (widget.current !== null) window.turnstile?.remove(widget.current); widget.current = null; setBotToken(""); script.remove(); };
-  }, [staging, step, complete, siteKey]);
+  }, [connected, step, complete, siteKey]);
   const selected = bookableServices[service];
   const duration = selected.durationMinutes ?? minutes;
   let base: number = selected.basePriceCents;
   try { base = basePriceForDuration(service, duration); } catch { /* Validation reports invalid durations. */ }
-  const payload = () => ({ serviceId: service, timing: { ...preferred, latestTime: useWindow ? preferred.latestTime : undefined, latestDisambiguation: useWindow ? preferred.latestDisambiguation : undefined }, ...(useAlternative ? { alternative } : {}), ...(selected.durationMinutes === null ? { durationMinutes: minutes } : {}), customer: staging ? customer : demoCustomer, location: staging ? location : demoLocation, eventType: staging ? eventType : "Sample event", answers: staging ? answers : demoAnswers(service), guestCount: staging ? guestCount : demoGuestCount, ...(!staging ? { flexibility: demoFlexibility, instructions: demoInstructions } : {}), sensoryFriendly: sensory });
+  const payload = () => ({ serviceId: service, timing: { ...preferred, latestTime: useWindow ? preferred.latestTime : undefined, latestDisambiguation: useWindow ? preferred.latestDisambiguation : undefined }, ...(useAlternative ? { alternative } : {}), ...(selected.durationMinutes === null ? { durationMinutes: minutes } : {}), customer: connected ? customer : demoCustomer, location: connected ? location : demoLocation, eventType: connected ? eventType : "Sample event", answers: connected ? answers : demoAnswers(service), guestCount: connected ? guestCount : demoGuestCount, ...(!connected ? { flexibility: demoFlexibility, instructions: demoInstructions } : {}), sensoryFriendly: sensory });
   function move(next: number) {
     setStep(next); setIssues([]);
     requestAnimationFrame(() => heading.current?.focus());
@@ -79,7 +80,7 @@ export function BookingWizard({ initialService, unknownService, staging = false,
   async function finish() {
     const result = validateBookingRequest(payload(), Date.now());
     if (result.ok === false) { setIssues(result.issues); return; }
-    if (staging) {
+    if (connected) {
       if (sending || !botToken) return;
       const serialized = JSON.stringify(payload());
       if (!attempt.current || attempt.current.payload !== serialized) attempt.current = { payload: serialized, key: crypto.randomUUID() };
@@ -115,12 +116,12 @@ export function BookingWizard({ initialService, unknownService, staging = false,
       <a href="/services">← Back to SantaBlizard's Services</a>
       <p className={shared.sectionOverline}>A LETTER TO THE NORTH POLE</p>
       <h1>Plan a Visit with Santa</h1>
-      {staging ? <aside className={styles.notice}><strong>Protected staging — synthetic adult details only.</strong><p>Requests begin Pending. Nothing is accepted, quoted, or confirmed until Santa reviews it. Do not enter child names, health, school, or private family information.</p></aside> : <aside className={styles.notice} aria-label="Booking preview status"><strong>Test preview — not accepting booking requests.</strong><p>Use sample details only. Contact and location fields are locked to fictional examples. Nothing is sent, saved, or booked. Please use the existing contact options on the Services page for a real inquiry.</p></aside>}
+      {production ? <aside className={styles.notice}><strong>Your request begins a conversation with Santa.</strong><p>Sending a request does not reserve a date or confirm a visit. Please use adult organizer and event details only; private child information belongs only in a separate invitation after confirmation.</p></aside> : staging ? <aside className={styles.notice}><strong>Protected staging — synthetic adult details only.</strong><p>Requests begin Pending. Nothing is accepted, quoted, or confirmed until Santa reviews it. Do not enter child names, health, school, or private family information.</p></aside> : <aside className={styles.notice} aria-label="Booking preview status"><strong>Test preview — not accepting booking requests.</strong><p>Use sample details only. Contact and location fields are locked to fictional examples. Nothing is sent, saved, or booked. Please use the existing contact options on the Services page for a real inquiry.</p></aside>}
       {unknownService && <p role="status">That service was not recognized. Please choose an experience below.</p>}
       {!complete && <>
         <ol className={styles.steps} aria-label="Booking steps">{steps.map((label, i) => <li key={label} aria-current={step === i ? "step" : undefined}>{i + 1}. {label}</li>)}</ol>
         <h2 ref={heading} tabIndex={-1}>{steps[step]}</h2>
-        {issues.length > 0 && <div role="alert" className={styles.errors}><strong>Please check your practice letter.</strong><ul>{issues.map((issue, i) => <li key={`${issue.path}-${i}`}>{issueMessage(issue)}</li>)}</ul><p>Dates use New York time. Christmas Eve and Christmas Day are unavailable.</p></div>}
+        {issues.length > 0 && <div role="alert" className={styles.errors}><strong>Please check your {connected ? "request" : "practice letter"}.</strong><ul>{issues.map((issue, i) => <li key={`${issue.path}-${i}`}>{issueMessage(issue)}</li>)}</ul><p>Dates use New York time. Christmas Eve and Christmas Day are unavailable.</p></div>}
         {step === 0 && <>
           <label>Choose your experience<select value={service} onChange={e => { setService(e.target.value as ServiceId); setAnswers({}); setMinutes(60); setIssues([]); }}>{Object.entries(bookableServices).map(([id, item]) => <option key={id} value={id}>{item.name}</option>)}</select></label>
           <p>{selected.description}</p>
@@ -137,11 +138,11 @@ export function BookingWizard({ initialService, unknownService, staging = false,
           {timingFields(preferred, setPreferred, "Preferred", useWindow)}
           <label className={styles.checkbox}><input type="checkbox" checked={useAlternative} onChange={e => setUseAlternative(e.target.checked)} />Include an alternative date</label>
           {useAlternative && timingFields(alternative, setAlternative, "Alternative")}
-          {staging ? <label>Event location<input maxLength={300} value={location} onChange={e => setLocation(e.target.value)} autoComplete="street-address" /></label> : <><label>Event location (sample only)<input value={demoLocation} readOnly /></label>
+          {connected ? <label>Event location<input maxLength={300} value={location} onChange={e => setLocation(e.target.value)} autoComplete="street-address" /></label> : <><label>Event location (sample only)<input value={demoLocation} readOnly /></label>
           <label>Scheduling flexibility (sample only)<input value={demoFlexibility} readOnly /></label></>}
         </>}
         {step === 2 && <>
-          {staging ? <>
+          {connected ? <>
             <div className={styles.fields}>
               <label>Adult organizer name<input maxLength={120} value={customer.name} onChange={e => setCustomer({ ...customer, name: e.target.value })} autoComplete="name" /></label>
               <label>Email<input type="email" maxLength={254} value={customer.email} onChange={e => setCustomer({ ...customer, email: e.target.value })} autoComplete="email" /></label>
@@ -150,7 +151,7 @@ export function BookingWizard({ initialService, unknownService, staging = false,
               <label>Approximate guests<input type="number" min={1} max={10000} value={guestCount} onChange={e => setGuestCount(Number(e.target.value))} /></label>
             </div>
             {serviceQuestions[service].filter(q => q.type !== "text").map(q => <label key={q.key}>{q.label}<input type={q.type === "boolean" ? "checkbox" : "number"} min={0} max={10000} checked={q.type === "boolean" ? Boolean(answers[q.key]) : undefined} value={q.type === "count" ? Number(answers[q.key] ?? 0) : undefined} onChange={e => setAnswers({ ...answers, [q.key]: q.type === "boolean" ? e.target.checked : Number(e.target.value) })} /></label>)}
-            <p>Optional free-text planning and Secret Elf Notes are unavailable. Skipping private notes never affects your visit.</p>
+            <p>{production ? "Optional Secret Elf Notes are shared separately by private invitation after a confirmed home visit. Do not include child details in this request." : "Optional free-text planning and Secret Elf Notes are unavailable. Skipping private notes never affects your visit."}</p>
           </> : <><p>These examples are locked until secure persistence and server-side validation are ready. Do not enter real customer or child information.</p>
           <div className={styles.fields}>
             <label>Organizer name (sample only)<input value={demoCustomer.name} readOnly autoComplete="off" /></label>
@@ -164,14 +165,15 @@ export function BookingWizard({ initialService, unknownService, staging = false,
           <p>{sensoryFriendly.privacyNote} Private preparation notes are deferred; there are no diagnosis, medical, school, or child-name fields.</p></>}
         </>}
         {step === 3 && <>
-          <dl><dt>Experience</dt><dd>{selected.name}</dd><dt>Starting price and duration</dt><dd>{usd(base)} · {duration} minutes</dd><dt>Preferred date/time</dt><dd>{preferred.date} at {preferred.time}{useWindow ? `–${preferred.latestTime}` : ""} ({BOOKING_TIME_ZONE}; {preferred.disambiguation ?? "unambiguous time"})</dd>{useAlternative && <><dt>Alternative</dt><dd>{alternative.date} at {alternative.time} ({alternative.disambiguation ?? "unambiguous time"})</dd></>}<dt>Location</dt><dd>{staging ? location : demoLocation}</dd><dt>Organizer</dt><dd>{staging ? customer.name : demoCustomer.name} · {staging ? customer.email : demoCustomer.email} · {staging ? customer.phone : demoCustomer.phone}</dd><dt>Event and guests</dt><dd>{staging ? eventType : "Sample event"} · {staging ? guestCount : demoGuestCount} guests</dd>{!staging && <><dt>Flexibility</dt><dd>{demoFlexibility}</dd><dt>Instructions</dt><dd>{demoInstructions}</dd><dt>Experience details</dt><dd>{serviceQuestions[service].map(q => <p key={q.key}>{q.label}: {(typeof demoAnswers(service)[q.key] === "boolean" ? (demoAnswers(service)[q.key] ? "Yes" : "No") : String(demoAnswers(service)[q.key]))}</p>)}</dd></>}<dt>Sensory-friendly preference</dt><dd>{sensory ? "Yes" : "Not selected"}</dd></dl>
+          {production && <p>Review the <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms of Service</a> before sending your adult-organizer request. Do not include private child information.</p>}
+          <dl><dt>Experience</dt><dd>{selected.name}</dd><dt>Starting price and duration</dt><dd>{usd(base)} · {duration} minutes</dd><dt>Preferred date/time</dt><dd>{preferred.date} at {preferred.time}{useWindow ? `–${preferred.latestTime}` : ""} ({BOOKING_TIME_ZONE}; {preferred.disambiguation ?? "unambiguous time"})</dd>{useAlternative && <><dt>Alternative</dt><dd>{alternative.date} at {alternative.time} ({alternative.disambiguation ?? "unambiguous time"})</dd></>}<dt>Location</dt><dd>{connected ? location : demoLocation}</dd><dt>Organizer</dt><dd>{connected ? customer.name : demoCustomer.name} · {connected ? customer.email : demoCustomer.email} · {connected ? customer.phone : demoCustomer.phone}</dd><dt>Event and guests</dt><dd>{connected ? eventType : "Sample event"} · {connected ? guestCount : demoGuestCount} guests</dd>{!connected && <><dt>Flexibility</dt><dd>{demoFlexibility}</dd><dt>Instructions</dt><dd>{demoInstructions}</dd><dt>Experience details</dt><dd>{serviceQuestions[service].map(q => <p key={q.key}>{q.label}: {(typeof demoAnswers(service)[q.key] === "boolean" ? (demoAnswers(service)[q.key] ? "Yes" : "No") : String(demoAnswers(service)[q.key]))}</p>)}</dd></>}<dt>Sensory-friendly preference</dt><dd>{sensory ? "Yes" : "Not selected"}</dd></dl>
           <p>Base prices may change for travel, staffing, equipment logistics, or unusual venue requirements. Any final quote must be agreed upon. All bookings require Santa's review and confirmation; a requested date does not guarantee availability.</p>
-          {staging ? <><p>Submit a request for Santa to review. Pending requests do not reserve dates. No payment or automatic confirmation.</p><div ref={challenge} aria-label="Bot verification" />{!siteKey && <p role="alert">Staging verification is not configured.</p>}</> : <p><strong>This practice letter cannot be submitted. Nothing will reach Santa.</strong></p>}
+          {connected ? <><p>Submit a request for Santa to review. Pending requests do not reserve dates. No payment or automatic confirmation.</p><div ref={challenge} aria-label="Bot verification" />{!siteKey && <p role="alert">Verification is unavailable. Please use the contact options on the Services page.</p>}</> : <p><strong>This practice letter cannot be submitted. Nothing will reach Santa.</strong></p>}
         </>}
         {submissionError && <p role="alert">{submissionError}</p>}
-        <div className={styles.actions}>{step > 0 && <button type="button" className={shared.secondaryButton} disabled={sending} aria-label="Back" onClick={() => move(step - 1)}>Back</button>}{step < 3 ? <button type="button" className={shared.primaryButton} aria-label="Continue" onClick={next}>Continue</button> : <button type="button" className={shared.primaryButton} disabled={staging && (sending || !botToken)} aria-label={staging ? "Send request to Santa" : "Check practice letter — nothing sent"} onClick={finish}>{staging ? (sending ? "Sending…" : "Send request to Santa") : "Check practice letter — nothing sent"}</button>}</div>
+        <div className={styles.actions}>{step > 0 && <button type="button" className={shared.secondaryButton} disabled={sending} aria-label="Back" onClick={() => move(step - 1)}>Back</button>}{step < 3 ? <button type="button" className={shared.primaryButton} aria-label="Continue" onClick={next}>Continue</button> : <button type="button" className={shared.primaryButton} disabled={connected && (sending || !botToken)} aria-label={connected ? "Send request to Santa" : "Check practice letter — nothing sent"} onClick={finish}>{connected ? (sending ? "Sending…" : "Send request to Santa") : "Check practice letter — nothing sent"}</button>}</div>
       </>}
-      {complete && <section><h2 ref={heading} tabIndex={-1}>{staging ? "Your Letter Is on Its Way to Santa!" : "Practice Letter Complete — Nothing Sent"}</h2>{staging ? <p>Reference: <strong>{receipt}</strong>. Status: Pending — received for review. Your date is not reserved and your visit is not confirmed.</p> : <p>This was a local demonstration with fictional contact details. No booking request was received, no date was reserved, and no information was saved or transmitted.</p>}{!staging && <button type="button" className={shared.primaryButton} onClick={() => { setComplete(false); move(0); }}>Review another example</button>}</section>}
+      {complete && <section><h2 ref={heading} tabIndex={-1}>{connected ? "Your Letter Is on Its Way to Santa!" : "Practice Letter Complete — Nothing Sent"}</h2>{connected ? <p>Reference: <strong>{receipt}</strong>. Status: Pending — received for review. Your date is not reserved and your visit is not confirmed.</p> : <p>This was a local demonstration with fictional contact details. No booking request was received, no date was reserved, and no information was saved or transmitted.</p>}{!connected && <button type="button" className={shared.primaryButton} onClick={() => { setComplete(false); move(0); }}>Review another example</button>}</section>}
     </div>
   </main>;
 }

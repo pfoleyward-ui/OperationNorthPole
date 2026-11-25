@@ -1,14 +1,16 @@
-/** Staging-only signed webhook ingress. The private gateway verifies Svix HMAC.
+/** Signed webhook ingress for the explicitly configured staging or production host. The private gateway verifies Svix HMAC.
  * No delivery, HQ, Google, asset or database endpoint is exposed here.
  */
 export interface WebhookIngressEnv {
   RESEND_WEBHOOK_INGRESS_ENABLED?:string;
+  RESEND_WEBHOOK_ORIGIN?:string;
   NOTIFY_WEBHOOK?:{fetch(request:Request):Promise<Response>};
 }
 const headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};
 export async function routeWebhookIngress(request:Request,env:WebhookIngressEnv):Promise<Response>{
- const url=new URL(request.url);
- if(env.RESEND_WEBHOOK_INGRESS_ENABLED!=='true'||url.origin!=='https://webhooks-staging.santablizard.com'||url.pathname!=='/webhooks/resend'||url.search)return new Response('Not found',{status:404,headers});
+ const url=new URL(request.url),expected=env.RESEND_WEBHOOK_ORIGIN||'https://webhooks-staging.santablizard.com';
+ if(!['https://webhooks-staging.santablizard.com','https://webhooks.santablizard.com'].includes(expected))return new Response('Not found',{status:404,headers});
+ if(env.RESEND_WEBHOOK_INGRESS_ENABLED!=='true'||url.origin!==expected||url.pathname!=='/webhooks/resend'||url.search)return new Response('Not found',{status:404,headers});
  if(request.method!=='POST')return new Response('Method not allowed',{status:405,headers:{...headers,Allow:'POST'}});
  if(request.headers.get('content-type')?.split(';')[0].trim().toLowerCase()!=='application/json')return new Response('JSON required',{status:415,headers});
  const length=request.headers.get('content-length');
