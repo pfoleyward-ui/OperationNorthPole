@@ -1,0 +1,435 @@
+{
+  "date": "2026-11-25",
+  "before": {
+    "workers": {
+      "operation-north-pole-booking": {
+        "gates": {
+          "BACKUP_ESCALATION_ENABLED": "false",
+          "CALENDAR_SYNC_ENABLED": "false",
+          "CUSTOMER_EMAIL_ENABLED": "false",
+          "ELF_NOTES_ENABLED": "false",
+          "ELF_RETENTION_APPROVED": "false",
+          "GOOGLE_OAUTH_ENABLED": "false",
+          "HQ_ENABLED": "false",
+          "INTEGRATION_PLANNER_ENABLED": "false",
+          "NOTIFICATION_DELIVERY_ENABLED": "false",
+          "PUBLIC_INTAKE_ENABLED": "false",
+          "STAGING_INTAKE_ENABLED": "false"
+        },
+        "secrets": [
+          "ACCESS_AUDIENCE",
+          "ELF_ENCRYPTION_KEYS",
+          "ELF_TOKEN_SECRET",
+          "GOOGLE_CLIENT_ID",
+          "GOOGLE_CLIENT_SECRET",
+          "GOOGLE_TOKEN_KEYS",
+          "INTAKE_HMAC_SECRET",
+          "SANTA_SUBJECTS",
+          "TURNSTILE_SECRET"
+        ],
+        "versions": [
+          {
+            "version_id": "e570428e-c616-4ff9-ae05-cfe42a12276a",
+            "percentage": 100
+          }
+        ]
+      },
+      "operation-north-pole-integrations": {
+        "gates": {
+          "CALENDAR_SYNC_ENABLED": "false",
+          "CUSTOMER_EMAIL_ENABLED": "false",
+          "ELF_NOTES_ENABLED": "false",
+          "ELF_RETENTION_APPROVED": "false",
+          "GOOGLE_OAUTH_ENABLED": "false",
+          "INTEGRATION_PLANNER_ENABLED": "false",
+          "NOTIFICATION_DELIVERY_ENABLED": "false"
+        },
+        "secrets": [
+          "GOOGLE_CLIENT_ID",
+          "GOOGLE_TOKEN_KEYS",
+          "INTAKE_HMAC_SECRET"
+        ],
+        "versions": [
+          {
+            "version_id": "145d7783-a1c5-4bbc-bdd8-61cd6d996110",
+            "percentage": 100
+          }
+        ]
+      },
+      "operation-north-pole-notifications": {
+        "gates": {
+          "ELF_NOTES_ENABLED": "false",
+          "ELF_RETENTION_APPROVED": "false",
+          "GATEWAY_DELIVERY_ENABLED": "false"
+        },
+        "secrets": [
+          "EMAIL_FROM",
+          "EMAIL_REPLY_TO",
+          "GATEWAY_HMAC_SECRET",
+          "GATEWAY_RECIPIENTS_JSON"
+        ],
+        "versions": [
+          {
+            "version_id": "ecf87a91-41da-4ce8-9b17-a5471331a45f",
+            "percentage": 100
+          }
+        ]
+      }
+    },
+    "databases": {
+      "booking": {
+        "counts": [
+          {
+            "name": "booking_outbox",
+            "n": 0
+          },
+          {
+            "name": "booking_requests",
+            "n": 0
+          },
+          {
+            "name": "d1_migrations",
+            "n": 5
+          },
+          {
+            "name": "elf_alerts",
+            "n": 0
+          },
+          {
+            "name": "elf_invitations",
+            "n": 0
+          },
+          {
+            "name": "elf_notes",
+            "n": 0
+          },
+          {
+            "name": "elf_rate_limits",
+            "n": 0
+          },
+          {
+            "name": "hq_bookings",
+            "n": 0
+          },
+          {
+            "name": "hq_elf_invitation_plans",
+            "n": 0
+          },
+          {
+            "name": "hq_event_outbox",
+            "n": 0
+          },
+          {
+            "name": "hq_operations",
+            "n": 0
+          },
+          {
+            "name": "hq_reservations",
+            "n": 0
+          },
+          {
+            "name": "hq_resource_operations",
+            "n": 0
+          },
+          {
+            "name": "hq_staffing",
+            "n": 0
+          },
+          {
+            "name": "hq_unavailable",
+            "n": 0
+          },
+          {
+            "name": "intake_rate_limits",
+            "n": 0
+          },
+          {
+            "name": "integration_acknowledgments",
+            "n": 0
+          },
+          {
+            "name": "integration_calendar",
+            "n": 0
+          },
+          {
+            "name": "integration_control",
+            "n": 0
+          },
+          {
+            "name": "integration_cycles",
+            "n": 0
+          },
+          {
+            "name": "integration_google",
+            "n": 0
+          },
+          {
+            "name": "integration_jobs",
+            "n": 0
+          },
+          {
+            "name": "integration_leases",
+            "n": 0
+          },
+          {
+            "name": "integration_oauth_states",
+            "n": 0
+          },
+          {
+            "name": "integration_outbox_receipts",
+            "n": 0
+          },
+          {
+            "name": "integration_plans",
+            "n": 0
+          }
+        ],
+        "schema_sha256": "947263dd31f3c74150a9db49fa6c21b85c63b87b4e3dde2d885c479778bdc262",
+        "foreign_key_violations": 0
+      },
+      "email": {
+        "counts": [
+          {
+            "name": "d1_migrations",
+            "n": 1
+          },
+          {
+            "name": "gateway_deliveries",
+            "n": 0
+          },
+          {
+            "name": "gateway_webhook_receipts",
+            "n": 0
+          }
+        ],
+        "schema_sha256": "3a5224b12ab7a391326d9e5cbfb76bcf7452845a7e3c1861585073fc2ae34089",
+        "foreign_key_violations": 0
+      }
+    },
+    "public": [
+      {
+        "version_id": "f329e733-213f-4dcd-8c9f-bc876915eaaf",
+        "percentage": 100
+      }
+    ]
+  },
+  "after": {
+    "workers": {
+      "operation-north-pole-booking": {
+        "gates": {
+          "BACKUP_ESCALATION_ENABLED": "false",
+          "CALENDAR_SYNC_ENABLED": "false",
+          "CUSTOMER_EMAIL_ENABLED": "false",
+          "ELF_NOTES_ENABLED": "false",
+          "ELF_RETENTION_APPROVED": "false",
+          "GOOGLE_OAUTH_ENABLED": "false",
+          "HQ_ENABLED": "false",
+          "INTEGRATION_PLANNER_ENABLED": "false",
+          "NOTIFICATION_DELIVERY_ENABLED": "false",
+          "PUBLIC_INTAKE_ENABLED": "false",
+          "STAGING_INTAKE_ENABLED": "false"
+        },
+        "secrets": [
+          "ACCESS_AUDIENCE",
+          "ELF_ENCRYPTION_KEYS",
+          "ELF_TOKEN_SECRET",
+          "GOOGLE_CLIENT_ID",
+          "GOOGLE_CLIENT_SECRET",
+          "GOOGLE_TOKEN_KEYS",
+          "INTAKE_HMAC_SECRET",
+          "SANTA_SUBJECTS",
+          "TURNSTILE_SECRET"
+        ],
+        "versions": [
+          {
+            "version_id": "ba816e56-784d-4026-807c-31c008ea8120",
+            "percentage": 100
+          }
+        ]
+      },
+      "operation-north-pole-integrations": {
+        "gates": {
+          "CALENDAR_SYNC_ENABLED": "false",
+          "CUSTOMER_EMAIL_ENABLED": "false",
+          "ELF_NOTES_ENABLED": "false",
+          "ELF_RETENTION_APPROVED": "false",
+          "GOOGLE_OAUTH_ENABLED": "false",
+          "INTEGRATION_PLANNER_ENABLED": "false",
+          "NOTIFICATION_DELIVERY_ENABLED": "false"
+        },
+        "secrets": [
+          "GOOGLE_CLIENT_ID",
+          "GOOGLE_TOKEN_KEYS",
+          "INTAKE_HMAC_SECRET"
+        ],
+        "versions": [
+          {
+            "version_id": "9314292c-941e-4e96-91af-2c48af878408",
+            "percentage": 100
+          }
+        ]
+      },
+      "operation-north-pole-notifications": {
+        "gates": {
+          "ELF_NOTES_ENABLED": "false",
+          "ELF_RETENTION_APPROVED": "false",
+          "GATEWAY_DELIVERY_ENABLED": "false"
+        },
+        "secrets": [
+          "EMAIL_FROM",
+          "EMAIL_REPLY_TO",
+          "GATEWAY_HMAC_SECRET",
+          "GATEWAY_RECIPIENTS_JSON"
+        ],
+        "versions": [
+          {
+            "version_id": "1f19d4a7-08dd-4a36-bf99-ae5781fa0ab4",
+            "percentage": 100
+          }
+        ]
+      }
+    },
+    "databases": {
+      "booking": {
+        "counts": [
+          {
+            "name": "booking_outbox",
+            "n": 0
+          },
+          {
+            "name": "booking_requests",
+            "n": 0
+          },
+          {
+            "name": "d1_migrations",
+            "n": 5
+          },
+          {
+            "name": "elf_alerts",
+            "n": 0
+          },
+          {
+            "name": "elf_invitations",
+            "n": 0
+          },
+          {
+            "name": "elf_notes",
+            "n": 0
+          },
+          {
+            "name": "elf_rate_limits",
+            "n": 0
+          },
+          {
+            "name": "hq_bookings",
+            "n": 0
+          },
+          {
+            "name": "hq_elf_invitation_plans",
+            "n": 0
+          },
+          {
+            "name": "hq_event_outbox",
+            "n": 0
+          },
+          {
+            "name": "hq_operations",
+            "n": 0
+          },
+          {
+            "name": "hq_reservations",
+            "n": 0
+          },
+          {
+            "name": "hq_resource_operations",
+            "n": 0
+          },
+          {
+            "name": "hq_staffing",
+            "n": 0
+          },
+          {
+            "name": "hq_unavailable",
+            "n": 0
+          },
+          {
+            "name": "intake_rate_limits",
+            "n": 0
+          },
+          {
+            "name": "integration_acknowledgments",
+            "n": 0
+          },
+          {
+            "name": "integration_calendar",
+            "n": 0
+          },
+          {
+            "name": "integration_control",
+            "n": 0
+          },
+          {
+            "name": "integration_cycles",
+            "n": 0
+          },
+          {
+            "name": "integration_google",
+            "n": 0
+          },
+          {
+            "name": "integration_jobs",
+            "n": 0
+          },
+          {
+            "name": "integration_leases",
+            "n": 0
+          },
+          {
+            "name": "integration_oauth_states",
+            "n": 0
+          },
+          {
+            "name": "integration_outbox_receipts",
+            "n": 0
+          },
+          {
+            "name": "integration_plans",
+            "n": 0
+          }
+        ],
+        "schema_sha256": "947263dd31f3c74150a9db49fa6c21b85c63b87b4e3dde2d885c479778bdc262",
+        "foreign_key_violations": 0
+      },
+      "email": {
+        "counts": [
+          {
+            "name": "d1_migrations",
+            "n": 1
+          },
+          {
+            "name": "gateway_deliveries",
+            "n": 0
+          },
+          {
+            "name": "gateway_webhook_receipts",
+            "n": 0
+          }
+        ],
+        "schema_sha256": "3a5224b12ab7a391326d9e5cbfb76bcf7452845a7e3c1861585073fc2ae34089",
+        "foreign_key_violations": 0
+      }
+    },
+    "public": [
+      {
+        "version_id": "f329e733-213f-4dcd-8c9f-bc876915eaaf",
+        "percentage": 100
+      }
+    ]
+  },
+  "database_counts_and_schema_unchanged": true,
+  "secret_binding_names_preserved": true,
+  "all_business_gates_off": true,
+  "public_version_unchanged": true,
+  "source_rollout_passed": true,
+  "credential_binding_type_caveat": "Initial snapshot compared secret_text names only. Three preexisting plaintext credential bindings were omitted by Wrangler; restored as secret_text afterward. See production-credential-repair.json. No encryption/HMAC key changed."
+}

@@ -2,8 +2,9 @@
 export interface ProviderEnv { RESEND_WEBHOOK_SECRET?:string; RESEND_API_KEY?: string; EMAIL_FROM?: string; EMAIL_REPLY_TO?: string; HQ_ORIGIN?:string; STAGING_TEST_RECIPIENT?:string; STAGING_DISCARD_RECEIPT_KEY?:string }
 export type Message = { idempotencyKey:string; recipientKey:string; channel:'email'; subject:string; text:string; expiresAt:number; customerState?:string };
 export type ProviderResult = { state:'accepted'|'delivered'|'failed'|'retry'|'uncertain'; id?:string; code?:string };
-export function providerConfigured(_channel:Message['channel'],env:ProviderEnv){return Boolean(env.RESEND_API_KEY&&env.EMAIL_FROM&&!/[\r\n]/.test(env.EMAIL_FROM)&&(!env.EMAIL_REPLY_TO||!/\s/.test(env.EMAIL_REPLY_TO)));}
+export function providerConfigured(_channel:Message['channel'],env:ProviderEnv){return Boolean(env.RESEND_API_KEY&&(env.HQ_ORIGIN!=='https://hq.santablizard.com'||env.RESEND_API_KEY.startsWith('re_'))&&env.EMAIL_FROM&&!/[\r\n]/.test(env.EMAIL_FROM)&&(!env.EMAIL_REPLY_TO||!/\s/.test(env.EMAIL_REPLY_TO)));}
 export async function send(message:Message,destination:string,env:ProviderEnv,fetcher:typeof fetch):Promise<ProviderResult>{
+  if(env.HQ_ORIGIN==='https://hq.santablizard.com'&&!env.RESEND_API_KEY?.startsWith('re_'))return {state:'failed',code:'provider_not_configured'};
   try{
     // Workers supports manual/follow only. Never forward provider credentials to redirects.
     const response=await fetcher('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+env.RESEND_API_KEY,'Content-Type':'application/json','Idempotency-Key':message.idempotencyKey},body:JSON.stringify({from:env.EMAIL_FROM,to:[destination],subject:message.subject,text:message.text,tags:[{name:"onp_delivery",value:message.idempotencyKey}],...(env.EMAIL_REPLY_TO?{reply_to:env.EMAIL_REPLY_TO}:{})}),signal:AbortSignal.timeout(6000),redirect:'manual'});
@@ -18,6 +19,7 @@ export async function send(message:Message,destination:string,env:ProviderEnv,fe
   }catch{return {state:'uncertain',code:'provider_outcome_unknown'};}
 }
 export async function poll(_channel:Message['channel'],id:string,env:ProviderEnv,fetcher:typeof fetch):Promise<ProviderResult>{
+  if(env.HQ_ORIGIN==='https://hq.santablizard.com'&&!env.RESEND_API_KEY?.startsWith('re_'))return {state:'accepted',id,code:'provider_not_configured'};
   try{
     const response=await fetcher('https://api.resend.com/emails/'+encodeURIComponent(id),{headers:{Authorization:'Bearer '+env.RESEND_API_KEY},signal:AbortSignal.timeout(6000),redirect:'manual'});
     if(!response.ok)return {state:'accepted',id,code:'receipt_lookup_retry'};

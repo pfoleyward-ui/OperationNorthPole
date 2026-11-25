@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-25",
+  "backend_tests": {
+    "pass": 129,
+    "fail": 0
+  },
+  "focused_provider_tests": {
+    "pass": 5,
+    "fail": 0
+  },
+  "backend_types": "passed",
+  "production_deployed": [
+    "booking",
+    "integrations",
+    "notifications",
+    "private HQ ingress",
+    "signed webhook ingress"
+  ],
+  "nextjs_build": "Not rerun: no UI change; prior six-width production and staging builds/browser checks remain recorded.",
+  "live_http": "Exact-email Access redirect; family closed; public book/HQ closed; unsigned and forged webhook POSTs 403.",
+  "real_email_sent": false,
+  "provider_authentication_verified": false,
+  "signed_production_callback_verified": false,
+  "public_website_changed": false,
+  "encryption_keys_rotated": false
+}

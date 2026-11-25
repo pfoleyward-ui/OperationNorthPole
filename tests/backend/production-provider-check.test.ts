@@ -1,0 +1,6 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {checkProductionProvider} from '../../workers/production-provider-check.ts';
+test('production provider runner is default off, refuses active business gates and only requests fixed diagnostic',async()=>{
+ let calls=0,writes=0;const statement={bind(..._v:unknown[]){return this;},async first(){return null;},async all(){return {success:true,results:[]};},async run(){return {};}};
+ const env={DB:{prepare(){return statement;},async batch(){writes++;return [{success:true,results:[]}];}},NOTIFY:{async fetch(r:Request){calls++;assert.equal(r.method,'GET');assert.equal(r.url,'https://notify.internal/readiness/production/resend');return Response.json({authenticationSucceeded:true});}},PRODUCTION_PROVIDER_CHECK:'true',INTEGRATION_INSTALLATION_ID:'santablizard-production-20261110',INTEGRATION_PLANNER_ENABLED:'false',CALENDAR_SYNC_ENABLED:'false',NOTIFICATION_DELIVERY_ENABLED:'false',CUSTOMER_EMAIL_ENABLED:'false',ELF_NOTES_ENABLED:'false',ELF_RETENTION_APPROVED:'false'};
+ await checkProductionProvider({...env,PRODUCTION_PROVIDER_CHECK:undefined});await checkProductionProvider({...env,CUSTOMER_EMAIL_ENABLED:'true'});assert.equal(calls,0);await checkProductionProvider(env);assert.equal(calls,1);assert.equal(writes,1);
+});

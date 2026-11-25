@@ -1,3 +1,4 @@
+import {productionResendReadiness} from './production-readiness.ts';
 import {resendReadiness,TEST_EMAIL_SUBJECT,FRESH_TEST_EMAIL_SUBJECT,RECOVERY_TEST_EMAIL_SUBJECT,TEST_EMAIL_TEXT} from './readiness.ts';
 import {policy,quietAdjusted} from '../booking/integration-config.ts';
 import {snapshot} from '../booking/integration-plan.ts';
@@ -53,6 +54,7 @@ function destination(message: Message,env: GatewayEnv):string {
 async function row(env:GatewayEnv,key:string) {return env.DB.prepare('SELECT * FROM gateway_deliveries WHERE id=?').bind(key).first<Row>();}
 export async function handleGateway(request:Request,env:GatewayEnv,fetcher:typeof fetch=fetch,now=Date.now(),clock:()=>number=()=>now):Promise<Response>{
   const url=new URL(request.url);
+  if(url.pathname==='/readiness/production/resend')return productionResendReadiness(request,env,fetcher);
   if(url.pathname==='/readiness/resend'||url.pathname.startsWith('/readiness/resend/receipts/'))return resendReadiness(request,env,fetcher);
   if(url.pathname==='/webhooks/resend')return handleWebhook(request,env,now);const key=url.pathname.match(/^\/deliveries\/([A-Za-z0-9_-]{16,128})$/)?.[1];
   if(url.origin!=='https://notify.internal'||!key||url.search)return reply(404,{error:'not_found'});

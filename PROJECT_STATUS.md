@@ -1,5 +1,11 @@
 # Operation North Pole — current status
 
+## Production core rollout and credential correction — November 25, 2026
+
+Deployed current booking/integrations/notification source with business gates off; database counts/schema/FKs and existing public version unchanged. Enabled only exact-email private Santa HQ/owner Google OAuth and the signed webhook receiver. Public bookings, sending/sync/planners, real notes and automatic deletion remain off.
+
+Actual read-only email preflight stopped before provider egress: production RESEND_API_KEY was a Google OAuth secret, not a Resend key. Restored three plaintext credential entries omitted by Wrangler as encrypted Secrets and redacted retained diagnostic logs. Data-encryption/HMAC keys unchanged. Added wrong-service-key guards on production diagnostic/send/receipt egress. The exposed Google OAuth secret needs replacement before the fresh grant. 129 backend tests, five focused provider checks and backend types pass. Live private Access, closed public/family routes and unsigned/forged webhook 403 checks pass; no customer/notes/email data present. API replacement still lacks Resend format; original signing Secret restored after concurrent dashboard edit. Next single owner action: replace RESEND_API_KEY with the actual Resend re_ key on operation-north-pole-notifications. [Current checklist/evidence](docs/LAUNCH_STATUS_2026-11-11.md).
+
 ## Production credentials and gated infrastructure — November 25, 2026
 
 Both production Google client ID/secret bindings independently confirmed, including the corrected integrations installation. No secret deletion/reset required; fresh authorization remains pending. Prepared exact-email Access and trusted Santa subject enrollment, deployed default-off private HQ/family/webhook ingresses, and installed production-only Turnstile. Approved sender identity is prepared with an empty recipient map; production Resend API key binding is now verified; webhook signing-secret binding is also verified; real signed production callback verification remains pending. Public deployment remains f329e733-213f-4dcd-8c9f-bc876915eaaf, all business/collection/retention flags off, encryption keys preserved.
