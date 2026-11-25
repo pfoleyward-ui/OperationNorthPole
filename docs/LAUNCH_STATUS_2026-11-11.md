@@ -4,6 +4,16 @@
 
 The current continuation environment reports an enforced **unrestricted** network policy. Its configured **account-owned API token authenticates successfully** at the account token-verification endpoint; the user-token endpoint returns 401 because it is the wrong verification endpoint for this credential type. Required Workers, D1, Access apps/policies/organization/identity-provider/users, Turnstile and zone DNS read/write permissions are present. Working product access is through the API credential; no authenticated MCP/OAuth session is claimed.
 
+## Production Google connected and calendar ready — current checkpoint
+
+Owner corrected the redirect registration, completed fresh production OAuth, and clicked the create-bookings-calendar action. Independent production D1 metadata confirms `status=connected`, `calendar_state=ready`, encrypted tokens present and calendar ID present. Token ciphertext, calendar ID and owner subject were not selected/read/logged. This confirms saved connection/setup state with the owner's real interactive result; it is not a claim of a subsequent independent refresh/synchronization test. [Verified production connection/calendar metadata](review/launch-2026-11-25/production-google-calendar-ready.json).
+
+All intake, calendar sync, planners, gateway/customer notification delivery, real family collection and automatic-deletion gates remain off. Only exact-email HQ/OAuth and signed webhook receipt are enabled. Public website version is unchanged. Production still has zero bookings, notes and private invitations.
+
+**Next owner action only:** in production HQ choose **Add Booking** and save a synthetic pending house-call request: adult name **Production Readiness Test**, email **santablizard@gmail.com** (the sole approved test inbox), phone **202-555-0100**, December 20, 2026 at **2:00 PM New York**, venue **Synthetic test venue**, event **Production readiness test**. No real customer/child data. Stop after saving; quote/agreement/confirmation and bounded provider verification follow separately. No public launch or delivery/collection activation is implied.
+
+This metadata/configuration review changed no code or production configuration and sent no messages. Prior saved backend/provider/type validation remains unchanged. Older redirect and secret-replacement action requests below are historical and superseded.
+
 ## Production Google redirect mismatch — current owner action
 
 Owner's production OAuth attempt returned Google `400 redirect_uri_mismatch`. Independent live configuration readback verifies `HQ_ORIGIN=https://hq.santablizard.com`; inspected authorization and token-exchange code both derive exactly `https://hq.santablizard.com/hq/oauth/google/callback`. No secret values were read and no provider/configuration/data mutation was made during diagnosis. The earlier owner report that the callback was saved does not establish registration on the actual client used by this request. [Mismatch diagnosis](review/launch-2026-11-25/google-redirect-mismatch.json).

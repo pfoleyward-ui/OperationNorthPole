@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-25",
+  "owner_reports_production_google_connected_and_calendar_created": true,
+  "google": [
+    {
+      "status": "connected",
+      "calendar_state": "ready",
+      "encrypted_tokens_present": 1,
+      "calendar_id_present": 1,
+      "updated_at": 1795619616675
+    }
+  ],
+  "counts": [
+    {
+      "bookings": 0,
+      "notes": 0,
+      "private_invitations": 0
+    }
+  ],
+  "gates": {
+    "operation-north-pole-booking": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "true",
+      "HQ_ENABLED": "true",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-integrations": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-hq": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "HQ_ENABLED": "true",
+      "HQ_INGRESS_ENABLED": "true"
+    },
+    "operation-north-pole-elf-family": {
+      "ELF_FAMILY_ENABLED": "false"
+    },
+    "operation-north-pole-resend-webhook": {
+      "RESEND_WEBHOOK_INGRESS_ENABLED": "true"
+    }
+  },
+  "public_versions": [
+    {
+      "version_id": "f329e733-213f-4dcd-8c9f-bc876915eaaf",
+      "percentage": 100
+    }
+  ]
+}

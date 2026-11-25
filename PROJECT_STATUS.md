@@ -1,5 +1,9 @@
 # Operation North Pole — current status
 
+## Production Google connected and bookings calendar ready — November 25, 2026
+
+Owner completed fresh production OAuth and calendar creation. Independent D1 metadata confirms connected/ready with encrypted tokens and calendar-ID presence; no token ciphertext, identifier or owner subject selected. Sync/planners/email/intake/notes/automatic deletion remain off; public version unchanged; zero production bookings/notes/invitations. Next single owner action: save the synthetic pending Production Readiness Test house-call request through production HQ, sole approved Gmail inbox, December 20 at 2 PM New York. No new code/config/provider calls or messages in this verification. [Evidence/checklist](docs/LAUNCH_STATUS_2026-11-11.md).
+
 ## Production OAuth callback mismatch — November 25, 2026
 
 Owner received redirect_uri_mismatch. Live HQ_ORIGIN and source both verify the exact callback https://hq.santablizard.com/hq/oauth/google/callback. Google-side registration on the actual client is not independently confirmed. Next owner action: match Client ID from Google error details to the Web client and add the exact URL under Authorized redirect URIs, preserve staging, then restart connection from production HQ. No secrets read, code/config deployed or launch gates changed. [Diagnosis](docs/review/launch-2026-11-25/google-redirect-mismatch.json).
