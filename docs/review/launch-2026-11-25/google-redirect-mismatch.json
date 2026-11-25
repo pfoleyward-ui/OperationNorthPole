@@ -1,0 +1,9 @@
+{
+  "date": "2026-11-25",
+  "owner_reported_error": "redirect_uri_mismatch",
+  "verified_live_hq_origin": "https://hq.santablizard.com",
+  "code_redirect_uri": "https://hq.santablizard.com/hq/oauth/google/callback",
+  "google_console_registration_independently_verified": false,
+  "provider_secrets_read": false,
+  "next_action": "Add exact callback under Authorized redirect URIs on the Web client used by this app; preserve staging callback."
+}

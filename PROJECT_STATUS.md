@@ -1,5 +1,9 @@
 # Operation North Pole — current status
 
+## Production OAuth callback mismatch — November 25, 2026
+
+Owner received redirect_uri_mismatch. Live HQ_ORIGIN and source both verify the exact callback https://hq.santablizard.com/hq/oauth/google/callback. Google-side registration on the actual client is not independently confirmed. Next owner action: match Client ID from Google error details to the Web client and add the exact URL under Authorized redirect URIs, preserve staging, then restart connection from production HQ. No secrets read, code/config deployed or launch gates changed. [Diagnosis](docs/review/launch-2026-11-25/google-redirect-mismatch.json).
+
 ## Google secret replacement reported; owner authorization next — November 25, 2026
 
 Owner reports replacing exposed OAuth secret. Metadata independently confirms encrypted GOOGLE_CLIENT_SECRET bindings on production booking/integrations and staging integrations, without reading values. Google revocation/value validity are not inferred from binding presence. Next owner action: production HQ → Calendar & delivery settings → Connect Google securely with the approved Santa account. Customer collection/delivery/sync/planners and automatic deletion stay off; existing encryption keys preserved. [Current checklist](docs/LAUNCH_STATUS_2026-11-11.md).

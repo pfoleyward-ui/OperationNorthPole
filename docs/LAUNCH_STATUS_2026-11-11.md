@@ -4,6 +4,12 @@
 
 The current continuation environment reports an enforced **unrestricted** network policy. Its configured **account-owned API token authenticates successfully** at the account token-verification endpoint; the user-token endpoint returns 401 because it is the wrong verification endpoint for this credential type. Required Workers, D1, Access apps/policies/organization/identity-provider/users, Turnstile and zone DNS read/write permissions are present. Working product access is through the API credential; no authenticated MCP/OAuth session is claimed.
 
+## Production Google redirect mismatch — current owner action
+
+Owner's production OAuth attempt returned Google `400 redirect_uri_mismatch`. Independent live configuration readback verifies `HQ_ORIGIN=https://hq.santablizard.com`; inspected authorization and token-exchange code both derive exactly `https://hq.santablizard.com/hq/oauth/google/callback`. No secret values were read and no provider/configuration/data mutation was made during diagnosis. The earlier owner report that the callback was saved does not establish registration on the actual client used by this request. [Mismatch diagnosis](review/launch-2026-11-25/google-redirect-mismatch.json).
+
+**Next owner action only:** Google Auth Platform → Clients in project `operation-north-pole-514123` → Web client whose Client ID matches Google's error details → **Authorized redirect URIs**. Add/save exactly `https://hq.santablizard.com/hq/oauth/google/callback`, preserving the staging callback. This belongs under redirect URIs, not JavaScript origins. Then start a fresh **Connect Google securely** attempt from production HQ. The current error does not verify Google client-secret validity; actual OAuth/Calendar connection remains pending. All collection/delivery/sync/retention activation gates remain unchanged.
+
 ## Google secret replacement reported — next production authorization
 
 Owner reports replacing the exposed Google OAuth client secret. Independent readback confirms `GOOGLE_CLIENT_SECRET` is an encrypted Secret on production booking, production integrations and staging integrations. No value was retrieved/logged; binding metadata cannot prove which value was saved or Google-side revocation. Fresh production owner authorization is the next functional credential verification. Existing data-encryption/HMAC keys are preserved. [Binding verification](review/launch-2026-11-25/google-rotation-bindings.json).
