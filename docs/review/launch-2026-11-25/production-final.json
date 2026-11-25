@@ -54,7 +54,7 @@
       "credential_binding_presence": {
         "GOOGLE_CLIENT_ID": false,
         "GOOGLE_CLIENT_SECRET": false,
-        "RESEND_API_KEY": false,
+        "RESEND_API_KEY": true,
         "RESEND_WEBHOOK_SECRET": false,
         "TURNSTILE_SECRET": false,
         "SANTA_SUBJECTS": false,
