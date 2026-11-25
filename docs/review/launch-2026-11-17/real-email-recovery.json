@@ -1,0 +1,32 @@
+{
+  "sole_recipient": "santablizard@gmail.com",
+  "maximum_new_emails": 1,
+  "delivery_key": "staging-receipt-recovery-20261117-v1",
+  "production_changed": false,
+  "real_delivered_replay": {
+    "outcome": "passed",
+    "original_receipt_unchanged": true,
+    "new_gateway_rows": 0
+  },
+  "receipt_recovery": {
+    "outcome": "passed",
+    "gateway": {
+      "state": "delivered",
+      "attempts": 1,
+      "provider_receipt_present": 1,
+      "error_code": null
+    },
+    "handoff": {
+      "status": "uncertain",
+      "gatewayHttpStatus": 200,
+      "initialGatewayDeliveryStatus": "uncertain",
+      "stagingFaultInjectionApplied": true,
+      "deliveryStatus": "uncertain",
+      "replacement_send_authorized": false
+    },
+    "signed_webhook_receipts": 2
+  },
+  "sending_and_original_scheduler_restored_off": true,
+  "original_receipt_unchanged": true,
+  "public_worker_history_unchanged": true
+}

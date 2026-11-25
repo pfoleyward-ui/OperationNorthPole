@@ -1,3 +1,4 @@
+import {customerEmailState} from './customer-email.ts';
 import { canonical,digest } from './shared.ts';
 import { HqError } from './hq-service.ts';
 import type { HqState } from './hq-service.ts';
@@ -9,7 +10,7 @@ import type { Principal } from './auth.ts';
 
 export type Snapshot={id:string;request:BookingRequest;state:HqState;receivedAt:number;confirmedAt:number;wasConfirmed:boolean};
 export type Cycle={id:string;booking_id:string;start_at:number;end_at:number;confirmed_at:number;ack_due:number|null;level1_sent_at:number|null;state:'active'|'resolved';acknowledged_at:number|null;resolved_reason:string|null};
-export type Job={id:string;booking_id:string;cycle_id:string|null;kind:Kind;recipient:Recipient|'google';target_key:string|null;channel:'email'|'sms'|null;calendar_hash:string|null;due_at:number;expires_at:number;next_at:number;state:string;attempts:number;claim_token:string|null;claim_until:number|null;dispatched_at:number|null;accepted_at:number|null;provider_id:string|null;payload_json:string|null;error_code:string|null;updated_at:number};
+export type Job={id:string;booking_id:string;cycle_id:string|null;kind:Kind;recipient:Recipient|'google';target_key:string|null;channel:'email'|null;calendar_hash:string|null;due_at:number;expires_at:number;next_at:number;state:string;attempts:number;claim_token:string|null;claim_until:number|null;dispatched_at:number|null;accepted_at:number|null;provider_id:string|null;payload_json:string|null;error_code:string|null;updated_at:number};
 const NEVER=253402300799999;
 export async function snapshot(db:Database,id:string):Promise<Snapshot|null>{
   const row=await db.prepare(`SELECT b.id,b.request_json,b.received_at,h.state_json,
@@ -24,7 +25,7 @@ export async function snapshot(db:Database,id:string):Promise<Snapshot|null>{
 }
 export async function cycleId(s:Snapshot,secret:string):Promise<string>{return digest(secret,`cycle:${s.id}:${s.state.quote!.id}:${s.state.quote!.revision}:${s.state.quote!.start}:${s.state.quote!.end}`);}
 export async function desiredCalendar(s:Snapshot,env:IntegrationEnv):Promise<string|null>{
-  if(s.state.status==='confirmed'&&s.state.quote)return digest(env.INTAKE_HMAC_SECRET!,canonical({id:s.id,service:s.state.serviceId,start:s.state.quote.start,end:s.state.quote.end,location:s.request.location}));
+  if(s.state.status==='confirmed'&&s.state.quote)return digest(env.INTAKE_HMAC_SECRET!,canonical({id:s.id,service:s.state.serviceId,start:s.state.quote.start,end:s.state.quote.end,location:s.request.location,nativeReminder:env.NATIVE_CALENDAR_REMINDER_MINUTES||null}));
   if(s.state.status==='canceled'&&s.wasConfirmed)return digest(env.INTAKE_HMAC_SECRET!,`delete:${s.id}`);
   return null; // Completed history stays on Google; no new event is created for it.
 }
@@ -35,7 +36,7 @@ export async function planBooking(env:IntegrationEnv,id:string,now:number):Promi
   const p=policy(env),secret=env.INTAKE_HMAC_SECRET!;
   const cycle=s.state.status==='confirmed'&&s.state.quote?await cycleId(s,secret):null;
   const hash=await desiredCalendar(s,env);
-  const policyHash=await digest(secret,canonical(p));
+  const policyHash=await digest(secret,canonical({policy:p,customerEmail:env.CUSTOMER_EMAIL_ENABLED==='true'}));
   const prior=await env.DB.prepare('SELECT booking_version,calendar_hash,policy_hash,required_job_ids FROM integration_plans WHERE booking_id=?').bind(id).first<{booking_version:number;calendar_hash:string|null;policy_hash:string;required_job_ids:string}>();
   const present=prior?await env.DB.prepare('SELECT COUNT(*) AS n FROM integration_jobs WHERE id IN (SELECT value FROM json_each(?))').bind(prior.required_job_ids).first<{n:number}>():null;
   if(prior?.booking_version===s.state.version&&prior.calendar_hash===hash&&prior.policy_hash===policyHash&&present?.n===(JSON.parse(prior.required_job_ids) as string[]).length){
@@ -58,6 +59,8 @@ export async function planBooking(env:IntegrationEnv,id:string,now:number):Promi
   );
   type Spec={kind:Kind;recipient:Job['recipient'];due:number;expires:number;cycle:string|null;hash?:string};
   const specs:Spec[]=[{kind:'new_request',recipient:'santa',due:quietAdjusted(s.receivedAt,p),expires:NEVER,cycle:null}];
+  const customerState=customerEmailState(s);
+  if(env.CUSTOMER_EMAIL_ENABLED==='true'&&customerState)specs.push({kind:'customer_update',recipient:'customer',due:quietAdjusted(now,p),expires:NEVER,cycle:null,hash:await digest(secret,customerState)});
   if(hash)specs.push({kind:'calendar',recipient:'google',due:s.confirmedAt,expires:NEVER,cycle:null,hash});
   if(cycle&&q){
     const add=(kind:Kind,target:number,recipient:Job['recipient']='santa')=>{const due=quietAdjusted(target,p);if(target>=s.confirmedAt&&due<q.start)specs.push({kind,recipient,due,expires:q.start,cycle});};
@@ -87,7 +90,7 @@ export async function planBooking(env:IntegrationEnv,id:string,now:number):Promi
   return applied;
 }
 export async function planResolutions(env:IntegrationEnv,id:string,now:number){
-  const rows=(await env.DB.batch<{cycle_id:string;recipient:Recipient;target_key:string;channel:'email'|'sms'}>([env.DB.prepare(`SELECT DISTINCT j.cycle_id,j.recipient,j.target_key,j.channel FROM integration_jobs j JOIN integration_cycles c ON c.id=j.cycle_id
+  const rows=(await env.DB.batch<{cycle_id:string;recipient:Recipient;target_key:string;channel:'email'}>([env.DB.prepare(`SELECT DISTINCT j.cycle_id,j.recipient,j.target_key,j.channel FROM integration_jobs j JOIN integration_cycles c ON c.id=j.cycle_id
     WHERE j.booking_id=? AND c.state='resolved' AND j.kind IN ('twenty_four_hours','escalation_2','escalation_3','escalation_4') AND j.accepted_at IS NOT NULL AND j.target_key IS NOT NULL`).bind(id)]))[0].results;
   for(const row of rows){const jobId=await digest(env.INTAKE_HMAC_SECRET!,`resolved:${row.cycle_id}:${row.recipient}:${row.target_key}:${row.channel}`);
     await env.DB.batch([env.DB.prepare(`INSERT INTO integration_jobs (id,booking_id,cycle_id,kind,recipient,target_key,channel,due_at,expires_at,next_at,state,updated_at) VALUES (?,?,?,'resolution',?,?,?,?,?,?,'queued',?) ON CONFLICT(id) DO NOTHING`).bind(jobId,id,row.cycle_id,row.recipient,row.target_key,row.channel,quietAdjusted(now,policy(env)),NEVER,quietAdjusted(now,policy(env)),now)]);

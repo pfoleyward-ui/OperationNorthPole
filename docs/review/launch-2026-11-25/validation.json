@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-25",
+  "backend": {
+    "passed": 124,
+    "failed": 0
+  },
+  "booking_domain": {
+    "passed": 148,
+    "failed": 0
+  },
+  "types": [
+    "application",
+    "backend",
+    "booking"
+  ],
+  "builds": [
+    "default-closed production storefront OpenNext",
+    "configured production review OpenNext via build:launch"
+  ],
+  "dry_runs": [
+    "HQ ingress",
+    "production signed webhook ingress",
+    "default-closed launch frontend"
+  ],
+  "production_browser_widths": [
+    390,
+    430,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "production_browser_providers": "synthetic local mocked Turnstile/Google/Resend; no real sends",
+  "public_site_deployed": false,
+  "core_backend_source_deployed": false,
+  "public_reference_comparison": "Not rerun: live public version unchanged; wizard mobile screenshot inspected; no claim of original-reference overlay.",
+  "staging_regression_widths": [
+    390,
+    430,
+    768,
+    1024,
+    1440,
+    1920
+  ]
+}

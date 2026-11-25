@@ -1,0 +1,22 @@
+{
+  "owner_email_matches_approved_policy": true,
+  "authenticated_account_user_matches_successful_application_login": true,
+  "login_time_utc": "2026-11-11T19:54:27Z",
+  "identity_provider": "cloudflare",
+  "staging_site_subject_enrolled_from_trusted_api": true,
+  "staging_site_jwt_checks": "RS256 signature, team issuer, application audience, expiry/age, enrolled subject; required for every protected request",
+  "real_browser_signed_jwt_application_success": "awaiting owner refresh",
+  "booking_hq_enabled": false,
+  "production_changes": false,
+  "encryption_key_changes": false,
+  "staging_frontend_deployment_success": true,
+  "staging_frontend_authentication_enabled": true,
+  "backend_hq_and_intake_disabled": true,
+  "production_gates_off": true,
+  "public_worker_version_unchanged": true,
+  "anonymous_checks": {
+    "/": 302,
+    "/hq": 302,
+    "/api/bookings": 302
+  }
+}

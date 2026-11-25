@@ -1,0 +1,27 @@
+{
+  "synthetic_booking_id": "8880afa8-2a30-4d4e-9384-f8646054665d",
+  "email_delivery_enabled": false,
+  "notes_collection_enabled": false,
+  "retention_enabled": false,
+  "bounded_staging_test": true,
+  "calendar_sync_success": true,
+  "preflight_only_one_explicitly_synthetic_booking": true,
+  "invitation_plan_rows": 1,
+  "calendar_job": {
+    "state": "delivered",
+    "attempts": 1,
+    "error_code": null
+  },
+  "calendar_mapping": {
+    "synced": 1,
+    "checked_at": 1794507598864
+  },
+  "scheduler_restored_to_disabled": true,
+  "public_worker_deployment_history_unchanged": true,
+  "note_rows_after": 0,
+  "notification_jobs_accepted_or_delivered": 0,
+  "disabled_scheduler_and_production_flags_read_back": true,
+  "native_calendar_popup_reminders_suppressed_for_test": true,
+  "owner_visual_event_verification": "pending",
+  "actual_event_reschedule_replay_cancel_tests": "pending"
+}

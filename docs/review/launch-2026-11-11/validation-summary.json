@@ -1,0 +1,41 @@
+{
+  "backend_tests": {
+    "passed": 95,
+    "failed": 0
+  },
+  "booking_rule_baseline": {
+    "passed": 148,
+    "date": "2026-11-10",
+    "domain_source_changed": false
+  },
+  "type_checks": "passed",
+  "private_integration_browser_widths": [
+    390,
+    430,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "deployment_dry_runs": 4,
+  "real_google_tested": false,
+  "real_resend_tested": false,
+  "real_access_login_tested": false,
+  "real_turnstile_tested": false,
+  "scheduled_synthetic_checks_passed": 48,
+  "public_worker_version": "29f336d2-5f3a-413b-aca6-cb5e4ede71e0",
+  "public_worker_unchanged": true,
+  "production_activation_gates": "all off",
+  "retention_approval": "pending by owner instruction",
+  "asset_upload_attempt": {
+    "status": "failed",
+    "http_status": 401,
+    "component": "temporary upload credential proxy"
+  },
+  "access_creation": {
+    "status": "blocked",
+    "http_status": 403,
+    "code": 1010
+  },
+  "production_database_writes": 0
+}

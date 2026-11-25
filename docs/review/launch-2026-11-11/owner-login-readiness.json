@@ -1,0 +1,68 @@
+{
+  "github_commit_verified": "c8807086f646b35e1bc88256e72b974bcb6f8a19",
+  "github_branch": "phase8/integration-launch-readiness",
+  "push": "normal fast-forward; no force or merge",
+  "login_browser_verified": true,
+  "login_host": "proud-shape-91a4.cloudflareaccess.com",
+  "login_option": "Cloudflare",
+  "exact_email_policy_verified": true,
+  "owner_login_completed": false,
+  "verified_owner_subject_enrolled": false,
+  "business_gates": {
+    "operation-north-pole-booking": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-integrations": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-booking-staging": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-integrations-staging": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications-staging": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    }
+  },
+  "automatic_retention": "disabled; owner decision pending"
+}

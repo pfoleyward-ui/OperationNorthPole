@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-25",
+  "production_callback": "https://hq.santablizard.com/hq/oauth/google/callback",
+  "callback_registration": "owner reports already registered/saved since November 12",
+  "publishing_status": "In production, owner-confirmed",
+  "public_client_identifier_reused_without_printing": true,
+  "private_client_secret_exported_or_read": false,
+  "workers": {
+    "operation-north-pole-booking": {
+      "client_id_installed": true,
+      "all_preexisting_bindings_unchanged": true,
+      "all_business_gates_still_off": true,
+      "client_secret_present": false
+    },
+    "operation-north-pole-integrations": {
+      "client_id_installed": true,
+      "all_preexisting_bindings_unchanged": true,
+      "all_business_gates_still_off": true,
+      "client_secret_present": false
+    }
+  },
+  "public_website_deployments_unchanged": true
+}

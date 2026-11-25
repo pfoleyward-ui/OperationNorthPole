@@ -76,7 +76,7 @@ try {
       await page.getByRole('button',{name:'Cancel booking',exact:true}).click();await page.getByText('Canceled',{exact:true}).waitFor();
     }
     await page.getByRole('button',{name:'Calendar',exact:true}).click();await page.getByLabel('Calendar date',{exact:true}).fill('2027-12-22');
-    await page.getByRole('heading',{name:'Resource unavailability',exact:true}).waitFor();await page.waitForLoadState('networkidle');assert.equal(await page.getByLabel('Unavailable start (New York)',{exact:true}).count(),1,'Rapid calendar navigation must not duplicate resource forms');
+    await page.getByRole('heading',{name:'Resource unavailability',exact:true}).waitFor();await page.waitForLoadState('networkidle');await page.getByLabel('Unavailable start (New York)',{exact:true}).waitFor();assert.equal(await page.getByLabel('Unavailable start (New York)',{exact:true}).count(),1,'Rapid calendar navigation must not duplicate resource forms');
     if(width===390){
       await page.getByLabel('Unavailable start (New York)',{exact:true}).fill('11:00');await page.getByLabel('Unavailable duration (minutes)',{exact:true}).fill('120');await page.getByRole('button',{name:'Save unavailable time',exact:true}).click();
       await page.getByRole('button',{name:'Release santa block',exact:true}).click();await page.getByText('Resource block released.',{exact:true}).waitFor();

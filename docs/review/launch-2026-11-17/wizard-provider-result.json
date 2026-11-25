@@ -1,0 +1,146 @@
+{
+  "fixture": "36f5ca8d-30cf-49ef-a648-7902508a207f",
+  "sole_recipient": "santablizard@gmail.com",
+  "bounded_staging_only": true,
+  "production_changes": false,
+  "previous_email_delivery_rows": 3,
+  "outcome": "passed",
+  "automatic_delivery_sync_planner_customer_email_restored_off": true,
+  "jobs": [
+    {
+      "id": "8e00a4d6df3743e83204bfaa648ea68c76538ef20dcdfd5c933c8574372cd8f4",
+      "kind": "calendar",
+      "state": "delivered",
+      "attempts": 1,
+      "error_code": null
+    },
+    {
+      "id": "4fb6a7cf8716697373a212787e8b4844576b4fbb6c223a9006d31d572d09acde",
+      "kind": "confirmation",
+      "state": "delivered",
+      "attempts": 2,
+      "error_code": null
+    },
+    {
+      "id": "2b971d6ee5991c2a10e69239bbba8b7c20612877dd86aec9d049c61813391e5f",
+      "kind": "customer_update",
+      "state": "delivered",
+      "attempts": 2,
+      "error_code": null
+    },
+    {
+      "id": "fc457eb43ffb4a2aca1df7df63f4c507611fa129b779e8dcd55bf7a146213a52",
+      "kind": "escalation_2",
+      "state": "queued",
+      "attempts": 0,
+      "error_code": null
+    },
+    {
+      "id": "00a6ccd30dec4bbda0384563982f1e2601117c78db2ec5afa9a749b84068e0b9",
+      "kind": "escalation_3",
+      "state": "queued",
+      "attempts": 0,
+      "error_code": null
+    },
+    {
+      "id": "56aa99e938cfd5f70905f8fa8631c547d1f8ec48ac2fd31e152a03e532dc6a0c",
+      "kind": "escalation_4",
+      "state": "queued",
+      "attempts": 0,
+      "error_code": null
+    },
+    {
+      "id": "58fb7b9e7cc4a7da4e8a03366023365aa063e5cff3f9ace5e6fd42c01107bbb3",
+      "kind": "morning",
+      "state": "queued",
+      "attempts": 0,
+      "error_code": null
+    },
+    {
+      "id": "18767c62a055540efc53668589b7a4f65b808b90153eb2ef203ce59bbe665725",
+      "kind": "new_request",
+      "state": "delivered",
+      "attempts": 2,
+      "error_code": null
+    },
+    {
+      "id": "7922e7c0ec7cc69c6588eef9b764d41d1adc5d5460d5b02a0c8a034ad4365fd0",
+      "kind": "seven_days",
+      "state": "queued",
+      "attempts": 0,
+      "error_code": null
+    },
+    {
+      "id": "5b885dda92a33c44dfba77aecd889a598cfaf330b892e786d08b8460e33ba397",
+      "kind": "three_hours",
+      "state": "queued",
+      "attempts": 0,
+      "error_code": null
+    },
+    {
+      "id": "452c2dbcaee8548d6666ef8e1cca223c4fbb130fe8f06d92454385b75120a611",
+      "kind": "twenty_four_hours",
+      "state": "queued",
+      "attempts": 0,
+      "error_code": null
+    }
+  ],
+  "calendar_mapping": [
+    {
+      "synced": 1,
+      "checked_at": 1794939596911
+    }
+  ],
+  "notes_count": 0,
+  "gateway_new_rows": [
+    {
+      "state": "delivered",
+      "attempts": 1,
+      "provider_receipt_present": 1,
+      "approved_recipient": 1
+    },
+    {
+      "state": "delivered",
+      "attempts": 1,
+      "provider_receipt_present": 1,
+      "approved_recipient": 1
+    },
+    {
+      "state": "delivered",
+      "attempts": 1,
+      "provider_receipt_present": 1,
+      "approved_recipient": 1
+    }
+  ],
+  "new_signed_webhook_receipts": 6,
+  "public_worker_history_unchanged": true,
+  "owner_visual_confirmation": {
+    "customer_confirmation_email_received": true,
+    "appointment_december_20_2026_1400_new_york_matches": true,
+    "calendar_visual_confirmation": {
+      "passed": true,
+      "exactly_one_event": true,
+      "date": "2026-12-20",
+      "start": "14:00",
+      "end": "14:30",
+      "timezone": "America/New_York"
+    },
+    "sender_reply_to_visual_confirmation": "not separately confirmed",
+    "physical_iphone_safari": {
+      "passed": true,
+      "access_hq_booking_loads": true,
+      "readable_without_horizontal_scroll": true,
+      "calendar_app_visibility": {
+        "passed": true,
+        "calendar": "SantaBlizard Bookings",
+        "date": "2026-12-20",
+        "start": "14:00",
+        "end": "14:30",
+        "timezone": "America/New_York",
+        "app_name": "not specified by owner"
+      },
+      "focus_lock_screen_alerts": "Focus configuration and actual locked-device alerts deferred: Santa unavailable; no backend dependency",
+      "email_show_previews": "When Unlocked (owner-confirmed)"
+    }
+  }
+}

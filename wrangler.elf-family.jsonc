@@ -1,0 +1,10 @@
+{
+  "name": "operation-north-pole-elf-family",
+  "main": "workers/elf-family.ts",
+  "compatibility_date": "2026-11-08",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": {"enabled": false},
+  "vars": {"ELF_FAMILY_ENABLED": "false", "ELF_FAMILY_ORIGIN": "https://notes.santablizard.com"},
+  "services": [{"binding": "BOOKING", "service": "operation-north-pole-booking"}]
+}

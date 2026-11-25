@@ -1,0 +1,90 @@
+{
+  "owner_visual_google_removal_confirmed": true,
+  "fixture_id": "8880afa8-2a30-4d4e-9384-f8646054665d",
+  "guarded_synthetic_staging_delete_count": 1,
+  "remaining_fixture_rows_by_table": {
+    "hq_bookings": 0,
+    "hq_operations": 0,
+    "hq_reservations": 0,
+    "hq_event_outbox": 0,
+    "hq_elf_invitation_plans": 0,
+    "integration_cycles": 0,
+    "integration_plans": 0,
+    "integration_jobs": 0,
+    "integration_outbox_receipts": 0,
+    "integration_calendar": 0,
+    "elf_invitations": 0,
+    "elf_notes": 0,
+    "elf_alerts": 0
+  },
+  "foreign_key_check": "passed",
+  "google_connection_and_dedicated_calendar_preserved": {
+    "status": "connected",
+    "calendar_state": "ready",
+    "calendar_bound": 1,
+    "encrypted_tokens_present": 1
+  },
+  "encryption_keys_changed": false,
+  "customer_or_production_data_deleted": false,
+  "disabled_flags": {
+    "operation-north-pole-integrations-staging": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications-staging": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-booking": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-integrations": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    }
+  },
+  "staging_gateway_counts": {
+    "deliveries": 0,
+    "webhook_receipts": 0
+  },
+  "public_worker_version_unchanged": true,
+  "staging_booking_gates": {
+    "BACKUP_ESCALATION_ENABLED": "false",
+    "CALENDAR_SYNC_ENABLED": "false",
+    "CUSTOMER_EMAIL_ENABLED": "false",
+    "ELF_NOTES_ENABLED": "false",
+    "ELF_RETENTION_APPROVED": "false",
+    "GOOGLE_OAUTH_ENABLED": "true",
+    "HQ_ENABLED": "true",
+    "INTEGRATION_PLANNER_ENABLED": "false",
+    "NOTIFICATION_DELIVERY_ENABLED": "false",
+    "PUBLIC_INTAKE_ENABLED": "false",
+    "STAGING_INTAKE_ENABLED": "false"
+  }
+}

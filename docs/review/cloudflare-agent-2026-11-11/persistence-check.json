@@ -1,0 +1,87 @@
+{
+  "test": "Separate local checkout; project skills recognized, but project MCP layer remains disabled as untrusted despite process-only override.",
+  "project_skill_count": 22,
+  "project_skill_names": [
+    "agents-sdk",
+    "basin",
+    "cf-cli",
+    "cloudflare",
+    "cloudflare-app-bootstrap",
+    "cloudflare-email-service",
+    "cloudflare-one",
+    "cloudflare-one-migrations",
+    "durable-objects",
+    "frameworks-on-cloudflare",
+    "gateway-workers",
+    "k2",
+    "nextjs-on-cloudflare",
+    "sandbox-migrate-to-next",
+    "sandbox-next",
+    "sandbox-stable",
+    "turnstile-spin",
+    "web-perf",
+    "workers-best-practices",
+    "workers-development",
+    "workers-profiling",
+    "wrangler"
+  ],
+  "config_response_error": null,
+  "layers": [
+    {
+      "name": {
+        "type": "sessionFlags"
+      },
+      "disabledReason": null,
+      "configKeys": [
+        "projects"
+      ],
+      "mcp": null
+    },
+    {
+      "name": {
+        "type": "project",
+        "dotCodexFolder": "/workspace/OperationNorthPole/work/cloudflare-clean-checkout/.codex"
+      },
+      "disabledReason": "To load project-local config, hooks, and exec policies, add /workspace/OperationNorthPole/work/cloudflare-clean-checkout as a trusted project in /home/agent/.codex/config.toml.",
+      "configKeys": [
+        "mcp_servers"
+      ],
+      "mcp": {
+        "cloudflare": {
+          "url": "https://mcp.cloudflare.com/mcp",
+          "enabled": true
+        }
+      }
+    },
+    {
+      "name": {
+        "type": "user",
+        "file": "/home/agent/.codex/config.toml",
+        "profile": null
+      },
+      "disabledReason": null,
+      "configKeys": [
+        "mcp_servers"
+      ],
+      "mcp": {
+        "cloudflare": {
+          "url": "https://mcp.cloudflare.com/mcp"
+        }
+      }
+    },
+    {
+      "name": {
+        "type": "system",
+        "file": "/etc/codex/config.toml"
+      },
+      "disabledReason": null,
+      "configKeys": [
+        "plugins",
+        "marketplaces"
+      ],
+      "mcp": null
+    }
+  ],
+  "actual_future_cloud_task_tested": false,
+  "oauth_credentials_copied": false
+}

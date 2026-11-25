@@ -1,0 +1,11 @@
+{
+  "https://santablizard.com/": 200,
+  "https://santablizard.com/privacy": 200,
+  "https://santablizard.com/terms": 200,
+  "https://santablizard.com/book": 404,
+  "https://santablizard.com/hq": 404,
+  "https://santablizard.com/elf-notes": 404,
+  "https://hq.santablizard.com/hq": 302,
+  "https://notes.santablizard.com/elf-notes": 503,
+  "https://webhooks.santablizard.com/webhooks/resend": 404
+}

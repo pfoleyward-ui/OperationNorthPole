@@ -1,0 +1,25 @@
+{
+  "temporary_test_worker_removed": true,
+  "staging_cleanup": [
+    {
+      "database": "booking-staging",
+      "table": "booking_requests",
+      "remaining_rows": 0
+    },
+    {
+      "database": "booking-staging",
+      "table": "elf_notes",
+      "remaining_rows": 0
+    },
+    {
+      "database": "booking-staging",
+      "table": "integration_google",
+      "remaining_rows": 0
+    },
+    {
+      "database": "email-staging",
+      "table": "gateway_deliveries",
+      "remaining_rows": 0
+    }
+  ]
+}

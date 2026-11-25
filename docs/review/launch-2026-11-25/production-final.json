@@ -1,0 +1,116 @@
+{
+  "date": "2026-11-25",
+  "workers": {
+    "operation-north-pole-booking": {
+      "gates": {
+        "BACKUP_ESCALATION_ENABLED": "false",
+        "CALENDAR_SYNC_ENABLED": "false",
+        "CUSTOMER_EMAIL_ENABLED": "false",
+        "ELF_NOTES_ENABLED": "false",
+        "ELF_RETENTION_APPROVED": "false",
+        "GOOGLE_OAUTH_ENABLED": "false",
+        "HQ_ENABLED": "false",
+        "INTEGRATION_PLANNER_ENABLED": "false",
+        "NOTIFICATION_DELIVERY_ENABLED": "false",
+        "PUBLIC_INTAKE_ENABLED": "false",
+        "STAGING_INTAKE_ENABLED": "false"
+      },
+      "credential_binding_presence": {
+        "GOOGLE_CLIENT_ID": true,
+        "GOOGLE_CLIENT_SECRET": true,
+        "RESEND_API_KEY": false,
+        "RESEND_WEBHOOK_SECRET": false,
+        "TURNSTILE_SECRET": true,
+        "SANTA_SUBJECTS": true,
+        "ACCESS_AUDIENCE": true
+      }
+    },
+    "operation-north-pole-integrations": {
+      "gates": {
+        "CALENDAR_SYNC_ENABLED": "false",
+        "CUSTOMER_EMAIL_ENABLED": "false",
+        "ELF_NOTES_ENABLED": "false",
+        "ELF_RETENTION_APPROVED": "false",
+        "GOOGLE_OAUTH_ENABLED": "false",
+        "INTEGRATION_PLANNER_ENABLED": "false",
+        "NOTIFICATION_DELIVERY_ENABLED": "false"
+      },
+      "credential_binding_presence": {
+        "GOOGLE_CLIENT_ID": true,
+        "GOOGLE_CLIENT_SECRET": true,
+        "RESEND_API_KEY": false,
+        "RESEND_WEBHOOK_SECRET": false,
+        "TURNSTILE_SECRET": false,
+        "SANTA_SUBJECTS": false,
+        "ACCESS_AUDIENCE": false
+      }
+    },
+    "operation-north-pole-notifications": {
+      "gates": {
+        "ELF_NOTES_ENABLED": "false",
+        "ELF_RETENTION_APPROVED": "false",
+        "GATEWAY_DELIVERY_ENABLED": "false"
+      },
+      "credential_binding_presence": {
+        "GOOGLE_CLIENT_ID": false,
+        "GOOGLE_CLIENT_SECRET": false,
+        "RESEND_API_KEY": false,
+        "RESEND_WEBHOOK_SECRET": false,
+        "TURNSTILE_SECRET": false,
+        "SANTA_SUBJECTS": false,
+        "ACCESS_AUDIENCE": false
+      }
+    },
+    "operation-north-pole-hq": {
+      "gates": {
+        "BACKUP_ESCALATION_ENABLED": "false",
+        "HQ_ENABLED": "false",
+        "HQ_INGRESS_ENABLED": "false"
+      },
+      "credential_binding_presence": {
+        "GOOGLE_CLIENT_ID": false,
+        "GOOGLE_CLIENT_SECRET": false,
+        "RESEND_API_KEY": false,
+        "RESEND_WEBHOOK_SECRET": false,
+        "TURNSTILE_SECRET": false,
+        "SANTA_SUBJECTS": true,
+        "ACCESS_AUDIENCE": true
+      }
+    },
+    "operation-north-pole-elf-family": {
+      "gates": {
+        "ELF_FAMILY_ENABLED": "false"
+      },
+      "credential_binding_presence": {
+        "GOOGLE_CLIENT_ID": false,
+        "GOOGLE_CLIENT_SECRET": false,
+        "RESEND_API_KEY": false,
+        "RESEND_WEBHOOK_SECRET": false,
+        "TURNSTILE_SECRET": false,
+        "SANTA_SUBJECTS": false,
+        "ACCESS_AUDIENCE": false
+      }
+    },
+    "operation-north-pole-resend-webhook": {
+      "gates": {
+        "RESEND_WEBHOOK_INGRESS_ENABLED": "false"
+      },
+      "credential_binding_presence": {
+        "GOOGLE_CLIENT_ID": false,
+        "GOOGLE_CLIENT_SECRET": false,
+        "RESEND_API_KEY": false,
+        "RESEND_WEBHOOK_SECRET": false,
+        "TURNSTILE_SECRET": false,
+        "SANTA_SUBJECTS": false,
+        "ACCESS_AUDIENCE": false
+      }
+    }
+  },
+  "public_versions": [
+    {
+      "version_id": "f329e733-213f-4dcd-8c9f-bc876915eaaf",
+      "percentage": 100
+    }
+  ],
+  "google_authorization_verified": false
+}

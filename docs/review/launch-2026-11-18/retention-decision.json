@@ -1,0 +1,8 @@
+{
+  "source": "owner reply to retention-period question on November 18, 2026",
+  "owner_selected": "30 days after the visit (previous proposal)",
+  "retention_days": 30,
+  "enforcement": "manual review and explicit deletion",
+  "automatic_deletion_authorized": false,
+  "launch_scope_includes_elf_notes": true
+}

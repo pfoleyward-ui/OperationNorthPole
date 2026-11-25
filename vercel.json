@@ -5,7 +5,8 @@
       "phase4/customer-booking-preview": false,
       "phase5/secure-booking-backend": false,
       "phase6/santa-hq": false,
-      "phase7/calendar-notifications": false
+      "phase7/calendar-notifications": false,
+      "phase8/integration-launch-readiness": false
     }
   }
 }

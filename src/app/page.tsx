@@ -199,6 +199,7 @@ export default function Home() {
           </address>
           <a href="#top">Back to the North Pole ↑</a>
         </div>
+        <nav aria-label="Website policies"><a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a></nav>
         <SocialLinks />
         <small>
           © {new Date().getFullYear()} SantaBlizard · Hudson Valley, New York

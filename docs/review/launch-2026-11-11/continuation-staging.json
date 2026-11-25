@@ -1,0 +1,129 @@
+{
+  "base_commit": "263e759",
+  "access_creation_http_status": 201,
+  "exact_email_policy_readback_verified": true,
+  "full_staging_asset_manifest_count": 145,
+  "preupload_success": true,
+  "resume_uploaded_count": 0,
+  "staging_deployment_success": true,
+  "staging_domain": "staging.santablizard.com",
+  "anonymous_checks": [
+    {
+      "method": "GET",
+      "path": "/",
+      "status": 302,
+      "access_login_redirect": true,
+      "anonymous_denied": true,
+      "curl_exit": 0
+    },
+    {
+      "method": "GET",
+      "path": "/book",
+      "status": 302,
+      "access_login_redirect": true,
+      "anonymous_denied": true,
+      "curl_exit": 0
+    },
+    {
+      "method": "GET",
+      "path": "/hq",
+      "status": 302,
+      "access_login_redirect": true,
+      "anonymous_denied": true,
+      "curl_exit": 0
+    },
+    {
+      "method": "GET",
+      "path": "/_next/static/",
+      "status": 302,
+      "access_login_redirect": true,
+      "anonymous_denied": true,
+      "curl_exit": 0
+    },
+    {
+      "method": "POST",
+      "path": "/api/bookings",
+      "status": 302,
+      "access_login_redirect": true,
+      "anonymous_denied": true,
+      "curl_exit": 0
+    },
+    {
+      "method": "GET",
+      "path": "/elf-notes",
+      "status": 302,
+      "access_login_redirect": true,
+      "anonymous_denied": true,
+      "curl_exit": 0
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/resend",
+      "status": 302,
+      "access_login_redirect": true,
+      "anonymous_denied": true,
+      "curl_exit": 0
+    }
+  ],
+  "forged_assertion_on_real_js_asset_status": 302,
+  "public_deployments_unchanged": true,
+  "public_worker_version": "29f336d2-5f3a-413b-aca6-cb5e4ede71e0",
+  "public_http": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/services",
+      "status": 200
+    },
+    {
+      "path": "/book",
+      "status": 404
+    },
+    {
+      "path": "/hq",
+      "status": 404
+    },
+    {
+      "path": "/api/bookings",
+      "status": 404
+    },
+    {
+      "path": "/review",
+      "status": 404
+    },
+    {
+      "path": "/elf-notes",
+      "status": 404
+    },
+    {
+      "path": "/webhooks/resend",
+      "status": 404
+    }
+  ],
+  "production_gates_unchanged_and_off": true,
+  "production_secret_names_unchanged": true,
+  "production_database_writes": 0,
+  "application_encryption_keys_rotated": false,
+  "real_messages_sent": 0,
+  "owner_access_login_verified": false,
+  "real_turnstile_challenge_verified": false,
+  "backend_tests_passed": 95,
+  "booking_tests_passed": 148,
+  "typechecks_passed": [
+    "application",
+    "backend",
+    "booking"
+  ],
+  "staging_build": "passed",
+  "deployment_dry_runs_passed": 4,
+  "synthetic_staging_browser_widths": [
+    390,
+    430,
+    768,
+    1024,
+    1440,
+    1920
+  ]
+}

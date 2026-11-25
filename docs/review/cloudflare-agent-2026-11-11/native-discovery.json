@@ -1,0 +1,198 @@
+{
+  "native_cli_skill_discovery": [
+    {
+      "name": "agents-sdk",
+      "scope": "project"
+    },
+    {
+      "name": "basin",
+      "scope": "project"
+    },
+    {
+      "name": "cf-cli",
+      "scope": "project"
+    },
+    {
+      "name": "cloudflare",
+      "scope": "project"
+    },
+    {
+      "name": "cloudflare-app-bootstrap",
+      "scope": "project"
+    },
+    {
+      "name": "cloudflare-email-service",
+      "scope": "project"
+    },
+    {
+      "name": "cloudflare-one",
+      "scope": "project"
+    },
+    {
+      "name": "cloudflare-one-migrations",
+      "scope": "project"
+    },
+    {
+      "name": "durable-objects",
+      "scope": "project"
+    },
+    {
+      "name": "frameworks-on-cloudflare",
+      "scope": "project"
+    },
+    {
+      "name": "gateway-workers",
+      "scope": "project"
+    },
+    {
+      "name": "k2",
+      "scope": "project"
+    },
+    {
+      "name": "nextjs-on-cloudflare",
+      "scope": "project"
+    },
+    {
+      "name": "sandbox-migrate-to-next",
+      "scope": "project"
+    },
+    {
+      "name": "sandbox-next",
+      "scope": "project"
+    },
+    {
+      "name": "sandbox-stable",
+      "scope": "project"
+    },
+    {
+      "name": "turnstile-spin",
+      "scope": "project"
+    },
+    {
+      "name": "web-perf",
+      "scope": "project"
+    },
+    {
+      "name": "workers-best-practices",
+      "scope": "project"
+    },
+    {
+      "name": "workers-development",
+      "scope": "project"
+    },
+    {
+      "name": "workers-profiling",
+      "scope": "project"
+    },
+    {
+      "name": "wrangler",
+      "scope": "project"
+    },
+    {
+      "name": "agents-sdk",
+      "scope": "global"
+    },
+    {
+      "name": "basin",
+      "scope": "global"
+    },
+    {
+      "name": "cf-cli",
+      "scope": "global"
+    },
+    {
+      "name": "cloudflare",
+      "scope": "global"
+    },
+    {
+      "name": "cloudflare-app-bootstrap",
+      "scope": "global"
+    },
+    {
+      "name": "cloudflare-email-service",
+      "scope": "global"
+    },
+    {
+      "name": "cloudflare-one",
+      "scope": "global"
+    },
+    {
+      "name": "cloudflare-one-migrations",
+      "scope": "global"
+    },
+    {
+      "name": "durable-objects",
+      "scope": "global"
+    },
+    {
+      "name": "frameworks-on-cloudflare",
+      "scope": "global"
+    },
+    {
+      "name": "gateway-workers",
+      "scope": "global"
+    },
+    {
+      "name": "k2",
+      "scope": "global"
+    },
+    {
+      "name": "nextjs-on-cloudflare",
+      "scope": "global"
+    },
+    {
+      "name": "sandbox-migrate-to-next",
+      "scope": "global"
+    },
+    {
+      "name": "sandbox-next",
+      "scope": "global"
+    },
+    {
+      "name": "sandbox-stable",
+      "scope": "global"
+    },
+    {
+      "name": "turnstile-spin",
+      "scope": "global"
+    },
+    {
+      "name": "web-perf",
+      "scope": "global"
+    },
+    {
+      "name": "workers-best-practices",
+      "scope": "global"
+    },
+    {
+      "name": "workers-development",
+      "scope": "global"
+    },
+    {
+      "name": "workers-profiling",
+      "scope": "global"
+    },
+    {
+      "name": "wrangler",
+      "scope": "global"
+    }
+  ],
+  "mcp_status": {
+    "data": [
+      {
+        "name": "cloudflare",
+        "runtimeStatus": null,
+        "pluginId": null,
+        "httpOrigin": "https://mcp.cloudflare.com",
+        "serverInfo": null,
+        "serverCapabilities": null,
+        "tools": {},
+        "toolsError": "MCP startup failed: handshaking with MCP server failed: Send message error Transport [codex_rmcp_client::event_notification_transport::EventNotificationTransport<rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>>] error: Client error: HTTP request failed: http/request failed: error sending request for url (https://mcp.cloudflare.com/mcp), when send initialize request: Send message error Transport [codex_rmcp_client::event_notification_transport::EventNotificationTransport<rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>>] error: Client error: HTTP request failed: http/request failed: error sending request for url (https://mcp.cloudflare.com/mcp), when send initialize request",
+        "resources": [],
+        "resourceTemplates": [],
+        "authStatus": "unknown"
+      }
+    ],
+    "nextCursor": null
+  }
+}

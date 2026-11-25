@@ -1,0 +1,102 @@
+{
+  "base": "https://santablizard.com",
+  "liveDomainVerified": true,
+  "checks": [
+    {
+      "path": "/",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/services",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/privacy",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/terms",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/_optimized/santa-cutout-750.webp",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/images/santa-family.jpg",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/book",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/review",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/hq",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/hq/api/bookings",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/api/bookings",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/webhooks/resend",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/api/bookings",
+      "method": "POST",
+      "status": 404
+    },
+    {
+      "path": "/hq/api/bookings",
+      "method": "POST",
+      "status": 404
+    },
+    {
+      "path": "/webhooks/resend",
+      "method": "POST",
+      "status": 404
+    },
+    {
+      "path": "/book",
+      "method": "POST",
+      "status": 404
+    },
+    {
+      "path": "/privacy",
+      "method": "POST",
+      "status": 405
+    },
+    {
+      "path": "/terms",
+      "method": "POST",
+      "status": 405
+    },
+    {
+      "host": "www.santablizard.com",
+      "path": "/services?source=invite",
+      "status": 308,
+      "location": "https://santablizard.com/services?source=invite"
+    }
+  ]
+}

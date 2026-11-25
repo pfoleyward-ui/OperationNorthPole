@@ -1,0 +1,18 @@
+{
+  "before": {
+    "/images/santa-family.jpg": {
+      "status": 403
+    },
+    "/_optimized/santa-cutout-750.webp": {
+      "status": 403
+    },
+    "/images/santa-standing.jpg": {
+      "status": 403
+    },
+    "/images/santa-peeking.jpg": {
+      "status": 403
+    }
+  },
+  "after_matches_before": true,
+  "verification": "Compared actual HTTPS bytes/statuses before and after authorized policy-only release"
+}

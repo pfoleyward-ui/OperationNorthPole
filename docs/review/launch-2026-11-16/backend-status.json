@@ -1,0 +1,95 @@
+{
+  "as_of": "2026-11-16",
+  "live_disabled_gates": {
+    "operation-north-pole-booking-staging": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "true",
+      "HQ_ENABLED": "true",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-integrations-staging": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications-staging": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-booking": {
+      "BACKUP_ESCALATION_ENABLED": "false",
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "HQ_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false",
+      "PUBLIC_INTAKE_ENABLED": "false",
+      "STAGING_INTAKE_ENABLED": "false"
+    },
+    "operation-north-pole-integrations": {
+      "CALENDAR_SYNC_ENABLED": "false",
+      "CUSTOMER_EMAIL_ENABLED": "false",
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GOOGLE_OAUTH_ENABLED": "false",
+      "INTEGRATION_PLANNER_ENABLED": "false",
+      "NOTIFICATION_DELIVERY_ENABLED": "false"
+    },
+    "operation-north-pole-notifications": {
+      "ELF_NOTES_ENABLED": "false",
+      "ELF_RETENTION_APPROVED": "false",
+      "GATEWAY_DELIVERY_ENABLED": "false"
+    }
+  },
+  "staging_google_metadata": [
+    {
+      "status": "connected",
+      "calendar_state": "ready"
+    }
+  ],
+  "staging_fixture_counts": [
+    {
+      "bookings": 0,
+      "notes": 0
+    }
+  ],
+  "controlled_email_receipts": [
+    {
+      "state": "delivered",
+      "attempts": 1,
+      "approved_test_recipient": 1
+    },
+    {
+      "state": "delivered",
+      "attempts": 1,
+      "approved_test_recipient": 1
+    }
+  ],
+  "staging_exact_email_access_policy": true,
+  "http": {
+    "https://santablizard.com/": 200,
+    "https://santablizard.com/book": 404,
+    "https://santablizard.com/hq": 404,
+    "https://staging.santablizard.com/hq": 302
+  },
+  "code_branch": "phase8/integration-launch-readiness",
+  "source_commit": "655c68e",
+  "latest_full_backend_test_baseline": 105,
+  "latest_focused_gateway_readiness_tests": 13,
+  "checks_this_turn": "read-only Cloudflare configuration/D1 metadata/HTTP; no messages or deployment"
+}

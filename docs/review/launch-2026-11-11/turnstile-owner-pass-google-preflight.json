@@ -1,0 +1,29 @@
+{
+  "positive_turnstile_result": "PASS: Real Turnstile proof verified for staging.",
+  "evidence_source": "owner reported result from protected real siteverify checker",
+  "positive_proof_or_access_token_collected": false,
+  "server_requires_exact_hostname_and_action": true,
+  "backend_staging_identity_prepared_from_trusted_access_records": true,
+  "backend_hq_enabled": false,
+  "google_configuration": {
+    "operation-north-pole-booking-staging": {
+      "google_client_id_installed": false,
+      "google_client_secret_installed": false,
+      "existing_encryption_keyring_present": true,
+      "google_oauth_enabled": "false",
+      "calendar_sync_enabled": "false"
+    },
+    "operation-north-pole-integrations-staging": {
+      "google_client_id_installed": false,
+      "google_client_secret_installed": false,
+      "existing_encryption_keyring_present": true,
+      "google_oauth_enabled": "false",
+      "calendar_sync_enabled": "false"
+    }
+  },
+  "google_authorization_or_sync_tested": false,
+  "production_gates_off": true,
+  "encryption_keys_unchanged": true,
+  "automatic_retention_enabled": false,
+  "next_owner_action": "Select or create the dedicated Google Cloud staging project; share project ID only"
+}

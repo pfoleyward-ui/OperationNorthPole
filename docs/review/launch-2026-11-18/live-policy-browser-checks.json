@@ -1,0 +1,122 @@
+[
+  {
+    "path": "privacy",
+    "width": 390,
+    "status": "passed",
+    "checks": [
+      "readable responsive layout",
+      "no horizontal overflow",
+      "no forms",
+      "canonical URL",
+      "no browser errors"
+    ]
+  },
+  {
+    "path": "terms",
+    "width": 390,
+    "status": "passed",
+    "checks": [
+      "readable responsive layout",
+      "no horizontal overflow",
+      "no forms",
+      "canonical URL",
+      "no browser errors"
+    ]
+  },
+  {
+    "path": "privacy",
+    "width": 768,
+    "status": "passed",
+    "checks": [
+      "readable responsive layout",
+      "no horizontal overflow",
+      "no forms",
+      "canonical URL",
+      "no browser errors"
+    ]
+  },
+  {
+    "path": "terms",
+    "width": 768,
+    "status": "passed",
+    "checks": [
+      "readable responsive layout",
+      "no horizontal overflow",
+      "no forms",
+      "canonical URL",
+      "no browser errors"
+    ]
+  },
+  {
+    "path": "privacy",
+    "width": 1024,
+    "status": "passed",
+    "checks": [
+      "readable responsive layout",
+      "no horizontal overflow",
+      "no forms",
+      "canonical URL",
+      "no browser errors"
+    ]
+  },
+  {
+    "path": "terms",
+    "width": 1024,
+    "status": "passed",
+    "checks": [
+      "readable responsive layout",
+      "no horizontal overflow",
+      "no forms",
+      "canonical URL",
+      "no browser errors"
+    ]
+  },
+  {
+    "path": "privacy",
+    "width": 1440,
+    "status": "passed",
+    "checks": [
+      "readable responsive layout",
+      "no horizontal overflow",
+      "no forms",
+      "canonical URL",
+      "no browser errors"
+    ]
+  },
+  {
+    "path": "terms",
+    "width": 1440,
+    "status": "passed",
+    "checks": [
+      "readable responsive layout",
+      "no horizontal overflow",
+      "no forms",
+      "canonical URL",
+      "no browser errors"
+    ]
+  },
+  {
+    "path": "privacy",
+    "width": 1920,
+    "status": "passed",
+    "checks": [
+      "readable responsive layout",
+      "no horizontal overflow",
+      "no forms",
+      "canonical URL",
+      "no browser errors"
+    ]
+  },
+  {
+    "path": "terms",
+    "width": 1920,
+    "status": "passed",
+    "checks": [
+      "readable responsive layout",
+      "no horizontal overflow",
+      "no forms",
+      "canonical URL",
+      "no browser errors"
+    ]
+  }
+]

@@ -1,0 +1,68 @@
+{
+  "as_of": "2026-11-17",
+  "backend_tests": {
+    "passed": 109,
+    "failed": 0
+  },
+  "booking_domain_tests": {
+    "passed": 148,
+    "failed": 0
+  },
+  "focused_email_tests": {
+    "passed": 15,
+    "failed": 0
+  },
+  "native_sql_parser_tests": {
+    "passed": 3,
+    "failed": 0
+  },
+  "typescript": [
+    "app",
+    "booking",
+    "backend"
+  ],
+  "build": "OpenNext protected staging passed",
+  "browser_checks": {
+    "protected_booking": [
+      390,
+      430,
+      768,
+      1024,
+      1440,
+      1920
+    ],
+    "hq": [
+      390,
+      430,
+      768,
+      1024,
+      1440,
+      1920
+    ],
+    "integrations": [
+      390,
+      430,
+      768,
+      1024,
+      1440,
+      1920
+    ],
+    "elf_notes": [
+      390,
+      768,
+      1440
+    ],
+    "provider_mode": "local mocked providers; no real Access or Turnstile success inferred"
+  },
+  "deployment_dry_runs": [
+    "site",
+    "booking",
+    "integrations",
+    "notifications"
+  ],
+  "native_recovery": "native export/download/import and original synthetic encrypted-key application recovery passed",
+  "real_email_recovery": "signed callbacks recovered selected discarded provider API receipt; attempts=1",
+  "protected_wizard": "staging-only frontend/API enabled; actual authenticated interactive submission remains pending",
+  "public_production_changed": false,
+  "physical_iphone_tested": false
+}

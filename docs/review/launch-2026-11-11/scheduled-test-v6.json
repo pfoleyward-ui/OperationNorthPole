@@ -1,0 +1,549 @@
+{
+  "providerMode": "simulated Google, Turnstile and Resend; real Cloudflare runtime/D1",
+  "externalRequests": 0,
+  "checks": [
+    {
+      "name": "staging_database_initially_empty",
+      "passed": true
+    },
+    {
+      "name": "deployed_booking_intake_disabled",
+      "passed": true
+    },
+    {
+      "name": "deployed_hq_disabled",
+      "passed": true
+    },
+    {
+      "name": "deployed_notes_disabled",
+      "passed": true
+    },
+    {
+      "name": "deployed_gateway_delivery_disabled",
+      "passed": true
+    },
+    {
+      "name": "unsigned_hq_denied",
+      "passed": true
+    },
+    {
+      "name": "staging_booking_received",
+      "passed": true
+    },
+    {
+      "name": "duplicate_booking_same_receipt",
+      "passed": true
+    },
+    {
+      "name": "changed_duplicate_rejected",
+      "passed": true
+    },
+    {
+      "name": "pending_does_not_reserve",
+      "passed": true
+    },
+    {
+      "name": "new_booking_notification",
+      "passed": true
+    },
+    {
+      "name": "notes_before_confirmation_rejected",
+      "passed": true
+    },
+    {
+      "name": "review_primary",
+      "passed": true
+    },
+    {
+      "name": "propose_primary",
+      "passed": true
+    },
+    {
+      "name": "share_quote_primary",
+      "passed": true
+    },
+    {
+      "name": "record_agreement_primary",
+      "passed": true
+    },
+    {
+      "name": "confirmation",
+      "passed": true
+    },
+    {
+      "name": "review_conflict",
+      "passed": true
+    },
+    {
+      "name": "propose_conflict",
+      "passed": true
+    },
+    {
+      "name": "share_quote_conflict",
+      "passed": true
+    },
+    {
+      "name": "record_agreement_conflict",
+      "passed": true
+    },
+    {
+      "name": "scheduling_conflict_rejected",
+      "passed": true
+    },
+    {
+      "name": "google_callback",
+      "passed": true
+    },
+    {
+      "name": "app_calendar_created",
+      "passed": true
+    },
+    {
+      "name": "confirmed_calendar_event",
+      "passed": true
+    },
+    {
+      "name": "customer_confirmation_email",
+      "passed": true
+    },
+    {
+      "name": "notes_unauthorized_denied",
+      "passed": true
+    },
+    {
+      "name": "notes_consent_required",
+      "passed": true
+    },
+    {
+      "name": "multi_child_notes_saved",
+      "passed": true
+    },
+    {
+      "name": "notes_encrypted",
+      "passed": true
+    },
+    {
+      "name": "santa_read_notes",
+      "passed": true
+    },
+    {
+      "name": "family_update",
+      "passed": true
+    },
+    {
+      "name": "optional_notes_failure_isolated",
+      "passed": true
+    },
+    {
+      "name": "generic_notes_notification",
+      "passed": true
+    },
+    {
+      "name": "notes_never_in_email_or_calendar",
+      "passed": true
+    },
+    {
+      "name": "family_delete",
+      "passed": true
+    },
+    {
+      "name": "notes_deleted",
+      "passed": true
+    },
+    {
+      "name": "optional_notes_maintenance_recovers",
+      "passed": true
+    },
+    {
+      "name": "seven_days_delivered",
+      "passed": true
+    },
+    {
+      "name": "twenty_four_hours_delivered",
+      "passed": true
+    },
+    {
+      "name": "escalation_2_delivered",
+      "passed": true
+    },
+    {
+      "name": "escalation_3_delivered",
+      "passed": true
+    },
+    {
+      "name": "escalation_4_delivered",
+      "passed": true
+    },
+    {
+      "name": "santa_acknowledgment",
+      "passed": true
+    },
+    {
+      "name": "cancel",
+      "passed": true
+    },
+    {
+      "name": "calendar_cancel_removed",
+      "passed": true
+    },
+    {
+      "name": "reservation_released",
+      "passed": true
+    },
+    {
+      "name": "synthetic_data_cleanup",
+      "passed": true
+    }
+  ],
+  "diagnostics": [
+    {
+      "requestRedirect": "error",
+      "supported": false,
+      "message": "Invalid redirect value, must be one of \"follow\" or \"manual\" (\"error\" won't be implemented since it does not make sense at the edge; use \"manual\" and check the response status code)."
+    },
+    {
+      "requestRedirect": "manual",
+      "supported": true
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    },
+    {
+      "gatewayMethod": "GET",
+      "httpStatus": 200,
+      "status": "not_found"
+    },
+    {
+      "gatewayMethod": "POST",
+      "httpStatus": 200,
+      "status": "accepted"
+    }
+  ],
+  "run_id": "launch-test-20261111-v6",
+  "recorded_status": "passed",
+  "updated_at_epoch_ms": 1794423715662,
+  "temporary_worker_removed": true,
+  "real_messages_sent": 0
+}

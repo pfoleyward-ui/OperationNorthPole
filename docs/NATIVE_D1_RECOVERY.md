@@ -1,0 +1,13 @@
+# Native D1 recovery rehearsal
+
+Run `npm run check:recovery:native` from the repository root with the configured Cloudflare account/API credential. It creates four temporary D1 databases, two at a time, using **locally generated synthetic fixtures only**. It never exports an operational staging or production database and never reads its encryption keys. Temporary databases are deleted in `finally` blocks; inspect `work/native-d1-recovery-report.json` for cleanup confirmation after any interruption.
+
+The rehearsal uses Cloudflare's native export, signed download, signed upload, and import APIs. Signed storage requests carry no API Authorization header and reject redirects. Credentials and signed URLs are not logged. Dumps and synthetic restored records remain gitignored under `work/` with mode 0600.
+
+D1's native dump interleaves table definitions and rows alphabetically. With foreign keys enforced, a dependent table's rows can fail before its referenced table exists. `scripts/native_d1_sql.py` preserves every original schema/data statement while emitting all table definitions, dependency-ordered inserts, then indexes/triggers. It rejects unexpected or incomplete statements, missing tables and cyclic dependencies. It does not turn foreign-key enforcement off. The application schema dependency graph is derived from the generated fixture, not guessed from table names.
+
+The rehearsal compares exact schemas and data, runs foreign-key checks, then verifies encrypted notes/OAuth recovery with the original **synthetic** keys, booking/reservation preservation, and the uncertain-email fence: replay must not send a replacement message.
+
+November 17, 2026: native round trip passed for 45 rows in 25 booking tables and four rows in two email tables; all four temporary databases were removed. This proves the transport and synthetic restore path. It does not establish an operational backup schedule or custody of the existing real keyrings.
+
+Before operational launch, the owner must securely archive the existing HMAC/encryption keyrings and identifiers separately from database backups, define authorized backup custody and scheduling, and rehearse an isolated recovery with that approved process. Cloudflare secret values cannot be read back through the API. Do not rotate or replace existing keys to satisfy this checklist. Do not restore over a live database. After any operational recovery, reconcile existing provider receipts before authorizing sends; an uncertain receipt never permits a replacement email by itself. No customer retention/deletion policy is implied by this rehearsal.
