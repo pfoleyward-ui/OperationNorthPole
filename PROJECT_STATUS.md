@@ -1,5 +1,9 @@
 # Operation North Pole — current status
 
+## Production synthetic pending request verified — November 25, 2026
+
+One pending production test request, zero reservations/notes verified through aggregate-only D1 reads. Owner sees sync/notifications off and no scheduled deliveries. Next owner action: Review request and save the synthetic December 20 14:00/30-minute house-call proposal, approved default $150, test expiry December 1 noon New York. No confirmation/reservation/delivery or configuration activation. [Evidence](docs/review/launch-2026-11-25/production-test-pending.json).
+
 ## Production Google connected and bookings calendar ready — November 25, 2026
 
 Owner completed fresh production OAuth and calendar creation. Independent D1 metadata confirms connected/ready with encrypted tokens and calendar-ID presence; no token ciphertext, identifier or owner subject selected. Sync/planners/email/intake/notes/automatic deletion remain off; public version unchanged; zero production bookings/notes/invitations. Next single owner action: save the synthetic pending Production Readiness Test house-call request through production HQ, sole approved Gmail inbox, December 20 at 2 PM New York. No new code/config/provider calls or messages in this verification. [Evidence/checklist](docs/LAUNCH_STATUS_2026-11-11.md).

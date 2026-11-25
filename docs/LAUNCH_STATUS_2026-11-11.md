@@ -4,6 +4,12 @@
 
 The current continuation environment reports an enforced **unrestricted** network policy. Its configured **account-owned API token authenticates successfully** at the account token-verification endpoint; the user-token endpoint returns 401 because it is the wrong verification endpoint for this credential type. Required Workers, D1, Access apps/policies/organization/identity-provider/users, Turnstile and zone DNS read/write permissions are present. Working product access is through the API credential; no authenticated MCP/OAuth session is claimed.
 
+## Production synthetic request saved — current rehearsal step
+
+Owner saved the production test request and reports the expected sync-off/notifications-off/no-deliveries status. Independent aggregate D1 checks confirm one pending request, zero reservations and zero Elf Notes. No customer fields were selected or changed by verification. [Pending test evidence](review/launch-2026-11-25/production-test-pending.json).
+
+**Next owner action only:** for this synthetic request, click **Review request**, keep December 20, 2026 at 14:00 New York and 30 minutes, leave custom total blank for the approved $150 house-call base price, choose test quote expiry December 1, 2026 at 12:00 New York, then **Save proposal**. This does not reserve or confirm the visit or send email. Quote sharing/exact agreement and confirmation follow separately. No code/configuration change, provider operation or new test-suite run in this aggregate verification.
+
 ## Production Google connected and calendar ready — current checkpoint
 
 Owner corrected the redirect registration, completed fresh production OAuth, and clicked the create-bookings-calendar action. Independent production D1 metadata confirms `status=connected`, `calendar_state=ready`, encrypted tokens present and calendar ID present. Token ciphertext, calendar ID and owner subject were not selected/read/logged. This confirms saved connection/setup state with the owner's real interactive result; it is not a claim of a subsequent independent refresh/synchronization test. [Verified production connection/calendar metadata](review/launch-2026-11-25/production-google-calendar-ready.json).

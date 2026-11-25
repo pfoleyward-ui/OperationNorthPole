@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-25",
+  "production_test_saved": true,
+  "operational_status_counts": [
+    {
+      "status": "pending",
+      "count": 1
+    }
+  ],
+  "counts": [
+    {
+      "requests": 1,
+      "reservations": 0,
+      "notes": 0
+    }
+  ],
+  "owner_reports_sync_and_notifications_off": true,
+  "customer_data_selected": false
+}
