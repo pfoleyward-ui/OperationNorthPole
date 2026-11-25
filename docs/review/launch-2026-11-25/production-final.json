@@ -55,7 +55,7 @@
         "GOOGLE_CLIENT_ID": false,
         "GOOGLE_CLIENT_SECRET": false,
         "RESEND_API_KEY": true,
-        "RESEND_WEBHOOK_SECRET": false,
+        "RESEND_WEBHOOK_SECRET": true,
         "TURNSTILE_SECRET": false,
         "SANTA_SUBJECTS": false,
         "ACCESS_AUDIENCE": false
